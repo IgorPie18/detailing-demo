@@ -253,7 +253,7 @@ textarea.inp{height:auto;min-height:84px;padding:12px 14px;resize:vertical}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* ===== Panel salonu ===== */
-#view-panel{--pbg:#f6f5f1;--pside:#eeece6;--pline:#e3e0d8;--accent:#b45309}
+:root{--pbg:#f6f5f1;--pside:#eeece6;--pline:#e3e0d8;--accent:#b45309}
 .panel{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 52px);background:linear-gradient(90deg,var(--pside) 0 220px,var(--pbg) 220px)}
 .side{background:var(--pside);border-right:1px solid var(--pline);padding:18px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:52px;height:calc(100vh - 52px)}
 .side .logo{font-family:var(--display);font-weight:800;letter-spacing:.05em;padding:2px 10px 14px}
@@ -457,6 +457,54 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .gal figure{margin:0}.gal figcaption{font-size:11.5px;color:var(--grey);margin-top:3px;font-variant-numeric:tabular-nums}
 .upl{margin-top:8px;cursor:pointer}
 .sig{display:block;width:100%;height:130px;border:1px dashed #cdc9bf;border-radius:8px;background:#fff;touch-action:none;margin-bottom:6px;object-fit:contain}
+
+[hidden]{display:none!important}
+/* klient: status auta, dopłata, bon, lista rezerwowa */
+.stp{padding:20px 16px 110px;display:grid;gap:16px}
+.stp h1{font-family:var(--display);font-size:26px;margin:0;line-height:1.1}
+.stp .hint{margin:0}
+.eyebrow-d{margin:0;color:var(--grey);font-weight:600;font-size:14px}
+.stages{list-style:none;margin:0;padding:0}
+.stages li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;position:relative;color:var(--grey);font-size:15px}
+.stages li i{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:#fff;margin-top:3px;flex:none;position:relative;z-index:1}
+.stages li:not(:last-child)::before{content:"";position:absolute;left:6px;top:26px;bottom:-8px;width:2px;background:var(--line)}
+.stages li.ok{color:var(--ink)}.stages li.ok i{background:var(--ink);border-color:var(--ink)}.stages li.ok::before{background:var(--ink)}
+.stages li.now{color:var(--ink);font-weight:700}.stages li.now i{background:#b45309;border-color:#b45309;box-shadow:0 0 0 4px #fde7cf}
+.stages small{display:block;font-weight:400;color:var(--grey);font-size:13px}
+.extra{border:2px solid #b45309;border-radius:16px;padding:16px;display:grid;gap:10px;background:#fffaf3}
+.extra p{margin:0}.extra .r{display:flex;justify-content:space-between;font-size:15px}
+.extra .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.extra small{color:var(--grey)}
+.loy{background:var(--ink);color:#fff;border-radius:16px;padding:16px;display:grid;gap:2px}
+.loy b{font-family:var(--display);font-size:28px}.loy small{color:#b9bcc0}
+.linkish{background:none;border:0;padding:0;text-align:left;font-weight:600;text-decoration:underline;color:var(--ink);font-size:14px}
+.wl{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px}
+.vamt{font-family:var(--display);font-size:34px;line-height:1}
+.vcode{font:700 22px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.12em;background:rgba(255,255,255,.1);border-radius:10px;padding:12px;text-align:center}
+.vcard{text-align:left}.vcard small{color:#b9bcc0}
+/* panel: okno, potwierdzenie zamknięcia, etapy, dopłaty */
+.drw{overflow:auto}
+.drw.mdl{margin:auto;height:auto;max-height:calc(100vh - 40px);width:min(640px,calc(100% - 24px));border-radius:12px;box-shadow:0 24px 64px rgba(17,18,19,.28)}
+.drw.mdl .drw-in{min-height:0}
+.confirm-x{position:sticky;top:0;z-index:5;background:#fff7ed;border-bottom:1px solid #fed7aa;padding:14px 20px;display:grid;gap:4px}
+.confirm-x span{color:var(--ink-2);font-size:14px}.confirm-x div{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.pf-check{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--pline);border-radius:8px;background:var(--pbg);font-size:14px;cursor:pointer}
+.pf-check small{display:block;color:var(--grey);font-weight:400;font-size:12.5px}
+.pf-check input{margin-top:2px;width:18px;height:18px;accent-color:var(--ink);flex:none}
+.pf input[type=file]{height:auto;padding:8px;background:var(--pbg)}
+.pf .opt-l{font-weight:400;color:var(--grey)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.steps span{font-size:12px;color:var(--grey);border-top:3px solid var(--pline);padding-top:6px}
+.steps span.ok{border-color:var(--ink);color:var(--ink)}.steps span.now{border-color:var(--accent);color:var(--ink);font-weight:700}
+.chips-p{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.exrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--pline);font-size:14px}
+.exrow small{display:block;color:var(--grey);font-size:12px}
+.exform{display:grid;grid-template-columns:minmax(0,1fr) 90px auto;gap:6px;margin-top:8px}
+.exform input{height:32px;border:1px solid var(--pline);border-radius:7px;padding:0 8px;font-size:13px;min-width:0}
+.stg{font-size:11.5px;color:var(--accent);font-weight:600}
+.acts-i{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em}
+.set-row .cin{width:76px;height:32px;border:1px solid var(--pline);border-radius:7px;padding:0 8px;text-align:right}
+.hint-p{color:var(--grey);font-size:13px}
 @media (max-width:1100px){.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:820px){
   .panel{grid-template-columns:minmax(0,1fr);background:var(--pbg)}
@@ -524,6 +572,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
           <button type="button" data-jump="svc">Strona usługi: ceramika <span>→</span></button>
           <button type="button" data-jump="book">Rezerwacja od zera <span>→</span></button>
           <button type="button" data-jump="book-instant">Rezerwacja z zadatkiem (mycie) <span>→</span></button>
+          <button type="button" data-jump="status">Status auta z linku SMS (przykład) <span>→</span></button>
+          <button type="button" data-jump="voucher">Zakup bonu podarunkowego <span>→</span></button>
         </div>
       </div>
       <div class="card">
@@ -678,6 +728,12 @@ function SEED(){
   const pAt=addDays(T0,-1);pAt.setHours(8,10);
   l.find(b=>b.name==='Robert J.').intake={at:pAt.toISOString(),km:'48210',fuel:'3/4',items:'fotelik dziecięcy, ładowarka',note:'Lakier zmatowiony na masce, ryski przy klamkach.',
     marks:[{x:182,y:84,t:'W'},{x:266,y:236,t:'R'},{x:96,y:396,t:'O'}],photos:[{path:'assets/klient-2.jpg',at:pAt.toISOString()},{path:'assets/klient-3.jpg',at:pAt.toISOString()}],sign:null,signedAt:null};
+  const rj=l.find(b=>b.name==='Robert J.'); rj.phone='+48 601 *** 482';
+  rj.x={intake:rj.intake,stage:'w_trakcie',token:DEMO_TOKEN,extras:[{id:'demo1',desc:'Usunięcie smoły i asfaltu z progów i nadkoli',amount:180,status:'pending',sent:new Date(Date.now()-40*60e3).toISOString()}]};
+  l.find(b=>b.name==='Ola B.').x={stage:'gotowe'};
+  // stały klient: dwie wcześniejsze wizyty, żeby program lojalnościowy miał punkty
+  const r2=mk(-40,8,'korekta','2','xl','Volvo XC90','Robert J.',1,'done','ig'), r3=mk(-75,8,'ppf','przod','xl','Volvo XC90','Robert J.',1,'done','ig');
+  r2.phone=r3.phone=rj.phone; l.push(r2,r3);
   l.forEach(b=>b.paths=SEED_PICS.slice(0,b.photos));
   return l;
 }
@@ -686,7 +742,8 @@ function SEED(){
 // klucz publiczny z założenia; dane chronią reguły RLS w schema.sql
 const sb=supabase.createClient('https://zzypdeubmxhpauxzwubd.supabase.co','sb_publishable_ESHijLfIGC3qMWlalLlB6g_DXgdttsS');
 const SLUG=new URLSearchParams(location.search).get('salon')||'lumen';
-let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT;
+let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false;
+const DEMO_TOKEN='00000000-0000-4000-8000-000000000001';
 async function loadStudio(){
   const {data,error}=await sb.from('studios').select('id,name,catalog').eq('slug',SLUG).maybeSingle();
   if(error||!data){toast('Brak połączenia z bazą salonu');return}
@@ -759,12 +816,15 @@ function go(screen,opt={}){
 
 function renderClient(){
   const el=$('#scroller');
-  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie'}[S.screen];
+  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie',status:'lumendetailing.pl/twoje-auto',voucher:'lumendetailing.pl/bon',vdone:'lumendetailing.pl/bon/gotowe'}[S.screen];
   $('#url').textContent=url;
   if(S.screen==='home') el.innerHTML=homeHTML();
   if(S.screen==='svc') el.innerHTML=svcHTML(svcById(S.svc));
   if(S.screen==='book') el.innerHTML=bookHTML();
   if(S.screen==='done') el.innerHTML=doneHTML();
+  if(S.screen==='status') el.innerHTML=statusHTML();
+  if(S.screen==='voucher') el.innerHTML=voucherHTML();
+  if(S.screen==='vdone') el.innerHTML=vdoneHTML();
   bindBA(el);
 }
 
@@ -855,7 +915,8 @@ function bookHTML(){
     body=`<h2>Kiedy oddajesz auto?</h2><p class="hint">${c.days?`Usługa trwa ${durOf(c)}. Auto oddajesz rano, odbiór pokażemy od razu.`:`Wizyta potrwa ${durOf(c)}.`}</p>
     <div class="days">${days.map(d=>{const free=dayFree(d,c);return `<button class="day" type="button" data-day="${+d}" aria-pressed="${!!sel&&+d===+sel}" ${free?'':'disabled'}><small>${DN[d.getDay()]}</small><b>${d.getDate()}</b><em>${free?['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'][d.getMonth()]:'brak'}</em></button>`}).join('')}</div>
     ${sel?`<div class="slots">${slots.map(x=>`<button class="slot num" type="button" data-hour="${x.h}" aria-pressed="${b.hour===x.h}" ${x.free?'':'disabled'}>${x.h}:00</button>`).join('')}</div>`:`<div class="info">Wybierz dzień, żeby zobaczyć wolne godziny.</div>`}
-    ${pu?`<div class="info"><span>Oddanie auta: <b>${DNL[pu.start.getDay()]} ${pu.start.getDate()}.${pad(pu.start.getMonth()+1)}, ${pu.start.getHours()}:00</b></span><span>Odbiór: <b>${pu.txt}</b></span></div>`:''}`;}
+    ${pu?`<div class="info"><span>Oddanie auta: <b>${DNL[pu.start.getDay()]} ${pu.start.getDate()}.${pad(pu.start.getMonth()+1)}, ${pu.start.getHours()}:00</b></span><span>Odbiór: <b>${pu.txt}</b></span></div>`:''}
+    ${wlHTML(b,c)}`;}
   if(key==='dane'){const e=b.errors;
     body=`<h2>Twoje dane</h2><p class="hint">Bez zakładania konta. Numer telefonu jest potrzebny do SMS-a z potwierdzeniem.</p>
     <div class="field"><label for="f-name">Imię</label><input class="inp ${e.name?'err':''}" id="f-name" data-f="name" value="${esc(b.name)}" autocomplete="given-name">${e.name?`<span class="errmsg">${e.name}</span>`:''}</div>
@@ -965,6 +1026,94 @@ function doneHTML(){
   </div>`;
 }
 
+/* ---------- klient: status auta (link z SMS-a), bon, lista rezerwowa ---------- */
+const STAGES=[['przyjete','Auto przyjęte'],['w_trakcie','W trakcie pracy'],['gotowe','Gotowe do odbioru'],['wydane','Odebrane']];
+async function loadStatus(){
+  const {data,error}=await sb.rpc('booking_public',{p_token:S.token});
+  S.st=error||!data?{err:1}:data; if(S.screen==='status') renderClient();
+}
+async function respondExtra(id,ok){
+  const {data,error}=await sb.rpc('extra_respond',{p_token:S.token,p_id:id,p_accept:ok});
+  if(error||!data){toast('Nie udało się zapisać odpowiedzi');return}
+  S.st=data; renderClient(); toast(ok?'Dziękujemy. Salon dostał akceptację.':'Salon dostał informację. Nic nie dopisujemy.');
+}
+function statusHTML(){
+  const d=S.st;
+  if(!d) return siteHeader()+'<div class="stp"><p class="hint">Wczytuję status auta…</p></div>';
+  if(d.err) return siteHeader()+`<div class="done"><h2>Nie znaleźliśmy wizyty</h2><p>Link jest nieaktualny albo niepełny. Zadzwoń do salonu.</p><button class="btn btn-dark full" type="button" data-go="home">Strona salonu</button></div>`;
+  const s=svcById(d.svc)||{name:'Usługa'}, idx=d.status==='done'?3:STAGES.findIndex(x=>x[0]===d.stage), ex=Array.isArray(d.extras)?d.extras:[], marks=cleanMarks(d.marks), L=loyCalc(d.spent,d.used);
+  const head=d.status==='done'?'Auto odebrane. Dziękujemy!':idx===2?'Auto czeka na Ciebie':idx>=0?'Pracujemy nad Twoim autem':'Czekamy na Twoje auto';
+  return `${siteHeader()}<div class="stp">
+    <div><p class="eyebrow-d">Cześć ${esc(d.name)}</p><h1>${head}</h1><p class="hint">${esc(d.car||'')}${d.car?' · ':''}${s.name}<br>oddanie ${fdt(new Date(d.start_at))} · odbiór ${fdt(new Date(d.end_at))}</p></div>
+    <ol class="stages">${STAGES.map((x,i)=>`<li class="${i<idx?'ok':i===idx?'now':''}"><i></i><span>${x[1]}${i===idx&&i===2?'<small>Możesz przyjechać, ul. Przykładowa 12.</small>':''}${i===idx&&i===1?'<small>Napiszemy SMS-em, gdy auto będzie gotowe.</small>':''}</span></li>`).join('')}</ol>
+    ${ex.filter(x=>x.status==='pending').map(x=>`<div class="extra"><b>Salon proponuje dodatkową pracę</b><p>${esc(x.desc)}</p><div class="r"><span>Dopłata</span><b>+${zl(+x.amount||0)}</b></div><div class="two"><button class="btn btn-ghost" type="button" data-extra="${esc(x.id)}" data-ok="0">Nie, dziękuję</button><button class="btn btn-dark" type="button" data-extra="${esc(x.id)}" data-ok="1">Akceptuję</button></div><small>Bez Twojej zgody nic nie dopisujemy do rachunku.</small></div>`).join('')}
+    <div class="summary num">${ex.filter(x=>x.status!=='pending').map(x=>`<div class="r"><span>${esc(x.desc)}</span><span>${x.status==='accepted'?'+'+zl(+x.amount||0):'odrzucone'}</span></div>`).join('')}
+      ${d.points_used?`<div class="r"><span>Rabat z punktów</span><span>−${zl(d.points_used)}</span></div>`:''}
+      <div class="r tot"><span>${d.status==='done'?'Zapłacono':'Do zapłaty przy odbiorze'}</span><span>${zl(d.total-(d.paid?d.deposit:0))}</span></div></div>
+    ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')||'<li class="none">Bez uszkodzeń.</li>'}</ol></div>`:''}
+    ${SET.loy_on?`<div class="loy"><b>${L.bal} pkt</b><span>= ${zl(L.bal)} rabatu w programie lojalnościowym</span><small>${L.bal>=SET.loy_min?'Odliczymy je automatycznie przy odbiorze auta.':`Od ${SET.loy_min} pkt odliczamy je automatycznie. Brakuje ${SET.loy_min-L.bal} pkt.`}</small></div>`:''}
+    <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button>
+  </div>`;
+}
+function openVoucher(){S.v={amount:300,custom:'',to:'',msg:'',name:'',phone:'',errors:{},paying:false};go('voucher')}
+const vAmt=v=>v.custom?(+v.custom.replace(/\D/g,'')||0):v.amount;
+function voucherHTML(){
+  const v=S.v, e=v.errors;
+  return `${siteHeader()}<div class="bk-body">
+    <div class="voucher"><h3>Bon podarunkowy</h3><p>Na dowolną usługę w Lumen Detailing. Ważny 12 miesięcy.</p><b class="vamt num">${zl(vAmt(v))}</b></div>
+    <h2>Kwota</h2><div class="slots">${[150,300,500,1000].map(a=>`<button class="slot num" type="button" data-vamt="${a}" aria-pressed="${!v.custom&&v.amount===a}">${a} zł</button>`).join('')}</div>
+    <div class="field"><label for="v-custom">Inna kwota <em>(50-5000 zł)</em></label><input class="inp ${e.amount?'err':''}" id="v-custom" data-v="custom" inputmode="numeric" value="${esc(v.custom)}">${e.amount?`<span class="errmsg">${e.amount}</span>`:''}</div>
+    <div class="field"><label for="v-to">Dla kogo <em>(opcjonalnie, pojawi się na bonie)</em></label><input class="inp" id="v-to" data-v="to" maxlength="80" value="${esc(v.to)}"></div>
+    <div class="field"><label for="v-msg">Życzenia <em>(opcjonalnie)</em></label><textarea class="inp" id="v-msg" data-v="msg" maxlength="200">${esc(v.msg)}</textarea></div>
+    <div class="field"><label for="v-name">Twoje imię</label><input class="inp ${e.name?'err':''}" id="v-name" data-v="name" maxlength="80" value="${esc(v.name)}" autocomplete="given-name">${e.name?`<span class="errmsg">${e.name}</span>`:''}</div>
+    <div class="field"><label for="v-phone">Twój telefon</label><div class="pref ${e.phone?'err':''}"><span>+48</span><input class="inp" id="v-phone" data-v="phone" type="tel" inputmode="tel" value="${esc(v.phone)}" placeholder="600 000 000"></div>${e.phone?`<span class="errmsg">${e.phone}</span>`:''}</div>
+    <p class="hint">Bon w PDF wyślemy SMS-em zaraz po płatności. Możesz go wydrukować albo przesłać dalej.</p>
+  </div>
+  <div class="dock"><div class="sum"><small>Bon podarunkowy</small><b class="num vsum">${zl(vAmt(v))}</b></div><button class="btn btn-dark" type="button" data-vbuy="1" ${v.paying?'disabled':''}>${v.paying?'<span class="spin"></span> Czekam na bank':'Zapłać BLIK-iem'}</button></div>`;
+}
+async function buyVoucher(){
+  const v=S.v, e={}, amt=vAmt(v), ph=v.phone.replace(/\D/g,'');
+  if(amt<50||amt>5000) e.amount='Kwota od 50 do 5000 zł.';
+  if(v.name.trim().length<2) e.name='Wpisz swoje imię.';
+  if(ph.length!==9) e.phone=ph.length?`Numer ma ${ph.length} cyfr, a powinien mieć 9.`:'Wpisz numer, wyślemy na niego bon.';
+  v.errors=e; if(Object.keys(e).length){renderClient();return}
+  if(!STUDIO){toast('Brak połączenia z bazą, spróbuj ponownie');return}
+  v.paying=true; renderClient(); await new Promise(r=>setTimeout(r,1200));
+  const code=vCode();
+  const {error}=await sb.from('vouchers').insert({studio_id:STUDIO.id,code,amount:amt,buyer_name:v.name.trim(),buyer_phone:'+48 '+ph,recipient:v.to.trim()||null,message:v.msg.trim()||null});
+  v.paying=false;
+  if(error){toast('Nie udało się kupić bonu. Spróbuj ponownie.');renderClient();return}
+  S.vd={code,amount:amt,to:v.to.trim(),msg:v.msg.trim()}; go('vdone');
+}
+function vdoneHTML(){
+  const d=S.vd, ex=addDays(T0,365);
+  return `${siteHeader()}<div class="done">
+    <div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+    <h2>Bon kupiony</h2><p>PDF poszedł SMS-em (w demo bez wysyłki).</p>
+    <div class="voucher vcard"><small>BON PODARUNKOWY · LUMEN DETAILING</small><b class="vamt num">${zl(d.amount)}</b>${d.to?`<p>Dla: ${esc(d.to)}</p>`:''}${d.msg?`<p>„${esc(d.msg)}”</p>`:''}<div class="vcode">${d.code}</div><small>Ważny do ${ex.getDate()}.${pad(ex.getMonth()+1)}.${ex.getFullYear()} · podaj kod przy rezerwacji albo w salonie</small></div>
+    <button class="btn btn-dark full" type="button" data-to-panel="1">Zobacz bon w panelu salonu →</button>
+    <button class="btn full" type="button" data-go="home" style="background:none">Wróć na stronę</button></div>`;
+}
+function wlHTML(b,c){
+  const w=b.wl;
+  if(!w) return `<button type="button" class="linkish" data-wl="open">Nie pasuje żaden termin? Zapisz się na listę rezerwową</button>`;
+  if(w.done) return `<div class="info"><b>Jesteś na liście rezerwowej</b><span>Napiszemy SMS-em, gdy na ${fd(pday(w.day))} zwolni się miejsce.</span></div>`;
+  const days=dayList().filter(d=>d.getDay()!==0);
+  return `<div class="wl"><b>Lista rezerwowa</b><span class="hint" style="margin:0">Gdy ktoś odwoła wizytę, dostaniesz SMS jako pierwszy.</span>
+    <div class="field"><label for="wl-day">Dzień</label><select class="inp" id="wl-day" data-wlf="day">${days.map(d=>`<option value="${ymd(d)}" ${w.day===ymd(d)?'selected':''}>${DNL[d.getDay()]} ${d.getDate()}.${pad(d.getMonth()+1)}${dayFree(d,c)?'':' (brak miejsc)'}</option>`).join('')}</select></div>
+    <div class="field"><label for="wl-name">Imię</label><input class="inp" id="wl-name" data-wlf="name" maxlength="80" value="${esc(w.name)}" autocomplete="given-name"></div>
+    <div class="field"><label for="wl-phone">Telefon</label><div class="pref"><span>+48</span><input class="inp" id="wl-phone" data-wlf="phone" type="tel" inputmode="tel" value="${esc(w.phone)}" placeholder="600 000 000"></div></div>
+    ${w.err?`<span class="errmsg">${w.err}</span>`:''}
+    <button class="btn btn-dark full" type="button" data-wl="save">Zapisz mnie na listę</button></div>`;
+}
+async function wlSave(b){
+  const w=b.wl, ph=w.phone.replace(/\D/g,'');
+  if(w.name.trim().length<2||ph.length!==9){w.err='Wpisz imię i 9 cyfr telefonu.';renderClient();return}
+  const {error}=await sb.from('waitlist').insert({studio_id:STUDIO.id,day:w.day,svc:b.svc,name:w.name.trim(),phone:'+48 '+ph});
+  if(error){w.err='Nie udało się zapisać. Spróbuj ponownie.';renderClient();return}
+  w.done=true; renderClient();
+}
+
 /* ---------- zdarzenia klienta ---------- */
 const sc=$('#scroller');
 sc.addEventListener('click',e=>{
@@ -974,9 +1123,15 @@ sc.addEventListener('click',e=>{
   if(t.dataset.svc!==undefined&&t.classList.contains('svc')){go('svc',{svc:t.dataset.svc});return}
   if(t.dataset.book!==undefined){go('book',{svc:t.dataset.book||null});if(S.bk.skipSvc){S.bk.step=1;renderClient()}return}
   if(t.dataset.scroll){const x=sc.querySelector('#'+t.dataset.scroll);if(x)sc.scrollTop=x.offsetTop-60;return}
+  if(t.dataset.extra){respondExtra(t.dataset.extra,t.dataset.ok==='1');return}
+  if(t.dataset.vamt){S.v.amount=+t.dataset.vamt;S.v.custom='';renderClient();return}
+  if(t.dataset.vbuy){buyVoucher();return}
+  if(t.dataset.act==='voucher'){openVoucher();return}
   if(t.dataset.act){toast({call:'Tu klient dzwoni do salonu (w demo bez połączenia)',menu:'Menu: usługi, cennik, opinie, kontakt',voucher:'Vouchery w kolejnej wersji demo',cal:'Tu dodaje się wydarzenie do kalendarza telefonu'}[t.dataset.act]);return}
   if(t.dataset.toPanel){location.hash='panel';return}
   if(!b) return;
+  if(t.dataset.wl==='open'){const c=calc(b),d=dayList().find(x=>x.getDay()!==0&&!dayFree(x,c))||dayList().find(x=>x.getDay()!==0);b.wl={day:ymd(d),name:b.name,phone:b.phone,err:''};renderClient();return}
+  if(t.dataset.wl==='save'){wlSave(b);return}
   if(t.dataset.pickSvc){if(b.svc!==t.dataset.pickSvc){b.svc=t.dataset.pickSvc;b.pkg=svcById(b.svc).pk[0].id;b.addons=new Set();b.day=null;b.hour=null}renderClient();return}
   if(t.dataset.pickPkg){b.pkg=t.dataset.pickPkg;b.day=null;b.hour=null;renderClient();return}
   if(t.dataset.size){b.size=t.dataset.size;renderClient();return}
@@ -989,7 +1144,10 @@ sc.addEventListener('click',e=>{
   if(t.dataset.bk==='next'){bkNext();return}
 });
 sc.addEventListener('input',e=>{
+  if(S.screen==='voucher'&&e.target.dataset.v){const t=e.target;S.v[t.dataset.v]=t.value;
+    if(t.dataset.v==='custom'){const a=zl(vAmt(S.v));sc.querySelectorAll('.vamt,.vsum').forEach(x=>x.textContent=a);sc.querySelectorAll('[data-vamt]').forEach(x=>x.setAttribute('aria-pressed',!S.v.custom&&+x.dataset.vamt===S.v.amount))}return}
   const b=S.bk; if(!b) return; const t=e.target;
+  if(t.dataset.wlf&&b.wl){b.wl[t.dataset.wlf]=t.value;return}
   if(t.dataset.f){b[t.dataset.f]=t.value; if(b.errors[t.dataset.f]){delete b.errors[t.dataset.f];t.classList.remove('err');const p=t.closest('.pref');if(p)p.classList.remove('err')}}
   if(t.dataset.blik!==undefined){t.value=t.value.replace(/\D/g,'').slice(0,1);const arr=(b.blik.padEnd(6,' ')).split('');arr[+t.dataset.blik]=t.value||' ';b.blik=arr.join('');if(t.value&&t.nextElementSibling)t.nextElementSibling.focus()}
 });
@@ -1004,6 +1162,8 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
   if(j==='svc') go('svc',{svc:'ceramika'});
   if(j==='book') go('book');
   if(j==='book-instant'){go('book',{svc:'mycie'});S.bk.step=1;renderClient()}
+  if(j==='status') location.hash='status='+DEMO_TOKEN;
+  if(j==='voucher') openVoucher();
 }));
 
 /* ================= PANEL SALONU ================= */
@@ -1012,7 +1172,8 @@ const SAFE_PATH=/^(assets\/[\w.-]+|[0-9a-f-]{36}\/(intake\/)?[\w.-]+)$/;
 const safePaths=a=>(a||[]).filter(x=>typeof x==='string'&&SAFE_PATH.test(x));
 const toBk=r=>({id:r.id,start:new Date(r.start_at),end:new Date(r.end_at),svc:r.svc,pkg:r.pkg,size:r.size,car:r.car||'auto nie podane',name:r.name,phone:r.phone,email:r.email,
   bay:r.bay,status:r.status,src:r.src,photos:safePaths(r.photo_paths).length,paths:safePaths(r.photo_paths),photoUrls:[],total:r.total,deposit:r.deposit,paid:r.paid,
-  created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed,intake:r.intake||null});
+  created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed,intake:r.intake||null,handover:r.handover||null,stage:STG[r.stage]?r.stage:null,
+  extras:Array.isArray(r.extras)?r.extras:[],points_used:+r.points_used||0,token:/^[0-9a-f-]{36}$/.test(r.token||'')?r.token:null});
 async function signUrls(list){
   const paths=list.flatMap(b=>b.paths.filter(p=>!p.startsWith('assets/'))), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
@@ -1026,19 +1187,43 @@ async function loadBookings(){
 async function seedDemo(){
   BID=0;
   const rows=SEED().map(b=>({studio_id:STUDIO.id,start_at:b.start.toISOString(),end_at:b.end.toISOString(),svc:b.svc,pkg:b.pkg,size:b.size,car:b.car,name:b.name,
-    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString(),...(b.intake?{intake:b.intake}:{})}));
+    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString(),...(b.x||{})}));
   // shortcut: wstawiane pojedynczo, bo przy starcie w niedzielę dwie wizyty mogą trafić na ten sam slot i blokada odrzuci tylko tę jedną
-  // bez kolumny intake (stary schemat) wstawia wizytę bez protokołu
-  await Promise.all(rows.map(r=>sb.from('bookings').insert(r).then(({error})=>error&&r.intake?sb.from('bookings').insert((({intake,...x})=>x)(r)):null)));
-  await loadBookings();
+  // bez nowych kolumn (stary schemat) wstawia wizytę bez protokołu i etapów
+  const strip=({intake,stage,extras,token,handover,points_used,...x})=>x;
+  await Promise.all(rows.map(r=>sb.from('bookings').insert(r).then(({error})=>error&&error.code!=='23P01'?sb.from('bookings').insert(strip(r)):null)));
+  await loadBookings(); await seedSide();
+}
+async function loadSide(){
+  const [w,v]=await Promise.all([sb.from('waitlist').select('*').eq('studio_id',STUDIO.id).order('day'),sb.from('vouchers').select('*').eq('studio_id',STUDIO.id).order('created_at',{ascending:false})]);
+  SIDE_ERR=!!(w.error||v.error); WAIT=w.data||[]; VOUCH=v.data||[];
+}
+async function seedSide(){
+  const id=STUDIO.id, sat=ymd(addDays(T0,((6-T0.getDay()+7)%7)||7)), ago=d=>addDays(new Date(),-d).toISOString();
+  await Promise.all([sb.from('waitlist').delete().eq('studio_id',id).eq('seed',true),sb.from('vouchers').delete().eq('studio_id',id).eq('seed',true)]);
+  await Promise.all([
+    sb.from('waitlist').insert([{studio_id:id,day:sat,svc:'mycie',name:'Kasia T.',phone:'+48 605 412 118',note:'pasuje każda godzina',seed:true},
+      {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',seed:true}]),
+    sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',src:'web',seed:true,created_at:ago(3)},
+      {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
+      {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',src:'salon',seed:true,created_at:ago(12)}])]);
+  await loadSide();
 }
 function subscribe(){
   if(LIVE) return;
   LIVE=sb.channel('bookings-'+STUDIO.id).on('postgres_changes',{event:'*',schema:'public',table:'bookings',filter:`studio_id=eq.${STUDIO.id}`},async p=>{
     if(p.eventType==='INSERT'&&!BOOKINGS.some(b=>b.id===p.new.id)){const b=toBk(p.new);b.isNew=p.new.src==='web'&&!p.new.seed;await signUrls([b]);BOOKINGS.push(b);
       if(b.isNew)toast(`Nowa rezerwacja: ${b.name}, ${svcById(b.svc).name}`)}
-    if(p.eventType==='UPDATE'){const i=BOOKINGS.findIndex(b=>b.id===p.new.id);if(i>-1){const b=toBk(p.new);b.photoUrls=BOOKINGS[i].photoUrls;BOOKINGS[i]=b}}
+    if(p.eventType==='UPDATE'){const i=BOOKINGS.findIndex(b=>b.id===p.new.id);if(i>-1){const b=toBk(p.new),was=BOOKINGS[i].extras||[];b.photoUrls=BOOKINGS[i].photoUrls;BOOKINGS[i]=b;
+      b.extras.forEach(x=>{const o=was.find(y=>y.id===x.id);if(o&&o.status==='pending'&&x.status!=='pending')toast(`${b.name}: ${x.status==='accepted'?'zaakceptował':'odrzucił'} dopłatę ${zl(+x.amount||0)}`)});
+      if(drw().open&&OPEN_BK===b.id&&!GUARD) openBk(b.id)}}
     if(p.eventType==='DELETE') BOOKINGS=BOOKINGS.filter(b=>b.id!==p.old.id);
+    if(!$('#view-panel').hidden&&SESSION) renderPanel();
+  }).on('postgres_changes',{event:'INSERT',schema:'public',table:'waitlist',filter:`studio_id=eq.${STUDIO.id}`},p=>{
+    if(WAIT.some(w=>w.id===p.new.id))return; WAIT.push(p.new); if(!p.new.seed)toast(`Lista rezerwowa: ${p.new.name} czeka na ${fd(pday(p.new.day))}`);
+    if(!$('#view-panel').hidden&&SESSION) renderPanel();
+  }).on('postgres_changes',{event:'INSERT',schema:'public',table:'vouchers',filter:`studio_id=eq.${STUDIO.id}`},p=>{
+    if(VOUCH.some(v=>v.id===p.new.id))return; VOUCH.unshift(p.new); if(!p.new.seed&&p.new.src==='web')toast(`Sprzedany bon ze strony: ${zl(p.new.amount)}`);
     if(!$('#view-panel').hidden&&SESSION) renderPanel();
   }).subscribe();
 }
@@ -1058,11 +1243,12 @@ async function openPanel(){
   $('.panel').classList.remove('locked');
   if(!(STUDIO.catalog&&STUDIO.catalog.services)){await saveCatalog();STUDIO.catalog={services:SERVICES}}
   await loadBookings();
-  if(!BOOKINGS.length) await seedDemo();
+  if(!BOOKINGS.length) await seedDemo(); else {await loadSide(); if(!SIDE_ERR&&!WAIT.length&&!VOUCH.length) await seedSide();}
   subscribe(); renderPanel();
 }
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
+  if(e.target.id==='fvouch'){e.preventDefault();vIssue(e.target);return}
   if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
@@ -1081,6 +1267,7 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  bon:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8C10 4 6 3 6 6s4 2 6 2c2 0 6 1 6-2s-4-2-6 2"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>'
 };
 const ic=k=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
@@ -1097,17 +1284,21 @@ const sizeName=b=>(SIZES[sizeIdx(b.size)]||SIZES[1]).name;
 const onDay=(b,d)=>b.start<addDays(d,1)&&b.end>d;
 const fdr=k=>k.from===k.to?fd(pday(k.from)):`${fd(pday(k.from))} → ${fd(pday(k.to))}`;
 const drw=()=>$('#drw');
-function openDrawer(html){const d=drw();d.innerHTML=`<div class="drw-in">${html}</div>`;if(!d.open)d.showModal()}
+let GUARD=false, PENDING=null, OPEN_BK=null;
+const CONFIRM_X=`<div class="confirm-x" hidden role="alertdialog" aria-label="Zamknąć bez zapisu?"><b>Zamknąć bez zapisywania?</b><span>Wpisane dane przepadną.</span><div><button class="pbtn" type="button" data-keep="1">Wróć do formularza</button><button class="pbtn dark" type="button" data-discard="1">Zamknij bez zapisu</button></div></div>`;
+function openDrawer(html,modal){const d=drw();GUARD=false;PENDING=null;OPEN_BK=null;d.classList.toggle('mdl',!!modal);d.innerHTML=`<div class="drw-in">${CONFIRM_X}${html}</div>`;if(!d.open)d.showModal();d.scrollTop=0}
+// zamykanie zawsze tędy: przy niezapisanych zmianach najpierw pytanie
+function tryClose(next=()=>drw().close()){if(!GUARD){next();return}PENDING=next;const c=drw().querySelector('.confirm-x');c.hidden=false;drw().scrollTop=0;c.querySelector('button').focus()}
 
 function renderSide(){
   const n=pending().length;
   const it=(k,l,c)=>`<button class="nav" type="button" data-nav="${k}" ${P.view===k?'aria-current="page"':''}>${ic(k)}<span>${l}</span>${c?`<span class="badge" aria-label="${c} czeka na decyzję">${c}</span>`:''}</button>`;
   $('#side').innerHTML=`<div class="logo">LUMEN<span>panel</span></div>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
-  ${it('dzis','Dziś',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}<div class="sep"></div>${it('cen','Cennik')}${it('ust','Ustawienia')}
+  ${it('dzis','Dziś',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}<div class="sep"></div>${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
   <div class="salon"><b>Lumen Detailing</b><span>2 stanowiska · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();$('#pmain').innerHTML={dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML}[P.view]();}
+function renderPanel(){renderSide();$('#pmain').innerHTML={dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML}[P.view]();}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -1117,7 +1308,7 @@ function agendaRow(b,d){
   const starts=+sod(b.start)===+d, multi=!!pkgOf(svcById(b.svc),b.pkg).d;
   return `<button type="button" class="row-i" data-open="${b.id}"><time>${starts?fhm(b.start):'w trakcie'}<small>stan. ${b.bay}</small></time>
     <span><span class="who">${esc(b.name)}</span><span class="what">${bName(b)} · ${esc(b.car)} · ${multi||!starts?'odbiór '+fd(b.end):'do '+fhm(b.end)}</span></span>
-    <span class="amt"><b>${zl(b.total)}</b>${b.status==='confirmed'?'':stChip(b.status)}</span></button>`;
+    <span class="amt"><b>${zl(b.total)}</b>${b.status==='confirmed'?'':stChip(b.status)}${b.stage&&b.status==='confirmed'?`<span class="stg">${STG[b.stage]}</span>`:''}</span></button>`;
 }
 function dayAgenda(d){
   const bl=BLOCKS.filter(k=>pday(k.from)<=d&&d<=pday(k.to));
@@ -1174,7 +1365,8 @@ function kalHTML(){
   <section class="psec"><div class="sec-h"><div class="wknav"><button class="pbtn sm" type="button" data-wk="-1" aria-label="Poprzedni tydzień">←</button><button class="pbtn sm" type="button" data-wk="0">Ten tydzień</button><button class="pbtn sm" type="button" data-wk="1" aria-label="Następny tydzień">→</button><b style="margin-left:8px">${fd(ws)} - ${fd(addDays(ws,5))}</b></div>${LEGEND}</div><div class="sec-b">${weekHTML(P.wk)}</div></section>
   <section class="psec"><div class="sec-h"><h2>Blokady</h2><small>urlopy, przestoje, święta</small></div><div class="sec-b">
     ${bl.map(k=>`<div class="row-i wide off"><time>${fdr(k)}</time><span><span class="who">${k.bay?'Stanowisko '+k.bay:'Oba stanowiska'}</span><span class="what">${esc(k.note||'bez opisu')}</span></span><button class="pbtn sm ghost" type="button" data-unblock="${esc(k.id)}">Usuń</button></div>`).join('')||'<div class="empty">Brak blokad. Urlop albo przestój dodasz przyciskiem „Zablokuj dzień”.</div>'}
-  </div></section>`;
+  </div></section>
+  ${waitHTML()}`;
 }
 
 /* ---------- Rezerwacje i klienci ---------- */
@@ -1194,8 +1386,8 @@ function kliHTML(){
   const rows=[...m.values()].sort((a,b)=>b.sum-a.sum);
   const refresh=x=>{const s=x.svc;if(s==='ceramika')return fd(addDays(x.last,365))+' · przegląd powłoki';if(s==='mycie'||s==='wnetrze')return fd(addDays(x.last,s==='mycie'?42:180))+' · kolejna wizyta';return ''};
   return `${topbar('Klienci',`${rows.length} klientów. Każda rezerwacja zapisuje auto i historię wizyt.`,SEARCH('Szukaj: klient, auto, telefon'))}
-  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th><th class="r">Wartość</th><th>Ostatnia wizyta</th><th>Przypomnienie</th></tr></thead><tbody>
-  ${rows.map(x=>`<tr data-open="${x.id}" data-s="${esc((x.name+' '+x.car+' '+x.phone).toLowerCase())}"><td><b>${esc(x.name)}</b><small>${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td><td class="r"><b>${zl(x.sum)}</b></td><td>${fd(x.last)}<small>${svcById(x.svc).name}</small></td><td>${refresh(x)}</td></tr>`).join('')}
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th><th class="r">Wartość</th><th>Ostatnia wizyta</th><th class="r">Punkty</th><th>Przypomnienie</th></tr></thead><tbody>
+  ${rows.map(x=>`<tr data-open="${x.id}" data-s="${esc((x.name+' '+x.car+' '+x.phone).toLowerCase())}"><td><b>${esc(x.name)}</b><small>${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td><td class="r"><b>${zl(x.sum)}</b></td><td>${fd(x.last)}<small>${svcById(x.svc).name}</small></td><td class="r">${SET.loy_on?loyOf(x.phone).bal:''}</td><td>${refresh(x)}</td></tr>`).join('')}
   </tbody></table></div></section>`;
 }
 
@@ -1212,7 +1404,7 @@ function cenHTML(){
   ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>svcById(f).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
   </tbody></table></div></div>`;
 }
-const SET={sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false};
+const SET={sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false,loy_on:true,loy_rate:5,loy_min:100,loy_auto:true,loy_sms:true};
 function ustHTML(){
   const row=(k,t,d)=>`<div class="set-row"><div><b>${t}</b><small>${d}</small></div><button class="sw" type="button" data-sw="${k}" aria-pressed="${SET[k]}" aria-label="${t}"></button></div>`;
   return `${topbar('Ustawienia','Powiadomienia i zasady rezerwacji.')}
@@ -1229,7 +1421,14 @@ function ustHTML(){
     <div class="set-row"><div><b>Zadatek</b><small>Przy usługach „od ręki”. Przepada przy odwołaniu później niż 24 h przed wizytą.</small></div><span>50-100 zł</span></div>
     <div class="set-row"><div><b>Stanowiska</b><small>Stanowisko 1: lakier, powłoki, PPF. Stanowisko 2: mycie, wnętrze.</small></div><span>2</span></div>
     <div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty demo i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div></div>
-  </div>`;
+  </div>
+  <div class="box"><div class="box-h"><h2>Program lojalnościowy</h2><small>działa sam, bez kart i pieczątek</small></div>
+    ${row('loy_on','Punkty za wizyty',`${SET.loy_rate}% wartości każdej zakończonej wizyty wraca jako punkty (1 pkt = 1 zł rabatu)`)}
+    <div class="set-row"><div><b>Zwrot w punktach</b><small>procent wartości wizyty</small></div><input class="cin" type="number" min="1" max="20" value="${+SET.loy_rate}" data-setnum="loy_rate" aria-label="Procent zwrotu w punktach"></div>
+    <div class="set-row"><div><b>Próg odliczenia</b><small>od ilu punktów odejmujemy rabat</small></div><input class="cin" type="number" min="10" step="10" value="${+SET.loy_min}" data-setnum="loy_min" aria-label="Próg odliczenia punktów"></div>
+    ${row('loy_auto','Odliczaj automatycznie przy wydaniu auta','Nikt nie musi pamiętać: rabat odejmuje się sam w protokole wydania')}
+    ${row('loy_sms','SMS po przekroczeniu progu','„Masz już 120 zł rabatu na kolejną wizytę” (w demo bez wysyłki)')}
+    <div class="insight">Punkty naliczają się z zakończonych wizyt. Klient widzi saldo na stronie statusu auta, a salon w zakładce Klienci.</div></div>`;
 }
 
 /* ---------- statystyki (dane przykładowe do pokazu) ---------- */
@@ -1265,7 +1464,8 @@ function statsHTML(){
       <div><time>wczoraj</time><span>Prośba o opinię: <b>Magda R.</b> → zostawiła 5★ w Google</span></div>
       <div><time>wczoraj</time><span>Potwierdzenie z zadatkiem: <b>Natalia K.</b>, 50 zł BLIK</span></div>
       <div><time>pon</time><span>Zaplanowano „czas odświeżyć powłokę”: <b>Anna W.</b>, za 6 mies.</span></div>
-      <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div></div>`)}
+      <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div>
+      <div><time>pon</time><span>Program lojalnościowy: <b>Robert J.</b> ma 395 pkt → SMS „odliczymy przy odbiorze”</span></div></div>`)}
   </div>`;
 }
 
@@ -1284,7 +1484,8 @@ function carMap(marks,locked){
 }
 let PR=null;
 const mkList=()=>PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}${PR.sign?'':`<button type="button" class="pbtn sm ghost" data-unmark="${i}" aria-label="Usuń znacznik ${i+1}">Usuń</button>`}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
-const galHTML=()=>PR.photos.map(p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta przy przyjęciu"></a><figcaption>${esc(fdt(new Date(p.at)))}</figcaption></figure>`).join('');
+const fig=p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta"></a><figcaption>${esc(fdt(new Date(p.at)))}</figcaption></figure>`;
+const galHTML=()=>PR.photos.map(fig).join('');
 function protoHTML(b){
   const L=!!PR.sign, dis=L?'disabled':'';
   return `<div class="drw-h"><div><h2>Protokół przyjęcia</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
@@ -1311,7 +1512,7 @@ function protoHTML(b){
 }
 async function openProto(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
-  PR={id,tool:'W',marks:(i.marks||[]).map(m=>({x:+m.x||0,y:+m.y||0,t:DMG[m.t]?m.t:'I'})),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
+  PR={id,tool:'W',marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
   const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[]).filter(p=>!p.startsWith('assets/')), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
   const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign);
@@ -1321,17 +1522,17 @@ function sigInit(){
   const c=$('#sig'); if(!c) return; const x=c.getContext('2d'); x.lineWidth=5;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#111213';
   let down=false; const pos=e=>{const r=c.getBoundingClientRect();return [(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
   c.onpointerdown=e=>{down=true;c.setPointerCapture(e.pointerId);const [a,b]=pos(e);x.beginPath();x.moveTo(a,b)};
-  c.onpointermove=e=>{if(!down)return;const [a,b]=pos(e);x.lineTo(a,b);x.stroke();PR.signed=true};
+  c.onpointermove=e=>{if(!down)return;const [a,b]=pos(e);x.lineTo(a,b);x.stroke();PR.signed=true;GUARD=true};
   c.onpointerup=c.onpointercancel=()=>{down=false};
 }
 function protoMark(e){
   const svg=$('#carmap'), pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
   const p=pt.matrixTransform(svg.getScreenCTM().inverse());
-  PR.marks.push({x:Math.round(p.x),y:Math.round(p.y),t:PR.tool}); protoRefresh();
+  PR.marks.push({x:Math.round(p.x),y:Math.round(p.y),t:PR.tool}); GUARD=true; protoRefresh();
 }
 function protoRefresh(){$('#carmap').outerHTML=carMap(PR.marks,!!PR.sign);$('.mklist').innerHTML=mkList()}
 async function protoPhotos(files){
-  const err=$('#proto-err'); err.textContent='Wgrywam zdjęcia…';
+  const err=$('#proto-err'); err.textContent='Wgrywam zdjęcia…'; GUARD=true;
   for(const f of [...files].slice(0,12)){
     const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg';
     const path=`${STUDIO.id}/intake/${PR.id}-${crypto.randomUUID()}.${ext}`;
@@ -1352,10 +1553,10 @@ async function protoSave(id,btn){
   }
   const intake={at:PR.at||new Date().toISOString(),km:v('km'),fuel:v('fuel'),items:v('items').trim(),note:v('pnote').trim(),
     marks:PR.marks.map(({x,y,t})=>({x,y,t})),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt};
-  const {error}=await sb.from('bookings').update({intake}).eq('id',id);
+  const {error}=await sb.from('bookings').update(b.stage?{intake}:{intake,stage:'przyjete'}).eq('id',id);
   btn.disabled=false;
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
-  b.intake=intake; toast(sign?'Protokół podpisany i zapisany':'Protokół zapisany'); openBk(id);
+  b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast(sign?'Protokół podpisany i zapisany':'Protokół zapisany'); openBk(id);
 }
 function protoBox(b){
   const it=b.intake;
@@ -1363,47 +1564,188 @@ function protoBox(b){
   return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>Zdjęcia, zaznaczone uszkodzenia i podpis klienta przy oddaniu auta. Dowód, że rysa była przed wizytą.</small></div><button class="pbtn sm dark" type="button" data-proto="${b.id}">Przyjmij auto</button></div>`;
 }
 
+/* ---------- etapy pracy, wydanie auta, dopłaty, punkty ---------- */
+const STG={przyjete:'Przyjęte',w_trakcie:'W trakcie',gotowe:'Gotowe do odbioru',wydane:'Wydane'};
+const cleanMarks=a=>(Array.isArray(a)?a:[]).map(m=>({x:+m.x||0,y:+m.y||0,t:DMG[m.t]?m.t:'I'}));
+const loyCalc=(spent,used)=>{const earned=Math.floor((+spent||0)*(+SET.loy_rate||0)/100);return {earned,bal:Math.max(0,earned-(+used||0))}};
+function loyOf(phone){const l=BOOKINGS.filter(x=>x.phone===phone);return loyCalc(l.filter(x=>x.status==='done').reduce((t,x)=>t+x.total,0),l.reduce((t,x)=>t+(x.points_used||0),0))}
+function stageHTML(b){
+  if(!['confirmed','done'].includes(b.status)||(!b.stage&&b.status!=='done')) return '';
+  const order=['przyjete','w_trakcie','gotowe','wydane'], cur=b.status==='done'?3:order.indexOf(b.stage);
+  const next=b.status==='confirmed'&&{przyjete:['w_trakcie','Rozpocznij pracę'],w_trakcie:['gotowe','Auto gotowe do odbioru']}[b.stage];
+  return `<div><div class="steps">${order.map((k,i)=>`<span class="${i<cur?'ok':i===cur?'now':''}">${STG[k]}</span>`).join('')}</div>
+    ${next?`<button class="pbtn dark" type="button" data-stage="${next[0]}" data-id="${b.id}" style="margin-top:10px">${next[1]}</button>`:''}</div>`;
+}
+function handBox(b){
+  const h=b.handover;
+  if(h) return `<div class="proto-box"><div><b>Protokół wydania</b><small>${(h.photos||[]).length} zdjęć po usłudze · ${h.sign?'odebrane z podpisem '+fdt(new Date(h.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-hand="${b.id}">Otwórz</button></div>`;
+  if(b.status==='confirmed'&&b.stage) return `<div class="proto-box"><div><b>Wydanie auta</b><small>Zdjęcia po usłudze i podpis przy odbiorze${SET.loy_on&&SET.loy_auto?'. Punkty klienta odliczą się same':''}.</small></div><button class="pbtn sm ${b.stage==='gotowe'?'dark':''}" type="button" data-hand="${b.id}">Wydaj auto</button></div>`;
+  return '';
+}
+function extrasHTML(b){
+  const ex=b.extras||[], open=b.status==='confirmed'||b.status==='pending';
+  if(!ex.length&&!open) return '';
+  const st={pending:'czeka na odpowiedź klienta',accepted:'zaakceptowana przez klienta',declined:'klient odmówił'};
+  return `<div><div class="ph"><b>Dopłaty</b><small>klient akceptuje je w linku z SMS-a</small></div>
+    ${ex.map(x=>`<div class="exrow"><span>${esc(x.desc)}<small>${st[x.status]||''}</small></span><b>+${zl(+x.amount||0)}</b></div>`).join('')}
+    ${open?`<div class="exform"><input name="exdesc" maxlength="120" placeholder="np. usunięcie smoły z progów" aria-label="Opis dopłaty"><input name="examt" type="number" min="10" step="10" placeholder="zł" aria-label="Kwota dopłaty"><button class="pbtn sm" type="button" data-exadd="${b.id}">Wyślij do akceptacji</button></div>`:''}</div>`;
+}
+function loyLine(b){
+  const L=loyOf(b.phone), can=b.status==='confirmed'&&!b.points_used&&L.bal>=SET.loy_min;
+  return `<div class="sumline"><span>Punkty klienta: <b>${L.bal}</b> (${zl(L.bal)} rabatu)</span>${b.points_used?`<span>odliczono ${zl(b.points_used)}</span>`:can?`<button class="pbtn sm" type="button" data-loyuse="${b.id}">Odlicz teraz ${zl(Math.min(L.bal,b.total))}</button>`:`<span class="hint-p">${L.bal>=SET.loy_min?'':'próg '+SET.loy_min+' pkt'}</span>`}</div>`;
+}
+async function signObjs(objs){
+  const paths=objs.map(o=>o.path).filter(x=>!x.startsWith('assets/')), map={};
+  if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
+  objs.forEach(o=>o.url=o.path.startsWith('assets/')?o.path:map[o.path]);
+}
+async function openHand(id){
+  const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const h=b.handover||{};
+  const safe=a=>(Array.isArray(a)?a:[]).filter(x=>x&&SAFE_PATH.test(x.path)).map(x=>({path:x.path,at:x.at}));
+  PR={id,mode:'out',marks:cleanMarks(b.intake&&b.intake.marks),photos:safe(h.photos),before:safe(b.intake&&b.intake.photos),note:h.note||'',
+    sign:SAFE_PATH.test(h.sign||'')?h.sign:null,signedAt:h.signedAt||null,signed:false};
+  const sg=PR.sign?[{path:PR.sign}]:[]; await signObjs(PR.photos.concat(PR.before,sg)); if(sg.length) PR.signUrl=sg[0].url;
+  openDrawer(handHTML(b)); sigInit();
+}
+function handHTML(b){
+  const L=!!PR.sign, loy=loyOf(b.phone), pts=!L&&SET.loy_on&&SET.loy_auto&&!b.points_used&&loy.bal>=SET.loy_min?Math.min(loy.bal,b.total):0;
+  return `<div class="drw-h"><div><h2>Wydanie auta</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b">
+    <button class="pbtn sm ghost" type="button" data-open="${b.id}" style="justify-self:start">← Wróć do wizyty</button>
+    ${L?`<div class="sumline"><span>Odebrane, podpisane przez klienta</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
+    <div><div class="ph"><b>Przed</b><small>z protokołu przyjęcia</small></div><div class="gal">${PR.before.map(fig).join('')||'<span class="hint-p">Brak zdjęć z przyjęcia.</span>'}</div></div>
+    <div><div class="ph"><b>Po</b><small>zdjęcia gotowego auta</small></div><div class="gal" id="pgal">${galHTML()}</div>
+      ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
+    ${PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div><ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
+    <label class="pf">Zalecenia dla klienta<textarea name="hnote" maxlength="1000" ${L?'disabled':''} placeholder="np. pierwsze mycie po 7 dniach, bez myjni szczotkowej">${esc(PR.note)}</textarea></label>
+    <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
+    ${pts?`<div class="hint-p">Klient ma ${loy.bal} pkt. Przy zapisie odliczymy automatycznie ${zl(pts)}.</div>`:''}
+    <div><div class="ph"><b>Podpis przy odbiorze</b><small>Odbieram auto bez zastrzeżeń</small></div>
+      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta przy odbiorze">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="1">Wyczyść podpis</button>`}</div>
+    <div class="ferr" id="proto-err" role="alert"></div>
+    <div class="acts">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij klientowi zdjęcia przed i po</button>`:`<button class="pbtn dark" type="button" data-handsave="${b.id}">Wydaj auto</button>`}</div>
+  </div>`;
+}
+async function handSave(id,btn){
+  const b=BOOKINGS.find(x=>x.id===id), err=$('#proto-err'); btn.disabled=true; let sign=null,signedAt=null;
+  if(PR.signed){
+    const blob=await new Promise(r=>$('#sig').toBlob(r,'image/png')), path=`${STUDIO.id}/intake/${id}-odbior-${crypto.randomUUID().slice(0,8)}.png`;
+    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});
+    if(error){btn.disabled=false;err.textContent='Nie udało się zapisać podpisu.';return}
+    sign=path; signedAt=new Date().toISOString();
+  }
+  const L=loyOf(b.phone), pts=SET.loy_on&&SET.loy_auto&&!b.points_used&&L.bal>=SET.loy_min?Math.min(L.bal,b.total):0;
+  const upd={handover:{at:new Date().toISOString(),note:drw().querySelector('[name=hnote]').value.trim().slice(0,1000),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt},status:'done',stage:'wydane'};
+  if(pts){upd.points_used=pts;upd.total=b.total-pts}
+  const {error}=await sb.from('bookings').update(upd).eq('id',id); btn.disabled=false;
+  if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pól na wydanie auta. Uruchom schema.sql w Supabase.':'Nie udało się zapisać wydania.';return}
+  Object.assign(b,upd); GUARD=false; renderPanel(); openBk(id);
+  toast(pts?`Auto wydane. Z punktów klienta odliczono ${zl(pts)}.`:'Auto wydane. Jutro klient dostanie prośbę o opinię (w demo bez wysyłki).');
+}
+async function addExtra(id){
+  const b=BOOKINGS.find(x=>x.id===id), d=drw(), desc=d.querySelector('[name=exdesc]').value.trim(), amt=Math.round(+d.querySelector('[name=examt]').value||0);
+  if(desc.length<3||amt<=0){toast('Wpisz opis i kwotę dopłaty');return}
+  const extras=(b.extras||[]).concat({id:crypto.randomUUID().slice(0,8),desc:desc.slice(0,120),amount:Math.min(amt,50000),status:'pending',sent:new Date().toISOString()});
+  const {error}=await sb.from('bookings').update({extras}).eq('id',id);
+  if(error){toast(['PGRST204','42703'].includes(error.code)?'Uruchom schema.sql w Supabase (brak pola na dopłaty)':'Nie udało się zapisać dopłaty');return}
+  b.extras=extras; GUARD=false; openBk(id);
+  toast(`${b.name.split(' ')[0]} dostał SMS z prośbą o akceptację ${zl(amt)} (w demo bez wysyłki). Zobacz: Strona klienta.`);
+}
+
+/* ---------- lista rezerwowa ---------- */
+function waitHTML(){
+  const l=WAIT.filter(w=>w.status==='waiting'||w.status==='notified').sort((a,b)=>a.day<b.day?-1:1);
+  return `<section class="psec"><div class="sec-h"><h2>Lista rezerwowa</h2><small>klienci czekający na zwolniony termin</small></div><div class="sec-b">
+  ${l.map(w=>`<div class="row-i wide"><time>${fd(pday(w.day))}<small>${esc((svcById(w.svc)||{name:w.svc}).name)}</small></time><span><span class="who">${esc(w.name)} ${w.status==='notified'?'<span class="st proposed">SMS wysłany</span>':''}</span><span class="what">${esc(w.phone)}${w.note?' · '+esc(w.note):''}</span></span>
+    <span class="acts-i"><button class="pbtn sm" type="button" data-wnotify="${w.id}">SMS: jest miejsce</button><button class="pbtn sm dark" type="button" data-wbook="${w.id}">Umów</button><button class="pbtn sm ghost" type="button" data-wclose="${w.id}" aria-label="Usuń ${esc(w.name)} z listy">Usuń</button></span></div>`).join('')
+    ||`<div class="empty">${SIDE_ERR?'Brak tabeli listy rezerwowej w bazie. Uruchom schema.sql w Supabase.':'Nikt nie czeka. Klienci zapisują się sami w formularzu, gdy dzień jest pełny.'}</div>`}</div></section>`;
+}
+const wlHint=b=>{const n=WAIT.filter(w=>w.status==='waiting'&&w.day===ymd(sod(b.start))).length;return n?` Na ${fd(b.start)} czeka ${n} ${n===1?'osoba':'osoby'} z listy rezerwowej (Kalendarz).`:''};
+
+/* ---------- bony prezentowe ---------- */
+const vCode=()=>{const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=crypto.getRandomValues(new Uint8Array(8));return [...r].map((x,i)=>(i===4?'-':'')+A[x%A.length]).join('')};
+const fdY=s=>{const d=pday(String(s).slice(0,10));return `${d.getDate()}.${pad(d.getMonth()+1)}.${d.getFullYear()}`};
+function bonHTML(){
+  const act=VOUCH.filter(v=>v.status==='active'), sold=VOUCH.filter(v=>new Date(v.created_at)>addDays(T0,-30)).reduce((t,v)=>t+v.amount,0);
+  const chip=v=>v.status==='active'?'<span class="st confirmed">Aktywny</span>':v.status==='used'?`<span class="st done">Wykorzystany ${v.used_at?fd(new Date(v.used_at)):''}</span>`:'<span class="st rejected">Przeterminowany</span>';
+  return `${topbar('Bony prezentowe',`${act.length} aktywnych na ${zl(act.reduce((t,v)=>t+v.amount,0))} · sprzedane w 30 dni: ${zl(sold)}`,SEARCH('Szukaj: kod, kupujący')+`<button class="pbtn dark" type="button" data-pact="voucher">Wystaw bon</button>`)}
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Kod</th><th class="r">Kwota</th><th>Kupujący</th><th>Dla kogo</th><th>Kupiony</th><th>Ważny do</th><th>Status</th><th></th></tr></thead><tbody>
+  ${VOUCH.map(v=>`<tr data-s="${esc((v.code+' '+v.buyer_name+' '+(v.recipient||'')).toLowerCase())}"><td><b class="mono">${esc(v.code)}</b></td><td class="r"><b>${zl(v.amount)}</b></td><td>${esc(v.buyer_name)}<small>${esc(v.buyer_phone)}</small></td><td>${esc(v.recipient||'')}${v.message?`<small>„${esc(v.message)}”</small>`:''}</td><td>${fd(new Date(v.created_at))}<small>${v.src==='web'?'strona www':'w salonie'}</small></td><td>${fdY(v.expires_at)}</td><td>${chip(v)}</td><td>${v.status==='active'?`<button class="pbtn sm" type="button" data-vuse="${v.id}">Zrealizuj</button>`:''}</td></tr>`).join('')
+    ||`<tr><td colspan="8"><div class="empty">${SIDE_ERR?'Brak tabeli bonów w bazie. Uruchom schema.sql w Supabase.':'Brak bonów. Klienci kupują je na stronie, a w salonie wystawisz je przyciskiem „Wystaw bon”.'}</div></td></tr>`}
+  </tbody></table></div></section>`;
+}
+function vIssueHTML(){
+  return `<form id="fvouch" novalidate><div class="drw-h"><div><h2>Wystaw bon</h2><p>Sprzedaż w salonie: gotówka, karta albo przelew.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf">Kwota (zł)<input name="amount" type="number" min="50" max="5000" step="10" value="300" required></label>
+    <label class="pf">Dla kogo<input name="recipient" maxlength="80" placeholder="np. Tomek"></label>
+    <label class="pf">Kupujący<input name="buyer" maxlength="80" required autocomplete="off"></label>
+    <label class="pf">Telefon kupującego<input name="btel" type="tel" inputmode="tel" required placeholder="600 100 200"></label>
+    <label class="pf full">Życzenia<input name="message" maxlength="200"></label>
+  </div>
+  <div class="ferr" id="fv-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">Wystaw bon</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div></div></form>`;
+}
+async function vIssue(f){
+  const E=f.elements, err=$('#fv-err'), amt=Math.round(+E.amount.value||0), tel=E.btel.value.replace(/\D/g,'').replace(/^48(?=\d{9}$)/,'');
+  if(amt<50||amt>5000){err.textContent='Kwota od 50 do 5000 zł.';return}
+  if(E.buyer.value.trim().length<2){err.textContent='Wpisz kupującego.';return}
+  if(tel.length!==9){err.textContent='Telefon: 9 cyfr, np. 600 100 200.';return}
+  const {data,error}=await sb.from('vouchers').insert({studio_id:STUDIO.id,code:vCode(),amount:amt,buyer_name:E.buyer.value.trim(),buyer_phone:'+48 '+tel,recipient:E.recipient.value.trim()||null,message:E.message.value.trim()||null,src:'salon'}).select().single();
+  if(error){err.textContent=SIDE_ERR?'Brak tabeli bonów w bazie. Uruchom schema.sql w Supabase.':'Nie udało się wystawić bonu.';return}
+  if(!VOUCH.some(v=>v.id===data.id)) VOUCH.unshift(data); GUARD=false; drw().close(); renderPanel();
+  toast(`Bon ${data.code} na ${zl(amt)} wystawiony. PDF poszedł SMS-em do kupującego (w demo bez wysyłki).`);
+}
+
 /* ---------- szuflada: szczegóły wizyty ---------- */
 const RQ={confirm:'confirmed',reject:'rejected',propose:'proposed',done:'done',noshow:'noshow',cancel:'rejected',reopen:'confirmed'};
 function bkHTML(b){
   const acts={pending:[['confirm','Potwierdź',1],['propose','Inny termin'],['reject','Odrzuć']],proposed:[['confirm','Potwierdź',1],['reject','Odrzuć']],
-    confirmed:[['done','Auto odebrane',1],['noshow','Nie przyjechał'],['cancel','Anuluj wizytę']]}[b.status]||[['reopen','Przywróć jako potwierdzoną']];
+    confirmed:[['noshow','Nie przyjechał'],['cancel','Anuluj wizytę']]}[b.status]||[['reopen','Przywróć jako potwierdzoną']];
   const row=(k,v)=>v?`<dt>${k}</dt><dd>${v}</dd>`:'';
   return `<div class="drw-h"><div><h2>${esc(b.name)}</h2><p>${bName(b)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b">
-    <div>${stChip(b.status)}</div>
+    <div class="chips-p">${stChip(b.status)}${b.token?`<a class="pbtn sm" href="#status=${b.token}" target="_blank" rel="noopener">Strona klienta ↗</a>`:''}</div>
+    ${stageHTML(b)}
     <dl class="dl">
       ${row('Oddanie',fdt(b.start))}${row('Odbiór',fdt(b.end))}${row('Stanowisko',String(b.bay))}
       ${row('Telefon',`<a href="tel:${b.phone.replace(/[^+\d]/g,'')}">${esc(b.phone)}</a>`)}${row('E-mail',b.email?`<a href="mailto:${esc(b.email)}">${esc(b.email)}</a>`:'')}
       ${row('Auto',esc(b.car)+', '+sizeName(b).toLowerCase())}
       ${row('Dodatki',(b.addons||[]).map(a=>esc((ADDONS.find(x=>x.id===a)||{name:a}).name)).join(', '))}
       ${row('Stan auta',b.cond?esc(b.cond):'')}${row('Uwagi',b.note?esc(b.note):'')}
-      ${row('Kwota',zl(b.total)+(b.deposit?` · zadatek ${zl(b.deposit)} ${b.paid?'wpłacony':'niewpłacony'}`:''))}
+      ${row('Kwota',zl(b.total)+(b.deposit?` · zadatek ${zl(b.deposit)} ${b.paid?'wpłacony':'niewpłacony'}`:'')+(b.points_used?` · odliczono ${zl(b.points_used)} z punktów`:''))}
       ${row('Źródło',NAMES_SRC[b.src]||esc(b.src))}${row('Dodano',fdt(b.created))}
     </dl>
     ${b.photoUrls.length?`<div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div>`:''}
     ${['confirmed','done','proposed','pending'].includes(b.status)||b.intake?protoBox(b):''}
+    ${handBox(b)}
+    ${extrasHTML(b)}
+    ${SET.loy_on?loyLine(b):''}
     <div class="acts">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>
   </div>`;
 }
-function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=false;openDrawer(bkHTML(b))}
+function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=false;openDrawer(bkHTML(b));OPEN_BK=id}
 
 /* ---------- szuflada: nowa rezerwacja ---------- */
-function addHTML(){
-  const day=T0.getDay()===6?addDays(T0,2):addDays(T0,1);
-  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map(p=>`<option value="${s.id}:${p.id}">${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
-  return `<form id="fadd" novalidate><div class="drw-h"><div><h2>Nowa rezerwacja</h2><p>Wizyta umówiona przez telefon albo na miejscu.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+function addHTML(pre={}){
+  const day=pre.day?pday(pre.day):T0.getDay()===6?addDays(T0,2):addDays(T0,1);
+  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map((p,pi)=>`<option value="${s.id}:${p.id}" ${pre.svc===s.id&&pi===0?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
+  return `<form id="fadd" novalidate><div class="drw-h"><div><h2>Nowa rezerwacja</h2><p>${pre.wl?'Z listy rezerwowej.':'Wizyta umówiona przez telefon albo na miejscu.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b"><div class="fgrid">
+    <input type="hidden" name="wl" value="${+pre.wl||''}">
+    <label class="pf-check full"><input type="checkbox" name="walkin"><span><b>Klient jest na miejscu z autem</b><small>Ustawi dziś i najbliższą godzinę. Po zapisie od razu oględziny.</small></span></label>
+    <label class="pf-check full" id="walk-opts" hidden><input type="checkbox" name="inspect" checked><span><b>Po zapisie otwórz protokół przyjęcia</b><small>Schemat uszkodzeń, zdjęcia z godziną, podpis klienta.</small></span></label>
     <label class="pf full">Usługa<select name="svc">${opts}</select></label>
     <label class="pf">Wielkość auta<select name="size">${SIZES.map(z=>`<option value="${z.id}" ${z.id==='m'?'selected':''}>${z.name}</option>`).join('')}</select></label>
     <label class="pf">Auto<input name="car" maxlength="80" placeholder="np. Skoda Octavia" autocomplete="off"></label>
     <label class="pf">Dzień<input name="day" type="date" value="${ymd(day)}" min="${ymd(T0)}" required></label>
     <label class="pf">Godzina<select name="hour">${[8,9,10,11,12,13,14,15,16,17].map(h=>`<option value="${h}" ${h===9?'selected':''}>${h}:00</option>`).join('')}</select></label>
-    <label class="pf">Klient<input name="kname" maxlength="80" required autocomplete="off" placeholder="Imię i nazwisko"></label>
-    <label class="pf">Telefon<input name="ktel" type="tel" inputmode="tel" required placeholder="600 100 200"></label>
+    <label class="pf">Klient<input name="kname" maxlength="80" required autocomplete="off" placeholder="Imię i nazwisko" value="${esc(pre.name||'')}"></label>
+    <label class="pf">Telefon<input name="ktel" type="tel" inputmode="tel" required placeholder="600 100 200" value="${esc((pre.phone||'').replace(/^\+48 ?/,''))}"></label>
     <label class="pf">Kwota (zł)<input name="total" type="number" min="0" step="10"></label>
     <label class="pf">Status<select name="status"><option value="confirmed">Potwierdzona</option><option value="pending">Do potwierdzenia</option></select></label>
-    <label class="pf full">Uwagi<textarea name="note" maxlength="1000"></textarea></label>
+    <label class="pf full">Uwagi<textarea name="note" maxlength="1000">${esc(pre.note||'')}</textarea></label>
+    <label class="pf full">Zdjęcia auta <span class="opt-l">(opcjonalnie: od klienta albo zrobione teraz)</span><input type="file" name="photos" accept="image/*" multiple></label>
   </div>
   <div class="sumline" id="fadd-sum"></div>
   <div class="ferr" id="fadd-err" role="alert"></div>
@@ -1431,14 +1773,22 @@ async function addSubmit(f){
   if(!r.pu) return fail('Wybierz dzień.',E.day);
   if(r.pu.start.getDay()===0) return fail('W niedzielę salon jest zamknięty.',E.day);
   const btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Zapisuję…';
-  const row={studio_id:STUDIO.id,start_at:r.pu.start.toISOString(),end_at:r.pu.end.toISOString(),svc:r.b.svc,pkg:r.b.pkg,size:r.b.size,
+  const paths=[];
+  for(const fl of [...E.photos.files].slice(0,8)){
+    const ext=(fl.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg', path=`${STUDIO.id}/${crypto.randomUUID()}.${ext}`;
+    const {error}=await sb.storage.from('photos').upload(path,fl,{contentType:fl.type||'image/jpeg'}); if(!error) paths.push(path);
+  }
+  const row={photo_paths:paths,studio_id:STUDIO.id,start_at:r.pu.start.toISOString(),end_at:r.pu.end.toISOString(),svc:r.b.svc,pkg:r.b.pkg,size:r.b.size,
     car:E.car.value.trim()||null,name:E.kname.value.trim(),phone:'+48 '+tel,bay:r.bay,status:E.status.value,src:'tel',
     total:Math.max(0,Math.round(+E.total.value||0)),note:E.note.value.trim()||null};
   const {data,error}=await sb.from('bookings').insert(row).select().single();
   btn.disabled=false;btn.textContent='Zapisz rezerwację';
   if(error) return fail(error.code==='23P01'?'Stanowisko jest w tym czasie zajęte przez potwierdzoną wizytę. Wybierz inną godzinę albo status „Do potwierdzenia”.':'Nie udało się zapisać. Sprawdź dane i spróbuj ponownie.');
   if(!BOOKINGS.some(x=>x.id===data.id)) BOOKINGS.push(toBk(data));
-  drw().close();renderPanel();toast(`Zapisano: ${row.name}, ${fdt(r.pu.start)}`);
+  const nb=BOOKINGS.find(x=>x.id===data.id); await signUrls([nb]);
+  if(+E.wl.value){await sb.from('waitlist').update({status:'booked'}).eq('id',+E.wl.value);const w=WAIT.find(x=>x.id===+E.wl.value);if(w)w.status='booked'}
+  GUARD=false; renderPanel(); toast(`Zapisano: ${row.name}, ${fdt(r.pu.start)}`);
+  if(E.walkin.checked&&E.inspect.checked) openProto(data.id); else drw().close();
 }
 
 /* ---------- szuflada: blokada ---------- */
@@ -1471,22 +1821,42 @@ async function blockSubmit(f){
 const RQ_MSG={confirmed:n=>`Potwierdzono. ${n} dostanie SMS z terminem (w demo bez wysyłki).`,rejected:n=>`Odrzucono. ${n} dostanie SMS (w demo bez wysyłki).`,
   proposed:n=>`Oznaczono: zaproponowano ${n} inny termin.`,done:n=>`Zakończona. ${n} dostanie jutro prośbę o opinię (w demo bez wysyłki).`,noshow:n=>`Zapisano: ${n} nie przyjechał.`};
 document.getElementById('view-panel').addEventListener('click',async e=>{
-  if(e.target.id==='drw'){drw().close();return}
+  if(e.target.id==='drw'){if(!drw().classList.contains('mdl'))tryClose();return}
   const t=e.target.closest('button'), o=e.target.closest('[data-open]');
   if(t&&t.type==='submit') return;
-  if(t&&t.dataset.close){drw().close();return}
+  if(t&&t.dataset.close){tryClose();return}
+  if(t&&t.dataset.keep){drw().querySelector('.confirm-x').hidden=true;return}
+  if(t&&t.dataset.discard){GUARD=false;const n=PENDING;PENDING=null;(n||(()=>drw().close()))();return}
+  if(o&&o.closest('#drw')&&GUARD){tryClose(()=>openBk(+o.dataset.open));return}
   if(t&&t.dataset.logout){await sb.auth.signOut();if(LIVE){sb.removeChannel(LIVE);LIVE=null}SESSION=null;BOOKINGS=[];renderLogin();return}
   if(t&&t.dataset.reseed){t.disabled=true;await sb.from('bookings').delete().eq('studio_id',STUDIO.id).eq('seed',true);await seedDemo();renderPanel();toast('Dane przykładowe odświeżone');return}
   if(t&&t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
   if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
-  if(t&&t.dataset.pact){if(t.dataset.pact==='add'){openDrawer(addHTML());addSync($('#fadd'))}else openDrawer(blockHTML());return}
+  if(t&&t.dataset.pact){if(t.dataset.pact==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(t.dataset.pact==='voucher')openDrawer(vIssueHTML(),true);else openDrawer(blockHTML(),true);return}
+  if(t&&t.dataset.stage){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;t.disabled=true;
+    const {error}=await sb.from('bookings').update({stage:t.dataset.stage}).eq('id',b.id);if(error){t.disabled=false;toast('Nie udało się zapisać etapu');return}
+    b.stage=t.dataset.stage;renderPanel();openBk(b.id);
+    toast(b.stage==='gotowe'?`${b.name.split(' ')[0]} dostał SMS: auto gotowe do odbioru, z linkiem do statusu (w demo bez wysyłki)`:'Etap zmieniony. Klient widzi go na stronie statusu auta.');return}
+  if(t&&t.dataset.hand){openHand(+t.dataset.hand);return}
+  if(t&&t.dataset.handsave){handSave(+t.dataset.handsave,t);return}
+  if(t&&t.dataset.exadd){addExtra(+t.dataset.exadd);return}
+  if(t&&t.dataset.loyuse){const b=BOOKINGS.find(x=>x.id===+t.dataset.loyuse),pts=Math.min(loyOf(b.phone).bal,b.total);t.disabled=true;
+    const {error}=await sb.from('bookings').update({points_used:pts,total:b.total-pts}).eq('id',b.id);if(error){t.disabled=false;toast('Nie udało się odliczyć punktów');return}
+    b.points_used=pts;b.total-=pts;renderPanel();openBk(b.id);toast(`Odliczono ${zl(pts)} z punktów klienta`);return}
+  if(t&&(t.dataset.wnotify||t.dataset.wclose)){const id=+(t.dataset.wnotify||t.dataset.wclose),w=WAIT.find(x=>x.id===id),st=t.dataset.wnotify?'notified':'closed';
+    const {error}=await sb.from('waitlist').update({status:st}).eq('id',id);if(error){toast('Nie udało się zapisać');return}
+    w.status=st;renderPanel();toast(st==='notified'?`${w.name} dostał SMS: zwolniło się miejsce na ${fd(pday(w.day))}, z linkiem do rezerwacji (w demo bez wysyłki)`:'Usunięto z listy rezerwowej');return}
+  if(t&&t.dataset.wbook){const w=WAIT.find(x=>x.id===+t.dataset.wbook);openDrawer(addHTML({name:w.name,phone:w.phone,day:w.day,svc:w.svc,note:w.note||'',wl:w.id}),true);addSync($('#fadd'));return}
+  if(t&&t.dataset.vuse){const v=VOUCH.find(x=>x.id===+t.dataset.vuse),at=new Date().toISOString();t.disabled=true;
+    const {error}=await sb.from('vouchers').update({status:'used',used_at:at}).eq('id',v.id);if(error){t.disabled=false;toast('Nie udało się zapisać');return}
+    v.status='used';v.used_at=at;renderPanel();toast(`Bon ${v.code} wykorzystany: odejmij ${zl(v.amount)} od rachunku`);return}
   if(t&&t.dataset.unblock){const keep=BLOCKS;BLOCKS=BLOCKS.filter(k=>k.id!==t.dataset.unblock);if(!(await saveCatalog())){BLOCKS=keep;return}renderPanel();toast('Blokada usunięta, termin znów widać na stronie');return}
   if(t&&t.dataset.rq){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;
     const st=RQ[t.dataset.rq]; t.disabled=true;
     const {error}=await sb.from('bookings').update({status:st}).eq('id',b.id);
     if(error){t.disabled=false;toast(error.code==='23P01'?'Stanowisko jest już zajęte w tym czasie. Zaproponuj inny termin.':'Nie udało się zapisać zmiany.');return}
-    b.status=st;b.isNew=false;toast(RQ_MSG[st](b.name));
+    b.status=st;b.isNew=false;toast(RQ_MSG[st](b.name)+(st==='rejected'?wlHint(b):''));
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
@@ -1502,12 +1872,16 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
 document.getElementById('view-panel').addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.q){const q=t.value.trim().toLowerCase();document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
-  if(t.form&&t.form.id==='fadd'){if(t.name==='total')t.dataset.touched=1;else addSync(t.form)}
+  if(t.closest('#drw')) GUARD=true;
+  if(t.form&&t.form.id==='fadd'){const E=t.form.elements;
+    if(t.name==='walkin'){$('#walk-opts').hidden=!t.checked;if(t.checked){E.day.value=ymd(T0);E.hour.value=String(Math.min(17,Math.max(8,new Date().getHours())));E.status.value='confirmed'}}
+    if(t.name==='total')t.dataset.touched=1;else addSync(t.form)}
 });
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(ok=>ok&&toast('Cena zapisana, widoczna na stronie salonu'))}
   if(t.dataset.intakePhotos){protoPhotos(t.files).then(()=>{t.value=''})}
+  if(t.dataset.setnum){SET[t.dataset.setnum]=Math.max(0,Math.round(+t.value||0));saveCatalog().then(ok=>ok&&toast('Zapisano ustawienie programu lojalnościowego'))}
   if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });
 
@@ -1517,10 +1891,14 @@ function route(){
   $('#view-klient').hidden=v!=='klient'; $('#view-panel').hidden=v!=='panel';
   $('#tab-klient').toggleAttribute('aria-current',v==='klient'); if(v==='klient')$('#tab-klient').setAttribute('aria-current','page');
   $('#tab-panel').toggleAttribute('aria-current',v==='panel'); if(v==='panel')$('#tab-panel').setAttribute('aria-current','page');
-  if(v==='panel'){if(BOOKINGS.some(b=>b.isNew&&b.status==='pending'))P.view='dzis';openPanel()} else renderClient();
+  if(v==='panel'){if(BOOKINGS.some(b=>b.isNew&&b.status==='pending'))P.view='dzis';openPanel()}
+  else{const m=location.hash.match(/^#status=([0-9a-f-]{36})$/);if(m){S.screen='status';S.token=m[1];S.st=null;loadStatus()}else if(S.screen==='status')S.screen='home';renderClient()}
   window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
+// strona statusu odświeża się sama, gdy salon zmienia etap albo dodaje dopłatę
+setInterval(()=>{if(S.screen==='status'&&S.token&&!$('#view-klient').hidden&&document.visibilityState==='visible')loadStatus()},15000);
+drw().addEventListener('cancel',e=>{e.preventDefault();tryClose()});
 const tick=()=>{const d=new Date();$('#clock').textContent=d.getHours()+':'+pad(d.getMinutes())};tick();setInterval(tick,30000);
 route();
 loadStudio().then(()=>{if(location.hash!=='#panel')renderClient();loadBusy()});

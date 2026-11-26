@@ -41,6 +41,13 @@ create table if not exists public.bookings (
 
 -- Protokół przyjęcia auta: uszkodzenia na schemacie, zdjęcia, przebieg, podpis klienta.
 alter table public.bookings add column if not exists intake jsonb;
+-- Protokół wydania, etap pracy, dopłaty do akceptacji, punkty lojalnościowe, link dla klienta.
+alter table public.bookings add column if not exists handover jsonb;
+alter table public.bookings add column if not exists stage text check (stage in ('przyjete','w_trakcie','gotowe','wydane'));
+alter table public.bookings add column if not exists extras jsonb not null default '[]'::jsonb;
+alter table public.bookings add column if not exists points_used int not null default 0 check (points_used >= 0);
+alter table public.bookings add column if not exists token uuid not null default gen_random_uuid();
+create unique index if not exists bookings_token on public.bookings(token);
 
 -- Dwie potwierdzone wizyty nie mogą zająć tego samego stanowiska w tym samym czasie.
 do $$ begin
@@ -65,6 +72,7 @@ create policy studios_owner_update on public.studios for update to authenticated
 drop policy if exists bookings_public_insert on public.bookings;
 create policy bookings_public_insert on public.bookings for insert to anon, authenticated
   with check (status in ('pending','confirmed') and seed = false and src = 'web' and intake is null
+    and handover is null and stage is null and extras = '[]'::jsonb and points_used = 0
     and start_at > now() and start_at < now() + interval '60 days');
 
 drop policy if exists bookings_owner_all on public.bookings;
@@ -83,9 +91,100 @@ $$;
 revoke all on function public.busy_slots(uuid, timestamptz, timestamptz) from public;
 grant execute on function public.busy_slots(uuid, timestamptz, timestamptz) to anon, authenticated;
 
+-- Strona statusu dla klienta (link z SMS-a): tylko jego wizyta, bez telefonu i zdjęć.
+create or replace function public.booking_public(p_token uuid)
+returns json language sql stable security definer set search_path = public as $$
+  select json_build_object('id', b.id, 'name', split_part(b.name, ' ', 1), 'car', b.car, 'svc', b.svc, 'pkg', b.pkg, 'size', b.size,
+    'start_at', b.start_at, 'end_at', b.end_at, 'status', b.status, 'stage', b.stage, 'total', b.total, 'deposit', b.deposit, 'paid', b.paid,
+    'extras', b.extras, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
+    'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used,
+    'spent', (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done'),
+    'used', (select coalesce(sum(x.points_used), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone))
+  from public.bookings b where b.token = p_token
+$$;
+revoke all on function public.booking_public(uuid) from public;
+grant execute on function public.booking_public(uuid) to anon, authenticated;
+
+-- Klient akceptuje albo odrzuca dopłatę z linku. Kwota dolicza się tylko raz.
+create or replace function public.extra_respond(p_token uuid, p_id text, p_accept boolean)
+returns json language plpgsql security definer set search_path = public as $$
+declare b public.bookings; e jsonb; i int; amt int;
+begin
+  select * into b from public.bookings where token = p_token for update;
+  if not found then return null; end if;
+  for i in 0 .. jsonb_array_length(b.extras) - 1 loop
+    e := b.extras -> i;
+    if e->>'id' = p_id and e->>'status' = 'pending' then
+      amt := greatest(0, coalesce((e->>'amount')::int, 0));
+      update public.bookings set
+        extras = jsonb_set(jsonb_set(extras, array[i::text, 'status'], to_jsonb(case when p_accept then 'accepted' else 'declined' end)), array[i::text, 'at'], to_jsonb(now())),
+        total = total + case when p_accept then amt else 0 end
+      where id = b.id;
+    end if;
+  end loop;
+  return public.booking_public(p_token);
+end $$;
+revoke all on function public.extra_respond(uuid, text, boolean) from public;
+grant execute on function public.extra_respond(uuid, text, boolean) to anon, authenticated;
+
+-- Lista rezerwowa: klient zapisuje się na pełny dzień, salon pisze, gdy coś się zwolni.
+create table if not exists public.waitlist (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  day date not null,
+  svc text not null,
+  name text not null check (char_length(name) between 2 and 80),
+  phone text not null check (phone ~ '^\+48 [0-9]{9}$' or phone ~ '^\+48 [0-9*]{3} [0-9*]{3} [0-9*]{3}$'),
+  note text check (char_length(note) <= 300),
+  status text not null default 'waiting' check (status in ('waiting','notified','booked','closed')),
+  seed boolean not null default false,
+  created_at timestamptz not null default now()
+);
+alter table public.waitlist enable row level security;
+drop policy if exists waitlist_public_insert on public.waitlist;
+create policy waitlist_public_insert on public.waitlist for insert to anon, authenticated
+  with check (status = 'waiting' and seed = false and day >= current_date and day < current_date + 60);
+drop policy if exists waitlist_owner_all on public.waitlist;
+create policy waitlist_owner_all on public.waitlist for all to authenticated
+  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
+  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+
+-- Bony prezentowe.
+-- shortcut: bon ze strony jest od razu aktywny (płatność w demo udawana); przy prawdziwych płatnościach aktywuje go webhook.
+create table if not exists public.vouchers (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  code text not null unique check (code ~ '^[A-Z0-9]{4}-[A-Z0-9]{4}$'),
+  amount int not null check (amount between 50 and 5000),
+  buyer_name text not null check (char_length(buyer_name) between 2 and 80),
+  buyer_phone text not null check (buyer_phone ~ '^\+48 [0-9]{9}$' or buyer_phone ~ '^\+48 [0-9*]{3} [0-9*]{3} [0-9*]{3}$'),
+  recipient text check (char_length(recipient) <= 80),
+  message text check (char_length(message) <= 200),
+  status text not null default 'active' check (status in ('active','used','expired')),
+  expires_at date not null default (current_date + 365),
+  used_at timestamptz,
+  src text not null default 'web',
+  seed boolean not null default false,
+  created_at timestamptz not null default now()
+);
+alter table public.vouchers enable row level security;
+drop policy if exists vouchers_public_insert on public.vouchers;
+create policy vouchers_public_insert on public.vouchers for insert to anon, authenticated
+  with check (status = 'active' and used_at is null and seed = false and src = 'web' and expires_at <= current_date + 366);
+drop policy if exists vouchers_owner_all on public.vouchers;
+create policy vouchers_owner_all on public.vouchers for all to authenticated
+  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
+  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+
 -- Panel dostaje nowe rezerwacje na żywo.
 do $$ begin
   alter publication supabase_realtime add table public.bookings;
+exception when duplicate_object then null; end $$;
+do $$ begin
+  alter publication supabase_realtime add table public.waitlist;
+exception when duplicate_object then null; end $$;
+do $$ begin
+  alter publication supabase_realtime add table public.vouchers;
 exception when duplicate_object then null; end $$;
 
 -- Zdjęcia aut od klientów: prywatny bucket, ścieżka <studio_id>/<plik>.
