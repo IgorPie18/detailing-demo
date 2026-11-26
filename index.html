@@ -1288,6 +1288,18 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 }
 @media (max-width:380px){#view-panel .mnew{padding:0 12px;font-size:14px}.mlogo{display:none}}
 @media (prefers-reduced-motion:reduce){.sbody,.side::after{transition:none}}
+
+/* ===== v15: na telefonie bez paska demo (przełącznik w menu panelu i pod podglądem strony) ===== */
+.mob-only{display:none!important}
+@media (max-width:820px){
+  .demo-bar{display:none}
+  body{margin:0}
+  .mob-only{display:flex!important}
+  #view-panel .sbody .mob-only{margin-top:10px;border:1px dashed var(--pline)}
+  #view-panel .panel{min-height:100vh}
+  #view-panel .panel.locked section.main{min-height:100vh}
+}
+@media (max-width:440px){.phone{height:100vh;height:100dvh}}
 </style>
 
 <header class="demo-bar">
@@ -1327,6 +1339,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
           <button type="button" data-jump="wlist">Klient na liście rezerwowej <span>→</span></button>
           <button type="button" data-jump="offer">Wycena z wariantami (link z SMS) <span>→</span></button>
           <button type="button" data-jump="auto">Paszport auta z kodu QR <span>→</span></button>
+          <button type="button" data-jump="panel" class="mob-only">Panel salonu (logowanie) <span>→</span></button>
         </div>
       </div>
       <div class="card">
@@ -1994,6 +2007,7 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
   if(j==='wlist') location.hash='lista='+DEMO_TOKEN_W;
   if(j==='offer') location.hash='oferta='+DEMO_TOKEN_O;
   if(j==='auto') location.hash='auto='+DEMO_TOKEN_C;
+  if(j==='panel') location.hash='panel';
 }));
 
 /* ================= PANEL SALONU ================= */
@@ -2208,7 +2222,8 @@ function renderSide(){
   <div class="nav-h">Sprzedaż</div>${it('wyc','Wyceny',acc)}${it('gw','Gwarancje',due)}${it('wl','Lista rezerwowa',off)}${A?it('bon','Bony'):''}
   ${A?`<div class="nav-h">Salon</div>${it('dzis','Statystyki')}${it('google','Google')}${it('zes','Zespół')}${it('cen','Cennik')}${it('ust','Ustawienia')}`:''}
   <button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>
-  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div></div>`;
+  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
+  <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
 function renderPanel(){if(!isAdm()&&ADMIN_VIEWS.includes(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML}[P.view]();}
 function topbar(title,sub,act=''){
@@ -3880,6 +3895,7 @@ document.getElementById('view-panel').addEventListener('change',e=>{
 
 /* ================= ROUTING ================= */
 function route(){
+  if(typeof mMenu==='function'&&$('#side')&&$('#side').classList.contains('open'))mMenu(false);
   const v=location.hash==='#panel'?'panel':'klient';
   $('#view-klient').hidden=v!=='klient'; $('#view-panel').hidden=v!=='panel';
   $('#tab-klient').toggleAttribute('aria-current',v==='klient'); if(v==='klient')$('#tab-klient').setAttribute('aria-current','page');
