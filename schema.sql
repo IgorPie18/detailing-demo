@@ -48,6 +48,8 @@ alter table public.bookings add column if not exists extras jsonb not null defau
 alter table public.bookings add column if not exists points_used int not null default 0 check (points_used >= 0);
 alter table public.bookings add column if not exists token uuid not null default gen_random_uuid();
 create unique index if not exists bookings_token on public.bookings(token);
+-- Propozycja innego terminu od salonu; klient akceptuje albo odrzuca z linku.
+alter table public.bookings add column if not exists proposal jsonb;
 -- Link klienta zawsze losuje baza, nigdy przeglądarka klienta.
 create or replace function public.bookings_force_token() returns trigger language plpgsql as $$
 begin
@@ -84,7 +86,7 @@ create policy studios_owner_update on public.studios for update to authenticated
 drop policy if exists bookings_public_insert on public.bookings;
 create policy bookings_public_insert on public.bookings for insert to anon, authenticated
   with check (status in ('pending','confirmed') and seed = false and src = 'web' and intake is null
-    and handover is null and stage is null and extras = '[]'::jsonb and points_used = 0
+    and handover is null and stage is null and extras = '[]'::jsonb and points_used = 0 and proposal is null
     and start_at > now() and start_at < now() + interval '60 days');
 
 drop policy if exists bookings_owner_all on public.bookings;
@@ -108,7 +110,7 @@ create or replace function public.booking_public(p_token uuid)
 returns json language sql stable security definer set search_path = public as $$
   select json_build_object('id', b.id, 'name', split_part(b.name, ' ', 1), 'car', b.car, 'svc', b.svc, 'pkg', b.pkg, 'size', b.size,
     'start_at', b.start_at, 'end_at', b.end_at, 'status', b.status, 'stage', b.stage, 'total', b.total, 'deposit', b.deposit, 'paid', b.paid,
-    'extras', b.extras, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
+    'extras', b.extras, 'proposal', b.proposal, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
     'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used,
     -- punkty tylko dla wizyty, którą salon fizycznie przyjął (sam numer telefonu z formularza niczego nie odblokowuje)
     'spent', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done') else 0 end,
@@ -140,6 +142,30 @@ end $$;
 revoke all on function public.extra_respond(uuid, text, boolean) from public;
 grant execute on function public.extra_respond(uuid, text, boolean) to anon, authenticated;
 
+-- Klient odpowiada na propozycję innego terminu. Przy akceptacji wizyta sama się przenosi i potwierdza.
+create or replace function public.proposal_respond(p_token uuid, p_accept boolean)
+returns json language plpgsql security definer set search_path = public as $$
+declare b public.bookings;
+begin
+  select * into b from public.bookings where token = p_token for update;
+  if not found or b.proposal is null or coalesce(b.proposal->>'status', '') <> 'pending' then return public.booking_public(p_token); end if;
+  if p_accept then
+    begin
+      update public.bookings set start_at = (b.proposal->>'start_at')::timestamptz, end_at = (b.proposal->>'end_at')::timestamptz,
+        bay = coalesce((b.proposal->>'bay')::int, b.bay), status = 'confirmed',
+        proposal = jsonb_set(jsonb_set(b.proposal, '{status}', '"accepted"'), '{at}', to_jsonb(now()))
+      where id = b.id;
+    exception when exclusion_violation then
+      update public.bookings set proposal = jsonb_set(b.proposal, '{status}', '"taken"') where id = b.id;
+    end;
+  else
+    update public.bookings set proposal = jsonb_set(jsonb_set(b.proposal, '{status}', '"declined"'), '{at}', to_jsonb(now())) where id = b.id;
+  end if;
+  return public.booking_public(p_token);
+end $$;
+revoke all on function public.proposal_respond(uuid, boolean) from public;
+grant execute on function public.proposal_respond(uuid, boolean) to anon, authenticated;
+
 -- Lista rezerwowa: klient zapisuje się na pełny dzień, salon pisze, gdy coś się zwolni.
 create table if not exists public.waitlist (
   id bigint generated always as identity primary key,
@@ -166,6 +192,37 @@ drop policy if exists waitlist_owner_all on public.waitlist;
 create policy waitlist_owner_all on public.waitlist for all to authenticated
   using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
   with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+
+-- Link klienta do jego miejsca na liście rezerwowej: pozycja w kolejce i wypisanie się.
+alter table public.waitlist add column if not exists token uuid not null default gen_random_uuid();
+create unique index if not exists waitlist_token on public.waitlist(token);
+create or replace function public.waitlist_public(p_token uuid)
+returns json language sql stable security definer set search_path = public as $$
+  select json_build_object('token', w.token, 'name', split_part(w.name, ' ', 1), 'day', w.day, 'svc', w.svc, 'status', w.status, 'slot_at', w.slot_at,
+    'position', (select count(*) from public.waitlist x where x.studio_id = w.studio_id and x.day = w.day and x.status in ('waiting','offer','notified') and x.created_at <= w.created_at),
+    'total', (select count(*) from public.waitlist x where x.studio_id = w.studio_id and x.day = w.day and x.status in ('waiting','offer','notified')))
+  from public.waitlist w where w.token = p_token
+$$;
+create or replace function public.waitlist_join(p_studio uuid, p_day date, p_svc text, p_name text, p_phone text, p_note text default null)
+returns json language plpgsql security definer set search_path = public as $$
+declare t uuid;
+begin
+  if p_day < current_date or p_day >= current_date + 60 then raise exception 'Nieprawidłowy dzień'; end if;
+  insert into public.waitlist (studio_id, day, svc, name, phone, note) values (p_studio, p_day, p_svc, p_name, p_phone, p_note) returning token into t;
+  return public.waitlist_public(t);
+end $$;
+create or replace function public.waitlist_leave(p_token uuid)
+returns json language plpgsql security definer set search_path = public as $$
+begin
+  update public.waitlist set status = 'closed' where token = p_token and status in ('waiting','offer','notified');
+  return public.waitlist_public(p_token);
+end $$;
+revoke all on function public.waitlist_public(uuid) from public;
+revoke all on function public.waitlist_join(uuid, date, text, text, text, text) from public;
+revoke all on function public.waitlist_leave(uuid) from public;
+grant execute on function public.waitlist_public(uuid) to anon, authenticated;
+grant execute on function public.waitlist_join(uuid, date, text, text, text, text) to anon, authenticated;
+grant execute on function public.waitlist_leave(uuid) to anon, authenticated;
 
 -- Bony prezentowe.
 -- shortcut: bon ze strony jest od razu aktywny (płatność w demo udawana); przy prawdziwych płatnościach aktywuje go webhook.
