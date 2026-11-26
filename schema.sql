@@ -148,13 +148,13 @@ returns json language plpgsql security definer set search_path = public as $$
 declare b public.bookings;
 begin
   select * into b from public.bookings where token = p_token for update;
-  if not found or b.proposal is null or coalesce(b.proposal->>'status', '') <> 'pending' then return public.booking_public(p_token); end if;
+  if not found or b.status <> 'proposed' or b.proposal is null or coalesce(b.proposal->>'status', '') <> 'pending' then return public.booking_public(p_token); end if;
   if p_accept then
     begin
       update public.bookings set start_at = (b.proposal->>'start_at')::timestamptz, end_at = (b.proposal->>'end_at')::timestamptz,
         bay = coalesce((b.proposal->>'bay')::int, b.bay), status = 'confirmed',
         proposal = jsonb_set(jsonb_set(b.proposal, '{status}', '"accepted"'), '{at}', to_jsonb(now()))
-      where id = b.id;
+      where id = b.id and status = 'proposed';
     exception when exclusion_violation then
       update public.bookings set proposal = jsonb_set(b.proposal, '{status}', '"taken"') where id = b.id;
     end;

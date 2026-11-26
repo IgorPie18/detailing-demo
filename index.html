@@ -2454,9 +2454,10 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.clnew){const l=clientOf(t.dataset.clnew),b=l[0];openDrawer(addHTML({name:b.name,phone:b.phone,car:b.car,size:b.size,svc:b.svc}),true);addSync($('#fadd'));return}
   if(t&&t.dataset.rq){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;
     const st=RQ[t.dataset.rq]; t.disabled=true;
-    const {error}=await sb.from('bookings').update({status:st}).eq('id',b.id);
+    const wd=b.proposal&&b.proposal.status==='pending'?{...b.proposal,status:'withdrawn'}:null;
+    const {error}=await sb.from('bookings').update(wd?{status:st,proposal:wd}:{status:st}).eq('id',b.id);
     if(error){t.disabled=false;toast(error.code==='23P01'?'Stanowisko jest już zajęte w tym czasie. Zaproponuj inny termin.':'Nie udało się zapisać zmiany.');return}
-    b.status=st;b.isNew=false;
+    b.status=st;b.isNew=false;if(wd)b.proposal=wd;
     const wlMsg=st==='rejected'&&b.start>new Date()?(SET.wl_auto?await autoOffer({at:b.start,bay:b.bay,day:ymd(sod(b.start))}):wlHint(b)):'';
     toast(RQ_MSG[st](b.name)+wlMsg);
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
