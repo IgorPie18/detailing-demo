@@ -447,6 +447,33 @@ $$;
 revoke all on function public.car_passport(uuid) from public;
 grant execute on function public.car_passport(uuid) to anon, authenticated;
 
+-- ===== Ochrona przed spamem ze strony: limit na numer telefonu i na salon =====
+-- Dotyczy tylko rezerwacji ze strony (src = 'web'); panel i dane przykładowe bez limitu.
+create or replace function public.bookings_rate_limit() returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if new.src = 'web' and not new.seed then
+    if (select count(*) from public.bookings where studio_id = new.studio_id and phone = new.phone and src = 'web' and created_at > now() - interval '24 hours') >= 3 then
+      raise exception 'LIMIT: Z tego numeru są już 3 rezerwacje z ostatniej doby. Zadzwoń do salonu, chętnie pomożemy.';
+    end if;
+    if (select count(*) from public.bookings where studio_id = new.studio_id and src = 'web' and created_at > now() - interval '1 hour') >= 30 then
+      raise exception 'LIMIT: Za dużo rezerwacji w krótkim czasie. Spróbuj za chwilę albo zadzwoń do salonu.';
+    end if;
+  end if;
+  return new;
+end $$;
+drop trigger if exists bookings_rate_limit on public.bookings;
+create trigger bookings_rate_limit before insert on public.bookings for each row execute function public.bookings_rate_limit();
+-- Lista rezerwowa: najwyżej 3 zapisy z jednego numeru na dobę.
+create or replace function public.waitlist_rate_limit() returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if not new.seed and (select count(*) from public.waitlist where studio_id = new.studio_id and phone = new.phone and created_at > now() - interval '24 hours') >= 3 then
+    raise exception 'LIMIT: Z tego numeru są już 3 zapisy na listę rezerwową z ostatniej doby.';
+  end if;
+  return new;
+end $$;
+drop trigger if exists waitlist_rate_limit on public.waitlist;
+create trigger waitlist_rate_limit before insert on public.waitlist for each row execute function public.waitlist_rate_limit();
+
 -- Panel dostaje nowe rezerwacje na żywo.
 do $$ begin
   alter publication supabase_realtime add table public.bookings;
