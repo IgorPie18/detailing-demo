@@ -815,6 +815,53 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .stat a{color:var(--grey)}
 @media (max-width:1100px){.pills,.tiles{grid-template-columns:minmax(0,1fr)}.drw-b.two{grid-template-columns:minmax(0,1fr)}.drw.mdl .fgrid{grid-template-columns:1fr 1fr}.cl-stats{grid-template-columns:1fr 1fr}}
 @media (max-width:820px){#view-panel .side{border-right:0}#view-panel .whatsnew,#view-panel .side .gsearch{display:none}.hero-p{margin:-18px -16px 0;padding:28px 16px}#view-panel section.main{padding:18px 16px 32px}.drw.mdl .fgrid{grid-template-columns:minmax(0,1fr)}}
+
+/* ===== jedna paleta stanów (panel, kalendarz, strona klienta) ===== */
+.st.s-wait{background:#fef3c7;color:#92400e}
+.st.s-plan{background:#eef2f7;color:#334155}
+.st.s-in{background:#dbeafe;color:#1d4ed8}
+.st.s-ready{background:#dcfce7;color:#15803d}
+.st.s-done{background:#f1f1ef;color:#57534e}
+.st.s-bad{background:#fee2e2;color:#b91c1c}
+#view-panel .blk{border:0;border-left:3px solid transparent}
+#view-panel .blk span{color:inherit;opacity:.72}
+#view-panel .blk.s-wait{background:#fffbeb;color:#92400e;border:1.5px dashed #f59e0b}
+#view-panel .blk.s-plan{background:#f1f5f9;color:#1e293b;border-left-color:#64748b}
+#view-panel .blk.s-in{background:#eff6ff;color:#1e3a8a;border-left-color:#2563eb}
+#view-panel .blk.s-ready{background:#f0fdf4;color:#14532d;border-left-color:#16a34a}
+#view-panel .blk.s-done{background:#f5f5f4;color:#57534e;border-left-color:#a8a29e}
+#view-panel .blk.s-bad{background:#fef2f2;color:#991b1b;border-left-color:#dc2626}
+#view-panel .blk.past{opacity:.55}
+#view-panel .legend i{border-radius:3px}
+#view-panel .legend i.s-wait{background:#fef3c7;border:1.5px dashed #f59e0b}
+#view-panel .legend i.s-plan{background:#cbd5e1}
+#view-panel .legend i.s-in{background:#93c5fd}
+#view-panel .legend i.s-ready{background:#86efac}
+#view-panel .legend i.s-done{background:#d6d3d1}
+.stages li.ok i{background:#57534e;border-color:#57534e}.stages li.ok::before{background:#57534e}
+.stages li.now.n0 i,.stages li.now.n1 i{background:#2563eb;border-color:#2563eb;box-shadow:0 0 0 4px #dbeafe}
+.stages li.now.n2 i{background:#16a34a;border-color:#16a34a;box-shadow:0 0 0 4px #dcfce7}
+.stages li.now.n3 i{background:#78716c;border-color:#78716c;box-shadow:0 0 0 4px #f1f1ef}
+.st-badge{display:inline-flex;margin-top:6px}
+#view-panel a.pbtn{color:var(--ink);text-decoration:none}
+/* ===== samouczek ===== */
+#tour{position:fixed;inset:0;margin:0;padding:0;border:0;background:transparent;width:100vw;height:100vh;max-width:none;max-height:none;pointer-events:none;overflow:visible}
+#tour::backdrop{background:transparent}
+.tour-spot{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(17,18,19,.55);outline:2px solid var(--brand);outline-offset:2px;transition:left .38s cubic-bezier(.2,.8,.2,1),top .38s cubic-bezier(.2,.8,.2,1),width .38s cubic-bezier(.2,.8,.2,1),height .38s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.tour-spot.click{animation:tourPulse 1.3s ease-in-out infinite}
+@keyframes tourPulse{0%,100%{outline-color:var(--brand);outline-offset:2px}50%{outline-color:#fdba74;outline-offset:7px}}
+.tour-card{position:fixed;width:min(360px,calc(100vw - 24px));background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px;box-shadow:0 20px 50px rgba(0,0,0,.28);pointer-events:auto;transition:top .38s cubic-bezier(.2,.8,.2,1),left .38s cubic-bezier(.2,.8,.2,1);font-family:'Onest',system-ui,sans-serif;display:grid;gap:6px}
+.tour-card small{color:#8a8a93;font-size:12px}
+.tour-card b{font-size:16px}
+.tour-card p{margin:0;font-size:14px;line-height:1.5;color:#44403c}
+.tour-do{font-size:13px;font-weight:600;color:var(--brand-600)}
+.tour-do::before{content:"👆 "}
+.tour-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.tour-btns button{height:34px;border-radius:9px;border:1px solid #e4e4e1;background:#fff;padding:0 12px;font:inherit;font-weight:500;cursor:pointer}
+.tour-btns button.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.tour-btns button[data-tour="end"]{margin-right:auto;border-color:transparent;color:#78716c}
+.tour-bar{height:3px;background:#f1f1ef;border-radius:2px;overflow:hidden}.tour-bar i{display:block;height:100%;background:var(--brand);transition:width .38s}
+@media (prefers-reduced-motion:reduce){.tour-spot,.tour-card{transition:none}.tour-spot.click{animation:none}}
 </style>
 
 <header class="demo-bar">
@@ -1327,12 +1374,13 @@ function statusHTML(){
   if(!d) return siteHeader()+'<div class="stp"><p class="hint">Wczytuję status auta…</p></div>';
   if(d.err) return siteHeader()+`<div class="done"><h2>Nie znaleźliśmy wizyty</h2><p>Link jest nieaktualny albo niepełny. Zadzwoń do salonu.</p><button class="btn btn-dark full" type="button" data-go="home">Strona salonu</button></div>`;
   const s=svcById(d.svc)||{name:'Usługa'}, idx=d.status==='done'?3:STAGES.findIndex(x=>x[0]===d.stage), ex=Array.isArray(d.extras)?d.extras:[], marks=cleanMarks(d.marks), L=loyCalc(d.spent,d.used);
-  const head=d.proposal&&d.proposal.status==='pending'?'Salon proponuje inny termin':d.status==='done'?'Auto odebrane. Dziękujemy!':idx===2?'Auto czeka na Ciebie':idx>=0?'Pracujemy nad Twoim autem':'Czekamy na Twoje auto';
+  const head=d.proposal&&d.proposal.status==='pending'?'Salon proponuje inny termin':d.status==='rejected'?'Wizyta odwołana':d.status==='noshow'?'Wizyta nieodbyta':d.status==='pending'||d.status==='proposed'?'Czekamy na potwierdzenie salonu':d.status==='done'?'Auto odebrane. Dziękujemy!':idx===2?'Auto czeka na Ciebie':idx>=0?'Pracujemy nad Twoim autem':'Wizyta potwierdzona';
   return `${siteHeader()}<div class="stp">
     <div><p class="eyebrow-d">Cześć ${esc(d.name)}</p><h1>${head}</h1><p class="hint">${esc(d.car||'')}${d.car?' · ':''}${s.name}<br>oddanie ${fdt(new Date(d.start_at))} · odbiór ${fdt(new Date(d.end_at))}</p></div>
-    <ol class="stages">${STAGES.map((x,i)=>`<li class="${i<idx?'ok':i===idx?'now':''}"><i></i><span>${x[1]}${i===idx&&i===2?'<small>Możesz przyjechać, ul. Przykładowa 12.</small>':''}${i===idx&&i===1?'<small>Napiszemy SMS-em, gdy auto będzie gotowe.</small>':''}</span></li>`).join('')}</ol>
+    <div class="st-badge">${stChip(d.status==='confirmed'&&d.stage?d.stage:d.status)}</div>
+    ${!['confirmed','done'].includes(d.status)?'':`<ol class="stages">${STAGES.map((x,i)=>`<li class="${i<idx?'ok':i===idx?'now n'+i:''}"><i></i><span>${x[1]}${i===idx&&i===2?'<small>Możesz przyjechać, ul. Przykładowa 12.</small>':''}${i===idx&&i===1?'<small>Napiszemy SMS-em, gdy auto będzie gotowe.</small>':''}</span></li>`).join('')}</ol>`}
     ${propClient(d)}
-    ${ex.filter(x=>x.status==='pending').map(x=>`<div class="extra"><b>Salon proponuje dodatkową pracę</b><p>${esc(x.desc)}</p><div class="r"><span>Dopłata</span><b>+${zl(+x.amount||0)}</b></div><div class="two"><button class="btn btn-ghost" type="button" data-extra="${esc(x.id)}" data-ok="0">Nie, dziękuję</button><button class="btn btn-dark" type="button" data-extra="${esc(x.id)}" data-ok="1">Akceptuję</button></div><small>Bez Twojej zgody nic nie dopisujemy do rachunku.</small></div>`).join('')}
+    ${d.status!=='confirmed'?'':ex.filter(x=>x.status==='pending').map(x=>`<div class="extra"><b>Salon proponuje dodatkową pracę</b><p>${esc(x.desc)}</p><div class="r"><span>Dopłata</span><b>+${zl(+x.amount||0)}</b></div><div class="two"><button class="btn btn-ghost" type="button" data-extra="${esc(x.id)}" data-ok="0">Nie, dziękuję</button><button class="btn btn-dark" type="button" data-extra="${esc(x.id)}" data-ok="1">Akceptuję</button></div><small>Bez Twojej zgody nic nie dopisujemy do rachunku.</small></div>`).join('')}
     <div class="summary num">${ex.filter(x=>x.status!=='pending').map(x=>`<div class="r"><span>${esc(x.desc)}</span><span>${x.status==='accepted'?'+'+zl(+x.amount||0):'odrzucone'}</span></div>`).join('')}
       ${d.points_used?`<div class="r"><span>Rabat z punktów</span><span>−${zl(d.points_used)}</span></div>`:''}
       <div class="r tot"><span>${d.status==='done'?'Zapłacono':'Do zapłaty przy odbiorze'}</span><span>${zl(d.total-(d.paid?d.deposit:0))}</span></div></div>
@@ -1536,7 +1584,7 @@ async function seedSide(){
         {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',note:null,seed:true,status:'waiting',slot_at:null,slot_bay:null,created_at:ago(1)},
         {studio_id:id,day:sat,svc:'mycie',name:'Ania K.',phone:'+48 511 904 662',note:'tylko przed 12:00',seed:true,status:'waiting',slot_at:null,slot_bay:null,created_at:ago(0),token:DEMO_TOKEN_W}];
       // bez nowych kolumn (stary schemat) wstawia bez propozycji
-      return sb.from('waitlist').insert(rows).then(({error})=>error?sb.from('waitlist').insert(rows.map(({status,slot_at,slot_bay,token,...x})=>x)):null)})(),
+      return Promise.all(rows.map(r=>sb.from('waitlist').insert(r).then(({error})=>error?sb.from('waitlist').insert((({status,slot_at,slot_bay,token,...x})=>x)(r)):null)))})(),
     sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',status:'active',used_at:null,src:'web',seed:true,created_at:ago(3)},
       {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',message:null,status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
       {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',status:'active',used_at:null,src:'salon',seed:true,created_at:ago(12)}])]);
@@ -1603,6 +1651,7 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
   start:'<path d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/>',
   car:'<path d="M5 16l1.5-5h11L19 16M3 16h18v3H3zM7 19v2M17 19v2"/><circle cx="7.5" cy="16" r=".5"/>',
   search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
@@ -1618,7 +1667,11 @@ const ICONS={
 const ic=k=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
 const STL={pending:'Do potwierdzenia',confirmed:'Potwierdzona',done:'Zakończona',rejected:'Odrzucona',noshow:'Nie przyjechał',proposed:'Nowy termin u klienta'};
 const ACT_ST=['confirmed','pending','proposed'];
-const stChip=s=>`<span class="st ${s}">${STL[s]}</span>`;
+// jeden stan wizyty dla całego systemu: status + etap pracy -> etykieta i kolor
+const STATE={pending:['Do potwierdzenia','wait'],proposed:['Nowy termin u klienta','wait'],confirmed:['Zaplanowana','plan'],przyjete:['Auto przyjęte','in'],
+  w_trakcie:['W trakcie','in'],gotowe:['Gotowe do odbioru','ready'],done:['Wydane','done'],rejected:['Odrzucona','bad'],noshow:['Nie przyjechał','bad']};
+const stateOf=b=>b.status==='confirmed'&&b.stage&&b.stage!=='wydane'?b.stage:b.status;
+const stChip=x=>{const k=typeof x==='string'?x:stateOf(x),v=STATE[k]||[k,'plan'];return `<span class="st s-${v[1]}">${v[0]}</span>`};
 const pending=()=>BOOKINGS.filter(b=>b.status==='pending'||b.status==='proposed').sort((a,b)=>b.created-a.created);
 const bName=b=>{const s=svcById(b.svc),p=pkgOf(s,b.pkg);return s.name+(s.pk.length>1?' · '+p.name:'')};
 const ago=d=>{const m=Math.round((Date.now()-d)/60e3);return m<1?'przed chwilą':m<60?`${m} min temu`:m<1440?`${Math.round(m/60)} h temu`:fd(d)};
@@ -1642,6 +1695,7 @@ function renderSide(){
   <label class="gsearch">${ic('search')}<input type="search" data-gsearch="1" placeholder="Szukaj klienta, auta" aria-label="Szukaj klienta, auta albo telefonu" value="${esc(P.q)}"><kbd>/</kbd></label>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
   ${it('start','Start',n)}${it('dzis','Pulpit')}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',off)}<div class="sep"></div>${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
+  <button class="nav" type="button" data-tourstart="1">${ic('help')}<span>Samouczek</span></button>
   <button class="whatsnew" type="button" data-nav="wl"><b>Nowość: lista rezerwowa</b><span>Zwolniony termin trafia sam do kolejnej osoby.</span></button>
   <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
@@ -1655,7 +1709,7 @@ function agendaRow(b,d){
   const starts=+sod(b.start)===+d, multi=!!pkgOf(svcById(b.svc),b.pkg).d;
   return `<button type="button" class="row-i" data-open="${b.id}"><time>${starts?fhm(b.start):'w trakcie'}<small>stan. ${b.bay}</small></time>
     <span><span class="who">${esc(b.name)}</span><span class="what">${bName(b)} · ${esc(b.car)} · ${multi||!starts?'odbiór '+fd(b.end):'do '+fhm(b.end)}</span></span>
-    <span class="amt"><b>${zl(b.total)}</b>${b.status==='confirmed'?'':stChip(b.status)}${b.stage&&b.status==='confirmed'?`<span class="stg">${STG[b.stage]}</span>`:''}</span></button>`;
+    <span class="amt"><b>${zl(b.total)}</b>${stChip(b)}</span></button>`;
 }
 function dayAgenda(d){
   const bl=BLOCKS.filter(k=>pday(k.from)<=d&&d<=pday(k.to));
@@ -1673,7 +1727,7 @@ function decCard(b){
     ${b.status==='proposed'?propLine(b):''}
     <div class="acts"><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button><button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">${b.status==='proposed'?'Zmień propozycję':'Inny termin'}</button><button class="pbtn sm ghost" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><span class="ago">${ago(b.created)} · ${NAMES_SRC[b.src]||esc(b.src)}</span></div></div>`;
 }
-const LEGEND='<div class="legend"><span><i></i>do potwierdzenia ceny (powłoki, korekta)</span><span><i class="l"></i>od ręki (mycie, wnętrze)</span><span><i class="p"></i>czeka na decyzję</span><span><i class="o"></i>zablokowane</span></div>';
+const LEGEND='<div class="legend"><span><i class="s-wait"></i>czeka</span><span><i class="s-plan"></i>zaplanowana</span><span><i class="s-in"></i>auto w salonie</span><span><i class="s-ready"></i>gotowe do odbioru</span><span><i class="s-done"></i>wydane</span><span><i class="o"></i>zablokowane</span></div>';
 function dzisHTML(){
   const ws=weekStart(0), cnt=BOOKINGS.filter(b=>ACT_ST.includes(b.status)&&onDay(b,T0)).length;
   const wk=BOOKINGS.filter(b=>['confirmed','done'].includes(b.status)&&b.start>=ws&&b.start<addDays(ws,7)).reduce((t,b)=>t+b.total,0);
@@ -1690,7 +1744,7 @@ function weekHTML(off){
   const col=(a,b)=>{const si=Math.max(0,Math.round((sod(a)-ws)/864e5)), ei=Math.min(5,Math.round((sod(b)-ws)/864e5));return `grid-column:${si+1} / ${ei+2}`};
   const lane=bay=>BLOCKS.filter(k=>(k.bay===0||k.bay===bay)&&pday(k.from)<we&&pday(k.to)>=ws).map(k=>`<div class="blk off" style="${col(pday(k.from),pday(k.to))}"><b>Zablokowane</b><span>${esc(k.note||'')}</span></div>`).join('')
     +BOOKINGS.filter(b=>b.bay===bay&&b.status!=='rejected'&&b.start<we&&b.end>=ws).sort((a,b)=>a.start-b.start).map(b=>{
-      const s=svcById(b.svc), cls=b.status==='pending'||b.status==='proposed'?'pend':(b.end<new Date()?'past':(s.mode==='confirm'?'':'light'));
+      const s=svcById(b.svc), cls='s-'+(STATE[stateOf(b)]||['','plan'])[1]+(b.end<new Date()&&['done','rejected','noshow'].includes(b.status)?' past':'');
       return `<button type="button" class="blk ${cls}" style="${col(b.start,b.end)}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(s,b.pkg).d?'':fhm(b.start)+' '}${s.name}</b><span>${esc(b.car)} · ${esc(b.name)}</span></button>`}).join('');
   return `<div class="wk-wrap"><div class="wk">
     <div class="hd"></div>${days.map(d=>`<div class="hd ${+d===+T0?'today':''}">${DNL[d.getDay()]}<b>${d.getDate()}.${pad(d.getMonth()+1)}</b></div>`).join('')}
@@ -1716,7 +1770,7 @@ function rezHTML(){
   return `${topbar('Rezerwacje','Kliknij wizytę, żeby zobaczyć szczegóły, zadzwonić albo zmienić status.',SEARCH('Szukaj: klient, auto, telefon'))}
   <div class="filters">${[['all','Wszystkie'],['pending','Do potwierdzenia'],['confirmed','Potwierdzone'],['done','Zakończone'],['noshow','Nie przyjechał'],['rejected','Odrzucone']].map(x=>`<button type="button" data-filter="${x[0]}" aria-pressed="${f===x[0]}">${x[1]}<span>${cnt(x[0])}</span></button>`).join('')}</div>
   <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Termin</th><th>Klient</th><th>Auto</th><th>Usługa</th><th class="r">Kwota</th><th>Status</th></tr></thead><tbody>
-  ${list.map(b=>`<tr data-open="${b.id}" data-s="${esc((b.name+' '+b.car+' '+b.phone).toLowerCase())}"><td><b>${fdt(b.start)}</b><small>odbiór ${fd(b.end)}</small></td><td><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button><small>${esc(b.phone)}</small></td><td>${esc(b.car)}<small>${sizeName(b)}</small></td><td>${bName(b)}<small>stanowisko ${b.bay} · ${NAMES_SRC[b.src]||esc(b.src)}</small></td><td class="r"><b>${zl(b.total)}</b></td><td>${stChip(b.status)}</td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
+  ${list.map(b=>`<tr data-open="${b.id}" data-s="${esc((b.name+' '+b.car+' '+b.phone).toLowerCase())}"><td><b>${fdt(b.start)}</b><small>odbiór ${fd(b.end)}</small></td><td><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button><small>${esc(b.phone)}</small></td><td>${esc(b.car)}<small>${sizeName(b)}</small></td><td>${bName(b)}<small>stanowisko ${b.bay} · ${NAMES_SRC[b.src]||esc(b.src)}</small></td><td class="r"><b>${zl(b.total)}</b></td><td>${stChip(b)}</td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
   </tbody></table></div></section>`;
 }
 function kliHTML(){
@@ -1882,34 +1936,34 @@ async function protoSave(id,btn){
   const {error}=await sb.from('bookings').update(b.stage?{intake}:{intake,stage:'przyjete'}).eq('id',id);
   btn.disabled=false;
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
-  b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast(sign?'Protokół podpisany i zapisany':'Protokół zapisany'); openBk(id);
+  b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast(sign?'Protokół podpisany i zapisany. Auto jest w salonie.':'Protokół zapisany. Auto jest w salonie.'); openBk(id);
 }
 function protoBox(b){
   const it=b.intake;
-  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${it.marks.length} zaznaczonych uszkodzeń · ${it.photos.length} zdjęć · ${it.sign?'podpisany '+fdt(new Date(it.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
-  return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>Zdjęcia, zaznaczone uszkodzenia i podpis klienta przy oddaniu auta. Dowód, że rysa była przed wizytą.</small></div><button class="pbtn sm dark" type="button" data-proto="${b.id}">Przyjmij auto</button></div>`;
+  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign?'podpisany '+fdt(new Date(it.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
+  return `<div class="proto-box"><div><b>Brak protokołu przyjęcia</b><small>Auto przyjęte bez protokołu. Możesz go jeszcze uzupełnić: zdjęcia, uszkodzenia i podpis klienta.</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Uzupełnij</button></div>`;
 }
-
 /* ---------- etapy pracy, wydanie auta, dopłaty, punkty ---------- */
 const STG={przyjete:'Przyjęte',w_trakcie:'W trakcie',gotowe:'Gotowe do odbioru',wydane:'Wydane'};
 const cleanMarks=a=>(Array.isArray(a)?a:[]).map(m=>({x:+m.x||0,y:+m.y||0,t:DMG[m.t]?m.t:'I'}));
 const loyCalc=(spent,used)=>{const earned=Math.floor((+spent||0)*(+SET.loy_rate||0)/100);return {earned,bal:Math.max(0,earned-(+used||0))}};
 function loyOf(phone){const l=BOOKINGS.filter(x=>x.phone===phone);return loyCalc(l.filter(x=>x.status==='done').reduce((t,x)=>t+x.total,0),l.reduce((t,x)=>t+(x.points_used||0),0))}
 function stageHTML(b){
-  if(!['confirmed','done'].includes(b.status)||(!b.stage&&b.status!=='done')) return '';
+  if(!['confirmed','done'].includes(b.status)) return '';
   const order=['przyjete','w_trakcie','gotowe','wydane'], cur=b.status==='done'?3:order.indexOf(b.stage);
+  const steps=`<div class="steps">${order.map((k,i)=>`<span class="${i<cur?'ok':i===cur?'now':''}">${STG[k]}</span>`).join('')}</div>`;
+  if(b.status==='confirmed'&&!b.stage) return `<div>${steps}<div class="acts" style="margin-top:10px"><button class="pbtn dark" type="button" data-proto="${b.id}">Przyjmij auto z protokołem</button><button class="pbtn" type="button" data-stage="przyjete" data-id="${b.id}">Przyjmij bez protokołu</button></div></div>`;
   const next=b.status==='confirmed'&&{przyjete:['w_trakcie','Rozpocznij pracę'],w_trakcie:['gotowe','Auto gotowe do odbioru']}[b.stage];
-  return `<div><div class="steps">${order.map((k,i)=>`<span class="${i<cur?'ok':i===cur?'now':''}">${STG[k]}</span>`).join('')}</div>
-    ${next?`<button class="pbtn dark" type="button" data-stage="${next[0]}" data-id="${b.id}" style="margin-top:10px">${next[1]}</button>`:''}</div>`;
+  return `<div>${steps}${next?`<button class="pbtn dark" type="button" data-stage="${next[0]}" data-id="${b.id}" style="margin-top:10px">${next[1]}</button>`:''}</div>`;
 }
 function handBox(b){
   const h=b.handover;
-  if(h) return `<div class="proto-box"><div><b>Protokół wydania</b><small>${(h.photos||[]).length} zdjęć po usłudze · ${h.sign?'odebrane z podpisem '+fdt(new Date(h.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-hand="${b.id}">Otwórz</button></div>`;
-  if(b.status==='confirmed'&&b.stage) return `<div class="proto-box"><div><b>Wydanie auta</b><small>Zdjęcia po usłudze i podpis przy odbiorze${SET.loy_on&&SET.loy_auto?'. Punkty klienta odliczą się same':''}.</small></div><button class="pbtn sm ${b.stage==='gotowe'?'dark':''}" type="button" data-hand="${b.id}">Wydaj auto</button></div>`;
+  if(h||b.status==='done') return `<div class="proto-box"><div><b>Protokół wydania</b><small>${h?`${(h.photos||[]).length} zdjęć po usłudze · ${h.sign?'odebrane z podpisem '+fdt(new Date(h.signedAt)):'bez podpisu klienta'}`:'Auto wydane bez protokołu.'}${b.intake?' W środku także zdjęcia i uszkodzenia z przyjęcia.':''}</small></div><button class="pbtn sm" type="button" data-hand="${b.id}">${h?'Otwórz':'Uzupełnij'}</button></div>`;
+  if(b.status==='confirmed'&&b.stage==='gotowe') return `<div class="proto-box"><div><b>Wydanie auta</b><small>Zdjęcia po usłudze i podpis przy odbiorze${SET.loy_on&&SET.loy_auto?'. Punkty klienta odliczą się same':''}.</small></div><button class="pbtn sm dark" type="button" data-hand="${b.id}">Wydaj auto</button></div>`;
   return '';
 }
 function extrasHTML(b){
-  const ex=b.extras||[], open=b.status==='confirmed'||b.status==='pending';
+  const ex=b.extras||[], open=b.status==='confirmed'&&!!b.stage&&b.stage!=='wydane';
   if(!ex.length&&!open) return '';
   const st={pending:'czeka na odpowiedź klienta',accepted:'zaakceptowana przez klienta',declined:'klient odmówił'};
   return `<div><div class="ph"><b>Dopłaty</b><small>klient akceptuje je w linku z SMS-a</small></div>
@@ -2036,7 +2090,7 @@ function catGroups(){
 const DASH_DEF=['bays','decide','today','tomorrow','week','kpis','sources','funnel','notif','sms'];
 const dashOrder=()=>{const o=(Array.isArray(SET.dash)?SET.dash:[]).filter(x=>DASH_DEF.includes(x));return o.concat(DASH_DEF.filter(x=>!o.includes(x)))};
 function alertsHTML(){
-  const p=pending().slice().sort((a,b)=>a.created-b.created), offers=WAIT.filter(w=>w.status==='offer'), ex=BOOKINGS.filter(b=>(b.extras||[]).some(x=>x.status==='pending')), ready=BOOKINGS.filter(b=>b.status==='confirmed'&&b.stage==='gotowe');
+  const p=pending().slice().sort((a,b)=>a.created-b.created), offers=WAIT.filter(w=>w.status==='offer'), ex=BOOKINGS.filter(b=>b.status==='confirmed'&&(b.extras||[]).some(x=>x.status==='pending')), ready=BOOKINGS.filter(b=>b.status==='confirmed'&&b.stage==='gotowe');
   const a=[];
   if(p.length) a.push(`<div class="alert warn" role="alert"><span class="ai">${ic('clock')}</span><span><b>${p.length} ${p.length===1?'klient czeka':'klientów czeka'} na potwierdzenie terminu</b><small>Najdłużej czeka ${esc(p[0].name)}, ${ago(p[0].created)}. Szybka odpowiedź to mniej klientów, którzy pójdą gdzie indziej.</small></span><button class="pbtn sm dark" type="button" data-open="${p[0].id}">Potwierdź teraz</button></div>`);
   if(offers.length) a.push(`<div class="alert warn"><span class="ai">${ic('send')}</span><span><b>Lista rezerwowa: ${offers.length} ${offers.length===1?'propozycja czeka':'propozycje czekają'} na Twoją akceptację</b><small>Zwolnił się termin. Po akceptacji klient dostanie SMS.</small></span><button class="pbtn sm" type="button" data-nav="wl">Zobacz</button></div>`);
@@ -2051,11 +2105,11 @@ function baysW(){
   const curOf=x=>BOOKINGS.filter(b=>b.bay===x&&cur(b)).sort((a,b)=>a.start-b.start);
   const on=curOf(id), q=BOOKINGS.filter(b=>b.bay===id&&['confirmed','pending','proposed'].includes(b.status)&&!cur(b)&&b.start>now).sort((a,b)=>a.start-b.start).slice(0,5);
   const card=b=>{const pr=Math.max(0,Math.min(100,Math.round((now-b.start)/(b.end-b.start)*100)));
-    return `<button type="button" class="now-card" data-open="${b.id}"><span class="top"><span><h3>${esc(b.car)}</h3><span class="meta">${esc(b.name)} · ${bName(b)}</span></span>${b.stage?`<span class="stg">${STG[b.stage]}</span>`:''}</span>
+    return `<button type="button" class="now-card" data-open="${b.id}"><span class="top"><span><h3>${esc(b.car)}</h3><span class="meta">${esc(b.name)} · ${bName(b)}</span></span>${stChip(b)}</span>
       <span class="prog-b" role="img" aria-label="Postęp ${pr}%"><i style="width:${pr}%"></i></span><span class="meta">oddane ${fdt(b.start)} · odbiór ${fdt(b.end)}</span></button>`};
   return `<div class="bay-now">
     <p class="lbl-s">Teraz na stanowisku</p>${on.map(card).join('')||'<div class="empty">Stanowisko wolne.</div>'}
-    <p class="lbl-s">W kolejce</p><ol class="queue">${q.map((b,i)=>`<li><button type="button" data-open="${b.id}"><span class="n">${i+1}</span><span><b>${fhm(b.start)}</b><small>${fd(b.start)}</small></span><span>${esc(b.name)}<small>${bName(b)} · ${esc(b.car)}</small></span>${b.status==='confirmed'?'':stChip(b.status)}</button></li>`).join('')||'<li class="empty">Kolejka pusta.</li>'}</ol></div>`;
+    <p class="lbl-s">W kolejce</p><ol class="queue">${q.map((b,i)=>`<li><button type="button" data-open="${b.id}"><span class="n">${i+1}</span><span><b>${fhm(b.start)}</b><small>${fd(b.start)}</small></span><span>${esc(b.name)}<small>${bName(b)} · ${esc(b.car)}</small></span>${stChip(b)}</button></li>`).join('')||'<li class="empty">Kolejka pusta.</li>'}</ol></div>`;
 }
 const spark=(a,col='var(--accent)')=>{const mx=Math.max(...a),mn=Math.min(...a);return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="${col}" stroke-width="2" points="${a.map((v,i)=>`${i*100/(a.length-1)},${28-(v-mn)/(mx-mn||1)*26}`).join(' ')}"/></svg>`};
 function kpisW(){
@@ -2185,7 +2239,7 @@ function startHTML(){
       <button type="button" class="pill-c" data-nav="kal">${ic('car')}<span><b>${today.length}</b> ${plAuta(today.length)} dziś</span><span class="tag">${zl(rev)}</span></button>
       <button type="button" class="pill-c" data-nav="wl">${ic('wl')}<span><b>${waitN}</b> na liście rezerwowej</span><span class="tag ${offers?'hot':''}">${offers?offers+' do akceptacji':'bez zmian'}</span></button>
     </div>
-    <div class="qact"><button class="pbtn dark" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button><button class="pbtn" type="button" data-pact="walkin">${ic('car')}Klient z ulicy</button><button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button></div>
+    <div class="qact"><button class="pbtn dark" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button><button class="pbtn" type="button" data-pact="walkin">${ic('car')}Klient z ulicy</button><button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button><button class="pbtn ghost" type="button" data-tourstart="1">${ic('help')}Samouczek panelu</button></div>
   </section>
   <div class="st-h">${ic('bell')}Na teraz</div>
   <div class="tiles">
@@ -2194,7 +2248,7 @@ function startHTML(){
     ${tile('#57534e','car',next?`Następne auto: ${fhm(next.start)}`:'Brak kolejnych wizyt',next?`${esc(next.name)} · ${esc(next.car)} · ${fd(next.start)}`:'Kalendarz jest pusty',next?`data-open="${next.id}"`:'data-nav="kal"')}
   </div>
   <div class="st-h">${ic('kal')}Dzisiejsze wizyty<button class="more" type="button" data-nav="dzis">Pełny pulpit →</button></div>
-  <div class="vlist">${today.map(b=>`<button type="button" class="vrow" data-open="${b.id}"><span class="av" aria-hidden="true">${ini(b.name)}</span><span><b>${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}</small></span><span>${b.stage&&b.status==='confirmed'?`<span class="stg">${STG[b.stage]}</span>`:b.status==='confirmed'?'':stChip(b.status)}</span><span><b>${+sod(b.start)===+T0?fhm(b.start):'w trakcie'}</b><small>odbiór ${fd(b.end)===fd(T0)?fhm(b.end):fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Dziś brak wizyt.</div>'}</div>`;
+  <div class="vlist">${today.map(b=>`<button type="button" class="vrow" data-open="${b.id}"><span class="av" aria-hidden="true">${ini(b.name)}</span><span><b>${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}</small></span><span>${stChip(b)}</span><span><b>${+sod(b.start)===+T0?fhm(b.start):'w trakcie'}</b><small>odbiór ${fd(b.end)===fd(T0)?fhm(b.end):fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Dziś brak wizyt.</div>'}</div>`;
 }
 
 /* ---------- konto klienta ---------- */
@@ -2212,7 +2266,7 @@ function clientHTML(key){
       <div class="acts"><button class="pbtn dark" type="button" data-clnew="${esc(key)}">${ic('plus')}Nowa wizyta dla klienta</button><a class="pbtn" href="tel:${key.replace(/[^+\d]/g,'')}">Zadzwoń</a></div>
     </div>
     <div class="col"><div class="ph"><b>Historia wizyt</b><small>kliknij, żeby otworzyć</small></div>
-      <div class="vlist">${l.map(b=>`<button type="button" class="vrow" style="grid-template-columns:minmax(0,1fr) auto auto" data-open="${b.id}"><span><b>${bName(b)}</b><small>${fd(b.start)} · ${esc(b.car)}${b.intake?' · protokół':''}${b.handover?' · wydanie':''}</small></span><span>${stChip(b.status)}</span><span><b>${zl(b.total)}</b></span></button>`).join('')}</div></div>
+      <div class="vlist">${l.map(b=>`<button type="button" class="vrow" style="grid-template-columns:minmax(0,1fr) auto auto" data-open="${b.id}"><span><b>${bName(b)}</b><small>${fd(b.start)} · ${esc(b.car)}${b.intake?' · protokół':''}${b.handover?' · wydanie':''}</small></span><span>${stChip(b)}</span><span><b>${zl(b.total)}</b></span></button>`).join('')}</div></div>
   </div>`;
 }
 
@@ -2268,16 +2322,96 @@ function flipMove(fn){
     x.style.transition='none';x.style.transform=`translate(${dx}px,${dy}px)`;requestAnimationFrame(()=>{x.style.transition='transform .2s ease';x.style.transform=''})});
 }
 
+/* ---------- samouczek: podświetla funkcje po kolei, część kroków wymaga kliknięcia ---------- */
+const TOUR=[
+  {v:'start',sel:'.hero-p .pills',t:'Start: co dziś ważne',d:'Po zalogowaniu widzisz tylko to, co wymaga uwagi: kto czeka na potwierdzenie, ile aut jest dziś i kto czeka na liście rezerwowej.'},
+  {v:'start',sel:'.qact',t:'Szybkie akcje',d:'Nowa rezerwacja z telefonu, klient, który przyjechał bez zapisu, i blokada dnia. Każda w jednym kliknięciu.'},
+  {v:'start',sel:'.qact [data-pact="add"]',t:'Dodaj wizytę',d:'Kliknij „Nowa rezerwacja”. Okno otworzy się na środku ekranu.',click:1},
+  {sel:'#fadd [name=walkin]',parent:'.pf-check',t:'Klient z ulicy',d:'To pole ustawia dzisiejszy termin, a po zapisie od razu otwiera protokół przyjęcia. Zaznacz je.',click:1},
+  {sel:'#fadd .acts',t:'Bez przypadkowego zamknięcia',d:'Kliknięcie obok okna nic nie robi, a Esc przy wpisanych danych pyta, czy na pewno zamknąć. W samouczku nic nie zapisujemy, okno zamknie się po kliknięciu „Dalej”.',after:()=>{GUARD=false;if(drw().open)drw().close()}},
+  {v:'dzis',sel:'.alerts',t:'Pulpit: alerty na górze',d:'Najpierw to, co czeka na Ciebie. „Potwierdź teraz” otwiera najdłużej czekające zgłoszenie.'},
+  {v:'dzis',sel:'[data-wdg="bays"] .seg-t',t:'Stanowiska na żywo',d:'Kafelek pokazuje, które auto jest teraz robione, a które czeka w kolejce. Kliknij stanowisko w przełączniku.',click:1,clickSel:'[data-wdg="bays"] [data-baytab]'},
+  {v:'dzis',sel:'[data-dedit]',t:'Pulpit po Twojemu',d:'„Dostosuj pulpit” pozwala przeciągać kafelki. Reszta przesuwa się na żywo, a układ zapisuje się dla całego salonu.'},
+  {v:'kal',sel:'.wk-wrap',t:'Kalendarz stanowisk',d:'Każde stanowisko ma swój wiersz. Kolor pokazuje stan wizyty i jest taki sam w całym panelu i u klienta.'},
+  {v:'kal',sel:'[data-pact="block"]',t:'Zablokuj dzień',d:'Urlop, szkolenie albo awaria. Zablokowane dni znikają z formularza na stronie.'},
+  {v:'rez',sel:'.filters',t:'Rezerwacje',d:'Wszystkie wizyty z filtrami i wyszukiwarką (skrót „/”).'},
+  {v:'rez',sel:'tbody tr[data-open]',t:'Otwórz wizytę',d:'Kliknij dowolną wizytę.',click:1},
+  {sel:'#drw .drw-b',t:'Wizyta krok po kroku',d:'Po lewej dane i etap pracy, po prawej protokoły, dopłaty i punkty. Przyciski zmieniają się z etapem: przyjęcie, praca, gotowe, wydanie.',after:()=>{if(drw().open)drw().close()}},
+  {v:'kli',sel:'tbody tr[data-client]',t:'Konto klienta',d:'Wizyty łączą się po numerze telefonu. Kliknij klienta.',click:1},
+  {sel:'#drw .cl-stats',t:'Cała historia w jednym miejscu',d:'Wizyty, wydane pieniądze, punkty i auta. Stąd dodasz kolejną wizytę z wpisanym autem.',after:()=>{if(drw().open)drw().close()}},
+  {v:'wl',sel:'.auto-note',t:'Lista rezerwowa',d:'Gdy ktoś odwoła wizytę, pierwsza osoba z listy dostaje propozycję. Najpierw zapytamy Cię na Telegramie.'},
+  {v:'wl',sel:'[data-wsim]',t:'Sprawdź automat',d:'Kliknij, żeby zasymulować odwołaną wizytę.',click:1},
+  {v:'bon',sel:'.ptop',t:'Bony prezentowe',d:'Bony kupione na stronie i wystawione w salonie. Realizacja jednym kliknięciem.'},
+  {v:'cen',sel:'[data-pact="svc"]',t:'Nowa usługa',d:'Nazwa, kategoria, ceny i zdjęcie. Usługa od razu pojawia się na stronie.'},
+  {v:'ust',sel:'.bay-ed',t:'Stanowiska i automaty',d:'Tu dodasz stanowisko i włączysz listę rezerwową, Telegram oraz program lojalnościowy.'},
+  {v:'start',sel:'[data-tourstart]',t:'To wszystko',d:'Samouczek uruchomisz ponownie tym przyciskiem.'}
+];
+const TR={i:-1,el:null};
+function tourStart(){
+  if(drw().open){GUARD=false;drw().close()}
+  const r=tourRoot(); if(!r.matches(':popover-open'))r.showPopover();
+  document.addEventListener('click',tourGuard,true);document.addEventListener('keydown',tourKey,true);
+  TR.i=-1; tourGo(0,1);
+}
+// otwarte okno (modal) blokuje wszystko poza sobą, więc samouczek musi siedzieć w nim
+function tourRoot(){
+  let r=$('#tour');
+  if(!r){r=document.createElement('div');r.id='tour';r.setAttribute('popover','manual');r.innerHTML='<div class="tour-spot"></div><div class="tour-card" role="dialog" aria-modal="false" aria-label="Samouczek panelu"></div>'}
+  const host=drw().open?drw():document.body;
+  if(r.parentNode!==host){if(r.matches(':popover-open'))r.hidePopover();host.append(r)}
+  return r;
+}
+function tourEnd(){
+  const r=$('#tour'); if(r){if(r.matches(':popover-open'))r.hidePopover();r.remove()}
+  document.removeEventListener('click',tourGuard,true);document.removeEventListener('keydown',tourKey,true);
+  const prev=TOUR[TR.i]; if(prev&&prev.after)prev.after(); TR.i=-1;
+}
+async function tourGo(i,dir){
+  const prev=TOUR[TR.i]; if(prev&&prev.after&&dir>0) prev.after();
+  if(i<0) return; if(i>=TOUR.length){tourEnd();toast('Samouczek zakończony');return}
+  TR.i=i; const st=TOUR[i];
+  if(st.v){if(drw().open){GUARD=false;drw().close()}if(P.view!==st.v){P.view=st.v;renderPanel()}}
+  await new Promise(r=>setTimeout(r,160));
+  let el=document.querySelector(st.sel);
+  if(!el){if(TR.i===i)tourGo(i+dir,dir);return}
+  if(st.parent) el=el.closest(st.parent)||el;
+  TR.el=el; el.scrollIntoView({block:'center',behavior:'smooth'});
+  await new Promise(r=>setTimeout(r,320));
+  const r=tourRoot(); if(r.matches(':popover-open'))r.hidePopover(); r.showPopover();
+  tourPlace();
+}
+function tourPlace(){
+  const st=TOUR[TR.i], el=TR.el; if(!st||!el||!$('#tour')) return;
+  const b=el.getBoundingClientRect(), pd=8, sp=$('#tour .tour-spot'), cd=$('#tour .tour-card');
+  sp.classList.toggle('click',!!st.click);
+  Object.assign(sp.style,{left:b.left-pd+'px',top:b.top-pd+'px',width:b.width+pd*2+'px',height:Math.min(b.height,innerHeight-40)+pd*2+'px'});
+  cd.innerHTML=`<div class="tour-bar"><i style="width:${(TR.i+1)/TOUR.length*100}%"></i></div><small>Krok ${TR.i+1} z ${TOUR.length}</small><b>${st.t}</b><p>${st.d}</p>${st.click?'<span class="tour-do">Kliknij podświetlone miejsce</span>':''}
+    <div class="tour-btns"><button type="button" data-tour="end">Zakończ</button>${TR.i?'<button type="button" data-tour="prev">Wstecz</button>':''}<button type="button" class="pri" data-tour="next">${st.click?'Pomiń':TR.i===TOUR.length-1?'Koniec':'Dalej'}</button></div>`;
+  const ch=cd.offsetHeight, cw=cd.offsetWidth, below=b.bottom+16+ch<innerHeight;
+  const top=below?b.bottom+16:(b.top-16-ch>12?b.top-16-ch:Math.max(12,innerHeight-ch-12));
+  Object.assign(cd.style,{top:top+'px',left:Math.min(innerWidth-cw-12,Math.max(12,b.left))+'px'});
+}
+function tourGuard(e){
+  if(TR.i<0) return;
+  const btn=e.target.closest&&e.target.closest('[data-tour]');
+  if(btn){e.preventDefault();e.stopPropagation();const a=btn.dataset.tour;if(a==='end')tourEnd();else if(a==='prev')tourGo(TR.i-1,-1);else tourGo(TR.i+1,1);return}
+  const st=TOUR[TR.i], ok=st.click&&(st.clickSel?e.target.closest(st.clickSel):TR.el.contains(e.target));
+  if(ok){const i=TR.i;setTimeout(()=>{if(TR.i===i)tourGo(i+1,1)},450);return}
+  e.preventDefault();e.stopPropagation();
+}
+function tourKey(e){if(TR.i<0)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();tourEnd()}else if(e.key==='ArrowRight'&&!TOUR[TR.i].click){e.preventDefault();tourGo(TR.i+1,1)}else if(e.key==='ArrowLeft'){e.preventDefault();tourGo(TR.i-1,-1)}}
+addEventListener('resize',()=>{if(TR.i>=0)tourPlace()});addEventListener('scroll',()=>{if(TR.i>=0)tourPlace()},true);
+
 /* ---------- szuflada: szczegóły wizyty ---------- */
 const RQ={confirm:'confirmed',reject:'rejected',propose:'proposed',done:'done',noshow:'noshow',cancel:'rejected',reopen:'confirmed'};
 function bkHTML(b){
-  const acts={pending:[['confirm','Potwierdź',1],['propose','Zaproponuj inny termin'],['reject','Odrzuć']],proposed:[['confirm','Potwierdź obecny termin'],['propose','Zmień propozycję'],['reject','Odrzuć']],
-    confirmed:[['noshow','Nie przyjechał'],['cancel','Anuluj wizytę']]}[b.status]||[['reopen','Przywróć jako potwierdzoną']];
+  const acts=b.status==='confirmed'?(b.stage?[]:[['noshow','Nie przyjechał'],['cancel','Anuluj wizytę']]):b.status==='done'?[]:
+    ({pending:[['confirm','Potwierdź',1],['propose','Zaproponuj inny termin'],['reject','Odrzuć']],proposed:[['confirm','Potwierdź obecny termin'],['propose','Zmień propozycję'],['reject','Odrzuć']]}[b.status]||[['reopen','Przywróć jako potwierdzoną']]);
   const row=(k,v)=>v?`<dt>${k}</dt><dd>${v}</dd>`:'', n=clientOf(b.phone).length;
   return `<div class="drw-h"><div><h2>${esc(b.name)}</h2><p>${bName(b)} · ${fdt(b.start)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b two">
     <div class="col">
-      <div class="chips-p">${stChip(b.status)}${n>1?`<button class="pbtn sm" type="button" data-client="${esc(b.phone)}">${ic('user')}Konto klienta · ${n} wizyt</button>`:''}${b.token?`<a class="pbtn sm" href="#status=${b.token}" target="_blank" rel="noopener">Strona klienta ↗</a>`:''}</div>
+      <div class="chips-p">${stChip(b)}${n>1?`<button class="pbtn sm" type="button" data-client="${esc(b.phone)}">${ic('user')}Konto klienta · ${n} wizyt</button>`:''}${b.token?`<a class="pbtn sm" href="#status=${b.token}" target="_blank" rel="noopener">Strona klienta ↗</a>`:''}</div>
       ${propLine(b)}
       ${stageHTML(b)}
       <dl class="dl">
@@ -2292,12 +2426,12 @@ function bkHTML(b){
     </div>
     <div class="col">
       ${b.photoUrls.length?`<div><div class="ph"><b>Zdjęcia od klienta</b></div><div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div></div>`:''}
-      ${['confirmed','done','proposed','pending'].includes(b.status)||b.intake?protoBox(b):''}
+      ${b.status==='confirmed'&&b.stage&&!b.handover?protoBox(b):''}
       ${handBox(b)}
       ${extrasHTML(b)}
-      ${SET.loy_on?loyLine(b):''}
+      ${SET.loy_on&&['confirmed','done'].includes(b.status)?loyLine(b):''}
     </div>
-    <div class="acts span2">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>
+    ${acts.length?`<div class="acts span2">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>`:''}
   </div>`;
 }
 function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=false;openDrawer(bkHTML(b));OPEN_BK=id}
@@ -2401,6 +2535,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(e.target.id==='drw'){if(!drw().classList.contains('strict'))tryClose();return}
   const t=e.target.closest('button'), o=e.target.closest('[data-open]');
   if(t&&t.type==='submit') return;
+  if(t&&t.dataset.tourstart){tourStart();return}
   if(t&&t.dataset.close){tryClose();return}
   if(t&&t.dataset.keep){drw().querySelector('.confirm-x').hidden=true;return}
   if(t&&t.dataset.discard){GUARD=false;const n=PENDING;PENDING=null;(n||(()=>drw().close()))();return}
