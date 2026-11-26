@@ -1914,7 +1914,13 @@ function searchHTML(){
     ${sec('Notatki',nt.length,nt.map(n=>`<button type="button" class="srow" data-note="${n.id}"><span class="ico">${ic('note')}</span><span><b>${fd(pday(n.day))}${n.at_time?', '+esc(n.at_time):''}</b><small>${M(n.body)}</small></span><span></span></button>`).join(''))}
   </div>`;
 }
+// po wyczyszczeniu wyszukiwarki wracamy na stronę sprzed wyszukiwania
+function exitSearch(){
+  P.view=P.prevView&&P.prevView!=='szukaj'?P.prevView:'start'; P.prevView=null; renderPanel();
+  const g=$('[data-gsearch]'); if(g){g.focus();g.setSelectionRange(g.value.length,g.value.length)}
+}
 function runSearch(){
+  if(P.view!=='szukaj') P.prevView=P.view;
   P.view='szukaj';
   $('#pmain').innerHTML=searchHTML();
   document.querySelectorAll('#side .nav').forEach(x=>x.removeAttribute('aria-current'));
@@ -2779,7 +2785,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
 });
 document.getElementById('view-panel').addEventListener('input',e=>{
   const t=e.target;
-  if(t.dataset.gsearch){P.q=t.value;clearTimeout(P.qt);P.qt=setTimeout(()=>{if(P.q.trim().length>=2||P.view==='szukaj')runSearch()},180);return}
+  if(t.dataset.gsearch){P.q=t.value;clearTimeout(P.qt);P.qt=setTimeout(()=>{const q=P.q.trim();if(!q){if(P.view==='szukaj')exitSearch()}else if(q.length>=2||P.view==='szukaj')runSearch()},180);return}
   if(t.dataset.q){const q=t.value.trim().toLowerCase();P.q=t.value;document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
   if(t.closest('#drw')) GUARD=true;
   if(t.form&&t.form.id==='fsvc'&&t.name==='cat'){$('#newcat').hidden=t.value!=='__new'}
@@ -2800,7 +2806,7 @@ document.getElementById('view-panel').addEventListener('input',e=>{
   vp.addEventListener('pointerup',drop);vp.addEventListener('pointercancel',drop);}
 document.getElementById('view-panel').addEventListener('keydown',e=>{
   if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Enter'){P.q=e.target.value;runSearch()}
-  if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Escape'){e.target.value='';P.q='';P.view='start';renderPanel()}
+  if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Escape'){e.target.value='';P.q='';if(P.view==='szukaj')exitSearch()}
   if(e.target.matches&&e.target.matches('.mc[data-calday]')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();P.cal={m:'day',a:e.target.dataset.calday};renderPanel()}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!$('#view-panel').hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!drw().open){const g=$('[data-gsearch]');if(g){e.preventDefault();g.focus()}}});
 document.getElementById('view-panel').addEventListener('change',e=>{
