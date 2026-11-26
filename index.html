@@ -505,7 +505,70 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em}
 .set-row .cin{width:76px;height:32px;border:1px solid var(--pline);border-radius:7px;padding:0 8px;text-align:right}
 .hint-p{color:var(--grey);font-size:13px}
-@media (max-width:1100px){.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* pulpit v5: alerty, widgety do przestawiania, stanowiska na żywo, Telegram */
+.alerts{display:grid;gap:8px}
+.alert{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 16px;border-radius:10px;border:1px solid var(--pline);background:var(--paper);font-size:14px}
+.alert .ai{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--pbg);color:var(--ink-2)}
+.alert b{display:block}.alert small{color:var(--grey);font-size:12.5px}
+.alert .pbtn{margin-left:auto}
+.alert.warn{background:#fff7ed;border-color:#fdba74}.alert.warn .ai{background:#fed7aa;color:#9a3412}
+.alert.ok{background:#f1f7f3;border-color:#cfe5d6}.alert.ok .ai{background:#d7eadf;color:var(--ok)}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--grey);margin-right:4px}
+.live i{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px #dcfce7}
+.dash{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.wdg.full{grid-column:1/-1}
+.wdg .sec-b.flush{padding:14px 16px}
+.dash.editing .wdg{outline:2px dashed #cdc9bf;outline-offset:2px;cursor:grab}
+.dash.editing .wdg.drag-over{outline-color:var(--accent);background:#fffaf3}
+.dash.editing .wdg.dragging{opacity:.4}
+.wdg-tools{display:flex;gap:4px;align-items:center}
+.wdg-tools button{width:30px;height:30px;border-radius:7px;border:1px solid var(--pline);background:var(--paper);font-weight:700}
+.wdg-tools .grip{color:var(--grey);font-size:18px;padding:0 4px;cursor:grab}
+.edit-note{background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:10px 14px;font-size:14px}
+.seg-t{display:inline-flex;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;padding:2px;gap:2px;flex-wrap:wrap}
+.seg-t button{border:0;background:none;border-radius:6px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--grey)}
+.seg-t button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.seg-t .cnt{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--pline);font-size:11px;margin-left:4px;padding:0 5px}
+.bay-now{display:grid;gap:10px}
+.now-card{border:1px solid var(--pline);border-radius:10px;padding:14px;display:grid;gap:8px;background:var(--paper);text-align:left;width:100%;font:inherit;color:inherit}
+.now-card:hover{border-color:#cdc9bf}
+.now-card .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.now-card h3{margin:0;font-family:var(--display);font-size:18px}
+.now-card .meta{color:var(--grey);font-size:13px}
+.prog-b{height:6px;background:var(--pbg);border-radius:3px;overflow:hidden}
+.prog-b i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.lbl-s{font-size:12px;font-weight:700;color:var(--grey);margin:6px 0 0}
+.queue{list-style:none;margin:0;padding:0}
+.queue li{border-top:1px solid var(--pline)}
+.queue li:first-child{border-top:0}
+.queue button{display:grid;grid-template-columns:24px 64px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:9px 0;border:0;background:none;text-align:left;font:inherit;color:inherit;font-size:14px}
+.queue .n{width:22px;height:22px;border-radius:50%;background:var(--pbg);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--grey)}
+.queue small{display:block;color:var(--grey);font-size:12px}
+.kpi .cmp{font-size:12.5px;color:var(--grey)}
+.kpi svg.spark{width:100%;height:30px;margin-top:4px}
+.kpi.hl svg.spark polyline{stroke:#fff}
+.tg-card{border:1px solid #cfe3f3;background:#f4f9fd;border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+.tg-head{display:flex;gap:8px;align-items:center;font-size:13px}
+.tg-head small{color:var(--grey);margin-left:auto}
+.tg-ic{width:26px;height:26px;border-radius:50%;background:#2aabee;display:grid;place-items:center;color:#fff;flex:none}
+.tg-msg{background:#fff;border-radius:12px 12px 12px 4px;padding:10px 12px;white-space:pre-line;font-size:14px;line-height:1.5}
+.tg-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tg-btns button{min-height:36px;border:1px solid #cfe3f3;background:#fff;border-radius:8px;color:#1b7cc0;font-weight:600;font-size:13px;padding:4px 8px}
+.tg-btns button.main{background:#2aabee;border-color:#2aabee;color:#fff}
+.auto-note{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--paper);border:1px solid var(--pline);border-radius:10px;padding:10px 14px;font-size:14px}
+.auto-note .pbtn{margin-left:auto}
+.wl-day{height:32px;border:1px solid var(--pline);border-radius:7px;padding:0 6px;font:inherit;font-size:13px;background:var(--paper)}
+.cat-row td{background:var(--pbg);font-weight:700;font-size:13px}
+.svc-th{width:44px;height:44px;border-radius:7px;object-fit:cover;display:block}
+.svc-prev img{max-width:220px;border-radius:8px;display:block}
+.bay-ed{border:1px solid var(--pline);border-radius:8px;padding:12px;display:grid;gap:10px}
+.bay-cats{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:13px}
+.bay-cats>span{color:var(--grey)}
+.bay-cats label{display:inline-flex;gap:6px;align-items:center}
+.bay-cats .pbtn{margin-left:auto}
+.cat-h{font-family:var(--display);font-size:16px;margin:10px 0 0}
+@media (max-width:1100px){.dash{grid-template-columns:minmax(0,1fr)}.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:820px){
   .panel{grid-template-columns:minmax(0,1fr);background:var(--pbg)}
   .kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
@@ -688,7 +751,7 @@ function carSVG(o={}){
 }
 function seatSVG(c){return `<svg viewBox="0 0 120 100" width="70%" aria-hidden="true"><path d="M38 10 h34 a8 8 0 0 1 8 8 v42 h-50 v-42 a8 8 0 0 1 8 -8z" fill="${c}"/><path d="M26 60 h66 a8 8 0 0 1 8 8 v14 h-82 v-14 a8 8 0 0 1 8 -8z" fill="${c}"/><rect x="40" y="82" width="8" height="12" fill="${c}"/><rect x="72" y="82" width="8" height="12" fill="${c}"/></svg>`}
 // shortcut: „przed” to to samo zdjęcie z filtrem CSS; prawdziwy salon wgra własne pary przed/po
-function photo(s,clean=true){return `<img class="phimg ${clean?'':'before'}" src="assets/${s.id}.jpg" alt="" loading="lazy">`}
+function photo(s,clean=true){return `<img class="phimg ${clean?'':'before'}" src="${esc(svcImg(s))}" alt="" loading="lazy">`}
 
 /* ================= REZERWACJE (wspólne dla klienta i panelu) ================= */
 const NAMES_SRC={ig:'Instagram',g:'Wizytówka Google',fb:'Facebook',d:'Bezpośrednio',web:'Strona www',tel:'Telefon / na miejscu'};
@@ -791,9 +854,9 @@ function dayList(){const a=[];for(let i=1;a.length<14;i++){a.push(addDays(T0,i))
 function slotsFor(d,c){
   if(d.getDay()===0) return [];
   const at=h=>{const x=new Date(d);x.setHours(h,0,0,0);return x};
-  if(c&&c.days) return [8,9].map(h=>{const st=at(h),e=addWork(st,c.days-1);e.setHours(16,0,0,0);return {h,free:!overlaps(1,st,e)}});
+  if(c&&c.days) return [8,9].map(h=>{const st=at(h),e=addWork(st,c.days-1);e.setHours(16,0,0,0);return {h,free:!!freeBay(c.s.id,st,e)}});
   const dur=c?Math.ceil(c.hours*2)/2:2, last=(d.getDay()===6?14:18)-Math.ceil(dur), out=[];
-  for(let h=8;h<=Math.max(8,last);h++){const st=at(h);out.push({h,free:!overlaps(2,st,new Date(+st+dur*3600e3))})}
+  for(let h=8;h<=Math.max(8,last);h++){const st=at(h);out.push({h,free:!!freeBay(c?c.s.id:null,st,new Date(+st+dur*3600e3))})}
   return out;
 }
 function dayFree(d,c){return slotsFor(d,c).some(x=>x.free)}
@@ -816,13 +879,14 @@ function go(screen,opt={}){
 
 function renderClient(){
   const el=$('#scroller');
-  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie',status:'lumendetailing.pl/twoje-auto',voucher:'lumendetailing.pl/bon',vdone:'lumendetailing.pl/bon/gotowe'}[S.screen];
+  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie',status:'lumendetailing.pl/twoje-auto',wldone:'lumendetailing.pl/lista-rezerwowa',voucher:'lumendetailing.pl/bon',vdone:'lumendetailing.pl/bon/gotowe'}[S.screen];
   $('#url').textContent=url;
   if(S.screen==='home') el.innerHTML=homeHTML();
   if(S.screen==='svc') el.innerHTML=svcHTML(svcById(S.svc));
   if(S.screen==='book') el.innerHTML=bookHTML();
   if(S.screen==='done') el.innerHTML=doneHTML();
   if(S.screen==='status') el.innerHTML=statusHTML();
+  if(S.screen==='wldone') el.innerHTML=wldoneHTML();
   if(S.screen==='voucher') el.innerHTML=voucherHTML();
   if(S.screen==='vdone') el.innerHTML=vdoneHTML();
   bindBA(el);
@@ -837,7 +901,7 @@ function footer(){return `<footer class="foot"><div class="logo">LUMEN<span>deta
   <div>ul. Przykładowa 12, 61-000 Poznań<br>pn-pt 8:00-18:00, sb 9:00-14:00</div>
   <div class="links"><a href="#klient">Regulamin rezerwacji</a><a href="#klient">Polityka prywatności</a><a href="#klient">Voucher</a></div>
   <div style="color:#7d8186">Lumen Detailing (dane przykładowe)</div></footer>`}
-function svcCard(s){return `<button class="svc" type="button" data-svc="${s.id}"><div class="thumb">${photo(s,true)}</div><div><h3>${s.name}</h3><p>${s.short}</p><div class="meta"><span class="price-from">od ${zl(minPrice(s))}</span><span class="tag ${s.mode==='instant'?'dark':''}">${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</span></div></div></button>`}
+function svcCard(s){return `<button class="svc" type="button" data-svc="${esc(s.id)}"><div class="thumb">${photo(s,true)}</div><div><h3>${esc(s.name)}</h3><p>${esc(s.short)}</p><div class="meta"><span class="price-from">od ${zl(minPrice(s))}</span><span class="tag ${s.mode==='instant'?'dark':''}">${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</span></div></div></button>`}
 
 function homeHTML(){
   return `${siteHeader()}
@@ -849,7 +913,7 @@ function homeHTML(){
   </section>
   <div class="chips"><span class="chip">✓ Cena znana przed wizytą</span><span class="chip">✓ Zadatek BLIK</span><span class="chip">✓ Potwierdzenie SMS</span><span class="chip">✓ Gwarancja na powłoki</span></div>
   <section class="sec" id="uslugi"><h2>Usługi i ceny</h2><p class="lead">Cena zależy od wielkości auta. Dokładną kwotę zobaczysz przy rezerwacji.</p>
-    ${SERVICES.map(svcCard).join('')}</section>
+    ${catGroups()}</section>
   <section class="sec"><h2>Przed i po</h2><p class="lead">Korekta lakieru i ceramika, Hyundai Tucson. Przesuń suwak.</p>${baHTML(svcById('ceramika'))}</section>
   <section class="sec"><h2>Jak wygląda rezerwacja</h2><ol class="steps3">
     <li><div><b>Wybierasz usługę i auto</b><span>Cena przelicza się od razu.</span></div></li>
@@ -993,7 +1057,7 @@ async function finish(b,c){
     if(!error) paths.push(path);
   }
   const row={studio_id:STUDIO.id,start_at:pu.start.toISOString(),end_at:pu.end.toISOString(),svc:b.svc,pkg:b.pkg,size:b.size,
-    car:b.car.trim()||null,name:b.name.trim(),phone:'+48 '+b.phone.replace(/\D/g,''),email:b.email.trim()||null,bay:c.days?1:2,
+    car:b.car.trim()||null,name:b.name.trim(),phone:'+48 '+b.phone.replace(/\D/g,''),email:b.email.trim()||null,bay:freeBay(b.svc,pu.start,pu.end)||baysFor(b.svc)[0],
     status:instant?'confirmed':'pending',src:'web',total:c.total,deposit:instant?c.s.deposit:0,paid:instant,
     addons:[...b.addons],cond:b.cond.trim()||null,note:b.note.trim()||null,photo_paths:paths};
   const {error}=await sb.from('bookings').insert(row);
@@ -1111,7 +1175,19 @@ async function wlSave(b){
   if(w.name.trim().length<2||ph.length!==9){w.err='Wpisz imię i 9 cyfr telefonu.';renderClient();return}
   const {error}=await sb.from('waitlist').insert({studio_id:STUDIO.id,day:w.day,svc:b.svc,name:w.name.trim(),phone:'+48 '+ph});
   if(error){w.err='Nie udało się zapisać. Spróbuj ponownie.';renderClient();return}
-  w.done=true; renderClient();
+  S.wld={day:w.day,svc:b.svc,name:w.name.trim()}; go('wldone');
+}
+
+function wldoneHTML(){
+  const d=S.wld, s=svcById(d.svc)||{name:'Usługa'}, day=pday(d.day);
+  return `${siteHeader()}<div class="done">
+    <div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+    <h2>Jesteś na liście rezerwowej</h2>
+    <p>Gdy na <b>${DNL[day.getDay()]} ${day.getDate()}.${pad(day.getMonth()+1)}</b> zwolni się miejsce, salon wyśle Ci SMS z propozycją godziny.</p>
+    <div class="summary num"><div class="r"><span>Usługa</span><span>${esc(s.name)}</span></div><div class="r"><span>Dzień</span><span>${fd(day)}</span></div><div class="r"><span>Imię</span><span>${esc(d.name)}</span></div></div>
+    <ul class="next"><li><i>1</i><span>Ktoś odwołuje wizytę, a salon sprawdza listę po kolei.</span></li><li><i>2</i><span>Dostajesz SMS z godziną i linkiem do potwierdzenia.</span></li><li><i>3</i><span>Masz 2 godziny na odpowiedź, potem termin dostaje kolejna osoba.</span></li></ul>
+    <button class="btn btn-dark full" type="button" data-to-panel="1">Zobacz, jak to widzi salon →</button>
+    <button class="btn full" type="button" data-go="home" style="background:none">Wróć na stronę</button></div>`;
 }
 
 /* ---------- zdarzenia klienta ---------- */
@@ -1202,8 +1278,12 @@ async function seedSide(){
   const id=STUDIO.id, sat=ymd(addDays(T0,((6-T0.getDay()+7)%7)||7)), ago=d=>addDays(new Date(),-d).toISOString();
   await Promise.all([sb.from('waitlist').delete().eq('studio_id',id).eq('seed',true),sb.from('vouchers').delete().eq('studio_id',id).eq('seed',true)]);
   await Promise.all([
-    sb.from('waitlist').insert([{studio_id:id,day:sat,svc:'mycie',name:'Kasia T.',phone:'+48 605 412 118',note:'pasuje każda godzina',seed:true},
-      {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',note:null,seed:true}]),
+    (()=>{const at=pday(sat);at.setHours(10,0,0,0);
+      const rows=[{studio_id:id,day:sat,svc:'mycie',name:'Kasia T.',phone:'+48 605 412 118',note:'pasuje każda godzina',seed:true,status:'offer',slot_at:at.toISOString(),slot_bay:2,created_at:ago(2)},
+        {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',note:null,seed:true,status:'waiting',slot_at:null,slot_bay:null,created_at:ago(1)},
+        {studio_id:id,day:sat,svc:'mycie',name:'Ania K.',phone:'+48 511 904 662',note:'tylko przed 12:00',seed:true,status:'waiting',slot_at:null,slot_bay:null,created_at:ago(0)}];
+      // bez nowych kolumn (stary schemat) wstawia bez propozycji
+      return sb.from('waitlist').insert(rows).then(({error})=>error?sb.from('waitlist').insert(rows.map(({status,slot_at,slot_bay,...x})=>x)):null)})(),
     sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',status:'active',used_at:null,src:'web',seed:true,created_at:ago(3)},
       {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',message:null,status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
       {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',status:'active',used_at:null,src:'salon',seed:true,created_at:ago(12)}])]);
@@ -1249,6 +1329,7 @@ async function openPanel(){
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
   if(e.target.id==='fvouch'){e.preventDefault();vIssue(e.target);return}
+  if(e.target.id==='fsvc'){e.preventDefault();svcSubmit(e.target);return}
   if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
@@ -1257,7 +1338,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   openPanel();
 });
 
-const P={view:'dzis',filter:'all',wk:0};
+const P={view:'dzis',filter:'all',wk:0,bay:null,edit:false,drag:null};
 const USL_IC='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
 const ICONS={
   dzis:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -1267,6 +1348,11 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  wl:'<path d="M9 5h11M9 12h11M9 19h11"/><circle cx="4.5" cy="5" r="1.5"/><path d="M3 12h3M3 19h3"/>',
+  bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
+  send:'<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>',
   bon:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8C10 4 6 3 6 6s4 2 6 2c2 0 6 1 6-2s-4-2-6 2"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>'
 };
@@ -1295,10 +1381,10 @@ function renderSide(){
   const it=(k,l,c)=>`<button class="nav" type="button" data-nav="${k}" ${P.view===k?'aria-current="page"':''}>${ic(k)}<span>${l}</span>${c?`<span class="badge" aria-label="${c} czeka na decyzję">${c}</span>`:''}</button>`;
   $('#side').innerHTML=`<div class="logo">LUMEN<span>panel</span></div>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
-  ${it('dzis','Dziś',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}<div class="sep"></div>${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
-  <div class="salon"><b>Lumen Detailing</b><span>2 stanowiska · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
+  ${it('dzis','Dziś',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',WAIT.filter(w=>w.status==='offer').length)}<div class="sep"></div>${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
+  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();$('#pmain').innerHTML={dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML}[P.view]();}
+function renderPanel(){renderSide();$('#pmain').innerHTML={dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -1313,7 +1399,7 @@ function agendaRow(b,d){
 function dayAgenda(d){
   const bl=BLOCKS.filter(k=>pday(k.from)<=d&&d<=pday(k.to));
   const l=BOOKINGS.filter(b=>ACT_ST.concat('done').includes(b.status)&&onDay(b,d)).sort((a,b)=>a.start-b.start);
-  const off=bl.map(k=>`<div class="row-i off"><time>cały dzień<small>${k.bay?'stan. '+k.bay:'oba'}</small></time><span><span class="who">Zablokowane</span><span class="what">${esc(k.note||'bez opisu')}</span></span><span></span></div>`).join('');
+  const off=bl.map(k=>`<div class="row-i off"><time>cały dzień<small>${k.bay?'stan. '+k.bay:'wszystkie'}</small></time><span><span class="who">Zablokowane</span><span class="what">${esc(k.note||'bez opisu')}</span></span><span></span></div>`).join('');
   if(d.getDay()===0&&!l.length) return off+'<div class="empty">Niedziela, salon zamknięty.</div>';
   return off+(l.map(b=>agendaRow(b,d)).join('')||(bl.length?'':'<div class="empty">Brak wizyt.</div>'));
 }
@@ -1326,24 +1412,16 @@ function decCard(b){
     ${b.status==='proposed'?`<div>${stChip(b.status)}</div>`:''}
     <div class="acts"><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button>${b.status==='pending'?`<button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">Inny termin</button>`:''}<button class="pbtn sm ghost" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><span class="ago">${ago(b.created)} · ${NAMES_SRC[b.src]||esc(b.src)}</span></div></div>`;
 }
-const LEGEND='<div class="legend"><span><i></i>powłoki, korekta, PPF</span><span><i class="l"></i>mycie, wnętrze</span><span><i class="p"></i>czeka na decyzję</span><span><i class="o"></i>zablokowane</span></div>';
+const LEGEND='<div class="legend"><span><i></i>do potwierdzenia ceny (powłoki, korekta)</span><span><i class="l"></i>od ręki (mycie, wnętrze)</span><span><i class="p"></i>czeka na decyzję</span><span><i class="o"></i>zablokowane</span></div>';
 function dzisHTML(){
-  const n=pending().length, tom=addDays(T0,1), ws=weekStart(0);
-  const cnt=BOOKINGS.filter(b=>ACT_ST.includes(b.status)&&onDay(b,T0)).length;
+  const ws=weekStart(0), cnt=BOOKINGS.filter(b=>ACT_ST.includes(b.status)&&onDay(b,T0)).length;
   const wk=BOOKINGS.filter(b=>['confirmed','done'].includes(b.status)&&b.start>=ws&&b.start<addDays(ws,7)).reduce((t,b)=>t+b.total,0);
-  return `${topbar('Dziś',`${cap(DNL[T0.getDay()])}, ${T0.getDate()}.${pad(T0.getMonth()+1)} · ${cnt} ${plAuta(cnt)} na stanowiskach · ${zl(wk)} potwierdzone w tym tygodniu`)}
-  <div class="cols">
-    <div class="stack">
-      <section class="psec"><div class="sec-h"><h2>Na stanowiskach</h2><small>dziś</small></div><div class="sec-b">${dayAgenda(T0)}</div></section>
-      <section class="psec"><div class="sec-h"><h2>Jutro</h2><small>${fd(tom)}</small></div><div class="sec-b">${dayAgenda(tom)}</div></section>
-    </div>
-    <section class="psec decide"><div class="sec-h"><h2>Czeka na decyzję</h2><small>${n?'najnowsze na górze':''}</small></div>
-      <div class="sec-b">${n?pending().map(decCard).join(''):'<div class="empty">Nic nie czeka. Nowe zgłoszenia ze strony pojawią się tutaj same.</div>'}</div></section>
-  </div>
-  <section class="psec"><div class="sec-h"><h2>Ten tydzień</h2>${LEGEND}</div><div class="sec-b">${weekHTML(0)}</div></section>
-  ${statsHTML()}`;
+  const act=`<span class="live"><i></i>na żywo · ${fhm(new Date())}</span>`+(P.edit?`<button class="pbtn ghost" type="button" data-dreset="1">Przywróć układ</button><button class="pbtn dark" type="button" data-dedit="1">Gotowe</button>`:`<button class="pbtn" type="button" data-dedit="1">Dostosuj pulpit</button>`);
+  return `${topbar('Dziś',`${cap(DNL[T0.getDay()])}, ${T0.getDate()}.${pad(T0.getMonth()+1)} · ${cnt} ${plAuta(cnt)} na stanowiskach · ${zl(wk)} potwierdzone w tym tygodniu`,act)}
+  ${alertsHTML()}
+  ${P.edit?'<div class="edit-note"><b>Układasz pulpit.</b> Przeciągnij kafelek za uchwyt ⠿ albo użyj strzałek. Układ zapisze się dla całego salonu.</div>':''}
+  <div class="dash ${P.edit?'editing':''}">${dashOrder().map(wdg).join('')}</div>`;
 }
-
 /* ---------- Kalendarz ---------- */
 function weekStart(off){const d=new Date(T0);const dow=(d.getDay()+6)%7;return addDays(d,-dow+off*7)}
 function weekHTML(off){
@@ -1355,8 +1433,7 @@ function weekHTML(off){
       return `<button type="button" class="blk ${cls}" style="${col(b.start,b.end)}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(s,b.pkg).d?'':fhm(b.start)+' '}${s.name}</b><span>${esc(b.car)} · ${esc(b.name)}</span></button>`}).join('');
   return `<div class="wk-wrap"><div class="wk">
     <div class="hd"></div>${days.map(d=>`<div class="hd ${+d===+T0?'today':''}">${DNL[d.getDay()]}<b>${d.getDate()}.${pad(d.getMonth()+1)}</b></div>`).join('')}
-    <div class="bay">Stanowisko 1<small>lakier, powłoki, PPF</small></div><div class="lane">${lane(1)}</div>
-    <div class="bay">Stanowisko 2<small>mycie, wnętrze</small></div><div class="lane">${lane(2)}</div>
+    ${BAYS().map(x=>`<div class="bay">${esc(x.name)}<small>${esc(x.desc||'')}</small></div><div class="lane">${lane(x.id)}</div>`).join('')}
   </div></div>`;
 }
 function kalHTML(){
@@ -1364,9 +1441,9 @@ function kalHTML(){
   return `${topbar('Kalendarz','Klient na stronie widzi tylko wolne terminy. Zablokowane dni znikają z formularza.',`<button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button>`)}
   <section class="psec"><div class="sec-h"><div class="wknav"><button class="pbtn sm" type="button" data-wk="-1" aria-label="Poprzedni tydzień">←</button><button class="pbtn sm" type="button" data-wk="0">Ten tydzień</button><button class="pbtn sm" type="button" data-wk="1" aria-label="Następny tydzień">→</button><b style="margin-left:8px">${fd(ws)} - ${fd(addDays(ws,5))}</b></div>${LEGEND}</div><div class="sec-b">${weekHTML(P.wk)}</div></section>
   <section class="psec"><div class="sec-h"><h2>Blokady</h2><small>urlopy, przestoje, święta</small></div><div class="sec-b">
-    ${bl.map(k=>`<div class="row-i wide off"><time>${fdr(k)}</time><span><span class="who">${k.bay?'Stanowisko '+k.bay:'Oba stanowiska'}</span><span class="what">${esc(k.note||'bez opisu')}</span></span><button class="pbtn sm ghost" type="button" data-unblock="${esc(k.id)}">Usuń</button></div>`).join('')||'<div class="empty">Brak blokad. Urlop albo przestój dodasz przyciskiem „Zablokuj dzień”.</div>'}
+    ${bl.map(k=>`<div class="row-i wide off"><time>${fdr(k)}</time><span><span class="who">${k.bay?esc(bayName(k.bay)):'Wszystkie stanowiska'}</span><span class="what">${esc(k.note||'bez opisu')}</span></span><button class="pbtn sm ghost" type="button" data-unblock="${esc(k.id)}">Usuń</button></div>`).join('')||'<div class="empty">Brak blokad. Urlop albo przestój dodasz przyciskiem „Zablokuj dzień”.</div>'}
   </div></section>
-  ${waitHTML()}`;
+`;
 }
 
 /* ---------- Rezerwacje i klienci ---------- */
@@ -1393,82 +1470,70 @@ function kliHTML(){
 
 /* ---------- Cennik i ustawienia ---------- */
 function cenHTML(){
-  return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.')}
-  <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Usługa / pakiet</th><th>Sposób rezerwacji</th><th>Zadatek</th><th>Czas</th>${SIZES.map(z=>`<th class="r">${z.name}</th>`).join('')}</tr></thead><tbody>
-  ${SERVICES.map(s=>s.pk.map((p,pi)=>`<tr><td><b>${pi===0?s.name:''}</b><small>${p.name}</small></td>
-    <td>${pi===0?`<div class="tg"><button type="button" data-mode="${s.id}:instant" aria-pressed="${s.mode==='instant'}">Od ręki z zadatkiem</button><button type="button" data-mode="${s.id}:confirm" aria-pressed="${s.mode==='confirm'}">Do potwierdzenia</button></div>`:''}</td>
+  const known=SET.cats.map(c=>c.id), groups=SET.cats.map(c=>[c.name,SERVICES.filter(s=>catOf(s)===c.id)]).concat([['Inne',SERVICES.filter(s=>!known.includes(catOf(s)))]]).filter(g=>g[1].length);
+  const row=s=>s.pk.map((p,pi)=>`<tr><td>${pi===0?`<img class="svc-th" src="${esc(svcImg(s))}" alt="">`:''}</td><td><b>${pi===0?esc(s.name):''}</b><small>${esc(p.name)}</small></td>
+    <td>${pi===0?`<div class="tg"><button type="button" data-mode="${esc(s.id)}:instant" aria-pressed="${s.mode==='instant'}">Od ręki z zadatkiem</button><button type="button" data-mode="${esc(s.id)}:confirm" aria-pressed="${s.mode==='confirm'}">Do potwierdzenia</button></div>`:''}</td>
     <td>${pi===0?(s.mode==='instant'?zl(s.deposit||50):'po potwierdzeniu'):''}</td><td>${durTxt(p)}</td>
-    ${p.p.map((v,i)=>`<td class="r"><input class="cin" type="number" step="10" value="${v}" data-price="${s.id}:${p.id}:${i}" aria-label="${s.name} ${p.name} ${SIZES[i].name}"></td>`).join('')}</tr>`).join('')).join('')}
+    ${p.p.map((v,i)=>`<td class="r"><input class="cin" type="number" step="10" value="${v}" data-price="${esc(s.id)}:${esc(p.id)}:${i}" aria-label="${esc(s.name)} ${esc(p.name)} ${SIZES[i].name}"></td>`).join('')}
+    <td>${pi===0&&s.custom?`<button class="pbtn sm ghost" type="button" data-svcdel="${esc(s.id)}">Usuń</button>`:''}</td></tr>`).join('');
+  return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.',`<button class="pbtn dark" type="button" data-pact="svc">${ic('plus')}Dodaj usługę</button>`)}
+  <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th></th><th>Usługa / pakiet</th><th>Sposób rezerwacji</th><th>Zadatek</th><th>Czas</th>${SIZES.map(z=>`<th class="r">${z.name}</th>`).join('')}<th></th></tr></thead><tbody>
+  ${groups.map(g=>`<tr class="cat-row"><td colspan="${6+SIZES.length}">${esc(g[0])}</td></tr>${g[1].map(row).join('')}`).join('')}
   </tbody></table></div></div>
   <div class="box"><div class="box-h"><h2>Dodatki</h2><small>pokazywane przy pasujących usługach</small></div><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Dodatek</th><th>Przy usługach</th><th>Czas</th><th class="r">Cena</th></tr></thead><tbody>
-  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>svcById(f).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
+  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>(svcById(f)||{name:f}).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
   </tbody></table></div></div>`;
 }
-const SET={sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false,loy_on:true,loy_rate:5,loy_min:100,loy_auto:true,loy_sms:true};
+const SET={sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false,loy_on:true,loy_rate:5,loy_min:100,loy_auto:true,loy_sms:true,
+  tg_on:true,wl_auto:true,wl_approve:true,dash:null,
+  cats:[{id:'mycie',name:'Mycie i wnętrze'},{id:'lakier',name:'Lakier i ochrona'}],
+  bays:[{id:1,name:'Stanowisko 1',desc:'lakier, powłoki, PPF',cats:['lakier']},{id:2,name:'Stanowisko 2',desc:'mycie, wnętrze',cats:['mycie']}]};
 function ustHTML(){
-  const row=(k,t,d)=>`<div class="set-row"><div><b>${t}</b><small>${d}</small></div><button class="sw" type="button" data-sw="${k}" aria-pressed="${SET[k]}" aria-label="${t}"></button></div>`;
-  return `${topbar('Ustawienia','Powiadomienia i zasady rezerwacji.')}
+  const row=(k,t,d)=>`<div class="set-row"><div><b>${t}</b><small>${d}</small></div><button class="sw" type="button" data-sw="${k}" aria-pressed="${!!SET[k]}" aria-label="${t}"></button></div>`;
+  return `${topbar('Ustawienia','Stanowiska, powiadomienia i zasady rezerwacji.')}
+  <div class="box"><div class="box-h"><h2>Stanowiska</h2><small>${BAYS().length} w salonie</small></div>
+    ${BAYS().map(x=>`<div class="bay-ed"><div class="fgrid"><label class="pf">Nazwa<input data-bayf="name" data-bay="${x.id}" value="${esc(x.name)}" maxlength="40"></label><label class="pf">Opis<input data-bayf="desc" data-bay="${x.id}" value="${esc(x.desc||'')}" maxlength="60" placeholder="np. mycie, wnętrze"></label></div>
+      <div class="bay-cats"><span>Przyjmuje:</span>${SET.cats.map(c=>`<label><input type="checkbox" data-baycat="${x.id}" value="${esc(c.id)}" ${(x.cats||[]).includes(c.id)?'checked':''}> ${esc(c.name)}</label>`).join('')}${BAYS().length>1?`<button class="pbtn sm ghost" type="button" data-baydel="${x.id}">Usuń stanowisko</button>`:''}</div></div>`).join('')}
+    <button class="pbtn" type="button" data-bayadd="1" style="justify-self:start">${ic('plus')}Dodaj stanowisko</button>
+    <div class="insight">Formularz na stronie sam dobiera wolne stanowisko, które przyjmuje daną kategorię usług. Więcej stanowisk to więcej wolnych terminów dla klientów.</div></div>
   <div class="grid2">
+  <div class="box"><div class="box-h"><h2>Lista rezerwowa</h2><small>automat</small></div>
+    ${row('wl_auto','Automatycznie proponuj zwolniony termin','Gdy ktoś odwoła wizytę, pierwsza osoba z listy na ten dzień dostaje propozycję')}
+    ${row('wl_approve','Najpierw zapytaj salon na Telegramie','Propozycja czeka na Twoją akceptację, zanim pójdzie SMS do klienta')}</div>
+  <div class="box"><div class="box-h"><h2>Powiadomienia dla salonu</h2></div>
+    ${row('tg_on','Telegram','Nowe rezerwacje i propozycje z listy rezerwowej z przyciskami akceptacji (w demo podgląd w panelu)')}
+    ${row('owner_sms','SMS o nowej rezerwacji','Z przyciskami Potwierdź / Inny termin / Odrzuć')}
+    ${row('owner_wa','WhatsApp zamiast SMS','Wygodniejsze przy zdjęciach auta')}</div>
   <div class="box"><div class="box-h"><h2>SMS-y do klientów</h2><small>w demo bez wysyłki</small></div>
     ${row('sms_confirm','Potwierdzenie rezerwacji','Od razu po rezerwacji albo po potwierdzeniu przez salon')}
     ${row('sms_remind','Przypomnienie dzień przed','O 8:00 dzień przed wizytą, z adresem')}
     ${row('sms_review','Prośba o opinię w Google','Dzień po odbiorze auta')}
     ${row('sms_refresh','Przypomnienie o odświeżeniu','Mycie po 6 tyg., wnętrze po 6 mies., przegląd ceramiki po roku')}
     ${row('missed','SMS po nieodebranym telefonie','Z linkiem do rezerwacji online')}</div>
-  <div class="box"><div class="box-h"><h2>Salon</h2></div>
-    ${row('owner_sms','SMS o nowej rezerwacji','Z przyciskami Potwierdź / Inny termin / Odrzuć')}
-    ${row('owner_wa','WhatsApp zamiast SMS','Wygodniejsze przy zdjęciach auta')}
-    <div class="set-row"><div><b>Zadatek</b><small>Przy usługach „od ręki”. Przepada przy odwołaniu później niż 24 h przed wizytą.</small></div><span>50-100 zł</span></div>
-    <div class="set-row"><div><b>Stanowiska</b><small>Stanowisko 1: lakier, powłoki, PPF. Stanowisko 2: mycie, wnętrze.</small></div><span>2</span></div>
-    <div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty demo i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div></div>
-  </div>
   <div class="box"><div class="box-h"><h2>Program lojalnościowy</h2><small>działa sam, bez kart i pieczątek</small></div>
-    ${row('loy_on','Punkty za wizyty',`${SET.loy_rate}% wartości każdej zakończonej wizyty wraca jako punkty (1 pkt = 1 zł rabatu)`)}
+    ${row('loy_on','Punkty za wizyty',`${+SET.loy_rate}% wartości każdej zakończonej wizyty wraca jako punkty (1 pkt = 1 zł rabatu)`)}
     <div class="set-row"><div><b>Zwrot w punktach</b><small>procent wartości wizyty</small></div><input class="cin" type="number" min="1" max="20" value="${+SET.loy_rate}" data-setnum="loy_rate" aria-label="Procent zwrotu w punktach"></div>
     <div class="set-row"><div><b>Próg odliczenia</b><small>od ilu punktów odejmujemy rabat</small></div><input class="cin" type="number" min="10" step="10" value="${+SET.loy_min}" data-setnum="loy_min" aria-label="Próg odliczenia punktów"></div>
-    ${row('loy_auto','Odliczaj automatycznie przy wydaniu auta','Nikt nie musi pamiętać: rabat odejmuje się sam w protokole wydania')}
-    ${row('loy_sms','SMS po przekroczeniu progu','„Masz już 120 zł rabatu na kolejną wizytę” (w demo bez wysyłki)')}
-    <div class="insight">Punkty naliczają się z zakończonych wizyt. Klient widzi saldo na stronie statusu auta, a salon w zakładce Klienci.</div></div>`;
+    ${row('loy_auto','Odliczaj automatycznie przy wydaniu auta','Rabat odejmuje się sam w protokole wydania')}
+    ${row('loy_sms','SMS po przekroczeniu progu','„Masz już 120 zł rabatu na kolejną wizytę” (w demo bez wysyłki)')}</div>
+  </div>
+  <div class="box"><div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty, bony i listę rezerwową demo, i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div></div>`;
 }
-
 /* ---------- statystyki (dane przykładowe do pokazu) ---------- */
 function notifHTML(){
   const b=pending()[0];
-  if(!b) return `<div class="empty">Brak nowych zgłoszeń. Tu pojawi się podgląd SMS-a, który dostaje salon.</div>`;
-  return `<div class="notif"><div class="from"><span>SMS do salonu · ${ago(b.created)}</span><span>od: Lumen Panel</span></div>
-    <div class="bubble">Nowa prośba o termin
+  if(!b) return `<div class="empty">Brak nowych zgłoszeń. Tu widać, co salon dostaje na Telegram przy nowej rezerwacji.</div>`;
+  return `<div class="tg-card"><div class="tg-head"><span class="tg-ic">${ic('send')}</span><b>Lumen Bot</b><small>Telegram · ${ago(b.created)}</small></div>
+    <div class="tg-msg"><b>Nowa prośba o termin</b>
 ${bName(b)}
 ${esc(b.car)}, ${sizeName(b).toLowerCase()}
 Oddanie: ${fdt(b.start)}
 Szacunkowo: ${zl(b.total)} · zdjęcia: ${b.photos}
 ${esc(b.name)}, ${esc(b.phone)}</div>
-    <div class="qa"><button class="pbtn sm" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button></div>
-    <small style="color:var(--grey)">Salon odpowiada jednym kliknięciem z telefonu, bez logowania. Klient od razu dostaje SMS.</small></div>`;
+    <div class="tg-btns" style="grid-template-columns:1fr 1fr 1fr"><button type="button" class="main" data-rq="confirm" data-id="${b.id}">Potwierdź</button><button type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button></div></div>
+    <small style="color:var(--grey);display:block;margin-top:8px">Salon odpowiada jednym kliknięciem w Telegramie, bez logowania. Klient od razu dostaje SMS.</small>`;
 }
-function statsHTML(){
-  const web=BOOKINGS.filter(b=>b.src==='web'), val=18640+web.reduce((t,b)=>t+b.total,0);
-  const box=(h,sm,body,cls='')=>`<section class="psec ${cls}"><div class="sec-h"><h2>${h}</h2><small>${sm}</small></div><div class="sec-b">${body}</div></section>`;
-  return `<div class="ptop sub"><div><h2>Statystyki</h2><p>Ostatnie 30 dni. W demo częściowo przykładowe.</p></div></div>
-  <div class="kpis num">
-    <div class="kpi hl"><small>Zarezerwowane przez stronę</small><b>${zl(val)}</b><span><span class="up">▲ 32%</span> wobec poprzednich 30 dni</span></div>
-    <div class="kpi"><small>Rezerwacje online</small><b>${41+web.length}</b><span><span class="up">▲ 11</span> · 64% wszystkich wizyt</span></div>
-    <div class="kpi"><small>Średni czas potwierdzenia</small><b>47 min</b><span>cel: poniżej 2 h</span></div>
-    <div class="kpi"><small>Nieodbyte wizyty</small><b>1</b><span>2% · wszystkie bez zadatku</span></div>
-  </div>
-  <div class="grid2">
-    ${box('Skąd przychodzą rezerwacje','30 dni',`<div class="bars num">${[['Instagram (bio)',17],['Wizytówka Google',15],['Facebook',5],['Bezpośrednio',4]].concat(web.length?[['Strona www',web.length]]:[]).map(r=>`<div class="bar"><span>${r[0]}</span><span class="tr"><i style="width:${Math.min(100,r[1]/17*100)}%"></i></span><b>${r[1]}</b></div>`).join('')}</div><div class="insight">Link w bio na Instagramie daje najwięcej rezerwacji. Wizytówka Google rośnie od dodania linku „Zarezerwuj”.</div>`)}
-    ${box('Gdzie klienci odpadają','formularz · 30 dni',`<div class="bars num">${[['Otworzyli formularz',214],['Wybrali auto',171],['Wybrali termin',98,1],['Podali dane',61],['Wysłali',41]].map((r,i,a)=>`<div class="bar ${r[2]?'worst':''}"><span>${r[0]}</span><span class="tr"><i style="width:${r[1]/214*100}%"></i></span><b>${r[1]}</b></div>${i&&r[2]?`<div class="bar"><span></span><span class="drop-l">−${Math.round((1-r[1]/a[i-1][1])*100)}% na tym kroku</span></div>`:''}`).join('')}</div><div class="insight"><b>Najwięcej osób odpada przy wyborze terminu.</b> 6 z 10 szukało soboty, a soboty są zajęte na 3 tygodnie. Rozważ dłuższe soboty albo listę rezerwową.</div>`,'funnel')}
-    ${box('Powiadomienie na telefon','podgląd',notifHTML())}
-    ${box('Automatyczne SMS-y','ostatnie',`<div class="log">
-      <div><time>8:00</time><span>Przypomnienie: <b>Kamil Z.</b>, jutro 10:00, mycie</span></div>
-      <div><time>wczoraj</time><span>Prośba o opinię: <b>Magda R.</b> → zostawiła 5★ w Google</span></div>
-      <div><time>wczoraj</time><span>Potwierdzenie z zadatkiem: <b>Natalia K.</b>, 50 zł BLIK</span></div>
-      <div><time>pon</time><span>Zaplanowano „czas odświeżyć powłokę”: <b>Anna W.</b>, za 6 mies.</span></div>
-      <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div>
-      <div><time>pon</time><span>Program lojalnościowy: <b>Robert J.</b> ma 395 pkt → SMS „odliczymy przy odbiorze”</span></div></div>`)}
-  </div>`;
-}
-
+function statsHTML(){return ''}
 /* ---------- protokół przyjęcia auta ---------- */
 const DMG={W:'Wgniecenie',R:'Rysa',O:'Odprysk',P:'Pęknięcie',I:'Inne'};
 const FUEL=['rezerwa','1/4','1/2','3/4','pełny'];
@@ -1653,13 +1718,6 @@ async function addExtra(id){
 }
 
 /* ---------- lista rezerwowa ---------- */
-function waitHTML(){
-  const l=WAIT.filter(w=>w.status==='waiting'||w.status==='notified').sort((a,b)=>a.day<b.day?-1:1);
-  return `<section class="psec"><div class="sec-h"><h2>Lista rezerwowa</h2><small>klienci czekający na zwolniony termin</small></div><div class="sec-b">
-  ${l.map(w=>`<div class="row-i wide"><time>${fd(pday(w.day))}<small>${esc((svcById(w.svc)||{name:w.svc}).name)}</small></time><span><span class="who">${esc(w.name)} ${w.status==='notified'?'<span class="st proposed">SMS wysłany</span>':''}</span><span class="what">${esc(w.phone)}${w.note?' · '+esc(w.note):''}</span></span>
-    <span class="acts-i"><button class="pbtn sm" type="button" data-wnotify="${w.id}">SMS: jest miejsce</button><button class="pbtn sm dark" type="button" data-wbook="${w.id}">Umów</button><button class="pbtn sm ghost" type="button" data-wclose="${w.id}" aria-label="Usuń ${esc(w.name)} z listy">Usuń</button></span></div>`).join('')
-    ||`<div class="empty">${SIDE_ERR?'Brak tabeli listy rezerwowej w bazie. Uruchom schema.sql w Supabase.':'Nikt nie czeka. Klienci zapisują się sami w formularzu, gdy dzień jest pełny.'}</div>`}</div></section>`;
-}
 const wlHint=b=>{const n=WAIT.filter(w=>w.status==='waiting'&&w.day===ymd(sod(b.start))).length;return n?` Na ${fd(b.start)} czeka ${n} ${n===1?'osoba':'osoby'} z listy rezerwowej (Kalendarz).`:''};
 
 /* ---------- bony prezentowe ---------- */
@@ -1695,6 +1753,160 @@ async function vIssue(f){
   if(error){err.textContent=SIDE_ERR?'Brak tabeli bonów w bazie. Uruchom schema.sql w Supabase.':'Nie udało się wystawić bonu.';return}
   if(!VOUCH.some(v=>v.id===data.id)) VOUCH.unshift(data); GUARD=false; drw().close(); renderPanel();
   toast(`Bon ${data.code} na ${zl(amt)} wystawiony. PDF poszedł SMS-em do kupującego (w demo bez wysyłki).`);
+}
+
+/* ---------- stanowiska, kategorie, zdjęcia usług ---------- */
+const BUILTIN=['mycie','wnetrze','korekta','ceramika','ppf','sprzedaz'];
+const SB_PUB='https://zzypdeubmxhpauxzwubd.supabase.co/storage/v1/object/public/public/';
+const svcImg=s=>s.img&&String(s.img).startsWith(SB_PUB)&&!/["'<>\s]/.test(s.img)?s.img:BUILTIN.includes(s.id)?`assets/${s.id}.jpg`:'assets/hero.jpg';
+const catOf=s=>(s&&s.cat)||(s&&s.pk&&s.pk.some(p=>p.d)?'lakier':'mycie');
+const BAYS=()=>Array.isArray(SET.bays)&&SET.bays.length?SET.bays:[{id:1,name:'Stanowisko 1',desc:'',cats:SET.cats.map(c=>c.id)}];
+const bayName=id=>(BAYS().find(b=>b.id===id)||{name:'Stanowisko '+id}).name;
+function baysFor(sid){const c=catOf(svcById(sid));const l=BAYS().filter(b=>(b.cats||[]).includes(c)).map(b=>b.id);return l.length?l:BAYS().map(b=>b.id)}
+const freeBay=(sid,a,b)=>(sid?baysFor(sid):BAYS().map(x=>x.id)).find(id=>!overlaps(id,a,b));
+const cleanTxt=t=>String(t||'').replace(/[<>"&]/g,'').trim();
+const slugify=t=>String(t).toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,30)||'usluga';
+function catGroups(){
+  const known=SET.cats.map(c=>c.id), groups=SET.cats.map(c=>[c.name,SERVICES.filter(s=>catOf(s)===c.id)]).concat([['Inne',SERVICES.filter(s=>!known.includes(catOf(s)))]]);
+  return groups.filter(g=>g[1].length).map(g=>`<h3 class="cat-h">${esc(g[0])}</h3>${g[1].map(svcCard).join('')}`).join('');
+}
+
+/* ---------- pulpit: alerty, widgety, stanowiska na żywo ---------- */
+const DASH_DEF=['bays','decide','today','tomorrow','week','kpis','sources','funnel','notif','sms'];
+const dashOrder=()=>{const o=(Array.isArray(SET.dash)?SET.dash:[]).filter(x=>DASH_DEF.includes(x));return o.concat(DASH_DEF.filter(x=>!o.includes(x)))};
+function alertsHTML(){
+  const p=pending().slice().sort((a,b)=>a.created-b.created), offers=WAIT.filter(w=>w.status==='offer'), ex=BOOKINGS.filter(b=>(b.extras||[]).some(x=>x.status==='pending')), ready=BOOKINGS.filter(b=>b.status==='confirmed'&&b.stage==='gotowe');
+  const a=[];
+  if(p.length) a.push(`<div class="alert warn" role="alert"><span class="ai">${ic('clock')}</span><span><b>${p.length} ${p.length===1?'klient czeka':'klientów czeka'} na potwierdzenie terminu</b><small>Najdłużej czeka ${esc(p[0].name)}, ${ago(p[0].created)}. Szybka odpowiedź to mniej klientów, którzy pójdą gdzie indziej.</small></span><button class="pbtn sm dark" type="button" data-open="${p[0].id}">Potwierdź teraz</button></div>`);
+  if(offers.length) a.push(`<div class="alert warn"><span class="ai">${ic('send')}</span><span><b>Lista rezerwowa: ${offers.length} ${offers.length===1?'propozycja czeka':'propozycje czekają'} na Twoją akceptację</b><small>Zwolnił się termin. Po akceptacji klient dostanie SMS.</small></span><button class="pbtn sm" type="button" data-nav="wl">Zobacz</button></div>`);
+  if(ready.length) a.push(`<div class="alert"><span class="ai">${ic('check')}</span><span><b>${ready.length} ${ready.length===1?'auto gotowe':'aut gotowych'} do odbioru</b><small>${ready.map(b=>esc(b.name)).join(', ')}</small></span></div>`);
+  if(ex.length) a.push(`<div class="alert"><span class="ai">${ic('bell')}</span><span><b>${ex.length} ${ex.length===1?'dopłata czeka':'dopłaty czekają'} na odpowiedź klienta</b><small>${ex.map(b=>esc(b.name)).join(', ')}</small></span></div>`);
+  if(!p.length&&!offers.length) a.unshift(`<div class="alert ok"><span class="ai">${ic('check')}</span><span><b>Nic nie czeka na Twoją decyzję</b><small>Nowe zgłoszenia ze strony pojawią się tutaj same.</small></span></div>`);
+  return `<div class="alerts">${a.join('')}</div>`;
+}
+function baysW(){
+  const bs=BAYS(), id=bs.some(b=>b.id===P.bay)?P.bay:bs[0].id, now=new Date();
+  const cur=b=>b.status==='confirmed'&&(['przyjete','w_trakcie','gotowe'].includes(b.stage)||(b.start<=now&&b.end>now));
+  const curOf=x=>BOOKINGS.filter(b=>b.bay===x&&cur(b)).sort((a,b)=>a.start-b.start);
+  const on=curOf(id), q=BOOKINGS.filter(b=>b.bay===id&&['confirmed','pending','proposed'].includes(b.status)&&!cur(b)&&b.start>now).sort((a,b)=>a.start-b.start).slice(0,5);
+  const card=b=>{const pr=Math.max(0,Math.min(100,Math.round((now-b.start)/(b.end-b.start)*100)));
+    return `<button type="button" class="now-card" data-open="${b.id}"><span class="top"><span><h3>${esc(b.car)}</h3><span class="meta">${esc(b.name)} · ${bName(b)}</span></span>${b.stage?`<span class="stg">${STG[b.stage]}</span>`:''}</span>
+      <span class="prog-b" role="img" aria-label="Postęp ${pr}%"><i style="width:${pr}%"></i></span><span class="meta">oddane ${fdt(b.start)} · odbiór ${fdt(b.end)}</span></button>`};
+  return `<div class="bay-now">
+    <p class="lbl-s">Teraz na stanowisku</p>${on.map(card).join('')||'<div class="empty">Stanowisko wolne.</div>'}
+    <p class="lbl-s">W kolejce</p><ol class="queue">${q.map((b,i)=>`<li><button type="button" data-open="${b.id}"><span class="n">${i+1}</span><span><b>${fhm(b.start)}</b><small>${fd(b.start)}</small></span><span>${esc(b.name)}<small>${bName(b)} · ${esc(b.car)}</small></span>${b.status==='confirmed'?'':stChip(b.status)}</button></li>`).join('')||'<li class="empty">Kolejka pusta.</li>'}</ol></div>`;
+}
+const spark=(a,col='var(--accent)')=>{const mx=Math.max(...a),mn=Math.min(...a);return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="${col}" stroke-width="2" points="${a.map((v,i)=>`${i*100/(a.length-1)},${28-(v-mn)/(mx-mn||1)*26}`).join(' ')}"/></svg>`};
+function kpisW(){
+  const web=BOOKINGS.filter(b=>b.src==='web'), val=18640+web.reduce((t,b)=>t+b.total,0);
+  return `<div class="kpis num">
+    <div class="kpi hl"><small>Zarezerwowane przez stronę · 30 dni</small><b>${zl(val)}</b><span class="cmp"><span class="up">▲ 32%</span> wobec poprzednich 30 dni</span>${spark([9,11,10,13,12,15,14,17,19],'#fff')}</div>
+    <div class="kpi"><small>Rezerwacje online · 30 dni</small><b>${41+web.length}</b><span class="cmp"><span class="up">▲ 11</span> · 64% wszystkich wizyt</span>${spark([4,6,5,7,6,8,9,8,11])}</div>
+    <div class="kpi"><small>Średni czas potwierdzenia</small><b>47 min</b><span class="cmp">cel: poniżej 2 h · lepiej o 18 min</span>${spark([80,72,75,66,60,58,52,49,47])}</div>
+    <div class="kpi"><small>Nieodbyte wizyty · 30 dni</small><b>1</b><span class="cmp">2% · wszystkie bez zadatku</span>${spark([4,3,3,2,3,2,1,2,1])}</div>
+  </div>`;
+}
+function smsW(){return `<div class="log">
+  <div><time>8:00</time><span>Przypomnienie: <b>Kamil Z.</b>, jutro 10:00, mycie</span></div>
+  <div><time>wczoraj</time><span>Prośba o opinię: <b>Magda R.</b> → zostawiła 5★ w Google</span></div>
+  <div><time>wczoraj</time><span>Potwierdzenie z zadatkiem: <b>Natalia K.</b>, 50 zł BLIK</span></div>
+  <div><time>pon</time><span>Zaplanowano „czas odświeżyć powłokę”: <b>Anna W.</b>, za 6 mies.</span></div>
+  <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div>
+  <div><time>pon</time><span>Program lojalnościowy: <b>Robert J.</b> ma 395 pkt → SMS „odliczymy przy odbiorze”</span></div></div>`}
+function sourcesW(){const web=BOOKINGS.filter(b=>b.src==='web');return `<div class="bars num">${[['Instagram (bio)',17],['Wizytówka Google',15],['Facebook',5],['Bezpośrednio',4]].concat(web.length?[['Strona www',web.length]]:[]).map(r=>`<div class="bar"><span>${r[0]}</span><span class="tr"><i style="width:${Math.min(100,r[1]/17*100)}%"></i></span><b>${r[1]}</b></div>`).join('')}</div><div class="insight">Link w bio na Instagramie daje najwięcej rezerwacji. Wizytówka Google rośnie od dodania linku „Zarezerwuj”.</div>`}
+function funnelW(){return `<div class="bars num">${[['Otworzyli formularz',214],['Wybrali auto',171],['Wybrali termin',98,1],['Podali dane',61],['Wysłali',41]].map((r,i,a)=>`<div class="bar ${r[2]?'worst':''}"><span>${r[0]}</span><span class="tr"><i style="width:${r[1]/214*100}%"></i></span><b>${r[1]}</b></div>${i&&r[2]?`<div class="bar"><span></span><span class="drop-l">−${Math.round((1-r[1]/a[i-1][1])*100)}% na tym kroku</span></div>`:''}`).join('')}</div><div class="insight"><b>Najwięcej osób odpada przy wyborze terminu.</b> 6 z 10 szukało soboty, a soboty są zajęte na 3 tygodnie. Lista rezerwowa łapie część z nich.</div>`}
+function wdg(id){
+  const n=pending().length, tom=addDays(T0,1), bs=BAYS(), cb=bs.some(b=>b.id===P.bay)?P.bay:bs[0].id;
+  const W={
+    bays:['Stanowiska na żywo',`<span class="seg-t" role="group" aria-label="Wybierz stanowisko">${bs.map(x=>`<button type="button" data-baytab="${x.id}" aria-pressed="${x.id===cb}">${esc(x.name)}<span class="cnt">${BOOKINGS.filter(b=>b.bay===x.id&&b.status==='confirmed'&&b.end>new Date()&&b.start<addDays(T0,1)).length}</span></button>`).join('')}</span>`,baysW,'half'],
+    decide:['Czeka na decyzję',`<small>${n?'najstarsze na górze':''}</small>`,()=>n?pending().slice().sort((a,b)=>a.created-b.created).map(decCard).join(''):'<div class="empty">Nic nie czeka. Nowe zgłoszenia ze strony pojawią się tutaj same.</div>','half'],
+    today:['Dziś na stanowiskach',`<small>${fd(T0)}</small>`,()=>dayAgenda(T0),'half'],
+    tomorrow:['Jutro',`<small>${fd(tom)}</small>`,()=>dayAgenda(tom),'half'],
+    week:['Ten tydzień',LEGEND,()=>weekHTML(0),'full'],
+    kpis:['Wyniki · 30 dni','<small>dane częściowo przykładowe</small>',kpisW,'full','flush'],
+    sources:['Skąd przychodzą rezerwacje','<small>30 dni</small>',sourcesW,'half'],
+    funnel:['Gdzie klienci odpadają','<small>formularz · 30 dni</small>',funnelW,'half funnel'],
+    notif:['Powiadomienie dla salonu','<small>Telegram · podgląd</small>',notifHTML,'half'],
+    sms:['Automatyczne SMS-y','<small>ostatnie</small>',smsW,'half']}[id];
+  return `<section class="psec wdg ${W[3]}" data-wdg="${id}" ${P.edit?'draggable="true"':''}><div class="sec-h"><h2>${W[0]}</h2>${P.edit?`<span class="wdg-tools"><button type="button" data-wmove="${id}:-1" aria-label="Przesuń wyżej: ${W[0]}">↑</button><button type="button" data-wmove="${id}:1" aria-label="Przesuń niżej: ${W[0]}">↓</button><span class="grip" aria-hidden="true">⠿</span></span>`:W[1]}</div><div class="sec-b ${W[4]||''}">${W[2]()}</div></section>`;
+}
+function moveWdg(id,to){const o=dashOrder(),i=o.indexOf(id);o.splice(i,1);o.splice(Math.max(0,Math.min(o.length,to)),0,id);SET.dash=o;saveCatalog();renderPanel()}
+
+/* ---------- lista rezerwowa: osobna zakładka, automat z akceptacją na Telegramie ---------- */
+function tgCard(w){
+  const s=svcById(w.svc)||{name:w.svc};
+  return `<div class="tg-card"><div class="tg-head"><span class="tg-ic">${ic('send')}</span><b>Lumen Bot</b><small>Telegram · ${ago(new Date(w.slot_at||w.created_at))}</small></div>
+    <div class="tg-msg">Zwolnił się termin: <b>${fdt(new Date(w.slot_at))}</b>, ${esc(bayName(+w.slot_bay))}.
+Pierwsza osoba na liście rezerwowej: <b>${esc(w.name)}</b> (${esc(s.name)}), ${esc(w.phone)}${w.note?'\nUwagi: '+esc(w.note):''}.
+Wysłać jej propozycję SMS-em?</div>
+    <div class="tg-btns"><button type="button" class="main" data-woffer="${w.id}" data-ok="1">Wyślij propozycję</button><button type="button" data-woffer="${w.id}" data-ok="0">Pomiń, następna osoba</button></div></div>`;
+}
+function wlTabHTML(){
+  const offers=WAIT.filter(w=>w.status==='offer'), l=WAIT.filter(w=>w.status==='waiting'||w.status==='notified').sort((a,b)=>a.day<b.day?-1:a.day>b.day?1:new Date(a.created_at)-new Date(b.created_at));
+  return `${topbar('Lista rezerwowa',`${l.length} ${l.length===1?'osoba czeka':'osób czeka'} na zwolniony termin. Klienci zapisują się sami, gdy dzień jest pełny.`,`<button class="pbtn" type="button" data-wsim="1">Zasymuluj odwołaną wizytę</button>`)}
+  <div class="auto-note">${SET.wl_auto?`<b>Automat włączony.</b> Gdy ktoś odwoła wizytę, pierwsza osoba z listy na ten dzień dostaje propozycję${SET.wl_approve?', ale dopiero gdy zaakceptujesz ją na Telegramie':' od razu SMS-em'}.`:'<b>Automat wyłączony.</b> Propozycje wysyłasz ręcznie.'}<button class="pbtn sm" type="button" data-nav="ust">Zmień</button></div>
+  ${offers.length?`<section class="psec"><div class="sec-h"><h2>Czeka na Twoją akceptację</h2><small>to samo przyszło na Telegram</small></div><div class="sec-b" style="display:grid;gap:10px;padding:14px 16px">${offers.map(tgCard).join('')}</div></section>`:''}
+  <section class="psec"><div class="sec-h"><h2>Czekają na termin</h2><small>kolejność zapisu</small></div><div class="sec-b">
+  ${l.map((w,i)=>`<div class="row-i wide"><time><input class="wl-day" type="date" value="${esc(w.day)}" min="${ymd(T0)}" data-wday="${w.id}" aria-label="Przenieś ${esc(w.name)} na inny dzień"><small>${esc((svcById(w.svc)||{name:w.svc}).name)}</small></time>
+    <span><span class="who">${i+1}. ${esc(w.name)} ${w.status==='notified'?'<span class="st proposed">SMS wysłany</span>':''}</span><span class="what">${esc(w.phone)}${w.note?' · '+esc(w.note):''} · zapis ${ago(new Date(w.created_at))}</span></span>
+    <span class="acts-i"><button class="pbtn sm" type="button" data-wnotify="${w.id}">SMS: jest miejsce</button><button class="pbtn sm dark" type="button" data-wbook="${w.id}">Umów na termin</button><button class="pbtn sm ghost" type="button" data-wclose="${w.id}" aria-label="Usuń ${esc(w.name)} z listy">Usuń</button></span></div>`).join('')
+    ||`<div class="empty">${SIDE_ERR?'Brak tabeli listy rezerwowej w bazie. Uruchom schema.sql w Supabase.':'Nikt nie czeka. Klienci zapisują się sami w formularzu, gdy dzień jest pełny.'}</div>`}</div></section>`;
+}
+async function autoOffer(slot){
+  const w=WAIT.filter(x=>x.status==='waiting'&&x.day===slot.day&&!(slot.skip||[]).includes(x.id)&&baysFor(x.svc).includes(slot.bay)).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at))[0];
+  if(!w) return '';
+  const st=SET.wl_approve?'offer':'notified', upd={status:st,slot_at:slot.at.toISOString(),slot_bay:slot.bay};
+  const {error}=await sb.from('waitlist').update(upd).eq('id',w.id);
+  if(error) return ' Lista rezerwowa: uruchom schema.sql, żeby automat zadziałał.';
+  Object.assign(w,upd);
+  return st==='offer'?` Na Telegram poszło pytanie, czy zaproponować termin ${w.name} z listy rezerwowej.`:` ${w.name} z listy rezerwowej dostał SMS z propozycją terminu (w demo bez wysyłki).`;
+}
+
+/* ---------- cennik: nowa usługa ze zdjęciem ---------- */
+function svcFormHTML(){
+  return `<form id="fsvc" novalidate><div class="drw-h"><div><h2>Nowa usługa</h2><p>Pojawi się od razu na stronie i w formularzu rezerwacji.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf full">Nazwa usługi<input name="sname" maxlength="60" required placeholder="np. Odgrzybianie klimatyzacji"></label>
+    <label class="pf">Kategoria<select name="cat">${SET.cats.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}<option value="__new">+ Nowa kategoria</option></select></label>
+    <label class="pf" id="newcat" hidden>Nazwa nowej kategorii<input name="newcat" maxlength="40"></label>
+    <label class="pf full">Krótki opis<input name="short" maxlength="140" placeholder="Co klient dostaje, jednym zdaniem"></label>
+    <label class="pf">Sposób rezerwacji<select name="mode"><option value="instant">Od ręki z zadatkiem</option><option value="confirm">Do potwierdzenia (zdjęcia)</option></select></label>
+    <label class="pf">Zadatek (zł)<input name="deposit" type="number" min="0" step="10" value="50"></label>
+    <label class="pf">Czas trwania<input name="dur" type="number" min="0.5" step="0.5" value="2"></label>
+    <label class="pf">Jednostka<select name="unit"><option value="h">godziny</option><option value="d">dni robocze</option></select></label>
+    ${SIZES.map((z,i)=>`<label class="pf">Cena: ${z.name}<input name="p${i}" type="number" min="0" step="10" value="${[199,229,259,299][i]}"></label>`).join('')}
+    <label class="pf full">Zdjęcie na stronę <span class="opt-l">(JPG, PNG albo WebP, do 5 MB)</span><input type="file" name="img" accept="image/jpeg,image/png,image/webp"></label>
+    <div class="full svc-prev" id="svc-prev" hidden><img alt="Podgląd zdjęcia usługi"></div>
+  </div>
+  <div class="ferr" id="fs-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">Dodaj usługę</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div></div></form>`;
+}
+async function svcSubmit(f){
+  const E=f.elements, err=$('#fs-err'), name=cleanTxt(E.sname.value), fail=m=>{err.textContent=m};
+  if(name.length<3) return fail('Wpisz nazwę usługi.');
+  let cat=E.cat.value, newCat=null;
+  if(cat==='__new'){const n=cleanTxt(E.newcat.value);if(n.length<2)return fail('Wpisz nazwę nowej kategorii.');cat=slugify(n);if(!SET.cats.some(c=>c.id===cat))newCat={id:cat,name:n}}
+  const prices=SIZES.map((_,i)=>Math.max(0,Math.round(+E['p'+i].value||0)));
+  if(prices.some(x=>!x)) return fail('Uzupełnij ceny dla wszystkich wielkości auta.');
+  const dur=+E.dur.value; if(!(dur>0)) return fail('Podaj czas trwania.');
+  const btn=f.querySelector('[type=submit]'); btn.disabled=true; btn.textContent='Zapisuję…';
+  let img=null; const fl=E.img.files[0];
+  if(fl){
+    if(fl.size>5e6){btn.disabled=false;btn.textContent='Dodaj usługę';return fail('Zdjęcie jest większe niż 5 MB.')}
+    const ext=({'image/png':'png','image/webp':'webp'})[fl.type]||'jpg', path=`${STUDIO.id}/svc-${crypto.randomUUID()}.${ext}`;
+    const {error}=await sb.storage.from('public').upload(path,fl,{contentType:fl.type||'image/jpeg'});
+    if(error){btn.disabled=false;btn.textContent='Dodaj usługę';return fail('Nie udało się wgrać zdjęcia. Uruchom schema.sql w Supabase (bucket na zdjęcia usług).')}
+    img=sb.storage.from('public').getPublicUrl(path).data.publicUrl;
+  }
+  let id=slugify(name); while(svcById(id)) id=id.slice(0,26)+'-'+Math.floor(Math.random()*90+10);
+  const unit=E.unit.value, short=cleanTxt(E.short.value);
+  const svc={id,name,seo:name,short,mode:E.mode.value,deposit:Math.max(0,Math.round(+E.deposit.value||0)),cat,img,custom:true,ph:'wash',dur:'',incl:[],faq:[],
+    pk:[{id:'std',name:'Standard',desc:short||name,p:prices,...(unit==='d'?{d:Math.max(1,Math.round(dur))}:{h:dur})}]};
+  if(newCat){SET.cats.push(newCat);BAYS().forEach(b=>{b.cats=(b.cats||[]).concat(newCat.id)})}
+  SERVICES.push(svc);
+  if(!(await saveCatalog())){SERVICES.pop();if(newCat)SET.cats.pop();btn.disabled=false;btn.textContent='Dodaj usługę';return fail('Nie udało się zapisać usługi.')}
+  GUARD=false; drw().close(); renderPanel();
+  toast(`Dodano „${name}” w kategorii ${(SET.cats.find(c=>c.id===cat)||{name:cat}).name}. Usługa jest już na stronie.`);
 }
 
 /* ---------- szuflada: szczegóły wizyty ---------- */
@@ -1754,14 +1966,15 @@ function addHTML(pre={}){
 }
 function addCalc(f){
   const E=f.elements, [svc,pkg]=E.svc.value.split(':'), b={svc,pkg,size:E.size.value,addons:new Set()};
-  const c=calc(b), day=E.day.value?pday(E.day.value):null, pu=day?pickup({day,hour:+E.hour.value},c):null, bay=c.days?1:2;
-  const busy=!!pu&&(BOOKINGS.some(x=>x.bay===bay&&ACT_ST.includes(x.status)&&x.start<pu.end&&x.end>pu.start)||blockHit(bay,pu.start,pu.end));
+  const c=calc(b), day=E.day.value?pday(E.day.value):null, pu=day?pickup({day,hour:+E.hour.value},c):null, ids=baysFor(svc);
+  const hit=id=>!!pu&&(BOOKINGS.some(x=>x.bay===id&&ACT_ST.includes(x.status)&&x.start<pu.end&&x.end>pu.start)||blockHit(id,pu.start,pu.end));
+  const bay=ids.find(id=>!hit(id))||ids[0], busy=!!pu&&ids.every(hit);
   return {b,c,pu,bay,busy};
 }
 function addSync(f){
   const r=addCalc(f), E=f.elements;
   if(!E.total.dataset.touched) E.total.value=r.c.total;
-  $('#fadd-sum').innerHTML=r.pu?`<span>Stanowisko ${r.bay} · ${durOf(r.c)}</span><span>odbiór ${r.pu.txt}</span>`:'<span>Wybierz dzień</span>';
+  $('#fadd-sum').innerHTML=r.pu?`<span>${esc(bayName(r.bay))} · ${durOf(r.c)}</span><span>odbiór ${r.pu.txt}</span>`:'<span>Wybierz dzień</span>';
   $('#fadd-err').textContent=r.pu&&r.pu.start.getDay()===0?'W niedzielę salon jest zamknięty.':r.busy?'Uwaga: stanowisko jest w tym czasie zajęte albo zablokowane.':'';
 }
 async function addSubmit(f){
@@ -1798,7 +2011,7 @@ function blockHTML(){
   <div class="drw-b"><div class="fgrid">
     <label class="pf">Od<input name="from" type="date" value="${d}" min="${ymd(T0)}" required></label>
     <label class="pf">Do (włącznie)<input name="to" type="date" value="${d}" min="${ymd(T0)}"></label>
-    <label class="pf full">Stanowisko<select name="bay"><option value="0">Oba stanowiska</option><option value="1">Stanowisko 1 (lakier, powłoki, PPF)</option><option value="2">Stanowisko 2 (mycie, wnętrze)</option></select></label>
+    <label class="pf full">Stanowisko<select name="bay"><option value="0">Wszystkie stanowiska</option>${BAYS().map(x=>`<option value="${x.id}">${esc(x.name)}${x.desc?' ('+esc(x.desc)+')':''}</option>`).join('')}</select></label>
     <label class="pf full">Powód<input name="note" maxlength="80" placeholder="np. urlop, szkolenie, awaria"></label>
   </div>
   <div class="ferr" id="fblock-err" role="alert"></div>
@@ -1833,7 +2046,26 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
   if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
-  if(t&&t.dataset.pact){if(t.dataset.pact==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(t.dataset.pact==='voucher')openDrawer(vIssueHTML(),true);else openDrawer(blockHTML(),true);return}
+  if(t&&t.dataset.pact){const a=t.dataset.pact;if(a==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(a==='voucher')openDrawer(vIssueHTML(),true);else if(a==='svc')openDrawer(svcFormHTML(),true);else openDrawer(blockHTML(),true);return}
+  if(t&&t.dataset.baytab){P.bay=+t.dataset.baytab;renderPanel();return}
+  if(t&&t.dataset.dedit){P.edit=!P.edit;renderPanel();return}
+  if(t&&t.dataset.dreset){SET.dash=null;saveCatalog();renderPanel();toast('Przywrócono domyślny układ pulpitu');return}
+  if(t&&t.dataset.wmove){const [id,d]=t.dataset.wmove.split(':');moveWdg(id,dashOrder().indexOf(id)+(+d));const nb=document.querySelector(`[data-wmove="${id}:${d}"]`);if(nb)nb.focus();return}
+  if(t&&t.dataset.woffer){const w=WAIT.find(x=>x.id===+t.dataset.woffer);if(!w)return;t.disabled=true;
+    if(t.dataset.ok==='1'){const {error}=await sb.from('waitlist').update({status:'notified'}).eq('id',w.id);if(error){t.disabled=false;toast('Nie udało się zapisać');return}
+      w.status='notified';renderPanel();toast(`${w.name} dostał SMS: wolny termin ${fdt(new Date(w.slot_at))}, z linkiem do potwierdzenia (w demo bez wysyłki)`);return}
+    const slot={at:new Date(w.slot_at),bay:+w.slot_bay,day:w.day,skip:[w.id]};
+    const {error}=await sb.from('waitlist').update({status:'waiting',slot_at:null,slot_bay:null}).eq('id',w.id);if(error){t.disabled=false;toast('Nie udało się zapisać');return}
+    Object.assign(w,{status:'waiting',slot_at:null,slot_bay:null});const msg=await autoOffer(slot);renderPanel();toast('Pominięto '+w.name+'.'+(msg||' Nikt więcej nie czeka na ten dzień.'));return}
+  if(t&&t.dataset.wsim){const w=WAIT.filter(x=>x.status==='waiting').sort((a,b)=>a.day<b.day?-1:1)[0];if(!w){toast('Nikt nie czeka na liście rezerwowej');return}
+    const at=pday(w.day);at.setHours(10,0,0,0);const msg=await autoOffer({at,bay:baysFor(w.svc)[0],day:w.day});renderPanel();toast('Ktoś odwołał wizytę.'+(msg||''));return}
+  if(t&&t.dataset.bayadd){const id=Math.max(0,...BAYS().map(b=>b.id))+1;SET.bays=BAYS().concat({id,name:'Stanowisko '+id,desc:'',cats:SET.cats.map(c=>c.id)});await saveCatalog();renderPanel();toast(`Dodano stanowisko ${id}. Formularz na stronie już z niego korzysta.`);return}
+  if(t&&t.dataset.baydel){const id=+t.dataset.baydel,n=BOOKINGS.filter(b=>b.bay===id&&ACT_ST.includes(b.status)&&b.end>new Date()).length;
+    if(n){toast(`Na tym stanowisku są ${n} nadchodzące wizyty. Przenieś je najpierw.`);return}
+    if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno usunąć?';return}
+    SET.bays=BAYS().filter(b=>b.id!==id);await saveCatalog();renderPanel();toast('Stanowisko usunięte');return}
+  if(t&&t.dataset.svcdel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
+    const i=SERVICES.findIndex(x=>x.id===t.dataset.svcdel);if(i<0)return;const [rm]=SERVICES.splice(i,1);if(!(await saveCatalog())){SERVICES.splice(i,0,rm);return}renderPanel();toast(`Usunięto „${rm.name}” ze strony`);return}
   if(t&&t.dataset.stage){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;t.disabled=true;
     const {error}=await sb.from('bookings').update({stage:t.dataset.stage}).eq('id',b.id);if(error){t.disabled=false;toast('Nie udało się zapisać etapu');return}
     b.stage=t.dataset.stage;renderPanel();openBk(b.id);
@@ -1856,7 +2088,9 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     const st=RQ[t.dataset.rq]; t.disabled=true;
     const {error}=await sb.from('bookings').update({status:st}).eq('id',b.id);
     if(error){t.disabled=false;toast(error.code==='23P01'?'Stanowisko jest już zajęte w tym czasie. Zaproponuj inny termin.':'Nie udało się zapisać zmiany.');return}
-    b.status=st;b.isNew=false;toast(RQ_MSG[st](b.name)+(st==='rejected'?wlHint(b):''));
+    b.status=st;b.isNew=false;
+    const wlMsg=st==='rejected'&&b.start>new Date()?(SET.wl_auto?await autoOffer({at:b.start,bay:b.bay,day:ymd(sod(b.start))}):wlHint(b)):'';
+    toast(RQ_MSG[st](b.name)+wlMsg);
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
@@ -1873,14 +2107,24 @@ document.getElementById('view-panel').addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.q){const q=t.value.trim().toLowerCase();document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
   if(t.closest('#drw')) GUARD=true;
+  if(t.form&&t.form.id==='fsvc'&&t.name==='cat'){$('#newcat').hidden=t.value!=='__new'}
   if(t.form&&t.form.id==='fadd'){const E=t.form.elements;
     if(t.name==='walkin'){$('#walk-opts').hidden=!t.checked;if(t.checked){E.day.value=ymd(T0);E.hour.value=String(Math.min(17,Math.max(8,new Date().getHours())));E.status.value='confirmed'}}
     if(t.name==='total')t.dataset.touched=1;else addSync(t.form)}
 });
+{const vp=document.getElementById('view-panel');
+  vp.addEventListener('dragstart',e=>{const w=e.target.closest&&e.target.closest('.dash.editing [data-wdg]');if(!w)return;P.drag=w.dataset.wdg;w.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',P.drag)});
+  vp.addEventListener('dragover',e=>{const w=e.target.closest&&e.target.closest('.dash.editing [data-wdg]');if(!w||!P.drag)return;e.preventDefault();document.querySelectorAll('.drag-over').forEach(x=>x!==w&&x.classList.remove('drag-over'));w.classList.add('drag-over')});
+  vp.addEventListener('drop',e=>{const w=e.target.closest&&e.target.closest('.dash.editing [data-wdg]');if(!w||!P.drag)return;e.preventDefault();const id=P.drag;P.drag=null;if(id!==w.dataset.wdg)moveWdg(id,dashOrder().filter(x=>x!==id).indexOf(w.dataset.wdg)+(e.clientY>w.getBoundingClientRect().top+w.offsetHeight/2?1:0));else renderPanel()});
+  vp.addEventListener('dragend',()=>{P.drag=null;document.querySelectorAll('.dragging,.drag-over').forEach(x=>x.classList.remove('dragging','drag-over'))});}
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(ok=>ok&&toast('Cena zapisana, widoczna na stronie salonu'))}
   if(t.dataset.intakePhotos){protoPhotos(t.files).then(()=>{t.value=''})}
+  if(t.form&&t.form.id==='fsvc'&&t.name==='img'&&t.files[0]){const pv=$('#svc-prev');pv.hidden=false;pv.querySelector('img').src=URL.createObjectURL(t.files[0])}
+  if(t.dataset.bayf){const b=BAYS().find(x=>x.id===+t.dataset.bay);b[t.dataset.bayf]=cleanTxt(t.value).slice(0,60)||b[t.dataset.bayf];SET.bays=BAYS();saveCatalog().then(ok=>ok&&toast('Stanowisko zapisane'))}
+  if(t.dataset.baycat){const b=BAYS().find(x=>x.id===+t.dataset.baycat);b.cats=t.checked?[...new Set((b.cats||[]).concat(t.value))]:(b.cats||[]).filter(c=>c!==t.value);SET.bays=BAYS();saveCatalog().then(ok=>ok&&toast('Zapisano, które usługi przyjmuje stanowisko'))}
+  if(t.dataset.wday){const w=WAIT.find(x=>x.id===+t.dataset.wday);if(w&&t.value){sb.from('waitlist').update({day:t.value}).eq('id',w.id).then(({error})=>{if(error){toast('Nie udało się przenieść');return}w.day=t.value;renderPanel();toast(`${w.name} przeniesiony na ${fd(pday(t.value))}`)})}}
   if(t.dataset.setnum){SET[t.dataset.setnum]=Math.max(0,Math.round(+t.value||0));saveCatalog().then(ok=>ok&&toast('Zapisano ustawienie programu lojalnościowego'))}
   if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });

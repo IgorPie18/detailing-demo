@@ -57,6 +57,10 @@ end $$;
 drop trigger if exists bookings_force_token on public.bookings;
 create trigger bookings_force_token before insert on public.bookings for each row execute function public.bookings_force_token();
 
+-- Stanowiska konfiguruje salon w panelu (1-20), nie tylko 1 i 2.
+alter table public.bookings drop constraint if exists bookings_bay_check;
+alter table public.bookings add constraint bookings_bay_check check (bay between 1 and 20);
+
 -- Dwie potwierdzone wizyty nie mogą zająć tego samego stanowiska w tym samym czasie.
 do $$ begin
   alter table public.bookings add constraint no_double_booking
@@ -149,10 +153,15 @@ create table if not exists public.waitlist (
   seed boolean not null default false,
   created_at timestamptz not null default now()
 );
+-- Propozycja zwolnionego terminu: 'offer' czeka na akceptację salonu (Telegram), potem 'notified'.
+alter table public.waitlist add column if not exists slot_at timestamptz;
+alter table public.waitlist add column if not exists slot_bay int check (slot_bay between 1 and 20);
+alter table public.waitlist drop constraint if exists waitlist_status_check;
+alter table public.waitlist add constraint waitlist_status_check check (status in ('waiting','offer','notified','booked','closed'));
 alter table public.waitlist enable row level security;
 drop policy if exists waitlist_public_insert on public.waitlist;
 create policy waitlist_public_insert on public.waitlist for insert to anon, authenticated
-  with check (status = 'waiting' and seed = false and day >= current_date and day < current_date + 60);
+  with check (status = 'waiting' and seed = false and slot_at is null and slot_bay is null and day >= current_date and day < current_date + 60);
 drop policy if exists waitlist_owner_all on public.waitlist;
 create policy waitlist_owner_all on public.waitlist for all to authenticated
   using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
@@ -209,6 +218,15 @@ create policy photos_public_upload on storage.objects for insert to anon, authen
 drop policy if exists photos_owner_read on storage.objects;
 create policy photos_owner_read on storage.objects for select to authenticated
   using (bucket_id = 'photos'
+    and (storage.foldername(name))[1] in (select id::text from public.studios where owner_id = auth.uid()));
+
+-- Zdjęcia usług na stronę: publiczny bucket, wgrywa tylko właściciel do folderu swojego salonu.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('public', 'public', true, 5242880, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do nothing;
+drop policy if exists public_owner_upload on storage.objects;
+create policy public_owner_upload on storage.objects for insert to authenticated
+  with check (bucket_id = 'public'
     and (storage.foldername(name))[1] in (select id::text from public.studios where owner_id = auth.uid()));
 
 -- Salon demo przypisany do konta admina (katalog uzupełni panel przy pierwszym logowaniu).
