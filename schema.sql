@@ -39,6 +39,34 @@ create table if not exists public.bookings (
   check (end_at > start_at)
 );
 
+-- Zespół salonu: właściciel (studios.owner_id), administratorzy i pracownicy z własnymi kontami.
+create table if not exists public.team (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  user_id uuid unique references auth.users on delete set null,
+  email text check (char_length(email) <= 120),
+  name text not null check (char_length(name) between 2 and 60),
+  role text not null default 'worker' check (role in ('admin','worker')),
+  color text not null default '#ea580c' check (color ~ '^#[0-9a-f]{6}$'),
+  commission int not null default 0 check (commission between 0 and 50),
+  active boolean not null default true,
+  seed boolean not null default false,
+  created_at timestamptz not null default now()
+);
+-- 'owner', 'admin', 'worker' albo null (brak dostępu). Używane w regułach RLS i przez panel.
+create or replace function public.team_role(p_studio uuid) returns text
+language sql stable security definer set search_path = public as $$
+  select case when exists (select 1 from public.studios s where s.id = p_studio and s.owner_id = auth.uid()) then 'owner'
+    else (select t.role from public.team t where t.studio_id = p_studio and t.user_id = auth.uid() and t.active limit 1) end
+$$;
+create or replace function public.is_member(p_studio uuid) returns boolean
+language sql stable security definer set search_path = public as $$ select public.team_role(p_studio) is not null $$;
+create or replace function public.is_admin(p_studio uuid) returns boolean
+language sql stable security definer set search_path = public as $$ select coalesce(public.team_role(p_studio) in ('owner','admin'), false) $$;
+revoke all on function public.team_role(uuid) from public;
+grant execute on function public.team_role(uuid) to authenticated;
+grant execute on function public.is_member(uuid), public.is_admin(uuid) to authenticated;
+
 -- Protokół przyjęcia auta: uszkodzenia na schemacie, zdjęcia, przebieg, podpis klienta.
 alter table public.bookings add column if not exists intake jsonb;
 -- Protokół wydania, etap pracy, dopłaty do akceptacji, punkty lojalnościowe, link dla klienta.
@@ -50,6 +78,11 @@ alter table public.bookings add column if not exists token uuid not null default
 create unique index if not exists bookings_token on public.bookings(token);
 -- Propozycja innego terminu od salonu; klient akceptuje albo odrzuca z linku.
 alter table public.bookings add column if not exists proposal jsonb;
+-- Kto wykonuje zlecenie, karta gwarancyjna powłoki/folii i link do paszportu auta (QR na certyfikacie).
+alter table public.bookings add column if not exists worker_id bigint references public.team on delete set null;
+alter table public.bookings add column if not exists warranty jsonb;
+alter table public.bookings add column if not exists cert uuid;
+create unique index if not exists bookings_cert on public.bookings(cert);
 -- Link klienta zawsze losuje baza, nigdy przeglądarka klienta.
 create or replace function public.bookings_force_token() returns trigger language plpgsql as $$
 begin
@@ -78,7 +111,7 @@ drop policy if exists studios_read on public.studios;
 create policy studios_read on public.studios for select to anon, authenticated using (true);
 drop policy if exists studios_owner_update on public.studios;
 create policy studios_owner_update on public.studios for update to authenticated
-  using (owner_id = auth.uid()) with check (owner_id = auth.uid());
+  using (public.is_admin(id)) with check (public.is_admin(id));
 
 -- Klient strony może tylko DODAĆ rezerwację, nie widzi cudzych.
 -- shortcut: status 'confirmed' przy usłudze „od ręki” ufa klientowi (płatność w demo jest udawana);
@@ -87,12 +120,13 @@ drop policy if exists bookings_public_insert on public.bookings;
 create policy bookings_public_insert on public.bookings for insert to anon, authenticated
   with check (status in ('pending','confirmed') and seed = false and src = 'web' and intake is null
     and handover is null and stage is null and extras = '[]'::jsonb and points_used = 0 and proposal is null
+    and worker_id is null and warranty is null and cert is null
     and start_at > now() and start_at < now() + interval '60 days');
 
 drop policy if exists bookings_owner_all on public.bookings;
 create policy bookings_owner_all on public.bookings for all to authenticated
-  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
-  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+  using (public.is_member(studio_id))
+  with check (public.is_member(studio_id));
 
 -- Zajęte terminy dla kalendarza klienta: tylko czas i stanowisko, bez danych osobowych.
 create or replace function public.busy_slots(p_studio uuid, p_from timestamptz, p_to timestamptz)
@@ -111,7 +145,7 @@ returns json language sql stable security definer set search_path = public as $$
   select json_build_object('id', b.id, 'name', split_part(b.name, ' ', 1), 'car', b.car, 'svc', b.svc, 'pkg', b.pkg, 'size', b.size,
     'start_at', b.start_at, 'end_at', b.end_at, 'status', b.status, 'stage', b.stage, 'total', b.total, 'deposit', b.deposit, 'paid', b.paid,
     'extras', b.extras, 'proposal', b.proposal, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
-    'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used,
+    'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used, 'cert', b.cert,
     -- punkty tylko dla wizyty, którą salon fizycznie przyjął (sam numer telefonu z formularza niczego nie odblokowuje)
     'spent', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done') else 0 end,
     'used', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.points_used), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone) else 0 end)
@@ -190,8 +224,8 @@ create policy waitlist_public_insert on public.waitlist for insert to anon, auth
   with check (status = 'waiting' and seed = false and slot_at is null and slot_bay is null and day >= current_date and day < current_date + 60);
 drop policy if exists waitlist_owner_all on public.waitlist;
 create policy waitlist_owner_all on public.waitlist for all to authenticated
-  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
-  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+  using (public.is_member(studio_id))
+  with check (public.is_member(studio_id));
 
 -- Link klienta do jego miejsca na liście rezerwowej: pozycja w kolejce i wypisanie się.
 alter table public.waitlist add column if not exists token uuid not null default gen_random_uuid();
@@ -238,8 +272,8 @@ create table if not exists public.cal_notes (
 alter table public.cal_notes enable row level security;
 drop policy if exists cal_notes_owner_all on public.cal_notes;
 create policy cal_notes_owner_all on public.cal_notes for all to authenticated
-  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
-  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+  using (public.is_member(studio_id))
+  with check (public.is_member(studio_id));
 
 -- Bony prezentowe.
 -- shortcut: bon ze strony jest od razu aktywny (płatność w demo udawana); przy prawdziwych płatnościach aktywuje go webhook.
@@ -265,8 +299,135 @@ create policy vouchers_public_insert on public.vouchers for insert to anon, auth
   with check (status = 'active' and used_at is null and seed = false and src = 'web' and expires_at <= current_date + 366);
 drop policy if exists vouchers_owner_all on public.vouchers;
 create policy vouchers_owner_all on public.vouchers for all to authenticated
-  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
-  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+  using (public.is_member(studio_id))
+  with check (public.is_member(studio_id));
+
+-- ===== Zespół: reguły dostępu i konta =====
+alter table public.team enable row level security;
+drop policy if exists team_member_read on public.team;
+create policy team_member_read on public.team for select to authenticated using (public.is_member(studio_id));
+drop policy if exists team_admin_write on public.team;
+create policy team_admin_write on public.team for all to authenticated
+  using (public.is_admin(studio_id)) with check (public.is_admin(studio_id));
+-- Konto (user_id) podpina tylko funkcja team_login albo właściciel sam siebie; inaczej admin mógłby przejąć cudze konto.
+create or replace function public.team_guard() returns trigger language plpgsql set search_path = public as $$
+begin
+  if new.user_id is distinct from (case when tg_op = 'UPDATE' then old.user_id else null end)
+     and coalesce(current_setting('app.team_rpc', true), '') <> '1'
+     and not (new.user_id = auth.uid() and exists (select 1 from public.studios s where s.id = new.studio_id and s.owner_id = auth.uid())) then
+    raise exception 'Konto pracownika zakłada się przyciskiem w panelu';
+  end if;
+  return new;
+end $$;
+drop trigger if exists team_guard on public.team;
+create trigger team_guard before insert or update on public.team for each row execute function public.team_guard();
+
+-- Admin zakłada pracownikowi konto (albo zmienia mu hasło). Bez maila z potwierdzeniem: konto działa od razu.
+create or replace function public.team_login(p_member bigint, p_email text, p_password text)
+returns text language plpgsql security definer set search_path = public, extensions as $$
+declare m public.team; uid uuid; em text := lower(trim(p_email));
+begin
+  select * into m from public.team where id = p_member;
+  if not found or not public.is_admin(m.studio_id) then raise exception 'Brak uprawnień'; end if;
+  if char_length(coalesce(p_password, '')) < 8 then raise exception 'Hasło musi mieć co najmniej 8 znaków'; end if;
+  if m.user_id is not null then
+    if exists (select 1 from public.studios s where s.id = m.studio_id and s.owner_id = m.user_id) then raise exception 'Hasła właściciela nie zmienia się z panelu'; end if;
+    update auth.users set encrypted_password = crypt(p_password, gen_salt('bf')), updated_at = now() where id = m.user_id;
+    return m.email;
+  end if;
+  if em !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then raise exception 'Nieprawidłowy e-mail'; end if;
+  if exists (select 1 from auth.users where lower(email) = em) then raise exception 'Ten e-mail ma już konto'; end if;
+  uid := gen_random_uuid();
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data,
+    created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token)
+  values ('00000000-0000-0000-0000-000000000000', uid, 'authenticated', 'authenticated', em, crypt(p_password, gen_salt('bf')), now(),
+    '{"provider":"email","providers":["email"]}', jsonb_build_object('name', m.name), now(), now(), '', '', '', '');
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), uid, uid::text, jsonb_build_object('sub', uid::text, 'email', em, 'email_verified', true), 'email', now(), now(), now());
+  perform set_config('app.team_rpc', '1', true);
+  update public.team set user_id = uid, email = em where id = m.id;
+  return em;
+end $$;
+-- Usunięcie osoby z zespołu razem z jej kontem (właściciela nie da się usunąć).
+create or replace function public.team_remove(p_member bigint)
+returns void language plpgsql security definer set search_path = public as $$
+declare m public.team;
+begin
+  select * into m from public.team where id = p_member;
+  if not found or not public.is_admin(m.studio_id) then raise exception 'Brak uprawnień'; end if;
+  if m.user_id is not null and exists (select 1 from public.studios s where s.id = m.studio_id and s.owner_id = m.user_id) then raise exception 'Nie można usunąć właściciela'; end if;
+  delete from public.team where id = m.id;
+  if m.user_id is not null then delete from auth.users where id = m.user_id; end if;
+end $$;
+revoke all on function public.team_login(bigint, text, text), public.team_remove(bigint) from public;
+grant execute on function public.team_login(bigint, text, text), public.team_remove(bigint) to authenticated;
+
+-- ===== Wyceny z wariantami: klient wybiera wariant i dodatki z linku =====
+create table if not exists public.offers (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  token uuid not null default gen_random_uuid(),
+  booking_id bigint references public.bookings on delete set null,
+  name text not null check (char_length(name) between 2 and 80),
+  phone text not null check (phone ~ '^\+48 [0-9]{9}$' or phone ~ '^\+48 [0-9*]{3} [0-9*]{3} [0-9*]{3}$'),
+  car text check (char_length(car) <= 80),
+  size text not null default 'm' check (size in ('s','m','l','xl')),
+  msg text check (char_length(msg) <= 500),
+  options jsonb not null default '[]'::jsonb,
+  addons jsonb not null default '[]'::jsonb,
+  valid_until date not null default (current_date + 14),
+  status text not null default 'sent' check (status in ('sent','accepted','declined','booked')),
+  choice jsonb,
+  author text check (char_length(author) <= 60),
+  seed boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create unique index if not exists offers_token on public.offers(token);
+alter table public.offers enable row level security;
+drop policy if exists offers_member_all on public.offers;
+create policy offers_member_all on public.offers for all to authenticated
+  using (public.is_member(studio_id)) with check (public.is_member(studio_id));
+create or replace function public.offer_public(p_token uuid)
+returns json language sql stable security definer set search_path = public as $$
+  select json_build_object('name', split_part(o.name, ' ', 1), 'car', o.car, 'size', o.size, 'msg', o.msg, 'options', o.options, 'addons', o.addons,
+    'valid_until', o.valid_until, 'expired', o.valid_until < current_date, 'status', o.status, 'choice', o.choice, 'author', o.author, 'created_at', o.created_at)
+  from public.offers o where o.token = p_token
+$$;
+-- Wybór klienta: kwotę liczy baza z cen zapisanych w wycenie, nie przeglądarka klienta.
+create or replace function public.offer_respond(p_token uuid, p_option text, p_addons text[], p_accept boolean, p_note text default null)
+returns json language plpgsql security definer set search_path = public as $$
+declare o public.offers; opt jsonb; ad jsonb; tot int;
+begin
+  select * into o from public.offers where token = p_token for update;
+  if not found or o.status <> 'sent' or o.valid_until < current_date then return public.offer_public(p_token); end if;
+  if not p_accept then
+    update public.offers set status = 'declined', choice = jsonb_build_object('note', left(p_note, 300), 'at', now()) where id = o.id;
+    return public.offer_public(p_token);
+  end if;
+  select x into opt from jsonb_array_elements(o.options) x where x->>'id' = p_option;
+  if opt is null then raise exception 'Nie ma takiego wariantu'; end if;
+  select coalesce(jsonb_agg(x), '[]'::jsonb) into ad from jsonb_array_elements(o.addons) x where x->>'id' = any(coalesce(p_addons, '{}'));
+  select coalesce((opt->>'price')::int, 0) + coalesce(sum((x->>'price')::int), 0) into tot from jsonb_array_elements(ad) x;
+  update public.offers set status = 'accepted',
+    choice = jsonb_build_object('option', p_option, 'addons', ad, 'total', tot, 'note', left(p_note, 300), 'at', now()) where id = o.id;
+  return public.offer_public(p_token);
+end $$;
+revoke all on function public.offer_public(uuid), public.offer_respond(uuid, text, text[], boolean, text) from public;
+grant execute on function public.offer_public(uuid), public.offer_respond(uuid, text, text[], boolean, text) to anon, authenticated;
+
+-- ===== Paszport auta (link z kodu QR na certyfikacie): historia usług i gwarancje, bez danych osobowych =====
+create or replace function public.car_passport(p_cert uuid)
+returns json language sql stable security definer set search_path = public as $$
+  select json_build_object('studio', s.name, 'car', b0.car, 'size', b0.size, 'cert', b0.cert,
+    'visits', (select coalesce(json_agg(json_build_object('svc', x.svc, 'pkg', x.pkg, 'at', coalesce(x.handover->>'at', x.end_at::text),
+        'km', x.intake->>'km', 'warranty', x.warranty, 'cert', x.cert, 'marks', jsonb_array_length(coalesce(x.intake->'marks', '[]'::jsonb)),
+        'note', x.handover->>'note') order by x.end_at desc), '[]'::json)
+      from public.bookings x where x.studio_id = b0.studio_id and x.phone = b0.phone and x.status = 'done'
+        and lower(coalesce(x.car, '')) = lower(coalesce(b0.car, ''))))
+  from public.bookings b0 join public.studios s on s.id = b0.studio_id where b0.cert = p_cert
+$$;
+revoke all on function public.car_passport(uuid) from public;
+grant execute on function public.car_passport(uuid) to anon, authenticated;
 
 -- Panel dostaje nowe rezerwacje na żywo.
 do $$ begin
@@ -277,6 +438,9 @@ do $$ begin
 exception when duplicate_object then null; end $$;
 do $$ begin
   alter publication supabase_realtime add table public.vouchers;
+exception when duplicate_object then null; end $$;
+do $$ begin
+  alter publication supabase_realtime add table public.offers;
 exception when duplicate_object then null; end $$;
 
 -- Zdjęcia aut od klientów: prywatny bucket, ścieżka <studio_id>/<plik>.
@@ -292,7 +456,7 @@ create policy photos_public_upload on storage.objects for insert to anon, authen
 drop policy if exists photos_owner_read on storage.objects;
 create policy photos_owner_read on storage.objects for select to authenticated
   using (bucket_id = 'photos'
-    and (storage.foldername(name))[1] in (select id::text from public.studios where owner_id = auth.uid()));
+    and (storage.foldername(name))[1] in (select id::text from public.studios where public.is_member(id)));
 
 -- Zdjęcia usług na stronę: publiczny bucket, wgrywa tylko właściciel do folderu swojego salonu.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
@@ -301,7 +465,7 @@ on conflict (id) do nothing;
 drop policy if exists public_owner_upload on storage.objects;
 create policy public_owner_upload on storage.objects for insert to authenticated
   with check (bucket_id = 'public'
-    and (storage.foldername(name))[1] in (select id::text from public.studios where owner_id = auth.uid()));
+    and (storage.foldername(name))[1] in (select id::text from public.studios where public.is_admin(id)));
 
 -- Salon demo przypisany do konta admina (katalog uzupełni panel przy pierwszym logowaniu).
 insert into public.studios (slug, name, owner_id)

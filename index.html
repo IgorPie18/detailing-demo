@@ -967,10 +967,153 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .lg2 span{display:inline-flex;gap:6px;align-items:center}.lg2 i{width:10px;height:10px;border-radius:3px;display:inline-block}
 details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 @media (max-width:1100px){.g-conn,.g-ins{grid-template-columns:minmax(0,1fr)}.g-kpis,.g-kpis.four{grid-template-columns:repeat(2,minmax(0,1fr))}.g-grid,.g-grid.even{grid-template-columns:minmax(0,1fr)}}
+
+/* ===== v11: zespół, wyceny, gwarancje, paszport auta ===== */
+:root{--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+.mini-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.mini-kpis>div{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:14px 16px;display:grid;gap:2px;align-content:start}
+.mini-kpis small{color:#78716c;font-size:12.5px}
+.mini-kpis b{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mini-kpis span{color:#8a8a93;font-size:12px}
+.mini-kpis .warn{background:var(--brand-50);border-color:var(--brand-100)}
+.mini-kpis .bad{background:#fef2f2;border-color:#fecaca}.mini-kpis .bad b{color:#b91c1c}
+.wav{--c:#ea580c;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:color-mix(in srgb,var(--c) 13%,#fff);color:var(--c);font-weight:600;font-size:13px;flex:none;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c) 28%,transparent);font-style:normal}
+.wav.xs{width:20px;height:20px;font-size:9px;margin-left:6px;vertical-align:-4px}
+.wav.lg{width:46px;height:46px;font-size:15px}
+.who-me{display:flex;align-items:center;gap:6px}.who-me .wav.xs{margin:0}
+.asel{height:30px;border:1px solid var(--pline);border-radius:8px;padding:0 8px;background:#fff;font:inherit;font-size:13.5px;max-width:100%}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.mcard{background:#fff;border:1px solid var(--pline);border-radius:14px;padding:16px;display:grid;gap:12px}
+.mcard.off{opacity:.6}
+.mc-h{display:flex;gap:12px;align-items:center}.mc-h>div{flex:1;min-width:0}.mc-h b{display:block;font-weight:600}.mc-h small{color:#78716c}
+.mc-acc{font-size:13px;color:#57534e;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dotok,.dotno{width:8px;height:8px;border-radius:50%;background:#22c55e;flex:none}.dotno{background:#d6d3d1}
+.mc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mc-stats div{background:var(--pbg);border-radius:10px;padding:8px 10px}
+.mc-stats small{display:block;color:#8a8a93;font-size:11.5px}.mc-stats b{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.mc-now{font-size:13px;color:#57534e;display:flex;gap:6px;align-items:center}.mc-now svg{width:15px;height:15px}
+.perm{margin:0;padding:0;list-style:none;display:grid;gap:9px;font-size:14px}
+.perm li{display:flex;gap:9px;align-items:flex-start}
+.perm li::before{content:"";width:16px;height:16px;flex:none;margin-top:2px;border-radius:50%;background:#dcfce7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315803d' stroke-width='3'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/11px no-repeat}
+.perm.no li::before{background:var(--brand-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c2410c' stroke-width='2.6'%3E%3Crect x='6' y='11' width='12' height='9' rx='2'/%3E%3Cpath d='M9 11V8a3 3 0 0 1 6 0v3'/%3E%3C/svg%3E") center/11px no-repeat}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}.swatches label{cursor:pointer;position:relative}
+.swatches input{position:absolute;opacity:0;pointer-events:none}
+.swatches i{display:block;width:28px;height:28px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px #fff,0 0 0 3px transparent;transition:box-shadow .18s,transform .25s var(--spring)}
+.swatches input:checked+i{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--c);transform:scale(1.08)}
+.swatches input:focus-visible+i{outline:2px solid var(--ink);outline-offset:5px}
+.perm-sel{background:var(--pbg);border:1px solid var(--pline);border-radius:10px;padding:10px 12px;font-size:13px;color:#57534e;line-height:1.5}
+.perm-sel b{color:var(--ink)}
+.pw{display:flex;gap:8px}.pw input{flex:1;min-width:0}
+#view-panel .pbtn.danger{color:#b91c1c}
+.warr-f{border:1px solid var(--brand-100);background:var(--brand-50);border-radius:12px;padding:12px 14px}
+.warr-f .pf input,.warr-f .pf select{background:#fff}
+/* wyceny w panelu */
+.of-row{display:grid;grid-template-columns:minmax(0,1fr) 96px auto;gap:8px;align-items:center;margin-bottom:8px}
+.of-row select,.of-row input{height:38px;border:1px solid var(--pline);border-radius:8px;padding:0 8px;background:#fff;font:inherit;font-size:14px;min-width:0}
+.of-row input:disabled{background:var(--pbg);color:#a8a29e}
+.of-recl{font-size:12.5px;color:#57534e;display:flex;gap:5px;align-items:center;white-space:nowrap}
+.of-adds{display:grid;gap:6px}.of-adds .pf-check{padding:9px 12px}
+.of-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.of-card{border:1px solid var(--pline);border-radius:12px;padding:12px 14px;display:grid;gap:4px;background:#fff;align-content:start}
+.of-card.chosen{border-color:#16a34a;box-shadow:0 0 0 3px #dcfce7}
+.of-card em{font-style:normal;font-weight:600;font-size:18px;font-variant-numeric:tabular-nums}.of-card small{color:#78716c}
+.of-rec{justify-self:start;font-size:11px;font-weight:600;background:var(--brand-50);color:var(--brand-600);border-radius:999px;padding:1px 8px}
+.of-rec.ok{background:#dcfce7;color:#15803d}
+.of-msg.pnl{background:var(--pbg);border:1px solid var(--pline);border-radius:10px}
+.mklist li.pick{color:#15803d;font-weight:500}
+/* wycena u klienta */
+.of-msg{background:var(--mist);border-radius:18px 18px 18px 6px;padding:12px 14px;font-size:14.5px}
+.of-msg b{font-size:13px}.of-msg p{margin:4px 0 0}
+.of-opts{display:grid;gap:10px}
+.of-opt{position:relative;text-align:left;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;background:#fff;display:grid;gap:3px;font:inherit;color:inherit}
+.of-opt[aria-checked="true"]{border-color:var(--ink);box-shadow:0 0 0 3px rgba(17,18,19,.08)}
+.of-opt b{font-size:16px;padding-right:96px}.of-opt span{color:var(--grey);font-size:14px}.of-opt small{color:var(--grey-2)}
+.of-opt em{position:absolute;right:16px;top:14px;font-style:normal;font-weight:800;font-size:17px;font-variant-numeric:tabular-nums}
+.of-opt .of-rec{background:#fff4ed;color:#c2410c;margin-bottom:3px}
+.of-h{font-family:var(--display);font-size:18px;margin:0 0 8px}
+.of-add{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;margin-bottom:8px;font:inherit;color:inherit}
+.of-add[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}.of-add[aria-pressed="true"] small{color:#c9ccd0}
+.of-add small{display:block;color:var(--grey);font-size:13px}.of-add em{font-style:normal;font-weight:700;white-space:nowrap}
+.of-note{display:grid;gap:6px;font-weight:600;font-size:14px}.of-note em{font-style:normal;font-weight:400;color:var(--grey)}
+.of-note textarea{border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:70px;font:inherit;font-weight:400;resize:vertical}
+.ok-mark{width:58px;height:58px;border-radius:50%;background:#dcfce7;color:#15803d;display:grid;place-items:center;font-size:27px;font-weight:700}
+.ok-mark.mute{background:var(--mist);color:var(--grey)}
+/* paszport auta */
+.pp-hero{background:linear-gradient(160deg,#111213,#34363a);color:#fff;border-radius:22px;padding:20px 18px;display:grid;gap:4px}
+.pp-hero .eyebrow-d{color:#a9adb2}.pp-hero h1{margin:0;font-family:var(--display);font-size:27px}.pp-hero .hint{color:#c9ccd0}
+.pp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.pp-stats div{background:rgba(255,255,255,.08);border-radius:12px;padding:10px}.pp-stats b{display:block;font-size:18px;font-variant-numeric:tabular-nums}.pp-stats small{color:#a9adb2;font-size:11.5px;line-height:1.3;display:block}
+.cert-mini{border:1.5px solid #e7e0d6;border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;background:linear-gradient(135deg,#fff,#fbf6ef)}
+.cert-mini.off{opacity:.6}
+.cert-mini small{display:block;color:var(--grey);font-size:12px}.cert-mini b{display:block;font-size:15px}.cert-mini span{font-size:13px;color:var(--ink-2)}
+.cm-next{text-align:right;flex:none}
+.pp-tl{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:grid;gap:16px}
+.pp-tl li{position:relative;display:grid;gap:2px}
+.pp-tl li::before{content:"";position:absolute;left:-25px;top:3px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--ink)}
+.pp-tl time{font-size:12.5px;color:var(--grey)}.pp-tl small{color:var(--grey)}.pp-tl p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+/* certyfikat */
+.cert{border:1px solid #ece9e4;border-radius:16px;padding:26px 28px;display:grid;gap:16px;background:radial-gradient(620px 220px at 100% 0,#fff4ed,transparent 70%),#fff}
+.cert-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.cert-logo{font-weight:800;letter-spacing:.14em;font-size:20px}.cert-logo span{font-weight:500;font-size:11px;letter-spacing:.1em;color:#78716c;margin-left:6px;text-transform:uppercase}
+.cert-no{text-align:right}.cert-no small{display:block;color:#78716c;font-size:12px}.cert-no b{font-variant-numeric:tabular-nums}
+.cert h3{margin:0;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.cert-dl{display:grid;grid-template-columns:140px 1fr;gap:8px 16px;margin:0;font-size:14px}.cert-dl dt{color:#78716c}.cert-dl dd{margin:0;font-weight:500}
+.cert-checks b{font-size:14px}
+.cert-checks ol{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px}
+.cert-checks li{border:1px dashed #d6d3d1;border-radius:10px;padding:8px 10px;font-size:13px;display:grid}.cert-checks li span{color:#78716c;font-size:12px}
+.cert-checks li.ok{border-style:solid;border-color:#bbf7d0;background:#f0fdf4}.cert-checks li.plan{border-color:#bfdbfe;background:#eff6ff}.cert-checks li.late{border-color:#fecaca;background:#fef2f2}
+.cert-qr{display:flex;gap:16px;align-items:center;border-top:1px solid #f0efec;padding-top:16px}
+.cert-qr .qr{width:112px;height:112px;flex:none}.cert-qr .qr svg{width:100%;height:100%;display:block}
+.cert-qr small{display:block;color:#78716c;font-size:13px;margin-top:2px}
+.cert-foot{margin:0;font-size:12px;color:#78716c}
+@media print{
+  body.printing{background:#fff}
+  body.printing .demo-bar,body.printing #view-klient,body.printing .panel,body.printing .toast,body.printing::before{display:none!important}
+  body.printing #drw{position:static;box-shadow:none;max-height:none;width:100%;margin:0;border-radius:0;animation:none;overflow:visible}
+  body.printing #drw::backdrop{display:none}
+  body.printing .noprint{display:none!important}
+  body.printing .drw-b{padding:0}
+  body.printing .cert{border:0}
+}
+
+/* ===== v11: ruch i przejścia ===== */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes popOut{to{opacity:0;transform:translateY(8px) scale(.985)}}
+@keyframes popIn{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(234,88,12,.35)}50%{box-shadow:0 0 0 7px rgba(234,88,12,0)}}
+@keyframes glowG{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
+#pmain.enter>*,.scroller.enter>*{animation:rise .45s var(--ease) both;animation-delay:calc(min(var(--i,0),9) * 45ms)}
+.scroller.enter>.site-h{animation:fadeIn .3s ease both}
+.drw[open]{animation:pop .3s var(--ease)}
+.drw[open]::backdrop{animation:fadeIn .25s ease}
+.drw.closing{animation:popOut .17s ease forwards}
+.drw.closing::backdrop{animation:fadeOut .17s ease forwards}
+.drw-in.swap>*:not(.confirm-x){animation:rise .32s var(--ease) both}
+.drw-in.swap>*:nth-child(3){animation-delay:40ms}
+.confirm-x:not([hidden]){animation:pop .22s var(--ease)}
+#view-panel .pbtn,#view-panel .nav,.tile,.pill-c,.vrow,.row-i,.btn,.jump button,.of-opt,.of-add,.mcard,.tg button,.filters button,.seg a,.gk{transition:background-color .18s,border-color .18s,color .18s,box-shadow .22s,transform .2s var(--ease),opacity .2s}
+#view-panel .pbtn:active,.btn:active,.tile:active,.pill-c:active,.of-opt:active,.of-add:active,.jump button:active{transform:scale(.97)}
+.tile:hover,.pill-c:hover,.mcard:hover{transform:translateY(-2px);box-shadow:0 12px 26px -16px rgba(28,25,23,.38)}
+.vrow:hover,.row-i:hover{transform:translateX(2px)}
+#view-panel .nav:hover svg{transform:scale(1.08)}
+#view-panel .nav svg{transition:transform .2s var(--spring),color .18s}
+#view-panel .nav .badge,.ok-mark{animation:popIn .45s var(--spring) both}
+.toast{transition:opacity .25s,transform .4s var(--spring)}
+#view-panel .live i{animation:glowG 2s ease-in-out infinite}
+.stages li.now i{animation:glow 1.8s ease-in-out infinite}
+.of-opt[aria-checked="true"] em,.of-card.chosen em{animation:popIn .35s var(--spring)}
+.tbl tbody tr{transition:background-color .15s}
+.tbl tr[data-offer]{cursor:pointer}.tbl tr[data-offer]:hover td{background:#faf9f6}
+.sumline b,.summary .tot span:last-child{transition:color .2s}
+.hero-p h1{animation:rise .55s var(--ease) both}
+@media (prefers-reduced-motion:reduce){#pmain.enter>*,.scroller.enter>*,.drw[open],.drw.closing{animation:none!important}.tile:hover,.pill-c:hover,.mcard:hover,.vrow:hover,.row-i:hover{transform:none}}
 </style>
 
 <header class="demo-bar">
-  <div class="brand">Rezerwacje dla detailingu <small>demo v1</small></div>
+  <div class="brand">Rezerwacje dla detailingu <small>demo</small></div>
   <nav class="seg" aria-label="Widok">
     <a href="#klient" id="tab-klient">Klient · telefon</a>
     <a href="#panel" id="tab-panel">Panel salonu · komputer</a>
@@ -1004,6 +1147,8 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
           <button type="button" data-jump="voucher">Zakup bonu podarunkowego <span>→</span></button>
           <button type="button" data-jump="prop">Klient dostał propozycję innego terminu <span>→</span></button>
           <button type="button" data-jump="wlist">Klient na liście rezerwowej <span>→</span></button>
+          <button type="button" data-jump="offer">Wycena z wariantami (link z SMS) <span>→</span></button>
+          <button type="button" data-jump="auto">Paszport auta z kodu QR <span>→</span></button>
         </div>
       </div>
       <div class="card">
@@ -1030,6 +1175,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/dist/umd/supabase.js" integrity="sha384-A97u3Qnt9GZHURO9YJZRe7VQgGUeFzcv6I1oIGnUTxQrCxnpQMwR0/G8F2zt9abZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" integrity="sha384-8FWZA6BGMXhsfO+BLtrJK0We6gg5o1JyO8xQm6peWDEUs17ACA5ziE/NIAkl9z2k" crossorigin="anonymous"></script>
 <script>
 /* ================= DANE ================= */
 const SIZES=[
@@ -1165,6 +1311,17 @@ function SEED(){
   // stały klient: dwie wcześniejsze wizyty, żeby program lojalnościowy miał punkty
   const r2=mk(-40,8,'korekta','2','xl','Volvo XC90','Robert J.',1,'done','ig'), r3=mk(-75,8,'ppf','przod','xl','Volvo XC90','Robert J.',1,'done','ig');
   r2.phone=r3.phone=rj.phone; l.push(r2,r3);
+  // karty gwarancyjne: świeża (Anna), przegląd za kilka dni (Dorota), zaległy (Jakub), folia Roberta z paszportem auta pod DEMO_TOKEN_C
+  const wy=(b,product,layers,years,no)=>{const f=sod(b.end);return {no:`LUM-${f.getFullYear()}-${String(no).padStart(4,'0')}`,product,layers,years,from:ymd(f),until:ymd(addMonths(f,12*years)),checks:[]}};
+  const inT=(b,km)=>({at:b.start.toISOString(),km,fuel:'1/2',items:'',note:'',marks:[],photos:[],sign:null,signedAt:null});
+  const hT=(b,note)=>({at:b.end.toISOString(),note,photos:[],sign:null,signedAt:null});
+  const an=l.find(b=>b.name==='Anna W.'); an.x={warranty:wy(an,'Gyeon Q² Mohs EVO',2,3,138),cert:crypto.randomUUID(),intake:inT(an,'61540'),handover:hT(an,'Pierwsze mycie po 7 dniach, potem ręcznie, bez myjni szczotkowej.')};
+  r3.x={warranty:wy(r3,'XPEL Ultimate Plus',0,10,121),cert:DEMO_TOKEN_C,intake:inT(r3,'41120'),handover:hT(r3,'Folia na przodzie. Kontrola krawędzi po 7 dniach, mycie ręczne.')};
+  r2.x={cert:crypto.randomUUID(),intake:inT(r2,'46350'),handover:hT(r2,'Korekta dwuetapowa, zabezpieczenie woskiem do czasu ceramiki.')};
+  const df=mk(-353,8,'ceramika','5l','l','Audi Q5','Dorota F.',1,'done','g'), jp=mk(-381,8,'ceramika','3l','m','Volkswagen Arteon','Jakub P.',1,'done','ig');
+  df.x={warranty:wy(df,'Gyeon Q² Mohs EVO',3,5,47),cert:crypto.randomUUID(),intake:inT(df,'88210'),handover:hT(df,'Powłoka 5-letnia, przegląd co 12 miesięcy.')};
+  jp.x={warranty:wy(jp,'Gyeon Q² Mohs EVO',2,3,31),cert:crypto.randomUUID(),intake:inT(jp,'102400'),handover:hT(jp,'Powłoka 3-letnia, przegląd co 12 miesięcy.')};
+  l.push(df,jp);
   l.forEach(b=>b.paths=SEED_PICS.slice(0,b.photos));
   return l;
 }
@@ -1173,8 +1330,8 @@ function SEED(){
 // klucz publiczny z założenia; dane chronią reguły RLS w schema.sql
 const sb=supabase.createClient('https://zzypdeubmxhpauxzwubd.supabase.co','sb_publishable_ESHijLfIGC3qMWlalLlB6g_DXgdttsS');
 const SLUG=new URLSearchParams(location.search).get('salon')||'lumen';
-let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false,NOTES=[],NOTES_ERR=false;
-const DEMO_TOKEN='00000000-0000-4000-8000-000000000001', DEMO_TOKEN_P='00000000-0000-4000-8000-000000000003', DEMO_TOKEN_W='00000000-0000-4000-8000-000000000002';
+let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false,NOTES=[],NOTES_ERR=false,TEAM=[],TEAM_ERR=false,ROLE='owner',OFFERS=[],OFFERS_ERR=false;
+const DEMO_TOKEN='00000000-0000-4000-8000-000000000001', DEMO_TOKEN_P='00000000-0000-4000-8000-000000000003', DEMO_TOKEN_W='00000000-0000-4000-8000-000000000002', DEMO_TOKEN_C='00000000-0000-4000-8000-000000000004', DEMO_TOKEN_O='00000000-0000-4000-8000-000000000005';
 async function loadStudio(){
   const {data,error}=await sb.from('studios').select('id,name,catalog').eq('slug',SLUG).maybeSingle();
   if(error||!data){toast('Brak połączenia z bazą salonu');return}
@@ -1251,7 +1408,7 @@ function go(screen,opt={}){
 
 function renderClient(){
   const el=$('#scroller');
-  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie',status:'lumendetailing.pl/twoje-auto',wlstatus:'lumendetailing.pl/lista-rezerwowa',voucher:'lumendetailing.pl/bon',vdone:'lumendetailing.pl/bon/gotowe'}[S.screen];
+  const url={home:'lumendetailing.pl',svc:'lumendetailing.pl/'+S.svc,book:'lumendetailing.pl/rezerwacja',done:'lumendetailing.pl/rezerwacja/potwierdzenie',status:'lumendetailing.pl/twoje-auto',wlstatus:'lumendetailing.pl/lista-rezerwowa',voucher:'lumendetailing.pl/bon',vdone:'lumendetailing.pl/bon/gotowe',offer:'lumendetailing.pl/wycena',auto:'lumendetailing.pl/paszport-auta'}[S.screen];
   $('#url').textContent=url;
   if(S.screen==='home') el.innerHTML=homeHTML();
   if(S.screen==='svc') el.innerHTML=svcHTML(svcById(S.svc));
@@ -1261,7 +1418,11 @@ function renderClient(){
   if(S.screen==='wlstatus') el.innerHTML=wlstatusHTML();
   if(S.screen==='voucher') el.innerHTML=voucherHTML();
   if(S.screen==='vdone') el.innerHTML=vdoneHTML();
+  if(S.screen==='offer') el.innerHTML=offerPageHTML();
+  if(S.screen==='auto') el.innerHTML=passHTML();
   bindBA(el);
+  const key=S.screen+(S.screen==='book'&&S.bk?':'+S.bk.step:'')+(S.screen==='offer'&&S.of?':'+S.of.status:'');
+  if(key!==S.lastKey){S.lastKey=key;enter(el)}
 }
 
 function siteHeader(){return `<header class="site-h"><button class="logo" data-go="home" type="button">LUMEN<span>detailing</span></button>
@@ -1491,6 +1652,7 @@ function statusHTML(){
       <div class="r tot"><span>${d.status==='done'?'Zapłacono':'Do zapłaty przy odbiorze'}</span><span>${zl(d.total-(d.paid?d.deposit:0))}</span></div></div>
     ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')||'<li class="none">Bez uszkodzeń.</li>'}</ol></div>`:''}
     ${SET.loy_on?`<div class="loy"><b>${L.bal} pkt</b><span>= ${zl(L.bal)} rabatu w programie lojalnościowym</span><small>${L.bal>=SET.loy_min?'Odliczymy je automatycznie przy odbiorze auta.':`Od ${SET.loy_min} pkt odliczamy je automatycznie. Brakuje ${SET.loy_min-L.bal} pkt.`}</small></div>`:''}
+    ${d.cert&&/^[0-9a-f-]{36}$/.test(d.cert)?`<a class="btn btn-dark full" href="#auto=${d.cert}">Paszport auta i karta gwarancyjna</a>`:''}
     <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button>
   </div>`;
 }
@@ -1599,6 +1761,9 @@ sc.addEventListener('click',e=>{
   if(t.dataset.book!==undefined){go('book',{svc:t.dataset.book||null});if(S.bk.skipSvc){S.bk.step=1;renderClient()}return}
   if(t.dataset.scroll){const x=sc.querySelector('#'+t.dataset.scroll);if(x)sc.scrollTop=x.offsetTop-60;return}
   if(t.dataset.extra){respondExtra(t.dataset.extra,t.dataset.ok==='1');return}
+  if(t.dataset.ofopt&&S.ofSel){S.ofSel.opt=t.dataset.ofopt;renderClient();return}
+  if(t.dataset.ofadd&&S.ofSel){const a=S.ofSel.add,k=t.dataset.ofadd;a.has(k)?a.delete(k):a.add(k);renderClient();return}
+  if(t.dataset.ofok){if(t.dataset.ofok==='0'&&t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno? Kliknij jeszcze raz';return}respondOffer(t.dataset.ofok==='1',t);return}
   if(t.dataset.prop){respondProp(t.dataset.prop==='1');return}
   if(t.dataset.wleave){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno? Kliknij jeszcze raz';return}wlLeave();return}
   if(t.dataset.repeat&&S.bk&&S.bk.mem){const b=S.bk,m=b.mem;if(svcById(m.svc)){b.svc=m.svc;b.pkg=pkgOf(svcById(m.svc),m.pkg).id;b.size=m.size||b.size;b.step=stepsOf(b).indexOf('dodatki');renderClient();$('#scroller').scrollTop=0}return}
@@ -1626,6 +1791,7 @@ sc.addEventListener('click',e=>{
 sc.addEventListener('input',e=>{
   if(S.screen==='voucher'&&e.target.dataset.v){const t=e.target;S.v[t.dataset.v]=t.value;
     if(t.dataset.v==='custom'){const a=zl(vAmt(S.v));sc.querySelectorAll('.vamt,.vsum').forEach(x=>x.textContent=a);sc.querySelectorAll('[data-vamt]').forEach(x=>x.setAttribute('aria-pressed',!S.v.custom&&+x.dataset.vamt===S.v.amount))}return}
+  if(e.target.dataset.ofnote&&S.ofSel){S.ofSel.note=e.target.value;return}
   const b=S.bk; if(!b) return; const t=e.target;
   if(t.dataset.wlf&&b.wl){b.wl[t.dataset.wlf]=t.value;return}
   if(t.dataset.f){b[t.dataset.f]=t.value; if(b.errors[t.dataset.f]){delete b.errors[t.dataset.f];t.classList.remove('err');const p=t.closest('.pref');if(p)p.classList.remove('err')}}
@@ -1646,6 +1812,8 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
   if(j==='voucher') openVoucher();
   if(j==='prop') location.hash='status='+DEMO_TOKEN_P;
   if(j==='wlist') location.hash='lista='+DEMO_TOKEN_W;
+  if(j==='offer') location.hash='oferta='+DEMO_TOKEN_O;
+  if(j==='auto') location.hash='auto='+DEMO_TOKEN_C;
 }));
 
 /* ================= PANEL SALONU ================= */
@@ -1655,7 +1823,8 @@ const safePaths=a=>(a||[]).filter(x=>typeof x==='string'&&SAFE_PATH.test(x));
 const toBk=r=>({proposal:r.proposal&&typeof r.proposal==='object'&&!Array.isArray(r.proposal)?r.proposal:null,id:r.id,start:new Date(r.start_at),end:new Date(r.end_at),svc:r.svc,pkg:r.pkg,size:r.size,car:r.car||'auto nie podane',name:r.name,phone:r.phone,email:r.email,
   bay:r.bay,status:r.status,src:r.src,photos:safePaths(r.photo_paths).length,paths:safePaths(r.photo_paths),photoUrls:[],total:r.total,deposit:r.deposit,paid:r.paid,
   created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed,intake:r.intake||null,handover:r.handover||null,stage:STG[r.stage]?r.stage:null,
-  extras:Array.isArray(r.extras)?r.extras:[],points_used:+r.points_used||0,token:/^[0-9a-f-]{36}$/.test(r.token||'')?r.token:null});
+  extras:Array.isArray(r.extras)?r.extras:[],points_used:+r.points_used||0,token:/^[0-9a-f-]{36}$/.test(r.token||'')?r.token:null,
+  worker_id:r.worker_id||null,warranty:okW(r.warranty),cert:/^[0-9a-f-]{36}$/.test(r.cert||'')?r.cert:null});
 async function signUrls(list){
   const paths=list.flatMap(b=>b.paths.filter(p=>!p.startsWith('assets/'))), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
@@ -1668,11 +1837,14 @@ async function loadBookings(){
 }
 async function seedDemo(){
   BID=0;
+  // wizyty lakiernicze (stanowisko 1) robi Michał, mycie i wnętrza (stanowisko 2) Patryk
+  const W={1:(TEAM.find(t=>t.seed&&t.name.startsWith('Michał'))||{}).id,2:(TEAM.find(t=>t.seed&&t.name.startsWith('Patryk'))||{}).id};
   const rows=SEED().map(b=>({studio_id:STUDIO.id,start_at:b.start.toISOString(),end_at:b.end.toISOString(),svc:b.svc,pkg:b.pkg,size:b.size,car:b.car,name:b.name,
-    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString(),...(b.x||{})}));
+    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString(),
+    ...(['done','confirmed','noshow'].includes(b.status)&&W[b.bay]?{worker_id:W[b.bay]}:{}),...(b.x||{})}));
   // shortcut: wstawiane pojedynczo, bo przy starcie w niedzielę dwie wizyty mogą trafić na ten sam slot i blokada odrzuci tylko tę jedną
   // bez nowych kolumn (stary schemat) wstawia wizytę bez protokołu i etapów
-  const strip=({intake,stage,extras,token,handover,points_used,proposal,...x})=>x;
+  const strip=({intake,stage,extras,token,handover,points_used,proposal,worker_id,warranty,cert,...x})=>x;
   await Promise.all(rows.map(r=>sb.from('bookings').insert(r).then(({error})=>error&&error.code!=='23P01'?sb.from('bookings').insert(strip(r)):null)));
   await loadBookings(); await seedSide();
 }
@@ -1680,6 +1852,7 @@ async function loadSide(){
   const [w,v]=await Promise.all([sb.from('waitlist').select('*').eq('studio_id',STUDIO.id).order('day'),sb.from('vouchers').select('*').eq('studio_id',STUDIO.id).order('created_at',{ascending:false})]);
   SIDE_ERR=!!(w.error||v.error); WAIT=w.data||[]; VOUCH=v.data||[];
   const n=await sb.from('cal_notes').select('*').eq('studio_id',STUDIO.id).order('day'); NOTES_ERR=!!n.error; NOTES=n.data||[];
+  const o=await sb.from('offers').select('*').eq('studio_id',STUDIO.id).order('created_at',{ascending:false}); OFFERS_ERR=!!o.error; OFFERS=o.data||[];
 }
 async function seedSide(){
   const id=STUDIO.id, sat=ymd(addDays(T0,((6-T0.getDay()+7)%7)||7)), ago=d=>addDays(new Date(),-d).toISOString();
@@ -1699,6 +1872,7 @@ async function seedSide(){
   await sb.from('cal_notes').insert([{studio_id:id,day:ymd(T0),at_time:'11:00',body:'Dostawa powłok i past od hurtowni. Odebrać i sprawdzić daty ważności.',author:'Kamil',seed:true},
     {studio_id:id,day:sat2,at_time:null,body:'Michał na szkoleniu z PPF. Na stanowisku 1 tylko korekta, bez folii.',author:'Kamil',seed:true},
     {studio_id:id,day:ymd(addDays(T0,10)),at_time:'16:00',body:'Przegląd kompresora i myjki ciśnieniowej (serwis).',author:'Kamil',seed:true}]);
+  await seedOffers();
   await loadSide();
 }
 function subscribe(){
@@ -1714,6 +1888,11 @@ function subscribe(){
     if(!$('#view-panel').hidden&&SESSION) renderPanel();
   }).on('postgres_changes',{event:'INSERT',schema:'public',table:'waitlist',filter:`studio_id=eq.${STUDIO.id}`},p=>{
     if(WAIT.some(w=>w.id===p.new.id))return; WAIT.push(p.new); if(!p.new.seed)toast(`Lista rezerwowa: ${p.new.name} czeka na ${fd(pday(p.new.day))}`);
+    if(!$('#view-panel').hidden&&SESSION) renderPanel();
+  }).on('postgres_changes',{event:'*',schema:'public',table:'offers',filter:`studio_id=eq.${STUDIO.id}`},p=>{
+    if(p.eventType==='DELETE'){OFFERS=OFFERS.filter(o=>o.id!==p.old.id)}
+    else{const i=OFFERS.findIndex(o=>o.id===p.new.id),was=i>-1?OFFERS[i]:null;if(i>-1)OFFERS[i]=p.new;else OFFERS.unshift(p.new);
+      if(was&&was.status==='sent'&&p.new.status!=='sent'){const pk=ofPick(p.new);toast(p.new.status==='accepted'?`${p.new.name} akceptuje wycenę: ${pk?pk.name:''}, ${zl(+(p.new.choice||{}).total||0)}`:`${p.new.name} rezygnuje z wyceny`)}}
     if(!$('#view-panel').hidden&&SESSION) renderPanel();
   }).on('postgres_changes',{event:'INSERT',schema:'public',table:'vouchers',filter:`studio_id=eq.${STUDIO.id}`},p=>{
     if(VOUCH.some(v=>v.id===p.new.id))return; VOUCH.unshift(p.new); if(!p.new.seed&&p.new.src==='web')toast(`Sprzedany bon ze strony: ${zl(p.new.amount)}`);
@@ -1733,11 +1912,17 @@ async function openPanel(){
   if(!session){renderLogin();return}
   if(!STUDIO) await loadStudio();
   if(!STUDIO){renderLogin('Brak połączenia z bazą salonu.');return}
+  // rola z bazy; stary schemat bez zespołu: jak dotąd tylko właściciel
+  const rr=await sb.rpc('team_role',{p_studio:STUDIO.id}); ROLE=rr.error?'owner':rr.data;
+  if(!ROLE){await sb.auth.signOut();SESSION=null;renderLogin('To konto nie ma dostępu do panelu tego salonu albo zostało wyłączone.');return}
   $('.panel').classList.remove('locked');
-  if(!(STUDIO.catalog&&STUDIO.catalog.services)){await saveCatalog();STUDIO.catalog={services:SERVICES}}
+  if(isAdm()&&!(STUDIO.catalog&&STUDIO.catalog.services)){await saveCatalog();STUDIO.catalog={services:SERVICES}}
+  await loadTeam(); if(!TEAM_ERR) await ensureOwnerRow();
   await loadBookings();
-  if(!BOOKINGS.length) await seedDemo(); else {await loadSide(); if(!SIDE_ERR&&!WAIT.length&&!VOUCH.length) await seedSide();}
-  subscribe(); renderPanel();
+  // pierwsze wejście po aktualizacji: zespół, gwarancje i wyceny w danych przykładowych
+  if(isAdm()&&!TEAM_ERR&&!SET.seed_v11){SET.seed_v11=true;await saveCatalog();await reseedAll()}
+  else if(isAdm()&&!BOOKINGS.length) await seedDemo(); else {await loadSide(); if(isAdm()&&!SIDE_ERR&&!WAIT.length&&!VOUCH.length) await seedSide();}
+  subscribe(); renderPanel(); enter($('#pmain'));
 }
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
@@ -1746,6 +1931,8 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fprop'){e.preventDefault();propSubmit(e.target);return}
   if(e.target.id==='fnote'){e.preventDefault();noteSubmit(e.target);return}
   if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
+  if(e.target.id==='foffer'){e.preventDefault();offerSubmit(e.target);return}
+  if(e.target.id==='fmember'){e.preventDefault();memberSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
   const {error}=await sb.auth.signInWithPassword({email:$('#l-mail').value.trim(),password:$('#l-pw').value});
@@ -1799,22 +1986,23 @@ const fdr=k=>k.from===k.to?fd(pday(k.from)):`${fd(pday(k.from))} → ${fd(pday(k
 const drw=()=>$('#drw');
 let GUARD=false, PENDING=null, OPEN_BK=null;
 const CONFIRM_X=`<div class="confirm-x" hidden role="alertdialog" aria-label="Zamknąć bez zapisu?"><b>Zamknąć bez zapisywania?</b><span>Wpisane dane przepadną.</span><div><button class="pbtn" type="button" data-keep="1">Wróć do formularza</button><button class="pbtn dark" type="button" data-discard="1">Zamknij bez zapisu</button></div></div>`;
-function openDrawer(html,strict,narrow){const d=drw();GUARD=false;PENDING=null;OPEN_BK=null;d.classList.add('mdl');d.classList.toggle('strict',!!strict);d.classList.toggle('narrow',!!narrow);d.innerHTML=`<div class="drw-in">${CONFIRM_X}${html}</div>`;if(!d.open)d.showModal();d.scrollTop=0}
+function openDrawer(html,strict,narrow){const d=drw();if(window.drwStop)drwStop();const k=html.slice(0,200),sw=d.open&&d.dataset.k!==k;d.dataset.k=k;GUARD=false;PENDING=null;OPEN_BK=null;d.classList.add('mdl');d.classList.toggle('strict',!!strict);d.classList.toggle('narrow',!!narrow);d.innerHTML=`<div class="drw-in${sw?' swap':''}">${CONFIRM_X}${html}</div>`;if(!d.open)d.showModal();d.scrollTop=0}
 // zamykanie zawsze tędy: przy niezapisanych zmianach najpierw pytanie
 function tryClose(next=()=>drw().close()){if(!GUARD){next();return}PENDING=next;const c=drw().querySelector('.confirm-x');c.hidden=false;drw().scrollTop=0;c.querySelector('button').focus()}
 
 function renderSide(){
   const n=pending().length, off=WAIT.filter(w=>w.status==='offer').length;
   const it=(k,l,c)=>`<button class="nav" type="button" data-nav="${k}" ${P.view===k?'aria-current="page"':''}>${ic(k)}<span>${l}</span>${c?`<span class="badge" aria-label="${c} czeka na decyzję">${c}</span>`:''}</button>`;
+  const A=isAdm(), acc=OFFERS.filter(o=>o.status==='accepted').length, due=gwList().filter(x=>x.st==='late'||x.st==='soon').length, me=ME();
   $('#side').innerHTML=`<div class="logo">Lumen<span>panel salonu</span></div>
   <label class="gsearch">${ic('search')}<input type="search" data-gsearch="1" placeholder="Szukaj klienta, auta" aria-label="Szukaj klienta, auta albo telefonu" value="${esc(P.q)}"><kbd>/</kbd></label>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
-  ${it('start','Start',n)}${it('dzis','Pulpit')}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',off)}<div class="sep"></div>${it('google','Google')}${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
-  <button class="nav" type="button" data-tourstart="1">${ic('help')}<span>Samouczek</span></button>
-  <button class="whatsnew" type="button" data-nav="wl"><b>Nowość: lista rezerwowa</b><span>Zwolniony termin trafia sam do kolejnej osoby.</span></button>
-  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
+  ${it('start','Start',n)}${A?it('dzis','Pulpit'):''}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',off)}<div class="sep"></div>${it('wyc','Wyceny',acc)}${it('gw','Gwarancje',due)}${A?it('zes','Zespół'):''}${A?`<div class="sep"></div>${it('google','Google')}${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}`:''}
+  ${A?`<button class="nav" type="button" data-tourstart="1">${ic('help')}<span>Samouczek</span></button>`:''}
+  <button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>
+  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
+function renderPanel(){if(!isAdm()&&ADMIN_VIEWS.includes(P.view))P.view='start';renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML}[P.view]();}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -1823,7 +2011,7 @@ function topbar(title,sub,act=''){
 function agendaRow(b,d){
   const starts=+sod(b.start)===+d, multi=!!pkgOf(svcById(b.svc),b.pkg).d;
   return `<button type="button" class="row-i" data-open="${b.id}"><time>${starts?fhm(b.start):'w trakcie'}<small>stan. ${b.bay}</small></time>
-    <span><span class="who">${esc(b.name)}</span><span class="what">${bName(b)} · ${esc(b.car)} · ${multi||!starts?'odbiór '+fd(b.end):'do '+fhm(b.end)}</span></span>
+    <span><span class="who">${esc(b.name)}${wAv(memberOf(b.worker_id),'xs')}</span><span class="what">${bName(b)} · ${esc(b.car)} · ${multi||!starts?'odbiór '+fd(b.end):'do '+fhm(b.end)}</span></span>
     <span class="amt"><b>${zl(b.total)}</b>${stChip(b)}</span></button>`;
 }
 function dayAgenda(d){
@@ -1991,12 +2179,13 @@ function runSearch(){
 const SEARCH=ph=>`<input class="search" type="search" data-q="1" placeholder="${ph}" aria-label="${ph}">`;
 function rezHTML(){
   const f=P.filter;
-  const list=BOOKINGS.filter(b=>f==='all'||b.status===f||(f==='pending'&&b.status==='proposed')).sort((a,b)=>f==='done'?b.start-a.start:a.start-b.start);
-  const cnt=k=>BOOKINGS.filter(b=>k==='all'||b.status===k||(k==='pending'&&b.status==='proposed')).length;
+  const me=ME(), hit=(b,k)=>k==='all'||b.status===k||(k==='pending'&&b.status==='proposed')||(k==='mine'&&!!me&&b.worker_id===me.id);
+  const list=BOOKINGS.filter(b=>hit(b,f)).sort((a,b)=>f==='done'?b.start-a.start:a.start-b.start);
+  const cnt=k=>BOOKINGS.filter(b=>hit(b,k)).length;
   return `${topbar('Rezerwacje','Kliknij wizytę, żeby zobaczyć szczegóły, zadzwonić albo zmienić status.',SEARCH('Szukaj: klient, auto, telefon'))}
-  <div class="filters">${[['all','Wszystkie'],['pending','Do potwierdzenia'],['confirmed','Potwierdzone'],['done','Zakończone'],['noshow','Nie przyjechał'],['rejected','Odrzucone']].map(x=>`<button type="button" data-filter="${x[0]}" aria-pressed="${f===x[0]}">${x[1]}<span>${cnt(x[0])}</span></button>`).join('')}</div>
+  <div class="filters">${(me?[['mine','Moje']]:[]).concat([['all','Wszystkie'],['pending','Do potwierdzenia'],['confirmed','Potwierdzone'],['done','Zakończone'],['noshow','Nie przyjechał'],['rejected','Odrzucone']]).map(x=>`<button type="button" data-filter="${x[0]}" aria-pressed="${f===x[0]}">${x[1]}<span>${cnt(x[0])}</span></button>`).join('')}</div>
   <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Termin</th><th>Klient</th><th>Auto</th><th>Usługa</th><th class="r">Kwota</th><th>Status</th></tr></thead><tbody>
-  ${list.map(b=>`<tr data-open="${b.id}" data-s="${esc((b.name+' '+b.car+' '+b.phone).toLowerCase())}"><td><b>${fdt(b.start)}</b><small>odbiór ${fd(b.end)}</small></td><td><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button><small>${esc(b.phone)}</small></td><td>${esc(b.car)}<small>${sizeName(b)}</small></td><td>${bName(b)}<small>stanowisko ${b.bay} · ${NAMES_SRC[b.src]||esc(b.src)}</small></td><td class="r"><b>${zl(b.total)}</b></td><td>${stChip(b)}</td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
+  ${list.map(b=>`<tr data-open="${b.id}" data-s="${esc((b.name+' '+b.car+' '+b.phone).toLowerCase())}"><td><b>${fdt(b.start)}</b><small>odbiór ${fd(b.end)}</small></td><td><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button><small>${esc(b.phone)}</small></td><td>${esc(b.car)}<small>${sizeName(b)}</small></td><td>${bName(b)}<small>stanowisko ${b.bay} · ${memberOf(b.worker_id)?esc(memberOf(b.worker_id).name):NAMES_SRC[b.src]||esc(b.src)}</small></td><td class="r"><b>${zl(b.total)}</b></td><td>${stChip(b)}</td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
   </tbody></table></div></section>`;
 }
 function kliHTML(){
@@ -2004,8 +2193,8 @@ function kliHTML(){
   const rows=[...m.values()].sort((a,b)=>b.sum-a.sum);
   const refresh=x=>{const s=x.svc;if(s==='ceramika')return fd(addDays(x.last,365))+' · przegląd powłoki';if(s==='mycie'||s==='wnetrze')return fd(addDays(x.last,s==='mycie'?42:180))+' · kolejna wizyta';return ''};
   return `${topbar('Klienci',`${rows.length} klientów. Każda rezerwacja zapisuje auto i historię wizyt.`,SEARCH('Szukaj: klient, auto, telefon'))}
-  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th><th class="r">Wartość</th><th>Ostatnia wizyta</th><th class="r">Punkty</th><th>Przypomnienie</th></tr></thead><tbody>
-  ${rows.map(x=>`<tr data-client="${esc(x.phone)}" data-s="${esc((x.name+' '+x.car+' '+x.phone).toLowerCase())}"><td><b>${esc(x.name)}</b><small>${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td><td class="r"><b>${zl(x.sum)}</b></td><td>${fd(x.last)}<small>${svcById(x.svc).name}</small></td><td class="r">${SET.loy_on?loyOf(x.phone).bal:''}</td><td>${refresh(x)}</td></tr>`).join('')}
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th>${isAdm()?'<th class="r">Wartość</th>':''}<th>Ostatnia wizyta</th><th class="r">Punkty</th><th>Przypomnienie</th></tr></thead><tbody>
+  ${rows.map(x=>`<tr data-client="${esc(x.phone)}" data-s="${esc((x.name+' '+x.car+' '+x.phone).toLowerCase())}"><td><b>${esc(x.name)}</b><small>${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td>${isAdm()?`<td class="r"><b>${zl(x.sum)}</b></td>`:''}<td>${fd(x.last)}<small>${svcById(x.svc).name}</small></td><td class="r">${SET.loy_on?loyOf(x.phone).bal:''}</td><td>${refresh(x)}</td></tr>`).join('')}
   </tbody></table></div></section>`;
 }
 
@@ -2224,6 +2413,7 @@ function handHTML(b){
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
     ${PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div><ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
     </div><div class="col"><label class="pf">Zalecenia dla klienta<textarea name="hnote" maxlength="1000" ${L?'disabled':''} placeholder="np. pierwsze mycie po 7 dniach, bez myjni szczotkowej">${esc(PR.note)}</textarea></label>
+    ${!L&&warrYears(b)?warrForm(b):''}
     <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
     ${pts?`<div class="hint-p">Klient ma ${loy.bal} pkt. Przy zapisie odliczymy automatycznie ${zl(pts)}.</div>`:''}
     <div><div class="ph"><b>Podpis przy odbiorze</b><small>Odbieram auto bez zastrzeżeń</small></div>
@@ -2243,10 +2433,11 @@ async function handSave(id,btn){
   const L=loyOf(b.phone), pts=SET.loy_on&&SET.loy_auto&&!b.points_used&&L.bal>=SET.loy_min?Math.min(L.bal,b.total):0;
   const upd={handover:{at:new Date().toISOString(),note:drw().querySelector('[name=hnote]').value.trim().slice(0,1000),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt},status:'done',stage:'wydane'};
   if(pts){upd.points_used=pts;upd.total=b.total-pts}
+  upd.cert=b.cert||crypto.randomUUID(); const wr=warrRead(b); if(wr) upd.warranty=wr;
   const {error}=await sb.from('bookings').update(upd).eq('id',id); btn.disabled=false;
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pól na wydanie auta. Uruchom schema.sql w Supabase.':'Nie udało się zapisać wydania.';return}
   Object.assign(b,upd); GUARD=false; renderPanel(); openBk(id);
-  toast(pts?`Auto wydane. Z punktów klienta odliczono ${zl(pts)}.`:'Auto wydane. Jutro klient dostanie prośbę o opinię (w demo bez wysyłki).');
+  toast(upd.warranty?`Auto wydane. Certyfikat gwarancji ${upd.warranty.no} z kodem QR jest gotowy.`:pts?`Auto wydane. Z punktów klienta odliczono ${zl(pts)}.`:'Auto wydane. Jutro klient dostanie prośbę o opinię (w demo bez wysyłki).');
 }
 async function addExtra(id){
   const b=BOOKINGS.find(x=>x.id===id), d=drw(), desc=d.querySelector('[name=exdesc]').value.trim(), amt=Math.round(+d.querySelector('[name=examt]').value||0);
@@ -2459,23 +2650,30 @@ function startHTML(){
   const ready=BOOKINGS.filter(b=>b.status==='confirmed'&&b.stage==='gotowe'), next=BOOKINGS.filter(b=>['confirmed','pending'].includes(b.status)&&b.start>now).sort((a,b)=>a.start-b.start)[0];
   const ini=n=>esc(String(n).split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase());
   const tile=(col,icon,title,sub,attr)=>`<button type="button" class="tile" ${attr}><span class="ti" style="background:${col}">${ic(icon)}</span><b>${title}</b><span>${sub}</span></button>`;
-  return `<section class="hero-p"><p class="hero-d">${cap(DNL[T0.getDay()])}, ${T0.getDate()}.${pad(T0.getMonth()+1)}</p><h1>${hello}, Kamil</h1><p>Oto, co dziś najważniejsze w Lumen Detailing.</p>
+  const A=isAdm(), me=ME(), myName=(me&&me.name.split(' ')[0])||'Kamil', acc=OFFERS.filter(o=>o.status==='accepted'), due=gwList().filter(x=>x.st==='late'||x.st==='soon');
+  const mine=me?BOOKINGS.filter(b=>b.worker_id===me.id&&b.status==='confirmed'&&b.end>=T0).sort((a,b)=>a.start-b.start):[], myS=me?workStats(me):null;
+  return `<section class="hero-p"><p class="hero-d">${cap(DNL[T0.getDay()])}, ${T0.getDate()}.${pad(T0.getMonth()+1)}</p><h1>${hello}, ${esc(myName)}</h1><p>${A?'Oto, co dziś najważniejsze w Lumen Detailing.':`Twoje zlecenia i to, co dziś czeka w salonie.`}</p>
     <div class="pills">
       <button type="button" class="pill-c" ${p.length?`data-open="${p[0].id}"`:'data-nav="rez"'}>${ic('clock')}<span><b>${p.length}</b> ${p.length===1?'czeka':'czeka'} na potwierdzenie</span><span class="tag ${p.length?'hot':''}">${p.length?'pilne':'ok'}</span></button>
-      <button type="button" class="pill-c" data-nav="kal">${ic('car')}<span><b>${today.length}</b> ${plAuta(today.length)} dziś</span><span class="tag">${zl(rev)}</span></button>
-      <button type="button" class="pill-c" data-nav="wl">${ic('wl')}<span><b>${waitN}</b> na liście rezerwowej</span><span class="tag ${offers?'hot':''}">${offers?offers+' do akceptacji':'bez zmian'}</span></button>
+      <button type="button" class="pill-c" data-nav="kal">${ic('car')}<span><b data-count="${today.length}">${today.length}</b> ${plAuta(today.length)} dziś</span><span class="tag">${A?zl(rev):(mine.length?'Twoje: '+mine.length:'salon')}</span></button>
+      ${A?`<button type="button" class="pill-c" data-nav="wl">${ic('wl')}<span><b data-count="${waitN}">${waitN}</b> na liście rezerwowej</span><span class="tag ${offers?'hot':''}">${offers?offers+' do akceptacji':'bez zmian'}</span></button>`
+        :`<button type="button" class="pill-c" data-nav="rez" data-filter="mine">${ic('check')}<span><b data-count="${myS?myS.n:0}">${myS?myS.n:0}</b> Twoich zleceń w miesiącu</span><span class="tag hot">${myS?zl(myS.com):''} prowizji</span></button>`}
     </div>
-    <div class="qact"><button class="pbtn dark" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button><button class="pbtn" type="button" data-pact="walkin">${ic('car')}Klient z ulicy</button><button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button><button class="pbtn ghost" type="button" data-tourstart="1">${ic('help')}Samouczek panelu</button></div>
+    <div class="qact"><button class="pbtn dark" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button><button class="pbtn" type="button" data-pact="walkin">${ic('car')}Klient z ulicy</button>${A?`<button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button><button class="pbtn ghost" type="button" data-tourstart="1">${ic('help')}Samouczek panelu</button>`:''}</div>
   </section>
   <div class="st-h">${ic('bell')}Na teraz</div>
   <div class="tiles">
     ${tile('#ea580c','clock',p.length?`Potwierdź: ${esc(p[0].name)}`:'Nic nie czeka',p.length?`${bName(p[0])} · zgłoszenie ${ago(p[0].created)}`:'Nowe zgłoszenia pojawią się tutaj same',p.length?`data-open="${p[0].id}"`:'data-nav="rez"')}
     ${tile('#1c1917','check',ready.length?`Gotowe do odbioru: ${ready.length}`:'Brak aut do odbioru',ready.length?ready.map(b=>esc(b.name)+' · '+esc(b.car)).join(', '):'Gdy oznaczysz auto jako gotowe, klient dostanie SMS',ready.length?`data-open="${ready[0].id}"`:'data-nav="dzis"')}
     ${tile('#57534e','car',next?`Następne auto: ${fhm(next.start)}`:'Brak kolejnych wizyt',next?`${esc(next.name)} · ${esc(next.car)} · ${fd(next.start)}`:'Kalendarz jest pusty',next?`data-open="${next.id}"`:'data-nav="kal"')}
+    ${acc.length?tile('#16a34a','wyc',`Wycena przyjęta: ${esc(acc[0].name)}`,`${esc((ofPick(acc[0])||{}).name||'')} · ${zl(+(acc[0].choice||{}).total||0)} · umów termin`,`data-offer="${acc[0].id}"`):''}
+    ${due.length?tile('#7c3aed','gw',`Przeglądy gwarancyjne: ${due.length}`,due.slice(0,3).map(x=>esc(x.b.name)+' · '+(x.days<0?'zaległy':'za '+x.days+' dni')).join(', '),'data-nav="gw"'):''}
   </div>
-  ${gStartHTML()}
-  <div class="st-h">${ic('kal')}Dzisiejsze wizyty<button class="more" type="button" data-nav="dzis">Pełny pulpit →</button></div>
-  <div class="vlist">${today.map(b=>`<button type="button" class="vrow" data-open="${b.id}"><span class="av" aria-hidden="true">${ini(b.name)}</span><span><b>${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}</small></span><span>${stChip(b)}</span><span><b>${+sod(b.start)===+T0?fhm(b.start):'w trakcie'}</b><small>odbiór ${fd(b.end)===fd(T0)?fhm(b.end):fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Dziś brak wizyt.</div>'}</div>`;
+  ${me&&!A?`<div class="st-h">${ic('user')}Twoje zlecenia<button class="more" type="button" data-nav="rez" data-filter="mine">Wszystkie Twoje →</button></div>
+  <div class="vlist">${mine.slice(0,6).map(b=>`<button type="button" class="vrow" data-open="${b.id}">${wAv(me)}<span><b>${esc(b.name)} · ${esc(b.car)}</b><small>${bName(b)}</small></span><span>${stChip(b)}</span><span><b>${fd(b.start)}</b><small>${fhm(b.start)} · odbiór ${fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Nie masz teraz przypisanych zleceń. Administrator przypisuje je w szczegółach wizyty.</div>'}</div>`:''}
+  ${A?gStartHTML():''}
+  <div class="st-h">${ic('kal')}Dzisiejsze wizyty${A?'<button class="more" type="button" data-nav="dzis">Pełny pulpit →</button>':''}</div>
+  <div class="vlist">${today.map(b=>`<button type="button" class="vrow" data-open="${b.id}"><span class="av" aria-hidden="true">${ini(b.name)}</span><span><b>${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}${memberOf(b.worker_id)?' · '+esc(memberOf(b.worker_id).name.split(' ')[0]):''}</small></span><span>${stChip(b)}</span><span><b>${+sod(b.start)===+T0?fhm(b.start):'w trakcie'}</b><small>odbiór ${fd(b.end)===fd(T0)?fhm(b.end):fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Dziś brak wizyt.</div>'}</div>`;
 }
 
 /* ---------- konto klienta ---------- */
@@ -2777,9 +2975,10 @@ function bkHTML(b){
     <div class="col">
       <div class="chips-p">${stChip(b)}${n>1?`<button class="pbtn sm" type="button" data-client="${esc(b.phone)}">${ic('user')}Konto klienta · ${n} wizyt</button>`:''}${b.token?`<a class="pbtn sm" href="#status=${b.token}" target="_blank" rel="noopener">Strona klienta ↗</a>`:''}</div>
       ${propLine(b)}
+      ${offerLine(b)}
       ${stageHTML(b)}
       <dl class="dl">
-        ${row('Oddanie',fdt(b.start))}${row('Odbiór',fdt(b.end))}${row('Stanowisko',esc(bayName(b.bay)))}
+        ${row('Oddanie',fdt(b.start))}${row('Odbiór',fdt(b.end))}${row('Stanowisko',esc(bayName(b.bay)))}${TEAM.length?row('Wykonuje',assignSel(b)):''}
         ${row('Telefon',`<a href="tel:${b.phone.replace(/[^+\d]/g,'')}">${esc(b.phone)}</a>`)}${row('E-mail',b.email?`<a href="mailto:${esc(b.email)}">${esc(b.email)}</a>`:'')}
         ${row('Auto',esc(b.car)+', '+sizeName(b).toLowerCase())}
         ${row('Dodatki',(b.addons||[]).map(a=>esc((ADDONS.find(x=>x.id===a)||{name:a}).name)).join(', '))}
@@ -2792,10 +2991,11 @@ function bkHTML(b){
       ${b.photoUrls.length?`<div><div class="ph"><b>Zdjęcia od klienta</b></div><div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div></div>`:''}
       ${b.status==='confirmed'&&b.stage&&!b.handover?protoBox(b):''}
       ${handBox(b)}
+      ${certBox(b)}
       ${extrasHTML(b)}
       ${SET.loy_on&&['confirmed','done'].includes(b.status)?loyLine(b):''}
     </div>
-    ${acts.length?`<div class="acts span2">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>`:''}
+    ${acts.length?`<div class="acts span2">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}${['pending','proposed'].includes(b.status)&&!OFFERS.some(o=>o.booking_id===b.id&&o.status==='sent')?`<button class="pbtn" type="button" data-oform="${b.id}">${ic('wyc')}Wycena z wariantami</button>`:''}</div>`:''}
   </div>`;
 }
 function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=false;openDrawer(bkHTML(b));OPEN_BK=id}
@@ -2803,10 +3003,10 @@ function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=fal
 /* ---------- szuflada: nowa rezerwacja ---------- */
 function addHTML(pre={}){
   const day=pre.day?pday(pre.day):T0.getDay()===6?addDays(T0,2):addDays(T0,1);
-  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map((p,pi)=>`<option value="${s.id}:${p.id}" ${pre.svc===s.id&&pi===0?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
-  return `<form id="fadd" novalidate><div class="drw-h"><div><h2>Nowa rezerwacja</h2><p>${pre.wl?'Z listy rezerwowej.':'Wizyta umówiona przez telefon albo na miejscu.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map((p,pi)=>`<option value="${s.id}:${p.id}" ${pre.svc===s.id&&(pre.pkg?p.id===pre.pkg:pi===0)?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
+  return `<form id="fadd" novalidate><div class="drw-h"><div><h2>${pre.check?'Przegląd gwarancyjny':'Nowa rezerwacja'}</h2><p>${pre.wl?'Z listy rezerwowej.':pre.offer?'Z wyceny zaakceptowanej przez klienta.':pre.check?'Bezpłatny przegląd powłoki, warunek gwarancji.':'Wizyta umówiona przez telefon albo na miejscu.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b"><div class="fgrid">
-    <input type="hidden" name="wl" value="${+pre.wl||''}">
+    <input type="hidden" name="wl" value="${+pre.wl||''}"><input type="hidden" name="check" value="${+pre.check||''}"><input type="hidden" name="offer" value="${+pre.offer||''}">
     <label class="pf-check full"><input type="checkbox" name="walkin"><span><b>Klient jest na miejscu z autem</b><small>Ustawi dziś i najbliższą godzinę. Po zapisie od razu oględziny.</small></span></label>
     <label class="pf-check full" id="walk-opts" hidden><input type="checkbox" name="inspect" checked><span><b>Po zapisie otwórz protokół przyjęcia</b><small>Schemat uszkodzeń, zdjęcia z godziną, podpis klienta.</small></span></label>
     <label class="pf full">Usługa<select name="svc">${opts}</select></label>
@@ -2816,7 +3016,7 @@ function addHTML(pre={}){
     <label class="pf">Godzina<select name="hour">${[8,9,10,11,12,13,14,15,16,17].map(h=>`<option value="${h}" ${h===9?'selected':''}>${h}:00</option>`).join('')}</select></label>
     <label class="pf">Klient<input name="kname" maxlength="80" required autocomplete="off" placeholder="Imię i nazwisko" value="${esc(pre.name||'')}"></label>
     <label class="pf">Telefon<input name="ktel" type="tel" inputmode="tel" required placeholder="600 100 200" value="${esc((pre.phone||'').replace(/^\+48 ?/,''))}"></label>
-    <label class="pf">Kwota (zł)<input name="total" type="number" min="0" step="10"></label>
+    <label class="pf">Kwota (zł)<input name="total" type="number" min="0" step="10" ${pre.total!=null?`value="${+pre.total}" data-touched="1"`:''}></label>
     <label class="pf">Status<select name="status"><option value="confirmed">Potwierdzona</option><option value="pending">Do potwierdzenia</option></select></label>
     <label class="pf full">Uwagi<textarea name="note" maxlength="1000">${esc(pre.note||'')}</textarea></label>
     <label class="pf full">Zdjęcia auta <span class="opt-l">(opcjonalnie: od klienta albo zrobione teraz)</span><input type="file" name="photos" accept="image/*" multiple></label>
@@ -2841,10 +3041,12 @@ function addSync(f){
 }
 async function addSubmit(f){
   const E=f.elements, r=addCalc(f), err=$('#fadd-err');
-  const tel=E.ktel.value.replace(/\D/g,'').replace(/^48(?=\d{9}$)/,'');
+  // klient z bazy może mieć zamaskowany numer (dane przykładowe): zostawiamy go bez zmian
+  const rawT=E.ktel.value.trim().replace(/^\+48 ?/,''), masked=/^[0-9*]{3} [0-9*]{3} [0-9*]{3}$/.test(rawT)&&rawT.includes('*');
+  const tel=masked?rawT:E.ktel.value.replace(/\D/g,'').replace(/^48(?=\d{9}$)/,'');
   const fail=(m,el)=>{err.textContent=m;if(el)el.focus()};
   if(E.kname.value.trim().length<2) return fail('Wpisz imię klienta.',E.kname);
-  if(tel.length!==9) return fail('Telefon: 9 cyfr, np. 600 100 200.',E.ktel);
+  if(!masked&&tel.length!==9) return fail('Telefon: 9 cyfr, np. 600 100 200.',E.ktel);
   if(!r.pu) return fail('Wybierz dzień.',E.day);
   if(r.pu.start.getDay()===0) return fail('W niedzielę salon jest zamknięty.',E.day);
   const btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Zapisuję…';
@@ -2862,6 +3064,8 @@ async function addSubmit(f){
   if(!BOOKINGS.some(x=>x.id===data.id)) BOOKINGS.push(toBk(data));
   const nb=BOOKINGS.find(x=>x.id===data.id); await signUrls([nb]);
   if(+E.wl.value){await sb.from('waitlist').update({status:'booked'}).eq('id',+E.wl.value);const w=WAIT.find(x=>x.id===+E.wl.value);if(w)w.status='booked'}
+  if(+E.check.value){const o=BOOKINGS.find(x=>x.id===+E.check.value);if(o&&o.warranty){const w={...o.warranty,checks:(o.warranty.checks||[]).concat({at:row.start_at,booking:data.id})};const {error}=await sb.from('bookings').update({warranty:w}).eq('id',o.id);if(!error)o.warranty=w}}
+  if(+E.offer.value){const of=OFFERS.find(x=>x.id===+E.offer.value);const {error}=await sb.from('offers').update({status:'booked',booking_id:data.id}).eq('id',+E.offer.value);if(of&&!error)Object.assign(of,{status:'booked',booking_id:data.id})}
   GUARD=false; renderPanel(); toast(`Zapisano: ${row.name}, ${fdt(r.pu.start)}`);
   if(E.walkin.checked&&E.inspect.checked) openProto(data.id); else drw().close();
 }
@@ -2892,6 +3096,398 @@ async function blockSubmit(f){
   toast(clash?`Zablokowano. W tym czasie ${clash===1?'jest już 1 wizyta':`są już wizyty (${clash})`}, sprawdź kalendarz.`:'Zablokowano. Te dni zniknęły z formularza na stronie.');
 }
 
+/* ================= v11: zespół i role, wyceny, gwarancje, paszport auta, ruch ================= */
+const isAdm=()=>ROLE==='owner'||ROLE==='admin';
+const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes'];
+const ME=()=>SESSION?TEAM.find(t=>t.user_id===SESSION.user.id)||null:null;
+const memberOf=id=>id?TEAM.find(t=>t.id===id)||null:null;
+const inits=n=>esc(String(n||'?').trim().split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase());
+const okColor=c=>/^#[0-9a-f]{6}$/.test(c||'')?c:'#ea580c';
+const wAv=(m,cls='')=>m?`<span class="wav ${cls}" style="--c:${okColor(m.color)}" title="${esc(m.name)}" aria-hidden="true">${inits(m.name)}</span>`:'';
+const ROLE_L={owner:'Właściciel',admin:'Administrator',worker:'Pracownik'};
+const T_COLORS=['#ea580c','#2563eb','#0d9488','#7c3aed','#db2777','#ca8a04'];
+const monthRange=off=>{const a=new Date(T0.getFullYear(),T0.getMonth()+off,1);return [a,new Date(a.getFullYear(),a.getMonth()+1,1)]};
+const isOwnerRow=m=>!!(m&&m.user_id&&SESSION&&m.user_id===SESSION.user.id&&ROLE==='owner');
+Object.assign(ICONS,{
+  wyc:'<path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h3"/>',
+  gw:'<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  zes:'<circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M2.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5M14 14.6c3.4-.5 7 1.4 7 5.4"/>'});
+
+/* ---------- zespół ---------- */
+function workStats(m,off=0){
+  const [a,z]=monthRange(off), l=BOOKINGS.filter(b=>b.worker_id===m.id&&b.status==='done'&&b.end>=a&&b.end<z), rev=l.reduce((t,b)=>t+b.total,0);
+  return {n:l.length,rev,com:Math.round(rev*(+m.commission||0)/100),now:BOOKINGS.filter(b=>b.worker_id===m.id&&b.status==='confirmed'&&b.stage&&b.stage!=='wydane').length};
+}
+async function loadTeam(){const {data,error}=await sb.from('team').select('*').eq('studio_id',STUDIO.id).order('created_at');TEAM_ERR=!!error;TEAM=data||[]}
+async function seedTeam(){
+  // osoby z założonym kontem zostają, inaczej odświeżenie danych zabrałoby komuś dostęp
+  await sb.from('team').delete().eq('studio_id',STUDIO.id).eq('seed',true).is('user_id',null); await loadTeam();
+  const rows=[{studio_id:STUDIO.id,name:'Michał Nowicki',role:'worker',color:'#2563eb',commission:12,seed:true},
+    {studio_id:STUDIO.id,name:'Patryk Kaczmarek',role:'worker',color:'#0d9488',commission:10,seed:true}].filter(r=>!TEAM.some(t=>t.seed&&t.name===r.name));
+  if(rows.length) await sb.from('team').insert(rows);
+  await loadTeam();
+}
+// właściciel też jest w zespole: można mu przypisywać zlecenia
+async function ensureOwnerRow(){
+  if(ROLE!=='owner'||ME()) return;
+  const {error}=await sb.from('team').insert({studio_id:STUDIO.id,user_id:SESSION.user.id,email:SESSION.user.email,name:'Kamil Lis',role:'admin',color:'#ea580c',commission:0});
+  if(!error) await loadTeam();
+}
+async function reseedAll(){
+  await sb.from('bookings').delete().eq('studio_id',STUDIO.id).eq('seed',true);
+  if(!TEAM_ERR) await seedTeam();
+  await seedDemo();
+}
+function assignSel(b){
+  return `<select class="asel" data-assign="${b.id}" aria-label="Kto wykonuje zlecenie"><option value="">Nieprzypisane</option>${TEAM.filter(t=>t.active||t.id===b.worker_id).map(t=>`<option value="${t.id}" ${t.id===b.worker_id?'selected':''}>${esc(t.name)}</option>`).join('')}</select>`;
+}
+async function assignTo(id,wid){
+  const b=BOOKINGS.find(x=>x.id===id); if(!b) return;
+  const {error}=await sb.from('bookings').update({worker_id:wid}).eq('id',id);
+  if(error){toast(['PGRST204','42703'].includes(error.code)?'Uruchom schema.sql w Supabase (brak pola na pracownika)':'Nie udało się przypisać');return}
+  b.worker_id=wid; renderPanel(); const m=memberOf(wid);
+  toast(m?`${m.name} wykonuje to zlecenie i widzi je u siebie w panelu.`:'Zlecenie bez przypisanej osoby');
+}
+const roleHint=r=>r==='admin'?'<b>Administrator</b> widzi wszystko: obroty, Google, cennik, bony, ustawienia i zespół. Może zakładać konta i zmieniać prowizje.'
+  :'<b>Pracownik</b> widzi kalendarz, rezerwacje, klientów, wyceny i gwarancje. Robi protokoły, zmienia etapy i wydaje auta. Nie widzi obrotów salonu, Google, cennika, ustawień ani zespołu.';
+function zesHTML(){
+  const off=P.tm||0, [ra,rz]=monthRange(off), mon=ra.toLocaleDateString('pl-PL',{month:'long'});
+  const act=TEAM.filter(t=>t.active), st=new Map(TEAM.map(m=>[m.id,workStats(m,off)]));
+  const done=BOOKINGS.filter(b=>b.status==='done'&&b.end>=ra&&b.end<rz), rev=done.reduce((t,b)=>t+b.total,0), com=[...st.values()].reduce((t,s)=>t+s.com,0);
+  const un=BOOKINGS.filter(b=>!b.worker_id&&b.status==='confirmed'&&b.end>new Date()).length;
+  const card=m=>{const s=st.get(m.id),own=isOwnerRow(m);
+    return `<article class="mcard ${m.active?'':'off'}">
+      <div class="mc-h">${wAv(m,'lg')}<div><b>${esc(m.name)}</b><small>${own?'Właściciel':ROLE_L[m.role]}${m.active?'':' · dostęp wyłączony'}</small></div><button class="pbtn sm ghost" type="button" data-medit="${m.id}" aria-label="Edytuj: ${esc(m.name)}">Edytuj</button></div>
+      <div class="mc-acc">${m.user_id?`<span class="dotok"></span>Loguje się jako <b>${esc(m.email||'')}</b>`:`<span class="dotno"></span>Bez konta do logowania · <button class="lnk" type="button" data-medit="${m.id}">utwórz konto</button>`}</div>
+      <div class="mc-stats"><div><small>Zlecenia</small><b data-count="${s.n}">${s.n}</b></div><div><small>Przychód</small><b>${zl(s.rev)}</b></div><div><small>Prowizja ${+m.commission||0}%</small><b>${zl(s.com)}</b></div></div>
+      <div class="mc-now">${s.now?`${ic('car')}Teraz w pracy: ${s.now} ${plAuta(s.now)}`:`${ic('clock')}Brak aut w pracy`}</div></article>`};
+  return `${topbar('Zespół',`${act.length} ${act.length===1?'osoba':act.length<5?'osoby':'osób'} z dostępem · konta, uprawnienia i prowizje. Ten widok ma tylko administrator.`,
+    `<div class="tg" role="group" aria-label="Miesiąc"><button type="button" data-tm="0" aria-pressed="${off===0}">Ten miesiąc</button><button type="button" data-tm="-1" aria-pressed="${off===-1}">Poprzedni</button></div><button class="pbtn dark" type="button" data-medit="0">${ic('plus')}Dodaj osobę</button>`)}
+  ${TEAM_ERR?'<div class="alert warn"><span class="ai">'+ic('bell')+'</span><span><b>Baza nie ma jeszcze tabeli zespołu</b><small>Uruchom aktualny schema.sql w Supabase, potem odśwież stronę.</small></span></div>':''}
+  <div class="mini-kpis"><div><small>Przychód zespołu, ${mon}</small><b>${zl(rev)}</b><span>${done.length} ${done.length===1?'wydane auto':'wydanych aut'}</span></div><div><small>Prowizje do wypłaty</small><b>${zl(com)}</b><span>${rev?Math.round(com/rev*100):0}% przychodu</span></div><div><small>Średnio na zlecenie</small><b>${done.length?zl(rev/done.length):'·'}</b></div><div class="${un?'warn':''}"><small>Nadchodzące bez przypisanej osoby</small><b data-count="${un}">${un}</b>${un?'<span>przypisz w szczegółach wizyty</span>':''}</div></div>
+  <div class="mgrid">${TEAM.map(card).join('')||'<div class="empty">Brak osób w zespole.</div>'}</div>
+  <div class="grid2"><div class="box"><div class="box-h"><h2>Co widzi pracownik</h2><small>po zalogowaniu własnym kontem</small></div><ul class="perm"><li>Start ze swoimi zleceniami i prowizją za miesiąc</li><li>Kalendarz, rezerwacje, lista rezerwowa</li><li>Protokoły przyjęcia i wydania, etapy pracy, dopłaty</li><li>Klienci i historia aut (bez wartości klienta)</li><li>Wyceny i gwarancje</li></ul></div>
+  <div class="box"><div class="box-h"><h2>Tylko administrator</h2><small>właściciel i osoby z rolą administratora</small></div><ul class="perm no"><li>Pulpit z obrotem i statystykami</li><li>Google: opinie, wizytówka, ruch na stronie</li><li>Zespół: konta, role i prowizje wszystkich</li><li>Cennik, bony, ustawienia salonu</li></ul></div></div>`;
+}
+function memberHTML(m){
+  const n=!m, own=isOwnerRow(m), has=!!(m&&m.user_id), col=m?okColor(m.color):T_COLORS[TEAM.length%T_COLORS.length], role=m?m.role:'worker';
+  return `<form id="fmember" novalidate data-id="${m?m.id:''}"><div class="drw-h"><div><h2>${n?'Nowa osoba w zespole':esc(m.name)}</h2><p>${n?'Dostanie własne konto do panelu, bez dostępu do obrotów salonu.':own?'Twoje konto właściciela':ROLE_L[m.role]}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b two">
+    <div class="col"><div class="fgrid">
+      <label class="pf full">Imię i nazwisko<input name="mname" maxlength="60" required autocomplete="off" value="${esc(m?m.name:'')}"></label>
+      <label class="pf">Rola<select name="mrole" ${own?'disabled':''}><option value="worker">Pracownik</option><option value="admin" ${role==='admin'?'selected':''}>Administrator</option></select></label>
+      <label class="pf">Prowizja od wizyt (%)<input name="mcom" type="number" min="0" max="50" value="${m?+m.commission||0:10}"></label></div>
+      <div><div class="ph"><b>Kolor w kalendarzu</b></div><div class="swatches">${T_COLORS.map(c=>`<label><input type="radio" name="mcolor" value="${c}" ${col===c?'checked':''} aria-label="Kolor ${c}"><i style="--c:${c}"></i></label>`).join('')}</div></div>
+      <div class="perm-sel" id="perm-hint">${roleHint(own?'admin':role)}</div>
+    </div>
+    <div class="col"><div><div class="ph"><b>Konto do logowania</b><small>${has?'aktywne':'opcjonalne, można dodać później'}</small></div>
+      ${own?'<div class="hint-p">Hasło właściciela zmienia się w ustawieniach konta, nie z panelu zespołu.</div>':`<div class="fgrid">
+        <label class="pf full">E-mail${has?`<input value="${esc(m.email||'')}" disabled>`:'<input name="memail" type="email" autocomplete="off" placeholder="np. patryk@lumendetailing.pl">'}</label>
+        <label class="pf full">${has?'Nowe hasło (puste = bez zmian)':'Hasło'}<span class="pw"><input name="mpw" type="text" autocomplete="new-password" placeholder="min. 8 znaków"><button class="pbtn sm" type="button" data-pwgen="1">Wygeneruj</button></span></label></div>
+        <div class="hint-p">Przekaż e-mail i hasło tej osobie. Loguje się na tej samej stronie, w zakładce „Panel salonu”.</div>`}</div>
+      ${m&&!own?`<div class="set-row"><div><b>Dostęp do panelu</b><small>${m.active?'Wyłączenie od razu blokuje dane salonu dla tego konta.':'Dostęp wyłączony. Włącz, żeby przywrócić.'}</small></div><button class="sw" type="button" data-mactive="${m.id}" aria-pressed="${!!m.active}" aria-label="Dostęp do panelu"></button></div>
+      <button class="pbtn ghost danger" type="button" data-mdel="${m.id}" style="justify-self:start">Usuń z zespołu</button>`:''}
+    </div>
+    <div class="ferr span2" id="fm-err" role="alert"></div>
+    <div class="acts span2"><button class="pbtn dark" type="submit">${n?'Dodaj do zespołu':'Zapisz zmiany'}</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div>
+  </div></form>`;
+}
+async function memberSubmit(f){
+  const E=f.elements, err=$('#fm-err'), id=+f.dataset.id, m=id?memberOf(id):null, had=!!(m&&m.user_id), name=cleanTxt(E.mname.value).slice(0,60);
+  if(name.length<2){err.textContent='Wpisz imię i nazwisko.';E.mname.focus();return}
+  const em=E.memail?E.memail.value.trim():'', pw=E.mpw?E.mpw.value:'';
+  if(em&&!pw){err.textContent='Ustaw hasło dla tego konta (przycisk „Wygeneruj”).';return}
+  if(pw&&pw.length<8){err.textContent='Hasło: co najmniej 8 znaków.';return}
+  if(pw&&!em&&!had){err.textContent='Wpisz e-mail, na który założymy konto.';return}
+  const row={name,commission:Math.min(50,Math.max(0,Math.round(+E.mcom.value||0))),color:(f.querySelector('[name=mcolor]:checked')||{}).value||T_COLORS[0]};
+  if(!E.mrole.disabled) row.role=E.mrole.value;
+  const btn=f.querySelector('[type=submit]'); btn.disabled=true;
+  const r=m?await sb.from('team').update(row).eq('id',m.id).select().single():await sb.from('team').insert({...row,studio_id:STUDIO.id}).select().single();
+  if(r.error){btn.disabled=false;err.textContent=TEAM_ERR?'Brak tabeli zespołu. Uruchom schema.sql w Supabase.':'Nie udało się zapisać.';return}
+  f.dataset.id=r.data.id;
+  if(pw){const {error}=await sb.rpc('team_login',{p_member:r.data.id,p_email:em||r.data.email||'',p_password:pw});
+    if(error){btn.disabled=false;await loadTeam();err.textContent=(error.message||'Nie udało się założyć konta.')+' Dane osoby zapisane.';return}}
+  await loadTeam(); GUARD=false; drw().close(); renderPanel();
+  toast(pw?(had?`Hasło dla: ${name} zmienione.`:`${name} ma konto ${em}. Przekaż e-mail i hasło.`):m?'Zapisano zmiany':`${name} w zespole. Konto do logowania dodasz w „Edytuj”.`);
+}
+
+/* ---------- gwarancje, certyfikat i przeglądy ---------- */
+const okD=s=>typeof s==='string'&&/^\d{4}-\d\d-\d\d$/.test(s);
+const okW=w=>w&&typeof w==='object'&&!Array.isArray(w)&&okD(w.from)&&okD(w.until)?{...w,years:Math.min(10,Math.max(1,+w.years||1)),checks:Array.isArray(w.checks)?w.checks:[]}:null;
+const addMonths=(d,n)=>{const x=new Date(d);x.setMonth(x.getMonth()+n);return x};
+const WARR={ceramika:{y:{'3l':3,'5l':5},product:'Gyeon Q² Mohs EVO',layers:2},ppf:{y:{przod:10,calosc:10},product:'XPEL Ultimate Plus',layers:0}};
+const warrYears=b=>{const w=WARR[b.svc];return w?(w.y[b.pkg]||0):0};
+const wNext=w=>{const d=addMonths(pday(w.from),12*(w.checks.length+1));return d<=pday(w.until)?d:null};
+const svcLabel=(svc,pkg)=>{const s=svcById(svc);return s?esc(s.name)+(s.pk.length>1?' · '+esc(pkgOf(s,pkg).name):''):esc(svc||'Usługa')};
+const passUrl=c=>location.origin+location.pathname+location.search+'#auto='+c;
+function qrSVG(t){if(typeof qrcode!=='function')return '';try{const q=qrcode(0,'M');q.addData(t);q.make();return q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(_){return ''}}
+function warrForm(b){
+  const w=WARR[b.svc];
+  return `<div class="warr-f"><div class="ph"><b>Karta gwarancyjna</b><small>certyfikat z kodem QR powstanie przy wydaniu</small></div><div class="fgrid">
+    <label class="pf full">Produkt<input name="wprod" maxlength="60" value="${esc(w.product)}"></label>
+    ${w.layers?`<label class="pf">Warstwy<select name="wlay">${[1,2,3].map(n=>`<option ${n===w.layers?'selected':''}>${n}</option>`).join('')}</select></label>`:''}
+    <label class="pf">Gwarancja (lata)<input name="wyears" type="number" min="1" max="10" value="${warrYears(b)}"></label></div></div>`;
+}
+function warrRead(b){
+  if(!warrYears(b)) return null; const q=n=>drw().querySelector(`[name=${n}]`); if(!q('wyears')) return b.warranty||null;
+  const y=Math.min(10,Math.max(1,Math.round(+q('wyears').value||warrYears(b))));
+  return {no:`LUM-${T0.getFullYear()}-${String(b.id).padStart(4,'0')}`,product:cleanTxt(q('wprod').value).slice(0,60)||WARR[b.svc].product,layers:q('wlay')?+q('wlay').value:0,years:y,from:ymd(T0),until:ymd(addMonths(T0,12*y)),checks:[]};
+}
+function certBox(b){
+  if(b.status!=='done'||!b.cert) return '';
+  const w=b.warranty;
+  return `<div class="proto-box"><div><b>${w?'Certyfikat gwarancji':'Paszport auta'}</b><small>${w?`${esc(w.product)} · do ${fdY(w.until)} · nr ${esc(w.no)}`:'Historia usług tego auta pod linkiem z kodu QR'}</small></div><span class="acts-i">${w?`<button class="pbtn sm dark" type="button" data-cert="${b.id}">Certyfikat</button>`:''}<a class="pbtn sm" href="#auto=${b.cert}" target="_blank" rel="noopener">Paszport ↗</a></span></div>`;
+}
+function certHTML(b){
+  const w=b.warranty, m=memberOf(b.worker_id), url=passUrl(b.cert);
+  const rows=[...Array(w.years)].map((_,i)=>{const d=addMonths(pday(w.from),12*(i+1)),c=w.checks[i],cb=c&&BOOKINGS.find(x=>x.id===c.booking),ok=cb&&cb.status==='done';
+    return `<li class="${c?(ok?'ok':'plan'):d<T0?'late':''}"><span>${i+1}. przegląd</span><b>${c?(ok?'wykonany '+fdY(ymd(cb.start)):'umówiony '+fdY(String(c.at).slice(0,10))):'do '+fdY(ymd(d))}</b></li>`}).slice(0,5).join('');
+  return `<div class="drw-h noprint"><div><h2>Certyfikat gwarancji</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="cert">
+    <div class="cert-top"><div class="cert-logo">LUMEN<span>detailing</span></div><div class="cert-no"><small>Nr karty</small><b>${esc(w.no)}</b></div></div>
+    <h3>Certyfikat ochrony lakieru</h3>
+    <dl class="cert-dl"><dt>Auto</dt><dd>${esc(b.car)}</dd><dt>Usługa</dt><dd>${bName(b)}</dd><dt>Produkt</dt><dd>${esc(w.product)}${w.layers?` · ${+w.layers} ${+w.layers===1?'warstwa':'warstwy'}`:''}</dd>
+      <dt>Data aplikacji</dt><dd>${fdY(w.from)}</dd><dt>Gwarancja do</dt><dd>${fdY(w.until)}</dd><dt>Wykonał</dt><dd>${m?esc(m.name):'Lumen Detailing'}</dd></dl>
+    <div class="cert-checks"><b>Przeglądy gwarancyjne co 12 miesięcy</b><ol>${rows}</ol>${w.years>5?'<small class="hint-p">i kolejne co 12 miesięcy do końca gwarancji</small>':''}</div>
+    <div class="cert-qr"><div class="qr">${qrSVG(url)}</div><span><b>Paszport auta</b><small>Zeskanuj telefonem: historia usług, przebieg i gwarancje tego auta. Przyda się przy sprzedaży.</small></span></div>
+    <p class="cert-foot">Warunki gwarancji: przegląd w salonie co 12 miesięcy, mycie ręczne, bez myjni szczotkowej. Lumen Detailing, ul. Przykładowa 12, 61-000 Poznań.</p>
+  </div>
+  <div class="acts noprint"><button class="pbtn dark" type="button" data-print="1">Drukuj albo zapisz PDF</button><a class="pbtn" href="#auto=${b.cert}" target="_blank" rel="noopener">Paszport auta ↗</a><button class="pbtn" type="button" data-certsms="1">Wyślij klientowi SMS-em</button><button class="pbtn ghost" type="button" data-open="${b.id}">← Wróć do wizyty</button></div></div>`;
+}
+function gwList(){
+  const now=new Date();
+  return BOOKINGS.filter(b=>b.warranty).map(b=>{const w=b.warranty,n=wNext(w),plan=w.checks.map(c=>BOOKINGS.find(x=>x.id===c.booking)).find(x=>x&&ACT_ST.includes(x.status)&&x.end>now),days=n?Math.round((n-T0)/864e5):null;
+    return {b,w,n,days,plan,st:plan?'plan':!n?(pday(w.until)<T0?'end':'ok'):days<0?'late':days<=30?'soon':'ok'}}).sort((a,b)=>(a.n?+a.n:9e15)-(b.n?+b.n:9e15));
+}
+function gwHTML(){
+  const l=gwList(), late=l.filter(x=>x.st==='late'), soon=l.filter(x=>x.st==='soon'), act=l.filter(x=>pday(x.w.until)>=T0), dn=n=>n===1?'dzień':'dni';
+  const chip=x=>({late:`<span class="st s-bad">Zaległy ${-x.days} ${dn(-x.days)}</span>`,soon:`<span class="st s-wait">Za ${x.days} ${dn(x.days)}</span>`,plan:x.plan?`<span class="st s-in">Umówiony ${fd(x.plan.start)}</span>`:'',ok:`<span class="st s-plan">${x.n?fdY(ymd(x.n)):'·'}</span>`,end:'<span class="st s-done">Gwarancja zakończona</span>'}[x.st]);
+  return `${topbar('Gwarancje i przeglądy','Karta gwarancyjna powstaje przy wydaniu auta. Przegląd co 12 miesięcy to warunek gwarancji i pewny powód, żeby klient wrócił.',SEARCH('Szukaj: klient, auto, nr karty'))}
+  <div class="mini-kpis"><div class="${late.length?'bad':''}"><small>Zaległe przeglądy</small><b data-count="${late.length}">${late.length}</b></div><div class="${soon.length?'warn':''}"><small>Do umówienia w 30 dni</small><b data-count="${soon.length}">${soon.length}</b></div><div><small>Aktywne gwarancje</small><b data-count="${act.length}">${act.length}</b></div><div><small>Umówione przeglądy</small><b>${l.filter(x=>x.st==='plan').length}</b></div></div>
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Ochrona</th><th>Gwarancja do</th><th>Następny przegląd</th><th></th></tr></thead><tbody>
+  ${l.map(x=>`<tr data-s="${esc((x.b.name+' '+x.b.car+' '+x.w.no).toLowerCase())}"><td><b>${esc(x.b.name)}</b><small>${esc(x.b.car)} · ${esc(x.b.phone)}</small></td><td>${esc(x.w.product)}<small>${bName(x.b)} · nr ${esc(x.w.no)}</small></td><td>${fdY(x.w.until)}<small>od ${fdY(x.w.from)}</small></td><td>${chip(x)}</td>
+    <td><span class="acts-i">${['late','soon','ok'].includes(x.st)&&x.n?`<button class="pbtn sm ${x.st==='ok'?'':'dark'}" type="button" data-wcheck="${x.b.id}">Umów przegląd</button>`:''}${x.st==='late'||x.st==='soon'?`<button class="pbtn sm" type="button" data-wsms="${x.b.id}">Przypomnij SMS-em</button>`:''}<button class="pbtn sm ghost" type="button" data-cert="${x.b.id}">Certyfikat</button></span></td></tr>`).join('')
+    ||'<tr><td colspan="5"><div class="empty">Brak kart gwarancyjnych. Powstają same przy wydaniu auta po ceramice albo folii PPF.</div></td></tr>'}
+  </tbody></table></div></section>
+  <div class="insight">Przy przeglądzie warto zaproponować odświeżenie powłoki albo mycie z dekontaminacją. Klient i tak przyjeżdża, a salon ma pewny termin także poza sezonem.</div>`;
+}
+
+/* ---------- wyceny z wariantami ---------- */
+const OF_ST={sent:['Wysłana, czeka','wait'],accepted:['Zaakceptowana','ready'],declined:['Odrzucona','bad'],booked:['Umówiona','in'],expired:['Wygasła','done']};
+const ofState=o=>o.status==='sent'&&o.valid_until<ymd(T0)?'expired':o.status;
+const ofChip=o=>{const v=OF_ST[ofState(o)]||[o.status,'plan'];return `<span class="st s-${v[1]}">${v[0]}</span>`};
+const ofOpts=o=>Array.isArray(o.options)?o.options:[];
+const ofPick=o=>o.choice?ofOpts(o).find(x=>x.id===o.choice.option)||null:null;
+const optOf=(svc,pkg,size,i,rec)=>{const s=svcById(svc),p=pkgOf(s,pkg);return {id:'v'+i,svc,pkg:p.id,name:s.name+(s.pk.length>1?' · '+p.name:''),desc:p.desc,dur:durTxt(p),price:p.p[Math.max(0,sizeIdx(size))],rec:!!rec}};
+const adOf=id=>{const a=ADDONS.find(x=>x.id===id);return a?{id:a.id,name:a.name,desc:a.desc,price:a.p}:null};
+async function seedOffers(){
+  const id=STUDIO.id, h=n=>new Date(Date.now()-n*3600e3).toISOString(), rows=[], kb=BOOKINGS.find(b=>b.seed&&b.name==='Krzysztof B.');
+  await sb.from('offers').delete().eq('studio_id',id).eq('seed',true);
+  if(kb&&svcById('ppf')) rows.push({studio_id:id,booking_id:kb.id,token:DEMO_TOKEN_O,name:kb.name,phone:kb.phone,car:kb.car,size:kb.size,author:'Kamil',status:'sent',seed:true,created_at:h(2),
+    msg:'Dzień dobry, po zdjęciach proponuję dwa warianty. Pakiet przód chroni miejsca najbardziej narażone na odpryski, całe auto daje pełną ochronę i jednolity połysk.',
+    options:[optOf('ppf','przod',kb.size,1),optOf('ppf','calosc',kb.size,2,true)],addons:[adOf('szyby'),adOf('felgi')].filter(Boolean)});
+  if(svcById('ceramika')){const o=[optOf('ceramika','3l','xl',1),optOf('ceramika','5l','xl',2,true)],ad=[adOf('felgi'),adOf('skora')].filter(Boolean);
+    rows.push({studio_id:id,name:'Wojciech Z.',phone:'+48 667 *** 219',car:'BMW X5',size:'xl',author:'Michał',status:'accepted',seed:true,created_at:h(26),options:o,addons:ad,
+      msg:'Zgodnie z rozmową: dwa warianty ceramiki. Przy X5 polecam 5 lat z korektą dwuetapową.',
+      choice:{option:'v2',addons:ad.slice(0,1),total:o[1].price+(ad[0]?ad[0].price:0),note:'Najlepiej po 10-tym, rano',at:h(1)}});}
+  if(svcById('korekta')) rows.push({studio_id:id,name:'Ilona B.',phone:'+48 512 *** 870',car:'Kia Ceed',size:'m',author:'Kamil',status:'declined',seed:true,created_at:h(75),
+    options:[optOf('korekta','1','m',1),optOf('korekta','2','m',2,true)],addons:[],choice:{note:'Na razie za drogo, odezwę się wiosną',at:h(50)}});
+  await Promise.all(rows.map(r=>sb.from('offers').insert(r)));
+}
+function wycHTML(){
+  const resp=OFFERS.filter(o=>['accepted','booked','declined'].includes(o.status)), won=resp.filter(o=>o.status!=='declined'), val=won.reduce((t,o)=>t+(+(o.choice||{}).total||0),0), wait=OFFERS.filter(o=>ofState(o)==='sent').length;
+  return `${topbar('Wyceny','Klient dostaje link, wybiera wariant i dodatki. Odpowiedź wraca tutaj sama.',SEARCH('Szukaj: klient, auto')+`<button class="pbtn dark" type="button" data-oform="0">${ic('plus')}Nowa wycena</button>`)}
+  <div class="mini-kpis"><div class="${wait?'warn':''}"><small>Wysłane, czekają na klienta</small><b data-count="${wait}">${wait}</b></div><div><small>Skuteczność</small><b>${resp.length?Math.round(won.length/resp.length*100)+'%':'·'}</b><span>zaakceptowane z tych z odpowiedzią</span></div><div><small>Wartość zaakceptowanych</small><b>${zl(val)}</b></div><div><small>Do umówienia</small><b data-count="${OFFERS.filter(o=>o.status==='accepted').length}">${OFFERS.filter(o=>o.status==='accepted').length}</b></div></div>
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Warianty</th><th>Wybór klienta</th><th>Status</th><th>Wysłana</th></tr></thead><tbody>
+  ${OFFERS.map(o=>{const p=ofPick(o),c=o.choice||{};return `<tr data-offer="${o.id}" data-s="${esc((o.name+' '+(o.car||'')).toLowerCase())}"><td><b>${esc(o.name)}</b><small>${esc(o.car||'')}</small></td><td>${ofOpts(o).map(x=>`${esc(x.name)} <small style="display:inline">${zl(+x.price||0)}</small>`).join('<br>')}</td>
+    <td>${p?`<b>${esc(p.name)}</b><small>${zl(+c.total||0)}${c.note?' · „'+esc(c.note)+'”':''}</small>`:c.note?`<small>„${esc(c.note)}”</small>`:'<small>·</small>'}</td><td>${ofChip(o)}</td><td>${fd(new Date(o.created_at))}<small>${o.author?esc(o.author):''}</small></td></tr>`}).join('')
+    ||`<tr><td colspan="5"><div class="empty">${OFFERS_ERR?'Brak tabeli wycen w bazie. Uruchom schema.sql w Supabase.':'Brak wycen. Wyślij pierwszą przyciskiem „Nowa wycena” albo z wizyty do potwierdzenia.'}</div></td></tr>`}
+  </tbody></table></div></section>`;
+}
+function offerFormHTML(b){
+  const s0=b?svcById(b.svc):svcById('ceramika')||SERVICES[0], k0=b?pkgOf(s0,b.pkg).id:s0.pk[0].id, alt=s0.pk.find(x=>x.id!==k0), v=[[s0.id,k0],alt?[s0.id,alt.id]:null,null];
+  const opts=sel=>'<option value="">Bez wariantu</option>'+SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map(k=>`<option value="${esc(s.id)}:${esc(k.id)}" ${sel&&sel[0]===s.id&&sel[1]===k.id?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(k.name):''}</option>`).join('')}</optgroup>`).join('');
+  return `<form id="foffer" novalidate data-bk="${b?b.id:''}"><div class="drw-h"><div><h2>Wycena z wariantami</h2><p>${b?esc(b.name)+' · zgłoszenie ze strony'+(b.photos?', '+b.photos+' zdjęć':''):'Klient dostanie SMS z linkiem i sam wybierze wariant.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b two">
+    <div class="col"><div class="fgrid">
+      <label class="pf">Klient<input name="oname" maxlength="80" required autocomplete="off" value="${esc(b?b.name:'')}"></label>
+      <label class="pf">Telefon<input name="otel" type="tel" inputmode="tel" required placeholder="600 100 200" value="${esc(b?b.phone:'')}"></label>
+      <label class="pf">Auto<input name="ocar" maxlength="80" placeholder="np. BMW X5" value="${esc(b?b.car:'')}"></label>
+      <label class="pf">Wielkość auta<select name="size">${SIZES.map(z=>`<option value="${z.id}" ${z.id===(b?b.size:'m')?'selected':''}>${z.name}</option>`).join('')}</select></label>
+      <label class="pf full">Wiadomość do klienta<textarea name="omsg" maxlength="500" placeholder="np. Po zdjęciach proponuję dwa warianty. Polecam drugi, bo…"></textarea></label>
+      <label class="pf">Ważna przez<select name="ovalid"><option value="7">7 dni</option><option value="14" selected>14 dni</option><option value="30">30 dni</option></select></label></div>
+      ${b&&b.photoUrls.length?`<div><div class="ph"><b>Zdjęcia od klienta</b></div><div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div></div>`:''}
+    </div>
+    <div class="col"><div><div class="ph"><b>Warianty</b><small>cena liczy się z cennika, możesz ją zmienić</small></div>
+      ${[0,1,2].map(i=>`<div class="of-row"><select name="v${i}" aria-label="Wariant ${i+1}">${opts(v[i])}</select><input name="p${i}" type="number" min="0" step="10" aria-label="Cena wariantu ${i+1}"><label class="of-recl"><input type="radio" name="rec" value="${i}" ${i===(v[1]?1:0)?'checked':''}>polecany</label></div>`).join('')}</div>
+      <div><div class="ph"><b>Dodatki do wyboru przez klienta</b></div><div class="of-adds">${ADDONS.map(a=>`<label class="pf-check"><input type="checkbox" name="ad" value="${esc(a.id)}" ${b&&(b.addons||[]).includes(a.id)?'checked':''}><span><b>${esc(a.name)} · +${zl(a.p)}</b><small>${esc(a.desc)}</small></span></label>`).join('')}</div></div>
+    </div>
+    <div class="ferr span2" id="fo-err" role="alert"></div>
+    <div class="acts span2"><button class="pbtn dark" type="submit">${ic('send')}Wyślij wycenę klientowi</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div>
+  </div></form>`;
+}
+function offerSync(f){
+  const E=f.elements, z=Math.max(0,sizeIdx(E.size.value));
+  [0,1,2].forEach(i=>{const v=E['v'+i].value, inp=E['p'+i]; if(!v){inp.value='';inp.disabled=true;return} inp.disabled=false;
+    if(!inp.dataset.touched){const [s,k]=v.split(':');inp.value=pkgOf(svcById(s),k).p[z]}});
+}
+async function offerSubmit(f){
+  const E=f.elements, err=$('#fo-err'), bid=+f.dataset.bk||null, raw=E.otel.value.trim();
+  const tel=/^\+48 ([0-9]{9}|[0-9*]{3} [0-9*]{3} [0-9*]{3})$/.test(raw)?raw:(d=>d.length===9?'+48 '+d:null)(raw.replace(/\D/g,'').replace(/^48(?=\d{9}$)/,''));
+  if(cleanTxt(E.oname.value).length<2){err.textContent='Wpisz imię klienta.';return}
+  if(!tel){err.textContent='Telefon: 9 cyfr, np. 600 100 200.';return}
+  const rec=+(f.querySelector('[name=rec]:checked')||{value:0}).value, size=E.size.value;
+  const options=[0,1,2].map(i=>{const v=E['v'+i].value;if(!v)return null;const [sv,pk]=v.split(':'),o=optOf(sv,pk,size,i+1,i===rec);o.price=Math.max(0,Math.round(+E['p'+i].value||o.price));return o}).filter(Boolean);
+  if(!options.length){err.textContent='Dodaj co najmniej jeden wariant.';return}
+  if(!options.some(o=>o.rec)) options[0].rec=true;
+  const addons=[...f.querySelectorAll('[name=ad]:checked')].map(x=>adOf(x.value)).filter(Boolean), me=ME(), btn=f.querySelector('[type=submit]'); btn.disabled=true;
+  const {data,error}=await sb.from('offers').insert({studio_id:STUDIO.id,booking_id:bid,name:cleanTxt(E.oname.value).slice(0,80),phone:tel,car:cleanTxt(E.ocar.value).slice(0,80)||null,size,
+    msg:cleanTxt(E.omsg.value).slice(0,500)||null,options,addons,valid_until:ymd(addDays(T0,+E.ovalid.value||14)),author:me?me.name.split(' ')[0]:'Kamil'}).select().single();
+  btn.disabled=false;
+  if(error){err.textContent=OFFERS_ERR?'Brak tabeli wycen w bazie. Uruchom schema.sql w Supabase.':'Nie udało się zapisać wyceny.';return}
+  if(!OFFERS.some(o=>o.id===data.id)) OFFERS.unshift(data);
+  GUARD=false; renderPanel(); openDrawer(offerViewHTML(data),false,true);
+  toast(`${data.name.split(' ')[0]} dostał SMS z linkiem do wyceny (w demo bez wysyłki). Zobacz: Strona klienta.`);
+}
+function offerViewHTML(o){
+  const p=ofPick(o), st=ofState(o), c=o.choice||{}, b=o.booking_id?BOOKINGS.find(x=>x.id===o.booking_id):null, picked=id=>(c.addons||[]).some(a=>a.id===id), acts=[];
+  if(st==='accepted'&&b&&['pending','proposed'].includes(b.status)) acts.push(`<button class="pbtn dark" type="button" data-oapply="${o.id}">${ic('check')}Zastosuj wybór i potwierdź ${fdt(b.start)}</button>`);
+  else if(st==='accepted') acts.push(`<button class="pbtn dark" type="button" data-obook="${o.id}">${ic('plus')}Umów termin</button>`);
+  if(st==='sent') acts.push(`<button class="pbtn" type="button" data-oremind="${o.id}">Przypomnij SMS-em</button>`);
+  if(b) acts.push(`<button class="pbtn" type="button" data-open="${b.id}">Otwórz wizytę</button>`);
+  acts.push(`<a class="pbtn" href="#oferta=${o.token}" target="_blank" rel="noopener">Strona klienta ↗</a>`,`<button class="pbtn ghost" type="button" data-odel="${o.id}">Usuń</button>`);
+  return `<div class="drw-h"><div><h2>Wycena: ${esc(o.name)}</h2><p>${esc(o.car||'')}${o.car?' · ':''}${sizeName(o)} · wysłana ${fdt(new Date(o.created_at))}${o.author?' przez '+esc(o.author):''}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b">
+    <div class="chips-p">${ofChip(o)}<span class="hint-p">ważna do ${fdY(o.valid_until)}</span>${b?`<span class="hint-p">· do wizyty ${fdt(b.start)}</span>`:''}</div>
+    ${o.msg?`<div class="of-msg pnl"><b>Wiadomość do klienta</b><p>${esc(o.msg)}</p></div>`:''}
+    <div class="of-grid">${ofOpts(o).map(x=>`<div class="of-card ${p&&p.id===x.id?'chosen':''}">${p&&p.id===x.id?'<span class="of-rec ok">Wybór klienta</span>':x.rec?'<span class="of-rec">Polecany</span>':''}<b>${esc(x.name)}</b><small>${esc(x.desc||'')}${x.dur?' · '+esc(x.dur):''}</small><em>${zl(+x.price||0)}</em></div>`).join('')}</div>
+    ${(o.addons||[]).length?`<div><div class="ph"><b>Dodatki w wycenie</b><small>${c.addons?'zaznaczone wybrał klient':''}</small></div><ol class="mklist">${o.addons.map(a=>`<li class="${picked(a.id)?'pick':''}">${picked(a.id)?ic('check'):'·'}&nbsp;${esc(a.name)}<b style="margin-left:auto">+${zl(+a.price||0)}</b></li>`).join('')}</ol></div>`:''}
+    ${o.choice?`<div class="sumline"><span>${st==='declined'?'Klient zrezygnował':'Klient wybrał: '+esc(p?p.name:'')}${c.note?` · „${esc(c.note)}”`:''}</span>${c.total?`<b>${zl(c.total)}</b>`:''}</div>`:''}
+    <div class="acts">${acts.join('')}</div></div>`;
+}
+function openOffer(id){const o=OFFERS.find(x=>x.id===id);if(o)openDrawer(offerViewHTML(o),false,true)}
+function offerLine(b){
+  const o=OFFERS.find(x=>x.booking_id===b.id); if(!o) return ''; const p=ofPick(o);
+  return `<div class="prop-box"><b>Wycena z wariantami ${ofChip(o)}</b><span>${ofOpts(o).map(x=>esc(x.name)).join(' / ')}${p?` · klient wybrał: ${esc(p.name)}, ${zl(+o.choice.total||0)}`:''}</span><button class="pbtn sm" type="button" data-offer="${o.id}" style="justify-self:start">Otwórz wycenę</button></div>`;
+}
+async function offerApply(o){
+  const b=BOOKINGS.find(x=>x.id===o.booking_id), p=ofPick(o); if(!b||!p) return;
+  const ad=(o.choice.addons||[]).map(a=>a.id).filter(id=>ADDONS.some(x=>x.id===id)), c=calc({svc:p.svc,pkg:p.pkg,size:b.size,addons:new Set(ad)}), pu=pickup({day:sod(b.start),hour:b.start.getHours()},c);
+  const total=+o.choice.total||c.total, {error}=await sb.from('bookings').update({svc:p.svc,pkg:p.pkg,addons:ad,total,end_at:pu.end.toISOString(),status:'confirmed'}).eq('id',b.id);
+  if(error){toast(error.code==='23P01'?'Wybrany wariant trwa dłużej i stanowisko jest wtedy zajęte. Zaproponuj klientowi inny termin.':'Nie udało się zapisać');openOffer(o.id);return}
+  Object.assign(b,{svc:p.svc,pkg:p.pkg,addons:ad,total,end:pu.end,status:'confirmed',isNew:false});
+  const r=await sb.from('offers').update({status:'booked'}).eq('id',o.id); if(!r.error) o.status='booked';
+  renderPanel(); openBk(b.id); toast(`Potwierdzono: ${b.name}, ${bName(b)}, ${zl(total)}. Klient dostał SMS z terminem (w demo bez wysyłki).`);
+}
+// strona wyceny u klienta (link z SMS-a)
+async function loadOffer(){
+  const {data,error}=await sb.rpc('offer_public',{p_token:S.otoken}); S.of=error||!data?{err:1}:data;
+  if(!S.of.err){const l=ofOpts(S.of),r=l.find(x=>x.rec)||l[0];S.ofSel={opt:(S.of.choice&&S.of.choice.option)||(r&&r.id),add:new Set(),note:''}}
+  if(S.screen==='offer') renderClient();
+}
+async function respondOffer(ok,btn){
+  btn.disabled=true;
+  const {data,error}=await sb.rpc('offer_respond',{p_token:S.otoken,p_option:S.ofSel.opt||'',p_addons:[...S.ofSel.add],p_accept:ok,p_note:cleanTxt(S.ofSel.note).slice(0,300)||null});
+  if(error||!data){btn.disabled=false;toast('Nie udało się wysłać odpowiedzi. Spróbuj jeszcze raz.');return}
+  S.of=data; renderClient(); $('#scroller').scrollTop=0; toast(ok?'Dziękujemy! Salon dostał Twój wybór.':'Salon dostał Twoją odpowiedź.');
+}
+function offerPageHTML(){
+  const o=S.of;
+  if(!o) return siteHeader()+'<div class="stp"><p class="hint">Wczytuję wycenę…</p></div>';
+  if(o.err) return siteHeader()+`<div class="done"><h2>Nie znaleźliśmy wyceny</h2><p>Link jest nieaktualny albo niepełny. Zadzwoń do salonu.</p><button class="btn btn-dark full" type="button" data-go="home">Strona salonu</button></div>`;
+  const opts=ofOpts(o), ads=Array.isArray(o.addons)?o.addons:[], sel=S.ofSel||{add:new Set()}, cur=opts.find(x=>x.id===sel.opt)||opts[0], car=`${esc(o.car||'')}${o.car?' · ':''}${sizeName(o)}`;
+  if(o.status!=='sent'||o.expired){
+    const c=o.choice||{}, co=opts.find(x=>x.id===c.option), [h,t]=o.status==='declined'?['Dziękujemy za odpowiedź','Salon wie, że na razie rezygnujesz. Gdy zmienisz zdanie, zadzwoń.']
+      :o.status==='sent'?['Wycena wygasła','Ceny mogły się zmienić. Zadzwoń, przygotujemy aktualną wycenę.']:['Wybór przyjęty','Salon odezwie się SMS-em albo telefonicznie z terminem. Nic nie płacisz z góry.'];
+    return siteHeader()+`<div class="stp"><div class="ok-mark ${o.status==='accepted'||o.status==='booked'?'':'mute'}" aria-hidden="true">${o.status==='accepted'||o.status==='booked'?'✓':'·'}</div>
+      <div><p class="eyebrow-d">Cześć ${esc(o.name)}</p><h1>${h}</h1><p class="hint">${t}</p></div>
+      ${co?`<div class="summary num"><div class="r"><span>${esc(co.name)}</span><span>${zl(+co.price||0)}</span></div>${(c.addons||[]).map(a=>`<div class="r"><span>${esc(a.name)}</span><span>+${zl(+a.price||0)}</span></div>`).join('')}<div class="r tot"><span>Razem</span><span>${zl(+c.total||0)}</span></div></div>`:''}
+      ${c.note?`<p class="hint">Twoja wiadomość: „${esc(c.note)}”</p>`:''}
+      <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button></div>`;
+  }
+  const total=(+cur.price||0)+ads.filter(a=>sel.add.has(a.id)).reduce((t,a)=>t+(+a.price||0),0);
+  return siteHeader()+`<div class="stp">
+    <div><p class="eyebrow-d">Cześć ${esc(o.name)}</p><h1>Twoja wycena</h1><p class="hint">${car}</p></div>
+    ${o.msg?`<div class="of-msg"><b>${esc(o.author||'Lumen Detailing')} z Lumen Detailing</b><p>${esc(o.msg)}</p></div>`:''}
+    <div class="of-opts" role="radiogroup" aria-label="Wariant usługi">${opts.map(x=>`<button type="button" class="of-opt" role="radio" aria-checked="${x.id===cur.id}" data-ofopt="${esc(x.id)}">${x.rec?'<span class="of-rec">Polecamy</span>':''}<b>${esc(x.name)}</b><span>${esc(x.desc||'')}</span><small>${esc(x.dur||'')}</small><em>${zl(+x.price||0)}</em></button>`).join('')}</div>
+    ${ads.length?`<div><h2 class="of-h">Dodatki</h2>${ads.map(a=>`<button type="button" class="of-add" aria-pressed="${sel.add.has(a.id)}" data-ofadd="${esc(a.id)}"><span><b>${esc(a.name)}</b><small>${esc(a.desc||'')}</small></span><em>+${zl(+a.price||0)}</em></button>`).join('')}</div>`:''}
+    <label class="of-note">Preferowany termin albo pytanie <em>(opcjonalnie)</em><textarea data-ofnote="1" maxlength="300" placeholder="np. najlepiej od 10-go, rano">${esc(sel.note||'')}</textarea></label>
+    <div class="summary num"><div class="r"><span>${esc(cur.name)}</span><span>${zl(+cur.price||0)}</span></div>${ads.filter(a=>sel.add.has(a.id)).map(a=>`<div class="r"><span>${esc(a.name)}</span><span>+${zl(+a.price||0)}</span></div>`).join('')}<div class="r tot"><span>Razem</span><span>${zl(total)}</span></div></div>
+    <p class="hint">Wycena ważna do ${fdY(o.valid_until)}. Termin ustalimy po akceptacji, nic nie płacisz z góry.</p>
+    <button class="btn btn-dark full" type="button" data-ofok="1">Akceptuję: ${esc(cur.name)}</button>
+    <button class="btn btn-ghost full" type="button" data-ofok="0">Nie skorzystam</button>
+  </div>`;
+}
+
+/* ---------- paszport auta (link z kodu QR) ---------- */
+async function loadPass(){const {data,error}=await sb.rpc('car_passport',{p_cert:S.ctoken});S.pp=error||!data?{err:1}:data;if(S.screen==='auto')renderClient()}
+function warrCard(w,svc,pkg){
+  const n=wNext(w), on=pday(w.until)>=T0;
+  return `<div class="cert-mini ${on?'':'off'}"><div><small>Karta gwarancyjna ${esc(w.no||'')}</small><b>${esc(w.product||'Ochrona lakieru')}</b><span>${svcLabel(svc,pkg)} · ${on?'gwarancja do':'gwarancja zakończona'} ${fdY(w.until)}</span></div><div class="cm-next"><small>Następny przegląd</small><b>${on&&n?fdY(ymd(n)):'·'}</b></div></div>`;
+}
+function passHTML(){
+  const d=S.pp;
+  if(!d) return siteHeader()+'<div class="stp"><p class="hint">Wczytuję paszport auta…</p></div>';
+  if(d.err) return siteHeader()+`<div class="done"><h2>Nie znaleźliśmy auta</h2><p>Kod QR jest nieaktualny albo link niepełny.</p><button class="btn btn-dark full" type="button" data-go="home">Strona salonu</button></div>`;
+  const v=(Array.isArray(d.visits)?d.visits:[]).map(x=>({...x,warranty:okW(x.warranty)})), ws=v.filter(x=>x.warranty), act=ws.filter(x=>pday(x.warranty.until)>=T0), km=v.map(x=>+x.km).find(Boolean);
+  return siteHeader()+`<div class="stp">
+    <div class="pp-hero"><p class="eyebrow-d">Paszport auta · ${esc(d.studio||'')}</p><h1>${esc(d.car||'Auto')}</h1><p class="hint">${sizeName(d)}</p>
+      <div class="pp-stats"><div><b>${v.length}</b><small>${v.length===1?'usługa':v.length<5?'usługi':'usług'} w salonie</small></div><div><b>${km?nf(km):'·'}</b><small>km, ostatni przebieg</small></div><div><b>${act.length}</b><small>aktywne gwarancje</small></div></div></div>
+    ${ws.map(x=>warrCard(x.warranty,x.svc,x.pkg)).join('')}
+    <div><h2 class="of-h">Historia w salonie</h2><ol class="pp-tl">${v.map(x=>`<li><time>${fdY(x.at)}</time><b>${svcLabel(x.svc,x.pkg)}</b><small>${[x.km?nf(+x.km)+' km':'',x.warranty?'karta '+esc(x.warranty.no||''):'','protokół ze zdjęciami w salonie'].filter(Boolean).join(' · ')}</small>${x.note?`<p>${esc(x.note)}</p>`:''}</li>`).join('')||'<li><b>Brak zakończonych usług</b></li>'}</ol></div>
+    <p class="hint">Dane pochodzą z protokołów salonu, bez danych właściciela. Link możesz pokazać kupującemu przy sprzedaży auta.</p>
+    <button class="btn btn-dark full" type="button" data-book="">Umów wizytę</button>
+  </div>`;
+}
+
+/* ---------- kliknięcia nowych funkcji w panelu ---------- */
+function v11Click(t){
+  const d=t.dataset;
+  if(d.oform!==undefined){const b=+d.oform?BOOKINGS.find(x=>x.id===+d.oform):null;openDrawer(offerFormHTML(b),true);offerSync($('#foffer'));return true}
+  if(d.oapply){const o=OFFERS.find(x=>x.id===+d.oapply);if(o){t.disabled=true;offerApply(o)}return true}
+  if(d.obook){const o=OFFERS.find(x=>x.id===+d.obook),p=o&&ofPick(o);if(p){const c=o.choice||{};
+    openDrawer(addHTML({name:o.name,phone:o.phone,car:o.car,size:o.size,svc:p.svc,pkg:p.pkg,total:+c.total||p.price,offer:o.id,note:(c.addons||[]).map(a=>a.name).concat(c.note?['Klient: '+c.note]:[]).join(' · ')}),true);addFirstFree($('#fadd'))}return true}
+  if(d.oremind){toast('Przypomnienie z linkiem do wyceny poszło SMS-em (w demo bez wysyłki)');return true}
+  if(d.odel){if(d.armed!=='1'){d.armed='1';t.textContent='Na pewno usunąć?';return true}const id=+d.odel;
+    sb.from('offers').delete().eq('id',id).then(({error})=>{if(error){toast('Nie udało się usunąć');return}OFFERS=OFFERS.filter(o=>o.id!==id);drw().close();renderPanel();toast('Wycena usunięta')});return true}
+  if(d.cert){const b=BOOKINGS.find(x=>x.id===+d.cert);if(b&&b.warranty)openDrawer(certHTML(b),false,true);return true}
+  if(d.print){document.body.classList.add('printing');setTimeout(()=>print(),60);return true}
+  if(d.certsms){toast('Certyfikat z linkiem do paszportu auta poszedł SMS-em (w demo bez wysyłki)');return true}
+  if(d.wcheck){const b=BOOKINGS.find(x=>x.id===+d.wcheck);if(b&&b.warranty){const ms=svcById('mycie');
+    openDrawer(addHTML({name:b.name,phone:b.phone,car:b.car,size:b.size,svc:ms?'mycie':b.svc,pkg:ms?'std':b.pkg,total:0,check:b.id,note:`Przegląd gwarancyjny powłoki, karta ${b.warranty.no}. Bezpłatny.`}),true);addFirstFree($('#fadd'))}return true}
+  if(d.wsms){const b=BOOKINGS.find(x=>x.id===+d.wsms);toast(`${b?b.name.split(' ')[0]:'Klient'} dostał SMS „Czas na przegląd powłoki” z linkiem do rezerwacji (w demo bez wysyłki)`);return true}
+  if(d.tm!==undefined){P.tm=+d.tm;renderPanel();return true}
+  if(d.medit!==undefined){openDrawer(memberHTML(+d.medit?memberOf(+d.medit):null),true);return true}
+  if(d.pwgen){const A='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=crypto.getRandomValues(new Uint8Array(10)),i=drw().querySelector('[name=mpw]');
+    if(i){i.value=[...r].map(x=>A[x%A.length]).join('');GUARD=true;i.focus();i.select()}return true}
+  if(d.mactive){const m=memberOf(+d.mactive);if(!m)return true;t.disabled=true;
+    sb.from('team').update({active:!m.active}).eq('id',m.id).then(({error})=>{t.disabled=false;if(error){toast('Nie udało się zapisać');return}m.active=!m.active;t.setAttribute('aria-pressed',m.active);renderPanel();
+      toast(m.active?`${m.name} znów ma dostęp do panelu`:`Dostęp wyłączony: ${m.name} nie zobaczy już danych salonu`)});return true}
+  if(d.mdel){if(d.armed!=='1'){d.armed='1';t.textContent='Na pewno? Konto zniknie';return true}const m=memberOf(+d.mdel);if(!m)return true;
+    sb.rpc('team_remove',{p_member:m.id}).then(async({error})=>{if(error){toast(error.message||'Nie udało się usunąć');return}await loadTeam();BOOKINGS.forEach(b=>{if(b.worker_id===m.id)b.worker_id=null});GUARD=false;drw().close();renderPanel();toast(`${m.name} usunięty z zespołu`)});return true}
+  return false;
+}
+addEventListener('afterprint',()=>document.body.classList.remove('printing'));
+// formularz wizyty: przesuń na pierwszy wolny termin w 3 tygodniach (przegląd, wizyta z wyceny)
+function addFirstFree(f){const E=f.elements;for(let i=1;i<=21;i++){const d=addDays(T0,i);if(d.getDay()===0)continue;E.day.value=ymd(d);
+  for(const h of [8,9,10,11,12,13,14,15,16]){E.hour.value=String(h);const r=addCalc(f);if(r.pu&&!r.busy){addSync(f);return}}}addSync(f)}
+
+/* ---------- ruch: wejście ekranów, liczniki, zamykanie okien ---------- */
+const calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+function enter(el){
+  if(!el||calm()) return;
+  el.classList.remove('enter'); [...el.children].forEach((c,i)=>c.style.setProperty('--i',i)); void el.offsetWidth; el.classList.add('enter');
+  clearTimeout(el._et); el._et=setTimeout(()=>el.classList.remove('enter'),900); countUp(el);
+}
+function countUp(root){
+  root.querySelectorAll('[data-count]').forEach(x=>{const n=+x.dataset.count;if(!(n>1))return;const t0=performance.now();
+    const f=t=>{const k=Math.min(1,(t-t0)/650);x.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};x.textContent='0';requestAnimationFrame(f)});
+}
+// okno znika z animacją; ponowne otwarcie w trakcie zamykania przerywa zamykanie
+{const d=drw(), nc=HTMLDialogElement.prototype.close; let ct=0;
+  d.close=function(){if(!this.open||ct)return;if(calm()){nc.call(this);return}this.classList.add('closing');ct=setTimeout(()=>{ct=0;this.classList.remove('closing');nc.call(this)},170)};
+  window.drwStop=()=>{if(ct){clearTimeout(ct);ct=0;d.classList.remove('closing')}};}
+
 /* ---------- zdarzenia panelu ---------- */
 const RQ_MSG={confirmed:n=>`Potwierdzono. ${n} dostanie SMS z terminem (w demo bez wysyłki).`,rejected:n=>`Odrzucono. ${n} dostanie SMS (w demo bez wysyłki).`,
   proposed:n=>`Oznaczono: zaproponowano ${n} inny termin.`,done:n=>`Zakończona. ${n} dostanie jutro prośbę o opinię (w demo bez wysyłki).`,noshow:n=>`Zapisano: ${n} nie przyjechał.`};
@@ -2904,9 +3500,11 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.keep){drw().querySelector('.confirm-x').hidden=true;return}
   if(t&&t.dataset.discard){GUARD=false;const n=PENDING;PENDING=null;(n||(()=>drw().close()))();return}
   if(o&&o.closest('#drw')&&GUARD){tryClose(()=>openBk(+o.dataset.open));return}
-  if(t&&t.dataset.logout){await sb.auth.signOut();if(LIVE){sb.removeChannel(LIVE);LIVE=null}SESSION=null;BOOKINGS=[];renderLogin();return}
-  if(t&&t.dataset.reseed){t.disabled=true;await sb.from('bookings').delete().eq('studio_id',STUDIO.id).eq('seed',true);await seedDemo();renderPanel();toast('Dane przykładowe odświeżone');return}
-  if(t&&t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
+  if(t&&t.dataset.logout){await sb.auth.signOut();if(LIVE){sb.removeChannel(LIVE);LIVE=null}SESSION=null;BOOKINGS=[];TEAM=[];OFFERS=[];ROLE='owner';P.view='start';renderLogin();return}
+  if(t&&t.dataset.reseed){t.disabled=true;await reseedAll();renderPanel();toast('Dane przykładowe odświeżone');return}
+  if(t&&t.dataset.nav){P.view=t.dataset.nav;if(t.dataset.filter)P.filter=t.dataset.filter;renderPanel();enter($('#pmain'));window.scrollTo(0,0);return}
+  if(t&&v11Click(t)) return;
+  {const of=e.target.closest('[data-offer]');if(of&&!t?.dataset.open){openOffer(+of.dataset.offer);return}}
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
   if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
   if(t&&t.dataset.calm){P.cal.m=t.dataset.calm;renderPanel();return}
@@ -2988,8 +3586,10 @@ document.getElementById('view-panel').addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.gsearch){P.q=t.value;clearTimeout(P.qt);P.qt=setTimeout(()=>{const q=P.q.trim();if(!q){if(P.view==='szukaj')exitSearch()}else if(q.length>=2||P.view==='szukaj')runSearch()},180);return}
   if(t.dataset.q){const q=t.value.trim().toLowerCase();P.q=t.value;document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
-  if(t.closest('#drw')) GUARD=true;
+  if(t.closest('#drw')&&!t.dataset.assign) GUARD=true;
   if(t.form&&t.form.id==='fsvc'&&t.name==='cat'){$('#newcat').hidden=t.value!=='__new'}
+  if(t.form&&t.form.id==='foffer'){if(/^p\d$/.test(t.name))t.dataset.touched=1;else offerSync(t.form)}
+  if(t.form&&t.form.id==='fmember'&&t.name==='mrole')$('#perm-hint').innerHTML=roleHint(t.value);
   if(t.form&&t.form.id==='fadd'){const E=t.form.elements;
     if(t.name==='walkin'){$('#walk-opts').hidden=!t.checked;if(t.checked){E.day.value=ymd(T0);E.hour.value=String(Math.min(17,Math.max(8,new Date().getHours())));E.status.value='confirmed'}}
     if(t.name==='total')t.dataset.touched=1;else addSync(t.form)}
@@ -3021,6 +3621,7 @@ document.getElementById('view-panel').addEventListener('change',e=>{
   if(t.dataset.baycat){const b=BAYS().find(x=>x.id===+t.dataset.baycat);b.cats=t.checked?[...new Set((b.cats||[]).concat(t.value))]:(b.cats||[]).filter(c=>c!==t.value);SET.bays=BAYS();saveCatalog().then(ok=>ok&&toast('Zapisano, które usługi przyjmuje stanowisko'))}
   if(t.dataset.wday){const w=WAIT.find(x=>x.id===+t.dataset.wday);if(w&&t.value){sb.from('waitlist').update({day:t.value}).eq('id',w.id).then(({error})=>{if(error){toast('Nie udało się przenieść');return}w.day=t.value;renderPanel();toast(`${w.name} przeniesiony na ${fd(pday(t.value))}`)})}}
   if(t.dataset.setnum){SET[t.dataset.setnum]=Math.max(0,Math.round(+t.value||0));saveCatalog().then(ok=>ok&&toast('Zapisano ustawienie programu lojalnościowego'))}
+  if(t.dataset.assign){assignTo(+t.dataset.assign,+t.value||null);return}
   if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });
 
@@ -3031,7 +3632,13 @@ function route(){
   $('#tab-klient').toggleAttribute('aria-current',v==='klient'); if(v==='klient')$('#tab-klient').setAttribute('aria-current','page');
   $('#tab-panel').toggleAttribute('aria-current',v==='panel'); if(v==='panel')$('#tab-panel').setAttribute('aria-current','page');
   if(v==='panel'){if(BOOKINGS.some(b=>b.isNew&&b.status==='pending'))P.view='start';openPanel()}
-  else{const m=location.hash.match(/^#status=([0-9a-f-]{36})$/);if(m){S.screen='status';S.token=m[1];S.st=null;loadStatus()}else{const w=location.hash.match(/^#lista=([0-9a-f-]{36})$/);if(w){S.screen='wlstatus';if(!S.wls||S.wls.token!==w[1])S.wls=null;S.wtoken=w[1];loadWl()}else if(S.screen==='status'||S.screen==='wlstatus')S.screen='home'}renderClient()}
+  else{const m=location.hash.match(/^#(status|lista|oferta|auto)=([0-9a-f-]{36})$/),k=m&&m[1],tk=m&&m[2];
+    if(k==='status'){S.screen='status';S.token=tk;S.st=null;loadStatus()}
+    else if(k==='lista'){S.screen='wlstatus';if(!S.wls||S.wls.token!==tk)S.wls=null;S.wtoken=tk;loadWl()}
+    else if(k==='oferta'){S.screen='offer';S.otoken=tk;S.of=null;loadOffer()}
+    else if(k==='auto'){S.screen='auto';S.ctoken=tk;S.pp=null;loadPass()}
+    else if(['status','wlstatus','offer','auto'].includes(S.screen))S.screen='home';
+    renderClient()}
   window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
