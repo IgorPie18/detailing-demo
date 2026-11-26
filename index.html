@@ -906,6 +906,63 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .srow .ico{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:#f4f4f2;color:#57534e}
 .s-empty{background:#fff;border:1px dashed var(--pline);border-radius:12px;padding:26px;text-align:center;color:#78716c}
 @media (max-width:820px){.mon .mc{min-height:76px}.mchip{font-size:10.5px}.calbar .ttl{min-width:0}}
+
+/* ===== zakładka Google ===== */
+.g-conn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g-src{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.g-src .top{display:flex;align-items:center;gap:10px}
+.g-src .gl{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;flex:none}
+.g-src b{font-size:14.5px}.g-src small{color:#78716c;font-size:12.5px;line-height:1.45}
+.g-src .pill{margin-left:auto;font-size:11.5px;font-weight:600;border-radius:999px;padding:2px 8px;background:#f4f4f2;color:#78716c;white-space:nowrap}
+.g-sec{display:grid;gap:14px}
+.g-h{display:flex;align-items:center;gap:10px;margin-top:10px}
+.g-h h2{margin:0;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.g-h small{color:#8a8a93}
+.g-h .api{margin-left:auto;font-size:12px;color:#8a8a93;font-family:ui-monospace,Consolas,monospace}
+.g-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.g-kpis.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.gk{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:14px 16px;display:grid;gap:4px}
+.gk small{color:#78716c;font-size:12.5px}
+.gk b{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.gk .cmp{font-size:12px;color:#78716c}
+.gk .up{color:#15803d;font-weight:600}.gk .dn{color:#b91c1c;font-weight:600}
+.g-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:14px;align-items:start}
+.g-grid.even{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lc{position:relative}
+.lc svg{width:100%;height:auto;display:block;overflow:visible}
+.lc .gridl{stroke:#efefec}.lc .axl{font:11px var(--body);fill:#8a8a93}
+.lc .line{fill:none;stroke:var(--brand);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lc .area{fill:var(--brand);opacity:.08}
+.lc .xh{stroke:#a8a29e;stroke-width:1;stroke-dasharray:3 3}
+.lc .dot{fill:var(--brand);stroke:#fff;stroke-width:2;opacity:0}
+.lc .xh{opacity:0}.lc.on .dot,.lc.on .xh{opacity:1}
+.lc-tip{position:absolute;pointer-events:none;background:#1c1917;color:#fff;border-radius:8px;padding:6px 9px;font-size:12.5px;white-space:nowrap;transform:translate(-50%,-110%)}
+.lc-tip b{font-variant-numeric:tabular-nums}
+.hb{display:grid;gap:9px}
+.hb .r{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(0,2fr) 64px;gap:10px;align-items:center;font-size:13px}
+.hb .tr{height:10px;background:#f4f4f2;border-radius:5px;overflow:hidden}
+.hb .tr i{display:block;height:100%;background:var(--brand);border-radius:5px}
+.hb .r b{text-align:right;font-variant-numeric:tabular-nums}
+.hb .r.c2 .tr i{background:#2563eb}
+.g-tbl td,.g-tbl th{padding:9px 10px}
+.g-tbl td.r,.g-tbl th.r{text-align:right;font-variant-numeric:tabular-nums}
+.pos-chip{display:inline-block;min-width:38px;text-align:center;border-radius:6px;padding:1px 6px;font-size:12px;font-weight:600}
+.pos-chip.top{background:#dcfce7;color:#15803d}.pos-chip.mid{background:#fef3c7;color:#92400e}.pos-chip.low{background:#fee2e2;color:#b91c1c}
+.stars{color:#f59e0b;letter-spacing:1px}
+.grev{border-top:1px solid var(--pline);padding:10px 0;display:grid;gap:4px;font-size:14px}
+.grev:first-child{border-top:0}
+.grev .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.grev small{color:#78716c}
+.g-ins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g-ins div{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.5}
+.g-ins b{display:block;margin-bottom:4px}
+.g-ins small{display:block;color:#9a3412;margin-top:6px;font-size:12px}
+.stack2{display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px;background:#fff}
+.stack2 i{display:block;height:100%}
+.lg2{display:flex;gap:14px;font-size:12.5px;color:#57534e;flex-wrap:wrap;margin-top:8px}
+.lg2 span{display:inline-flex;gap:6px;align-items:center}.lg2 i{width:10px;height:10px;border-radius:3px;display:inline-block}
+details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
+@media (max-width:1100px){.g-conn,.g-ins{grid-template-columns:minmax(0,1fr)}.g-kpis,.g-kpis.four{grid-template-columns:repeat(2,minmax(0,1fr))}.g-grid,.g-grid.even{grid-template-columns:minmax(0,1fr)}}
 </style>
 
 <header class="demo-bar">
@@ -1692,7 +1749,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   openPanel();
 });
 
-const P={view:'start',filter:'all',wk:0,bay:null,edit:false,drag:null,q:'',cal:{m:'month',a:null}};
+const P={grange:28,view:'start',filter:'all',wk:0,bay:null,edit:false,drag:null,q:'',cal:{m:'month',a:null}};
 const USL_IC='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
 const ICONS={
   dzis:'<path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/>',
@@ -1702,6 +1759,7 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  google:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   note:'<path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8 12h8M8 16h6"/>',
   gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/>',
   help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
@@ -1747,12 +1805,12 @@ function renderSide(){
   $('#side').innerHTML=`<div class="logo">Lumen<span>panel salonu</span></div>
   <label class="gsearch">${ic('search')}<input type="search" data-gsearch="1" placeholder="Szukaj klienta, auta" aria-label="Szukaj klienta, auta albo telefonu" value="${esc(P.q)}"><kbd>/</kbd></label>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
-  ${it('start','Start',n)}${it('dzis','Pulpit')}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',off)}<div class="sep"></div>${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
+  ${it('start','Start',n)}${it('dzis','Pulpit')}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}${it('wl','Lista rezerwowa',off)}<div class="sep"></div>${it('google','Google')}${it('bon','Bony')}${it('cen','Cennik')}${it('ust','Ustawienia')}
   <button class="nav" type="button" data-tourstart="1">${ic('help')}<span>Samouczek</span></button>
   <button class="whatsnew" type="button" data-nav="wl"><b>Nowość: lista rezerwowa</b><span>Zwolniony termin trafia sam do kolejnej osoby.</span></button>
   <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();$('#pmain').innerHTML={szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
+function renderPanel(){renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -2507,6 +2565,7 @@ const TOUR=[
   {sel:'#drw .cl-stats',t:'Cała historia w jednym miejscu',d:'Wizyty, wydane pieniądze, punkty i auta. Stąd dodasz kolejną wizytę z wpisanym autem.',after:()=>{if(drw().open)drw().close()}},
   {v:'wl',sel:'.auto-note',t:'Lista rezerwowa',d:'Gdy ktoś odwoła wizytę, pierwsza osoba z listy dostaje propozycję. Najpierw zapytamy Cię na Telegramie.'},
   {v:'wl',sel:'[data-wsim]',t:'Sprawdź automat',d:'Kliknij, żeby zasymulować odwołaną wizytę.',click:1},
+  {v:'google',sel:'.g-conn',t:'Google w panelu',d:'Wizytówka, Search Console i Analytics w jednym miejscu. Po podłączeniu kont dane wpadają same, teraz widać przykładowe.'},
   {v:'bon',sel:'.ptop',t:'Bony prezentowe',d:'Bony kupione na stronie i wystawione w salonie. Realizacja jednym kliknięciem.'},
   {v:'cen',sel:'[data-pact="svc"]',t:'Nowa usługa',d:'Nazwa, kategoria, ceny i zdjęcie. Usługa od razu pojawia się na stronie.'},
   {v:'ust',sel:'.bay-ed',t:'Stanowiska i automaty',d:'Tu dodasz stanowisko i włączysz listę rezerwową, Telegram oraz program lojalnościowy.'},
@@ -2567,6 +2626,127 @@ function tourGuard(e){
 }
 function tourKey(e){if(TR.i<0)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();tourEnd()}else if(e.key==='ArrowRight'&&!TOUR[TR.i].click){e.preventDefault();tourGo(TR.i+1,1)}else if(e.key==='ArrowLeft'){e.preventDefault();tourGo(TR.i-1,-1)}}
 addEventListener('resize',()=>{if(TR.i>=0)tourPlace()});addEventListener('scroll',()=>{if(TR.i>=0)tourPlace()},true);
+
+/* ---------- Google: wizytówka, Search Console, Analytics (dane przykładowe do czasu podłączenia) ---------- */
+// shortcut: liczby z deterministycznego generatora; po podłączeniu kont podmieniamy je na odpowiedzi API (te same pola)
+const rng=seed=>()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const nf=n=>Math.round(n).toLocaleString('pl-PL'), pf=(n,d=1)=>(+n).toFixed(d).replace('.',',');
+function gSeries(total,days,seed,wk=[1.18,1.12,1.04,1,0.95,0.72,0.55]){ // dni od najstarszego; poniedziałek najmocniejszy, weekend słabszy
+  const r=rng(seed), raw=[]; for(let i=days;i>=1;i--){const d=addDays(T0,-i);raw.push(wk[(d.getDay()+6)%7]*(0.8+r()*0.4))}
+  const sum=raw.reduce((a,b)=>a+b,0); return raw.map(v=>Math.max(0,Math.round(v/sum*total)));
+}
+function gData(days){
+  const k=days/28, sc=v=>Math.round(v*k), prev=(v,ch)=>Math.round(v/(1+ch/100));
+  const web=BOOKINGS.filter(b=>b.src==='web'&&b.created>addDays(T0,-days)).length;
+  return {
+    gbp:{views:sc(3412),viewsCh:14,split:[['Wyszukiwarka, telefon',sc(1520)],['Mapy, telefon',sc(1090)],['Wyszukiwarka, komputer',sc(528)],['Mapy, komputer',sc(274)]],
+      calls:sc(58),callsCh:9,web:sc(141),webCh:22,dir:sc(96),dirCh:-4,book:sc(37),bookCh:31,
+      kw:[['detailing poznań',412],['auto detailing',236],['lumen detailing',188],['powłoka ceramiczna',97],['myjnia ręczna poznań',84],['korekta lakieru',61],['pranie tapicerki samochodowej',44],['folia ppf',29],['ceramika samochodowa','<15']],
+      rating:4.9,reviews:212,dist:[196,11,3,1,1],noReply:12,
+      last:[['Marta S.',5,'2 dni temu','Ceramika na Tucsonie, auto wygląda lepiej niż z salonu. Termin zarezerwowałam wieczorem z telefonu.',0],['Paweł K.',5,'5 dni temu','Szybko i konkretnie, cena taka jak na stronie.',1],['Karolina P.',3,'tydzień temu','Usługa dobra, ale musiałam czekać 40 minut na odbiór.',0]]},
+    gsc:{clicks:sc(412),clicksCh:18,impr:sc(14860),imprCh:26,ctr:2.77,ctrCh:-0.2,pos:11.4,posCh:-1.3,daily:gSeries(sc(412),days,7),dailyI:gSeries(sc(14860),days,9),
+      q:[['lumen detailing',96,180,1.2],['detailing poznań',58,2940,7.8],['powłoka ceramiczna poznań',31,1920,8.4],['korekta lakieru poznań',24,1210,9.1],['pranie tapicerki samochodowej poznań',19,740,6.9],['detailing wnętrza poznań',14,520,5.8],['folia ppf poznań',12,860,11.3],['ile kosztuje powłoka ceramiczna',9,1380,14.6],['jak dbać o powłokę ceramiczną',7,940,12.2],['myjnia ręczna poznań',6,1110,16.4]].map(r=>[r[0],sc(r[1]),sc(r[2]),r[3]]),
+      pages:[['/',168],['/ceramika',74],['/korekta-lakieru',52],['/wnetrze',41],['/blog/jak-dbac-o-powloke',36],['/ppf',23],['/rezerwacja',18]].map(r=>[r[0],sc(r[1])]),
+      dev:[['Telefon',71],['Komputer',27],['Tablet',2]]},
+    ga:{users:sc(1284),usersCh:12,sessions:sc(1731),sessionsCh:15,eng:61.4,engCh:3.2,time:'1 min 42 s',key:Math.max(sc(41),web),keyCh:24,
+      ch:[['Organic Search',642],['Direct',388],['Organic Social',371],['Referral',156],['SMS',101],['Unassigned',73]].map(r=>[r[0],sc(r[1])]),
+      funnel:[['page_view','Weszli na stronę',1284],['view_service','Obejrzeli usługę',612],['booking_start','Otworzyli formularz',214],['booking_car','Wybrali auto',171],['booking_date','Wybrali termin',98],['booking_contact','Podali dane',61],['booking_submit','Wysłali rezerwację',41]].map(r=>[r[0],r[1],sc(r[2])]),
+      land:[['/',702,58.1],['/ceramika',281,66.4],['/rezerwacja',214,71.2],['/korekta-lakieru',166,63.8],['/wnetrze',139,60.2],['/blog/jak-dbac-o-powloke',118,48.9]].map(r=>[r[0],sc(r[1]),r[2]]),
+      mob:79, web}
+  };
+}
+const GC={};
+function lineChart(id,vals,days,label,fmt=nf){
+  const W=640,H=190,pl=40,pr=10,pt=12,pb=24,n=vals.length,mx=Math.max(1,...vals)*1.15;
+  const x=i=>pl+i*(W-pl-pr)/Math.max(1,n-1), y=v=>pt+(H-pt-pb)*(1-v/mx);
+  const ticks=[0,.25,.5,.75,1].map(f=>Math.round(mx*f));
+  const dates=vals.map((_,i)=>addDays(T0,-(n-i)));
+  GC[id]={vals,dates,fmt,label,x,y,W};
+  const pts=vals.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const step=Math.ceil(n/6);
+  return `<div class="lc" data-lc="${id}">
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}: ${n} dni, razem ${fmt(vals.reduce((a,b)=>a+b,0))}, najwięcej ${fmt(Math.max(...vals))} dziennie">
+      ${ticks.map(t=>`<line class="gridl" x1="${pl}" x2="${W-pr}" y1="${y(t)}" y2="${y(t)}"/><text class="axl" x="${pl-6}" y="${y(t)+4}" text-anchor="end">${fmt(t)}</text>`).join('')}
+      ${dates.map((d,i)=>i%step===0?`<text class="axl" x="${x(i)}" y="${H-6}" text-anchor="middle">${d.getDate()}.${pad(d.getMonth()+1)}</text>`:'').join('')}
+      <polygon class="area" points="${x(0)},${y(0)} ${pts} ${x(n-1)},${y(0)}"/>
+      <polyline class="line" points="${pts}"/>
+      <line class="xh" y1="${pt}" y2="${H-pb}" x1="-10" x2="-10"/><circle class="dot" r="4.5" cx="-10" cy="-10"/>
+    </svg><div class="lc-tip" hidden></div></div>
+    <details class="tv"><summary>Pokaż dane w tabeli</summary><table class="tbl g-tbl" style="min-width:0"><thead><tr><th>Dzień</th><th class="r">${esc(label)}</th></tr></thead><tbody>${dates.map((d,i)=>`<tr><td>${fd(d)}</td><td class="r">${fmt(vals[i])}</td></tr>`).join('')}</tbody></table></details>`;
+}
+const chg=(v,inv)=>{const good=inv?v<0:v>0;return v?`<span class="${good?'up':'dn'}">${v>0?'▲':'▼'} ${pf(Math.abs(v),Number.isInteger(v)?0:1)}${Number.isInteger(v)?'%':''}</span>`:''};
+const gk=(lbl,val,ch,sub,inv)=>`<div class="gk"><small>${lbl}</small><b>${val}</b><span class="cmp">${chg(ch,inv)} ${sub}</span></div>`;
+const hbars=(rows,max,cls='')=>`<div class="hb">${rows.map(r=>`<div class="r ${cls}"><span>${esc(r[0])}</span><span class="tr"><i style="width:${Math.max(2,(typeof r[1]==='number'?r[1]:0)/max*100)}%"></i></span><b>${typeof r[1]==='number'?nf(r[1]):r[1]}</b></div>`).join('')}</div>`;
+function googleHTML(){
+  const d=P.grange, D=gData(d), g=D.gbp, c=D.gsc, a=D.ga, per=`ostatnie ${d} dni`;
+  const pc=p=>`<span class="pos-chip ${p<=5?'top':p<=10?'mid':'low'}">${pf(p)}</span>`;
+  const lowCtr=c.q.find(r=>r[0].startsWith('ile kosztuje'));
+  const src=(col,l,name,api,sub)=>`<div class="g-src"><div class="top"><span class="gl" style="background:${col}">${l}</span><b>${name}</b><span class="pill">nie połączono</span></div><small>${sub}</small><small style="font-family:ui-monospace,Consolas,monospace;font-size:11.5px">${api}</small><button class="pbtn sm" type="button" data-gconnect="${esc(name)}" style="justify-self:start;margin-top:4px">Połącz konto Google</button></div>`;
+  return `${topbar('Google',`Wizytówka, Search Console i Analytics w jednym miejscu · ${per}. Do czasu podłączenia kont pokazujemy dane przykładowe.`,`<span class="seg-t" role="group" aria-label="Zakres dat">${[[7,'7 dni'],[28,'28 dni'],[90,'3 miesiące']].map(([v,l])=>`<button type="button" data-grange="${v}" aria-pressed="${d===v}">${l}</button>`).join('')}</span>`)}
+  <div class="g-conn">
+    ${src('#ea580c','G','Wizytówka Google','Business Profile Performance API','Wyświetlenia profilu, połączenia, trasy, kliknięcia w stronę i „Zarezerwuj”, frazy wyszukiwania, opinie.')}
+    ${src('#2563eb','SC','Search Console','Search Analytics API','Kliknięcia i wyświetlenia w Google, CTR, średnia pozycja, zapytania i strony. Dane z opóźnieniem ok. 2 dni.')}
+    ${src('#0d9488','GA','Google Analytics 4','GA4 Data API','Użytkownicy, sesje, zaangażowanie, kanały ruchu, lejek rezerwacji i strony wejścia.')}
+  </div>
+  <div class="g-ins">
+    <div><b>Telefon to główne źródło klientów</b>${Math.round((g.split[0][1]+g.split[1][1])/g.views*100)}% wyświetleń wizytówki i ${c.dev[0][1]}% kliknięć z Google to telefony. Przycisk „Zarezerwuj” na wizytówce dał ${nf(g.book)} wejść do formularza.<small>Wizytówka + Search Console</small></div>
+    <div><b>„${esc(lowCtr[0])}”: dużo wyświetleń, mało kliknięć</b>${nf(lowCtr[2])} wyświetleń, CTR ${pf(lowCtr[1]/lowCtr[2]*100)}%, pozycja ${pf(lowCtr[3])}. Cena w tytule i opisie strony /ceramika powinna podnieść CTR.<small>Search Console</small></div>
+    <div><b>${g.noReply} opinii bez odpowiedzi</b>Średnia ${pf(g.rating)} z ${g.reviews} opinii. Odpowiedź na każdą opinię, także 3★, pokazuje nowym klientom, że salon dba o kontakt.<small>Wizytówka Google</small></div>
+  </div>
+
+  <div class="g-h"><h2>Wizytówka Google</h2><small>${per}</small><span class="api">Business Profile Performance API</span></div>
+  <div class="g-sec">
+    <div class="g-kpis">${gk('Wyświetlenia profilu',nf(g.views),g.viewsCh,'vs poprzedni okres')}${gk('Połączenia',nf(g.calls),g.callsCh,'przycisk „Zadzwoń”')}${gk('Kliknięcia w stronę',nf(g.web),g.webCh,'przejścia na stronę')}${gk('Prośby o trasę',nf(g.dir),g.dirCh,'nawigacja do salonu')}${gk('Rezerwacje z wizytówki',nf(g.book),g.bookCh,'przycisk „Zarezerwuj”')}</div>
+    <div class="g-grid">
+      <section class="psec"><div class="sec-h"><h2>Gdzie znaleźli salon</h2><small>wyświetlenia profilu wg miejsca</small></div><div class="sec-b">${hbars(g.split,g.split[0][1])}</div></section>
+      <section class="psec"><div class="sec-h"><h2>Opinie</h2><small>${g.reviews} opinii</small></div><div class="sec-b">
+        <div style="display:flex;align-items:baseline;gap:10px"><b style="font-size:32px;font-weight:600">${pf(g.rating)}</b><span class="stars" aria-hidden="true">★★★★★</span><span class="hint-p">${g.noReply} bez odpowiedzi</span></div>
+        ${hbars(g.dist.map((v,i)=>[`${5-i} ★`,v]),g.dist[0])}</div></section>
+    </div>
+    <div class="g-grid even">
+      <section class="psec"><div class="sec-h"><h2>Frazy, po których znaleziono wizytówkę</h2><small>miesięcznie</small></div><div class="sec-b">${hbars(g.kw,g.kw[0][1])}<small class="hint-p" style="display:block;margin-top:8px">Google ukrywa frazy z liczbą poniżej 15 („<15”).</small></div></section>
+      <section class="psec"><div class="sec-h"><h2>Najnowsze opinie</h2><small>Google</small></div><div class="sec-b">${g.last.map(r=>`<div class="grev"><div class="h"><b>${esc(r[0])}</b><span class="stars" aria-label="${r[1]} na 5">${'★'.repeat(r[1])}${'☆'.repeat(5-r[1])}</span><small>${r[2]}</small>${r[4]?'<span class="st s-ready" style="margin-left:auto">Odpowiedziano</span>':'<button class="pbtn sm" type="button" data-greply="1" style="margin-left:auto">Odpowiedz</button>'}</div><span>${esc(r[3])}</span></div>`).join('')}</div></section>
+    </div>
+  </div>
+
+  <div class="g-h"><h2>Search Console</h2><small>${per} · wyniki organiczne Google</small><span class="api">Search Analytics API</span></div>
+  <div class="g-sec">
+    <div class="g-kpis four">${gk('Kliknięcia',nf(c.clicks),c.clicksCh,'vs poprzedni okres')}${gk('Wyświetlenia',nf(c.impr),c.imprCh,'vs poprzedni okres')}${gk('Średni CTR',pf(c.ctr,2)+'%',c.ctrCh,'pkt proc.')}${gk('Średnia pozycja',pf(c.pos),c.posCh,'niżej = lepiej',true)}</div>
+    <div class="g-grid even">
+      <section class="psec"><div class="sec-h"><h2>Kliknięcia dziennie</h2><small>najedź, żeby zobaczyć dzień</small></div><div class="sec-b">${lineChart('gsc-c',c.daily,d,'Kliknięcia')}</div></section>
+      <section class="psec"><div class="sec-h"><h2>Wyświetlenia dziennie</h2><small>osobny wykres: inna skala</small></div><div class="sec-b">${lineChart('gsc-i',c.dailyI,d,'Wyświetlenia')}</div></section>
+    </div>
+    <section class="psec"><div class="sec-h"><h2>Zapytania</h2><small>pozycja: zielona do 5, żółta do 10</small></div><div class="tbl-wrap"><table class="tbl g-tbl"><thead><tr><th>Zapytanie</th><th class="r">Kliknięcia</th><th class="r">Wyświetlenia</th><th class="r">CTR</th><th class="r">Pozycja</th></tr></thead><tbody>
+      ${c.q.map(r=>`<tr><td>${esc(r[0])}</td><td class="r"><b>${nf(r[1])}</b></td><td class="r">${nf(r[2])}</td><td class="r">${pf(r[1]/Math.max(1,r[2])*100)}%</td><td class="r">${pc(r[3])}</td></tr>`).join('')}</tbody></table></div></section>
+    <div class="g-grid">
+      <section class="psec"><div class="sec-h"><h2>Strony</h2><small>kliknięcia</small></div><div class="sec-b">${hbars(c.pages,c.pages[0][1])}</div></section>
+      <section class="psec"><div class="sec-h"><h2>Urządzenia</h2><small>udział w kliknięciach</small></div><div class="sec-b">
+        <div class="stack2" role="img" aria-label="${c.dev.map(x=>x[0]+' '+x[1]+'%').join(', ')}">${c.dev.map((x,i)=>`<i style="width:${x[1]}%;background:${['#ea580c','#2563eb','#0d9488'][i]}"></i>`).join('')}</div>
+        <div class="lg2">${c.dev.map((x,i)=>`<span><i style="background:${['#ea580c','#2563eb','#0d9488'][i]}"></i>${x[0]} <b>${x[1]}%</b></span>`).join('')}</div></div></section>
+    </div>
+  </div>
+
+  <div class="g-h"><h2>Google Analytics 4</h2><small>${per} · ruch na stronie salonu</small><span class="api">GA4 Data API</span></div>
+  <div class="g-sec">
+    <div class="g-kpis">${gk('Aktywni użytkownicy',nf(a.users),a.usersCh,'vs poprzedni okres')}${gk('Sesje',nf(a.sessions),a.sessionsCh,'vs poprzedni okres')}${gk('Współczynnik zaangażowania',pf(a.eng)+'%',a.engCh,'pkt proc.')}${gk('Śr. czas zaangażowania',a.time,0,'na użytkownika')}${gk('Kluczowe zdarzenia',nf(a.key),a.keyCh,'booking_submit')}</div>
+    <div class="g-grid even">
+      <section class="psec"><div class="sec-h"><h2>Kanały ruchu</h2><small>sesje · domyślne grupy kanałów</small></div><div class="sec-b">${hbars(a.ch,a.ch[0][1],'c2')}<small class="hint-p" style="display:block;margin-top:8px">„SMS” to wejścia z linków w przypomnieniach i potwierdzeniach (utm_medium=sms).</small></div></section>
+      <section class="psec funnel"><div class="sec-h"><h2>Lejek rezerwacji</h2><small>zdarzenia z formularza</small></div><div class="sec-b"><div class="bars num">${a.funnel.map((r,i,arr)=>{const worst=i===4;return `<div class="bar ${worst?'worst':''}"><span title="${r[0]}">${r[1]}</span><span class="tr"><i style="width:${r[2]/arr[0][2]*100}%"></i></span><b>${nf(r[2])}</b></div>${worst?`<div class="bar"><span></span><span class="drop-l">−${Math.round((1-r[2]/arr[i-1][2])*100)}% na tym kroku</span></div>`:''}`}).join('')}</div>
+        <div class="insight">W panelu w tym okresie: <b>${a.web}</b> rezerwacji ze strony (z bazy salonu). Po podłączeniu GA4 obie liczby powinny się zgadzać.</div></div></section>
+    </div>
+    <section class="psec"><div class="sec-h"><h2>Strony wejścia</h2><small>${a.mob}% sesji z telefonu</small></div><div class="tbl-wrap"><table class="tbl g-tbl"><thead><tr><th>Strona</th><th class="r">Sesje</th><th class="r">Zaangażowanie</th></tr></thead><tbody>
+      ${a.land.map(r=>`<tr><td>${esc(r[0])}</td><td class="r"><b>${nf(r[1])}</b></td><td class="r">${pf(r[2])}%</td></tr>`).join('')}</tbody></table></div></section>
+  </div>`;
+}
+function gHover(e){
+  const box=e.target.closest&&e.target.closest('.lc'); if(!box) return; const g=GC[box.dataset.lc]; if(!g) return;
+  const svg=box.querySelector('svg'), r=svg.getBoundingClientRect(), vx=(e.clientX-r.left)/r.width*g.W;
+  let i=0,best=1e9; g.vals.forEach((_,k)=>{const dd=Math.abs(g.x(k)-vx);if(dd<best){best=dd;i=k}});
+  const X=g.x(i),Y=g.y(g.vals[i]); const xh=svg.querySelector('.xh'),dot=svg.querySelector('.dot'),tip=box.querySelector('.lc-tip');
+  xh.setAttribute('x1',X);xh.setAttribute('x2',X);dot.setAttribute('cx',X);dot.setAttribute('cy',Y);
+  box.classList.add('on'); tip.hidden=false; tip.innerHTML=`${fd(g.dates[i])} · ${esc(g.label)}: <b>${g.fmt(g.vals[i])}</b>`;
+  tip.style.left=(X/g.W*r.width)+'px'; tip.style.top=(Y/g.W*r.width)+'px';
+}
 
 /* ---------- szuflada: szczegóły wizyty ---------- */
 const RQ={confirm:'confirmed',reject:'rejected',propose:'proposed',done:'done',noshow:'noshow',cancel:'rejected',reopen:'confirmed'};
@@ -2712,6 +2892,9 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
   if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
   if(t&&t.dataset.calm){P.cal.m=t.dataset.calm;renderPanel();return}
+  if(t&&t.dataset.grange){P.grange=+t.dataset.grange;renderPanel();return}
+  if(t&&t.dataset.gconnect){toast(`${t.dataset.gconnect}: podłączenie przez logowanie Google (OAuth) w kolejnym etapie. Teraz widać dane przykładowe.`);return}
+  if(t&&t.dataset.greply){toast('Odpowiedź na opinię wyślemy przez API wizytówki po podłączeniu konta.');return}
   if(t&&t.dataset.calnav){calShift(+t.dataset.calnav);renderPanel();return}
   if(t&&t.dataset.noteadd){openDrawer(noteHTML(null,t.dataset.noteadd),true,true);return}
   if(t&&t.dataset.note){const n=NOTES.find(x=>x.id===+t.dataset.note);if(n)openDrawer(noteHTML(n),true,true);return}
@@ -2809,6 +2992,8 @@ document.getElementById('view-panel').addEventListener('keydown',e=>{
   if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Escape'){e.target.value='';P.q='';if(P.view==='szukaj')exitSearch()}
   if(e.target.matches&&e.target.matches('.mc[data-calday]')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();P.cal={m:'day',a:e.target.dataset.calday};renderPanel()}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!$('#view-panel').hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!drw().open){const g=$('[data-gsearch]');if(g){e.preventDefault();g.focus()}}});
+document.getElementById('view-panel').addEventListener('mousemove',gHover);
+document.getElementById('view-panel').addEventListener('mouseleave',e=>{if(e.target.classList&&e.target.classList.contains('lc')){e.target.querySelector('.lc-tip').hidden=true;e.target.classList.remove('on')}},true);
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(ok=>ok&&toast('Cena zapisana, widoczna na stronie salonu'))}
