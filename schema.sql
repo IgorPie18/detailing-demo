@@ -39,6 +39,9 @@ create table if not exists public.bookings (
   check (end_at > start_at)
 );
 
+-- Protokół przyjęcia auta: uszkodzenia na schemacie, zdjęcia, przebieg, podpis klienta.
+alter table public.bookings add column if not exists intake jsonb;
+
 -- Dwie potwierdzone wizyty nie mogą zająć tego samego stanowiska w tym samym czasie.
 do $$ begin
   alter table public.bookings add constraint no_double_booking

@@ -254,7 +254,7 @@ textarea.inp{height:auto;min-height:84px;padding:12px 14px;resize:vertical}
 
 /* ===== Panel salonu ===== */
 #view-panel{--pbg:#f6f5f1;--pside:#eeece6;--pline:#e3e0d8;--accent:#b45309}
-.panel{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 52px);background:var(--pbg)}
+.panel{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 52px);background:linear-gradient(90deg,var(--pside) 0 220px,var(--pbg) 220px)}
 .side{background:var(--pside);border-right:1px solid var(--pline);padding:18px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:52px;height:calc(100vh - 52px)}
 .side .logo{font-family:var(--display);font-weight:800;letter-spacing:.05em;padding:2px 10px 14px}
 .side .logo span{font-weight:500;letter-spacing:0;color:var(--grey);margin-left:6px}
@@ -269,7 +269,7 @@ textarea.inp{height:auto;min-height:84px;padding:12px 14px;resize:vertical}
 .side .salon{margin-top:auto;border-top:1px solid var(--pline);padding:12px 10px 0;font-size:12px;color:var(--grey);display:grid;gap:2px}
 .side .salon b{color:var(--ink);font-size:13px}
 .side .out{margin-top:8px;justify-self:start;background:none;border:0;padding:0;color:var(--ink-2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.main{padding:26px 32px 48px;display:flex;flex-direction:column;gap:18px;min-width:0;max-width:1240px}
+.main{padding:26px 32px 48px;display:flex;flex-direction:column;gap:18px;min-width:0}
 .ptop{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
 .ptop h1{font-family:var(--display);font-size:26px;letter-spacing:-.01em;margin:0}
 .ptop p{margin:4px 0 0;color:var(--grey)}
@@ -409,9 +409,58 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .pf input:focus,.pf select:focus,.pf textarea:focus{border-color:var(--ink);outline:none}
 .sumline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:11px 13px;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;font-size:14px}
 .ferr{color:var(--bad);font-size:13px;min-height:1em}
-@media (max-width:1100px){.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}}
+
+/* statystyki demo */
+.ptop.sub{margin-top:10px}
+.ptop.sub h2{font-family:var(--display);font-size:20px;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--pline);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.kpi small{color:var(--grey);font-weight:600;font-size:12.5px}
+.kpi b{font-family:var(--display);font-size:28px;font-weight:700;letter-spacing:-.01em}
+.kpi span{font-size:12.5px;color:var(--grey)}
+.kpi .up{color:var(--ok);font-weight:700}
+.kpi.hl{background:var(--ink);border-color:var(--ink);color:#fff}
+.kpi.hl small,.kpi.hl span{color:#b9bcc0}.kpi.hl .up{color:#fff}
+.bars{display:grid;gap:10px;padding:12px 0 4px}
+.bar{display:grid;grid-template-columns:140px minmax(0,1fr) 40px;gap:10px;align-items:center;font-size:13px}
+.bar .tr{height:10px;background:var(--pbg);border-radius:5px;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:var(--ink);border-radius:5px}
+.bar b{text-align:right}
+.funnel .bar .tr i{background:#9a968c}.funnel .bar.worst .tr i{background:var(--accent)}
+.funnel .drop-l{font-size:11.5px;color:var(--accent);grid-column:2/-1;margin-top:-6px;font-weight:600}
+.insight{background:var(--pbg);border-radius:8px;padding:10px 12px;font-size:13px;margin:8px 0 4px}
+.log div{display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--pline);font-size:13px}
+.log div:first-child{border-top:0}.log time{color:var(--grey)}
+.notif{display:grid;gap:10px;padding:12px 0 4px}
+.notif .from{font-size:12px;color:var(--grey);display:flex;justify-content:space-between}
+.bubble{background:var(--pbg);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:14px;line-height:1.5;white-space:pre-line}
+.notif .qa{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+/* protokół przyjęcia */
+.proto-box{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--pline);border-radius:8px;padding:12px 14px;background:var(--pbg)}
+.proto-box b{display:block;font-size:14px}.proto-box small{color:var(--grey);font-size:12.5px}
+.ph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ph b{font-size:14px}.ph small{color:var(--grey);font-size:12.5px}
+.dmg{flex-wrap:wrap;margin-bottom:8px}
+.dot{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-style:normal;font-size:10px;font-weight:700;color:#fff;margin-right:6px;vertical-align:-4px;flex:none}
+.dmg .dot{width:10px;height:10px;vertical-align:0}
+.t-W{background:#b45309;fill:#b45309}.t-R{background:#a3261b;fill:#a3261b}.t-O{background:#0e7490;fill:#0e7490}.t-P{background:#4338ca;fill:#4338ca}.t-I{background:#57534e;fill:#57534e}
+.carmap{width:100%;height:auto;display:block;cursor:crosshair;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;touch-action:manipulation}
+.carmap.locked{cursor:default}
+.carmap .shape *{fill:none;stroke:#8b877d;stroke-width:1.6;stroke-linejoin:round}
+.carmap>text{font:600 11px var(--body);fill:var(--grey)}
+.carmap .mk circle{stroke:#fff;stroke-width:2}
+.carmap .mk text{font:700 10px var(--body);fill:#fff;text-anchor:middle;pointer-events:none}
+.mklist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:2px;font-size:14px}
+.mklist li{display:flex;align-items:center;gap:4px;min-height:34px;border-bottom:1px solid var(--pline)}
+.mklist li button{margin-left:auto}
+.mklist .none{color:var(--grey);border:0}
+.gal figure{margin:0}.gal figcaption{font-size:11.5px;color:var(--grey);margin-top:3px;font-variant-numeric:tabular-nums}
+.upl{margin-top:8px;cursor:pointer}
+.sig{display:block;width:100%;height:130px;border:1px dashed #cdc9bf;border-radius:8px;background:#fff;touch-action:none;margin-bottom:6px;object-fit:contain}
+@media (max-width:1100px){.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:820px){
-  .panel{grid-template-columns:minmax(0,1fr)}
+  .panel{grid-template-columns:minmax(0,1fr);background:var(--pbg)}
+  .kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .side{flex-direction:row;overflow-x:auto;padding:8px 10px;gap:4px;height:auto;top:52px;z-index:5;border-right:0;border-bottom:1px solid var(--pline)}
   .side .logo,.side .salon,.side .sep{display:none}
   .side .new{margin:0 6px 0 0;flex:none}
@@ -626,6 +675,9 @@ function SEED(){
   mk(8,8,'ceramika','3l','l','Hyundai Tucson','Marta S.',1,'pending','ig',3,18),
   mk(13,8,'ppf','calosc','xl','Porsche Cayenne','Krzysztof B.',1,'pending','g',4,240)];
   l.find(b=>b.name==='Robert J.').addons=['felgi'];
+  const pAt=addDays(T0,-1);pAt.setHours(8,10);
+  l.find(b=>b.name==='Robert J.').intake={at:pAt.toISOString(),km:'48210',fuel:'3/4',items:'fotelik dziecięcy, ładowarka',note:'Lakier zmatowiony na masce, ryski przy klamkach.',
+    marks:[{x:182,y:84,t:'W'},{x:266,y:236,t:'R'},{x:96,y:396,t:'O'}],photos:[{path:'assets/klient-2.jpg',at:pAt.toISOString()},{path:'assets/klient-3.jpg',at:pAt.toISOString()}],sign:null,signedAt:null};
   l.forEach(b=>b.paths=SEED_PICS.slice(0,b.photos));
   return l;
 }
@@ -957,7 +1009,7 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
 /* ================= PANEL SALONU ================= */
 const toBk=r=>({id:r.id,start:new Date(r.start_at),end:new Date(r.end_at),svc:r.svc,pkg:r.pkg,size:r.size,car:r.car||'auto nie podane',name:r.name,phone:r.phone,email:r.email,
   bay:r.bay,status:r.status,src:r.src,photos:r.photo_paths.length,paths:r.photo_paths,photoUrls:[],total:r.total,deposit:r.deposit,paid:r.paid,
-  created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed});
+  created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed,intake:r.intake||null});
 async function signUrls(list){
   const paths=list.flatMap(b=>b.paths.filter(p=>!p.startsWith('assets/'))), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
@@ -971,9 +1023,10 @@ async function loadBookings(){
 async function seedDemo(){
   BID=0;
   const rows=SEED().map(b=>({studio_id:STUDIO.id,start_at:b.start.toISOString(),end_at:b.end.toISOString(),svc:b.svc,pkg:b.pkg,size:b.size,car:b.car,name:b.name,
-    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString()}));
+    phone:b.phone,bay:b.bay,status:b.status,src:b.src,total:b.total,deposit:b.deposit,paid:b.paid,addons:b.addons,photo_paths:b.paths,seed:true,created_at:b.created.toISOString(),...(b.intake?{intake:b.intake}:{})}));
   // shortcut: wstawiane pojedynczo, bo przy starcie w niedzielę dwie wizyty mogą trafić na ten sam slot i blokada odrzuci tylko tę jedną
-  await Promise.all(rows.map(r=>sb.from('bookings').insert(r)));
+  // bez kolumny intake (stary schemat) wstawia wizytę bez protokołu
+  await Promise.all(rows.map(r=>sb.from('bookings').insert(r).then(({error})=>error&&r.intake?sb.from('bookings').insert((({intake,...x})=>x)(r)):null)));
   await loadBookings();
 }
 function subscribe(){
@@ -1093,7 +1146,8 @@ function dzisHTML(){
     <section class="psec decide"><div class="sec-h"><h2>Czeka na decyzję</h2><small>${n?'najnowsze na górze':''}</small></div>
       <div class="sec-b">${n?pending().map(decCard).join(''):'<div class="empty">Nic nie czeka. Nowe zgłoszenia ze strony pojawią się tutaj same.</div>'}</div></section>
   </div>
-  <section class="psec"><div class="sec-h"><h2>Ten tydzień</h2>${LEGEND}</div><div class="sec-b">${weekHTML(0)}</div></section>`;
+  <section class="psec"><div class="sec-h"><h2>Ten tydzień</h2>${LEGEND}</div><div class="sec-b">${weekHTML(0)}</div></section>
+  ${statsHTML()}`;
 }
 
 /* ---------- Kalendarz ---------- */
@@ -1175,6 +1229,137 @@ function ustHTML(){
   </div>`;
 }
 
+/* ---------- statystyki (dane przykładowe do pokazu) ---------- */
+function notifHTML(){
+  const b=pending()[0];
+  if(!b) return `<div class="empty">Brak nowych zgłoszeń. Tu pojawi się podgląd SMS-a, który dostaje salon.</div>`;
+  return `<div class="notif"><div class="from"><span>SMS do salonu · ${ago(b.created)}</span><span>od: Lumen Panel</span></div>
+    <div class="bubble">Nowa prośba o termin
+${bName(b)}
+${esc(b.car)}, ${sizeName(b).toLowerCase()}
+Oddanie: ${fdt(b.start)}
+Szacunkowo: ${zl(b.total)} · zdjęcia: ${b.photos}
+${esc(b.name)}, ${esc(b.phone)}</div>
+    <div class="qa"><button class="pbtn sm" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button></div>
+    <small style="color:var(--grey)">Salon odpowiada jednym kliknięciem z telefonu, bez logowania. Klient od razu dostaje SMS.</small></div>`;
+}
+function statsHTML(){
+  const web=BOOKINGS.filter(b=>b.src==='web'), val=18640+web.reduce((t,b)=>t+b.total,0);
+  const box=(h,sm,body,cls='')=>`<section class="psec ${cls}"><div class="sec-h"><h2>${h}</h2><small>${sm}</small></div><div class="sec-b">${body}</div></section>`;
+  return `<div class="ptop sub"><div><h2>Statystyki</h2><p>Ostatnie 30 dni. W demo częściowo przykładowe.</p></div></div>
+  <div class="kpis num">
+    <div class="kpi hl"><small>Zarezerwowane przez stronę</small><b>${zl(val)}</b><span><span class="up">▲ 32%</span> wobec poprzednich 30 dni</span></div>
+    <div class="kpi"><small>Rezerwacje online</small><b>${41+web.length}</b><span><span class="up">▲ 11</span> · 64% wszystkich wizyt</span></div>
+    <div class="kpi"><small>Średni czas potwierdzenia</small><b>47 min</b><span>cel: poniżej 2 h</span></div>
+    <div class="kpi"><small>Nieodbyte wizyty</small><b>1</b><span>2% · wszystkie bez zadatku</span></div>
+  </div>
+  <div class="grid2">
+    ${box('Skąd przychodzą rezerwacje','30 dni',`<div class="bars num">${[['Instagram (bio)',17],['Wizytówka Google',15],['Facebook',5],['Bezpośrednio',4]].concat(web.length?[['Strona www',web.length]]:[]).map(r=>`<div class="bar"><span>${r[0]}</span><span class="tr"><i style="width:${Math.min(100,r[1]/17*100)}%"></i></span><b>${r[1]}</b></div>`).join('')}</div><div class="insight">Link w bio na Instagramie daje najwięcej rezerwacji. Wizytówka Google rośnie od dodania linku „Zarezerwuj”.</div>`)}
+    ${box('Gdzie klienci odpadają','formularz · 30 dni',`<div class="bars num">${[['Otworzyli formularz',214],['Wybrali auto',171],['Wybrali termin',98,1],['Podali dane',61],['Wysłali',41]].map((r,i,a)=>`<div class="bar ${r[2]?'worst':''}"><span>${r[0]}</span><span class="tr"><i style="width:${r[1]/214*100}%"></i></span><b>${r[1]}</b></div>${i&&r[2]?`<div class="bar"><span></span><span class="drop-l">−${Math.round((1-r[1]/a[i-1][1])*100)}% na tym kroku</span></div>`:''}`).join('')}</div><div class="insight"><b>Najwięcej osób odpada przy wyborze terminu.</b> 6 z 10 szukało soboty, a soboty są zajęte na 3 tygodnie. Rozważ dłuższe soboty albo listę rezerwową.</div>`,'funnel')}
+    ${box('Powiadomienie na telefon','podgląd',notifHTML())}
+    ${box('Automatyczne SMS-y','ostatnie',`<div class="log">
+      <div><time>8:00</time><span>Przypomnienie: <b>Kamil Z.</b>, jutro 10:00, mycie</span></div>
+      <div><time>wczoraj</time><span>Prośba o opinię: <b>Magda R.</b> → zostawiła 5★ w Google</span></div>
+      <div><time>wczoraj</time><span>Potwierdzenie z zadatkiem: <b>Natalia K.</b>, 50 zł BLIK</span></div>
+      <div><time>pon</time><span>Zaplanowano „czas odświeżyć powłokę”: <b>Anna W.</b>, za 6 mies.</span></div>
+      <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div></div>`)}
+  </div>`;
+}
+
+/* ---------- protokół przyjęcia auta ---------- */
+const DMG={W:'Wgniecenie',R:'Rysa',O:'Odprysk',P:'Pęknięcie',I:'Inne'};
+const FUEL=['rezerwa','1/4','1/2','3/4','pełny'];
+const PROF='<path d="M18 84 C18 72 26 66 42 63 L92 56 C110 40 132 30 162 30 L208 30 C230 30 246 40 264 56 L292 60 C304 62 308 70 308 80 L308 90 C308 94 305 96 301 96 L22 96 C19 96 18 93 18 90 Z"/><path d="M102 58 C114 45 132 39 156 39 L160 39 L160 58 Z"/><path d="M168 39 L206 39 C222 39 236 47 250 58 L168 58 Z"/><path d="M164 58 V92"/><circle cx="86" cy="96" r="20"/><circle cx="250" cy="96" r="20"/><circle cx="86" cy="96" r="8"/><circle cx="250" cy="96" r="8"/>';
+const TOP='<rect x="18" y="16" width="292" height="92" rx="30"/><rect x="118" y="32" width="96" height="60" rx="6"/><path d="M92 28 L118 34 V90 L92 96"/><path d="M240 26 L214 34 V90 L240 98"/><path d="M262 30 Q296 40 300 62 Q296 84 262 94"/><path d="M196 16 l4 -9 h12 l-3 9 M196 108 l4 9 h12 l-3 -9"/>';
+const FRONT='<path d="M12 88 V60 Q14 46 30 44 L42 20 Q46 12 56 12 H94 Q104 12 108 20 L120 44 Q136 46 138 60 V88 Z"/><path d="M48 22 H102 L112 42 H38 Z"/><rect x="18" y="54" width="24" height="9" rx="3"/><rect x="108" y="54" width="24" height="9" rx="3"/><rect x="54" y="64" width="42" height="13" rx="3"/><rect x="16" y="88" width="20" height="12" rx="2"/><rect x="114" y="88" width="20" height="12" rx="2"/>';
+const REAR='<path d="M12 88 V60 Q14 46 30 44 L42 20 Q46 12 56 12 H94 Q104 12 108 20 L120 44 Q136 46 138 60 V88 Z"/><path d="M50 22 H100 L106 38 H44 Z"/><rect x="16" y="52" width="32" height="10" rx="3"/><rect x="102" y="52" width="32" height="10" rx="3"/><rect x="58" y="68" width="34" height="11" rx="2"/><rect x="16" y="88" width="20" height="12" rx="2"/><rect x="114" y="88" width="20" height="12" rx="2"/>';
+function carMap(marks,locked){
+  const g=(tx,ty,shape,label,flip)=>`<text x="${tx}" y="${ty-6}">${label}</text><g class="shape" transform="translate(${flip?tx+320:tx},${ty})${flip?' scale(-1,1)':''}">${shape}</g>`;
+  return `<svg class="carmap ${locked?'locked':''}" id="carmap" viewBox="0 0 360 616" role="img" aria-label="Schemat auta${locked?'':'. Kliknij miejsce uszkodzenia.'}">
+    ${g(20,24,PROF,'Lewy bok',1)}${g(20,184,TOP,'Góra · przód z prawej')}${g(20,344,PROF,'Prawy bok')}${g(20,494,FRONT,'Przód')}${g(190,494,REAR,'Tył')}
+    ${marks.map((m,i)=>`<g class="mk"><circle class="t-${m.t}" cx="${m.x}" cy="${m.y}" r="9"/><text x="${m.x}" y="${m.y+3.5}">${i+1}</text></g>`).join('')}</svg>`;
+}
+let PR=null;
+const mkList=()=>PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}${PR.sign?'':`<button type="button" class="pbtn sm ghost" data-unmark="${i}" aria-label="Usuń znacznik ${i+1}">Usuń</button>`}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
+const galHTML=()=>PR.photos.map(p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta przy przyjęciu"></a><figcaption>${fdt(new Date(p.at))}</figcaption></figure>`).join('');
+function protoHTML(b){
+  const L=!!PR.sign, dis=L?'disabled':'';
+  return `<div class="drw-h"><div><h2>Protokół przyjęcia</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b">
+    <button class="pbtn sm ghost" type="button" data-open="${b.id}" style="justify-self:start">← Wróć do wizyty</button>
+    ${L?`<div class="sumline"><span>Podpisany przez klienta, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
+    <div><div class="ph"><b>Uszkodzenia przy oddaniu auta</b><small>${L?'':'Wybierz rodzaj i kliknij miejsce na schemacie'}</small></div>
+      ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div>`}
+      ${carMap(PR.marks,L)}<ol class="mklist">${mkList()}</ol></div>
+    <div class="fgrid">
+      <label class="pf">Przebieg (km)<input name="km" type="number" min="0" value="${esc(PR.km)}" ${dis}></label>
+      <label class="pf">Paliwo<select name="fuel" ${dis}>${FUEL.map(f=>`<option ${f===PR.fuel?'selected':''}>${f}</option>`).join('')}</select></label>
+      <label class="pf full">Rzeczy zostawione w aucie<input name="items" maxlength="200" value="${esc(PR.items)}" placeholder="np. fotelik, ładowarka, dokumenty" ${dis}></label>
+      <label class="pf full">Uwagi o stanie auta<textarea name="pnote" maxlength="1000" ${dis}>${esc(PR.note)}</textarea></label>
+    </div>
+    <div><div class="ph"><b>Zdjęcia przy przyjęciu</b><small>z datą i godziną wykonania</small></div>
+      <div class="gal" id="pgal">${galHTML()}</div>
+      ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
+    <div><div class="ph"><b>Podpis klienta</b><small>Potwierdzam stan auta opisany powyżej</small></div>
+      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="1">Wyczyść podpis</button>`}</div>
+    <div class="ferr" id="proto-err" role="alert"></div>
+    <div class="acts">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij kopię klientowi</button>`:`<button class="pbtn dark" type="button" data-protosave="${b.id}">Zapisz protokół</button>`}</div>
+  </div>`;
+}
+async function openProto(id){
+  const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
+  PR={id,tool:'W',marks:(i.marks||[]).map(m=>({...m})),photos:(i.photos||[]).map(p=>({...p})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:i.sign||null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
+  const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[]).filter(p=>!p.startsWith('assets/')), map={};
+  if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
+  const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign);
+  openDrawer(protoHTML(b)); sigInit();
+}
+function sigInit(){
+  const c=$('#sig'); if(!c) return; const x=c.getContext('2d'); x.lineWidth=5;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#111213';
+  let down=false; const pos=e=>{const r=c.getBoundingClientRect();return [(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
+  c.onpointerdown=e=>{down=true;c.setPointerCapture(e.pointerId);const [a,b]=pos(e);x.beginPath();x.moveTo(a,b)};
+  c.onpointermove=e=>{if(!down)return;const [a,b]=pos(e);x.lineTo(a,b);x.stroke();PR.signed=true};
+  c.onpointerup=c.onpointercancel=()=>{down=false};
+}
+function protoMark(e){
+  const svg=$('#carmap'), pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+  const p=pt.matrixTransform(svg.getScreenCTM().inverse());
+  PR.marks.push({x:Math.round(p.x),y:Math.round(p.y),t:PR.tool}); protoRefresh();
+}
+function protoRefresh(){$('#carmap').outerHTML=carMap(PR.marks,!!PR.sign);$('.mklist').innerHTML=mkList()}
+async function protoPhotos(files){
+  const err=$('#proto-err'); err.textContent='Wgrywam zdjęcia…';
+  for(const f of [...files].slice(0,12)){
+    const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg';
+    const path=`${STUDIO.id}/intake/${PR.id}-${crypto.randomUUID()}.${ext}`;
+    const {error}=await sb.storage.from('photos').upload(path,f,{contentType:f.type||'image/jpeg'});
+    if(error){err.textContent='Nie udało się wgrać zdjęcia: '+f.name;continue}
+    PR.photos.push({path,at:new Date().toISOString(),url:URL.createObjectURL(f)});
+  }
+  if(err.textContent==='Wgrywam zdjęcia…') err.textContent=''; $('#pgal').innerHTML=galHTML();
+}
+async function protoSave(id,btn){
+  const b=BOOKINGS.find(x=>x.id===id), err=$('#proto-err'), v=n=>drw().querySelector(`[name=${n}]`).value;
+  btn.disabled=true; let sign=null,signedAt=null;
+  if(PR.signed){
+    const blob=await new Promise(r=>$('#sig').toBlob(r,'image/png')), path=`${STUDIO.id}/intake/${id}-podpis-${crypto.randomUUID().slice(0,8)}.png`;
+    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});
+    if(error){btn.disabled=false;err.textContent='Nie udało się zapisać podpisu.';return}
+    sign=path; signedAt=new Date().toISOString();
+  }
+  const intake={at:PR.at||new Date().toISOString(),km:v('km'),fuel:v('fuel'),items:v('items').trim(),note:v('pnote').trim(),
+    marks:PR.marks.map(({x,y,t})=>({x,y,t})),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt};
+  const {error}=await sb.from('bookings').update({intake}).eq('id',id);
+  btn.disabled=false;
+  if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
+  b.intake=intake; toast(sign?'Protokół podpisany i zapisany':'Protokół zapisany'); openBk(id);
+}
+function protoBox(b){
+  const it=b.intake;
+  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${it.marks.length} zaznaczonych uszkodzeń · ${it.photos.length} zdjęć · ${it.sign?'podpisany '+fdt(new Date(it.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
+  return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>Zdjęcia, zaznaczone uszkodzenia i podpis klienta przy oddaniu auta. Dowód, że rysa była przed wizytą.</small></div><button class="pbtn sm dark" type="button" data-proto="${b.id}">Przyjmij auto</button></div>`;
+}
+
 /* ---------- szuflada: szczegóły wizyty ---------- */
 const RQ={confirm:'confirmed',reject:'rejected',propose:'proposed',done:'done',noshow:'noshow',cancel:'rejected',reopen:'confirmed'};
 function bkHTML(b){
@@ -1194,6 +1379,7 @@ function bkHTML(b){
       ${row('Źródło',NAMES_SRC[b.src]||esc(b.src))}${row('Dodano',fdt(b.created))}
     </dl>
     ${b.photoUrls.length?`<div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div>`:''}
+    ${['confirmed','done','proposed','pending'].includes(b.status)||b.intake?protoBox(b):''}
     <div class="acts">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>
   </div>`;
 }
@@ -1301,6 +1487,13 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
+  if(e.target.closest('#carmap')&&PR&&!PR.sign){protoMark(e);return}
+  if(t&&t.dataset.proto){openProto(+t.dataset.proto);return}
+  if(t&&t.dataset.dmg){PR.tool=t.dataset.dmg;t.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===t));return}
+  if(t&&t.dataset.unmark){PR.marks.splice(+t.dataset.unmark,1);protoRefresh();return}
+  if(t&&t.dataset.sigclear){const c=$('#sig');c.getContext('2d').clearRect(0,0,c.width,c.height);PR.signed=false;return}
+  if(t&&t.dataset.protosave){protoSave(+t.dataset.protosave,t);return}
+  if(t&&t.dataset.protosend){toast('Kopia protokołu poszła do klienta SMS-em z linkiem (w demo bez wysyłki)');return}
   if(o) openBk(+o.dataset.open);
 });
 document.getElementById('view-panel').addEventListener('input',e=>{
@@ -1311,6 +1504,7 @@ document.getElementById('view-panel').addEventListener('input',e=>{
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(ok=>ok&&toast('Cena zapisana, widoczna na stronie salonu'))}
+  if(t.dataset.intakePhotos){protoPhotos(t.files).then(()=>{t.value=''})}
   if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });
 
