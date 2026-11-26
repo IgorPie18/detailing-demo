@@ -253,108 +253,126 @@ textarea.inp{height:auto;min-height:84px;padding:12px 14px;resize:vertical}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* ===== Panel salonu ===== */
-.panel{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:calc(100vh - 52px);background:var(--mist)}
-.side{background:var(--ink);color:#c9ccd0;padding:20px 14px;display:flex;flex-direction:column;gap:4px}
-.side .logo{color:#fff;padding:0 10px 18px}
-.side .logo span{color:#8e9297}
-.nav{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:none;border:0;color:inherit;font-weight:600;text-align:left;width:100%}
-.nav:hover{background:#1f2123}
-.nav[aria-current="page"]{background:#fff;color:var(--ink)}
-.nav .badge{margin-left:auto;background:#fff;color:var(--ink);border-radius:999px;font-size:11px;padding:1px 7px;font-weight:700}
-.nav[aria-current="page"] .badge{background:var(--ink);color:#fff}
-.side .salon{margin-top:auto;border-top:1px solid #2b2d30;padding:14px 10px 0;font-size:12px;display:grid;gap:2px}
-.side .salon b{color:#fff;font-size:13px}
-.main{padding:22px 28px 40px;display:flex;flex-direction:column;gap:18px;min-width:0}
-.ptop{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.ptop h1{font-family:var(--display);font-size:24px;margin:0}
-.ptop p{margin:2px 0 0;color:var(--grey)}
-.ptop .act{margin-left:auto;display:flex;gap:10px;align-items:center}
-.search{height:40px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:var(--paper);width:220px;font-size:14px}
-.pbtn{height:40px;border-radius:10px;border:1px solid var(--line);background:var(--paper);padding:0 14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+#view-panel{--pbg:#f6f5f1;--pside:#eeece6;--pline:#e3e0d8;--accent:#b45309}
+.panel{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 52px);background:var(--pbg)}
+.side{background:var(--pside);border-right:1px solid var(--pline);padding:18px 12px;display:flex;flex-direction:column;gap:2px;position:sticky;top:52px;height:calc(100vh - 52px)}
+.side .logo{font-family:var(--display);font-weight:800;letter-spacing:.05em;padding:2px 10px 14px}
+.side .logo span{font-weight:500;letter-spacing:0;color:var(--grey);margin-left:6px}
+.side .new{margin:0 0 14px;justify-content:center}
+.nav{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:7px;background:none;border:0;color:var(--ink-2);font-weight:600;text-align:left;width:100%}
+.nav svg{color:var(--grey);flex:none}
+.nav:hover{background:rgba(17,18,19,.05)}
+.nav[aria-current="page"]{background:var(--paper);color:var(--ink);box-shadow:0 0 0 1px var(--pline)}
+.nav[aria-current="page"] svg{color:var(--ink)}
+.nav .badge{margin-left:auto;background:var(--accent);color:#fff;border-radius:999px;font-size:11px;min-width:20px;height:20px;display:grid;place-items:center;padding:0 6px;font-weight:700}
+.side .sep{height:1px;background:var(--pline);margin:10px 8px}
+.side .salon{margin-top:auto;border-top:1px solid var(--pline);padding:12px 10px 0;font-size:12px;color:var(--grey);display:grid;gap:2px}
+.side .salon b{color:var(--ink);font-size:13px}
+.side .out{margin-top:8px;justify-self:start;background:none;border:0;padding:0;color:var(--ink-2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.main{padding:26px 32px 48px;display:flex;flex-direction:column;gap:18px;min-width:0;max-width:1240px}
+.ptop{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.ptop h1{font-family:var(--display);font-size:26px;letter-spacing:-.01em;margin:0}
+.ptop p{margin:4px 0 0;color:var(--grey)}
+.ptop .act{margin-left:auto;display:flex;gap:8px;align-items:center}
+.search{height:38px;border:1px solid var(--pline);border-radius:8px;padding:0 12px;background:var(--paper);width:260px;font-size:14px}
+.search:focus{border-color:var(--ink);outline:none}
+.pbtn{height:38px;border-radius:8px;border:1px solid var(--pline);background:var(--paper);padding:0 14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none}
+.pbtn:hover{border-color:#cdc9bf}
 .pbtn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
-.pbtn.sm{height:32px;padding:0 10px;font-size:13px;border-radius:8px}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.kpi{background:var(--paper);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:4px}
-.kpi small{color:var(--grey);font-weight:600;font-size:12px}
-.kpi b{font-family:var(--display);font-size:28px;font-weight:700;letter-spacing:-.01em}
-.kpi span{font-size:12px;color:var(--grey)}
-.kpi span .up{color:var(--ok);font-weight:700}
-.kpi.hl{background:var(--ink);color:#fff}
-.kpi.hl small,.kpi.hl span{color:#b9bcc0}
-.grid2{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.box{background:var(--paper);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.box-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.box-h h2{margin:0;font-size:15px;font-weight:700}
-.box-h small{color:var(--grey);font-size:12px}
-.req{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px}
-.req.new{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.req h3{margin:0;font-size:15px}
-.req .sub{color:var(--grey);font-size:13px;margin-top:2px}
-.req .when{text-align:right;font-size:13px}
-.req .when b{display:block;font-size:14px}
-.req .row{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.req .pics{display:flex;gap:4px}
-.req .pics i{width:34px;height:34px;border-radius:6px;display:block}
-.req .acts{margin-left:auto;display:flex;gap:6px}
-.st{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.pbtn.dark:hover{background:var(--ink-2)}
+.pbtn.sm{height:32px;padding:0 10px;font-size:13px;border-radius:7px}
+.pbtn.ghost{border-color:transparent;background:none}
+.pbtn.ghost:hover{background:rgba(17,18,19,.05)}
+.pbtn:disabled{opacity:.5;cursor:default}
+.lnk{background:none;border:0;padding:0;font-weight:700;text-align:left}
+.lnk:hover{text-decoration:underline;text-underline-offset:3px}
+.cols{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+.stack{display:grid;gap:18px;min-width:0}
+.psec{background:var(--paper);border:1px solid var(--pline);border-radius:10px;min-width:0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-bottom:1px solid var(--pline);flex-wrap:wrap}
+.sec-h h2{margin:0;font-size:15px;font-weight:700}
+.sec-h small{color:var(--grey);font-size:13px}
+.sec-b{padding:4px 16px 10px}
+.psec>.tbl-wrap{padding:0 6px}
+/* wiersz agendy */
+.row-i{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border:0;border-top:1px solid var(--pline);width:100%;background:none;text-align:left;font-size:14px}
+.sec-b>.row-i:first-child,.sec-b>.dec:first-child{border-top:0}
+button.row-i:hover .who{text-decoration:underline;text-underline-offset:3px}
+.row-i time{font-weight:700;font-variant-numeric:tabular-nums}
+.row-i time small,.row-i .what{display:block;font-weight:400;color:var(--grey);font-size:12.5px}
+.row-i .who{display:block;font-weight:600}
+.row-i .what{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-i .amt{text-align:right;font-variant-numeric:tabular-nums;display:grid;gap:3px;justify-items:end}
+.row-i.off .who{color:var(--grey)}
+.row-i.wide{grid-template-columns:170px minmax(0,1fr) auto}
+/* zgłoszenie do decyzji */
+.dec{padding:14px 0;border-top:1px solid var(--pline);display:grid;gap:9px}
+.dec.new{box-shadow:inset 3px 0 0 var(--accent);padding-left:12px}
+.dec .top{display:flex;justify-content:space-between;gap:12px}
+.dec h3{margin:0;font-size:14px}
+.dec .meta{color:var(--grey);font-size:13px}
+.dec .when{text-align:right;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dec .when b{display:block}
+.dec .pics{display:flex;gap:4px}
+.dec .pics i{width:46px;height:46px;border-radius:6px;display:block;background:var(--mist) center/cover}
+.dec .acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dec .ago{margin-left:auto;color:var(--grey);font-size:12px}
+.st{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
 .st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .st.pending{background:var(--warn-bg);color:var(--warn)}
 .st.confirmed{background:var(--ok-bg);color:var(--ok)}
 .st.done{background:var(--mist);color:var(--ink-2)}
 .st.rejected,.st.noshow{background:var(--bad-bg);color:var(--bad)}
 .st.proposed{background:var(--mist);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
-.notif{background:var(--mist);border-radius:14px;padding:14px;display:grid;gap:10px}
-.notif .from{font-size:12px;color:var(--grey);display:flex;justify-content:space-between}
-.bubble{background:var(--paper);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:14px;line-height:1.5;white-space:pre-line}
-.notif .qa{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.notif .qa button{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--paper);font-weight:600;font-size:13px}
-.notif .qa button.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
-.empty{color:var(--grey);text-align:center;padding:26px 10px;border:1px dashed var(--line);border-radius:12px}
+.empty{color:var(--grey);padding:22px 4px;font-size:14px}
+/* tydzień stanowisk */
 .wk-wrap{overflow-x:auto}
-.wk{display:grid;grid-template-columns:120px repeat(6,minmax(118px,1fr));min-width:840px}
-.wk .hd{padding:8px 8px;font-size:12px;color:var(--grey);font-weight:600;border-bottom:1px solid var(--line)}
+.wk{display:grid;grid-template-columns:110px repeat(6,minmax(112px,1fr));min-width:800px}
+.wk .hd{padding:8px;font-size:12px;color:var(--grey);font-weight:600;border-bottom:1px solid var(--pline)}
 .wk .hd b{display:block;color:var(--ink);font-size:14px}
-.wk .hd.today{color:var(--ink)}
-.wk .hd.today b::after{content:" · dziś";font-weight:500;color:var(--grey);font-size:12px}
-.wk .bay{padding:12px 8px;font-weight:700;font-size:13px;border-bottom:1px solid var(--line)}
+.wk .hd.today b{color:var(--accent)}
+.wk .hd.today b::after{content:" · dziś";font-weight:500;font-size:12px}
+.wk .bay{padding:12px 8px 12px 0;font-weight:700;font-size:13px;border-bottom:1px solid var(--pline)}
 .wk .bay small{display:block;font-weight:500;color:var(--grey)}
-.wk .lane{grid-column:2/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-flow:row dense;gap:6px;padding:8px 4px;border-bottom:1px solid var(--line);min-height:86px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/6 - 1px),var(--line) calc(100%/6 - 1px),var(--line) calc(100%/6))}
-.blk{border-radius:9px;padding:7px 9px;font-size:12px;line-height:1.3;background:var(--ink);color:#fff;min-width:0;overflow:hidden;margin:0 2px}
+.wk .lane{grid-column:2/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-flow:row dense;gap:6px;padding:8px 4px;border-bottom:1px solid var(--pline);min-height:86px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/6 - 1px),var(--pline) calc(100%/6 - 1px),var(--pline) calc(100%/6))}
+.blk{border-radius:7px;padding:7px 9px;font-size:12px;line-height:1.3;background:var(--ink);color:#fff;min-width:0;overflow:hidden;margin:0 2px}
+button.blk{border:0;text-align:left;font:inherit;font-size:12px;cursor:pointer}
+button.blk:hover{outline:2px solid var(--accent);outline-offset:1px}
 .blk b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .blk span{color:#b9bcc0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.blk.light{background:#dcdee1;color:var(--ink)}
+.blk.light{background:#dedbd3;color:var(--ink)}
 .blk.light span{color:var(--ink-2)}
-.blk.pend{background:var(--paper);color:var(--ink);border:1.5px dashed var(--ink)}
+.blk.pend{background:var(--paper);color:var(--ink);border:1.5px dashed var(--accent)}
 .blk.pend span{color:var(--grey)}
 .blk.past{opacity:.45}
+.blk.off{background:repeating-linear-gradient(135deg,#ebe8e1 0 6px,#f6f5f1 6px 12px);color:var(--ink-2);border:1px solid var(--pline)}
+.blk.off span{color:var(--grey)}
 .legend{display:flex;gap:14px;font-size:12px;color:var(--grey);flex-wrap:wrap}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px;background:var(--ink)}
-.legend i.l{background:#dcdee1}.legend i.p{background:var(--paper);border:1.5px dashed var(--ink)}
-.bars{display:grid;gap:10px}
-.bar{display:grid;grid-template-columns:130px minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:13px}
-.bar .tr{height:12px;background:var(--mist);border-radius:6px;overflow:hidden}
-.bar .tr i{display:block;height:100%;background:var(--ink);border-radius:6px}
-.bar b{text-align:right}
-.funnel .bar .tr i{background:var(--ink-2)}
-.funnel .bar.worst .tr i{background:var(--ink)}
-.funnel .drop-l{font-size:11px;color:var(--grey);grid-column:2/-1;margin-top:-6px}
-.insight{background:var(--mist);border-radius:10px;padding:10px 12px;font-size:13px}
-.log{display:grid;gap:0}
-.log div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
-.log div:first-child{border-top:0}
-.log time{color:var(--grey)}
+.legend i.l{background:#dedbd3}.legend i.p{background:var(--paper);border:1.5px dashed var(--accent)}
+.legend i.o{background:repeating-linear-gradient(135deg,#dcd8cf 0 3px,#f6f5f1 3px 6px)}
+/* tabele, cennik, ustawienia */
+.box{background:var(--paper);border:1px solid var(--pline);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.box-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.box-h h2{margin:0;font-size:15px;font-weight:700}
+.box-h small{color:var(--grey);font-size:12px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
 .tbl-wrap{overflow-x:auto}
-table.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:860px}
-.tbl th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-.tbl td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
+.tbl th{text-align:left;font-size:12px;color:var(--grey);font-weight:600;padding:10px;border-bottom:1px solid var(--pline);white-space:nowrap}
+.tbl td{padding:11px 10px;border-bottom:1px solid var(--pline);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td small{display:block;color:var(--grey);font-size:12px;margin-top:1px}
 .tbl td.r,.tbl th.r{text-align:right}
-.tbl tr:hover td{background:#fafafa}
-.tbl .cin{width:76px;height:32px;border:1px solid var(--line);border-radius:8px;padding:0 8px;text-align:right;font-variant-numeric:tabular-nums}
+.tbl tr[data-open]{cursor:pointer}
+.tbl tr[data-open]:hover td{background:#faf9f6}
+.tbl .cin{width:76px;height:32px;border:1px solid var(--pline);border-radius:7px;padding:0 8px;text-align:right;font-variant-numeric:tabular-nums}
 .tbl .cin:focus{border-color:var(--ink);outline:none}
 .filters{display:flex;gap:6px;flex-wrap:wrap}
-.filters button{height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper);padding:0 12px;font-weight:600;font-size:13px}
+.filters button{height:32px;border-radius:7px;border:1px solid var(--pline);background:var(--paper);padding:0 11px;font-weight:600;font-size:13px}
+.filters button span{color:var(--grey);font-weight:500;margin-left:3px}
 .filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.filters button[aria-pressed="true"] span{color:#b9bcc0}
 .tg{display:inline-flex;background:var(--mist);border-radius:8px;padding:2px}
 .tg button{border:0;background:none;padding:5px 9px;border-radius:6px;font-size:12px;font-weight:600;color:var(--grey);white-space:nowrap}
 .tg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
@@ -362,19 +380,47 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:860px}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s}
 .sw[aria-pressed="true"]{background:var(--ink)}
 .sw[aria-pressed="true"]::after{left:19px}
-.set-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
+.set-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid var(--pline)}
 .set-row:first-of-type{border-top:0}
 .set-row b{display:block;font-size:14px}
 .set-row small{color:var(--grey)}
 .wknav{display:flex;gap:6px;align-items:center}
-@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+/* szuflada: szczegóły wizyty i formularze */
+.drw{margin:0 0 0 auto;height:100%;max-height:100%;width:min(460px,100%);border:0;padding:0;background:var(--paper);color:var(--ink);box-shadow:-24px 0 48px rgba(17,18,19,.14)}
+.drw::backdrop{background:rgba(17,18,19,.32)}
+.drw-in{min-height:100%;display:flex;flex-direction:column}
+.drw-in form{display:contents}
+.drw-h{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:20px 20px 16px;border-bottom:1px solid var(--pline)}
+.drw-h h2{margin:0;font-family:var(--display);font-size:21px}
+.drw-h p{margin:3px 0 0;color:var(--grey);font-size:14px}
+.drw-b{padding:18px 20px 28px;display:grid;gap:18px;align-content:start}
+.dl{display:grid;grid-template-columns:104px minmax(0,1fr);gap:9px 12px;margin:0;font-size:14px}
+.dl dt{color:var(--grey)}
+.dl dd{margin:0;overflow-wrap:anywhere}
+.dl a{color:var(--ink);font-weight:600}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px;display:block}
+.drw .acts{display:flex;gap:8px;flex-wrap:wrap}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid .full{grid-column:1/-1}
+.pf{display:grid;gap:5px;font-size:13px;font-weight:600}
+.pf input,.pf select,.pf textarea{height:40px;border:1px solid var(--pline);border-radius:8px;padding:0 10px;font-weight:400;font-size:14px;background:var(--paper);width:100%;min-width:0}
+.pf textarea{height:72px;padding:8px 10px;resize:vertical}
+.pf input:focus,.pf select:focus,.pf textarea:focus{border-color:var(--ink);outline:none}
+.sumline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:11px 13px;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;font-size:14px}
+.ferr{color:var(--bad);font-size:13px;min-height:1em}
+@media (max-width:1100px){.cols,.grid2{grid-template-columns:minmax(0,1fr)}.cols .decide{order:-1}}
 @media (max-width:820px){
   .panel{grid-template-columns:minmax(0,1fr)}
-  .side{flex-direction:row;overflow-x:auto;padding:10px;gap:4px}
-  .side .logo,.side .salon{display:none}
-  .nav{width:auto;white-space:nowrap}
+  .side{flex-direction:row;overflow-x:auto;padding:8px 10px;gap:4px;height:auto;top:52px;z-index:5;border-right:0;border-bottom:1px solid var(--pline)}
+  .side .logo,.side .salon,.side .sep{display:none}
+  .side .new{margin:0 6px 0 0;flex:none}
+  .nav{width:auto;white-space:nowrap;flex:none}
+  .ptop .act{margin-left:0;width:100%}
+  .row-i.wide{grid-template-columns:110px minmax(0,1fr) auto}
+  .fgrid{grid-template-columns:minmax(0,1fr)}
   .main{padding:16px max(16px,env(safe-area-inset-right,0px)) 32px max(16px,env(safe-area-inset-left,0px))}
-  .search{display:none}
+  .search{width:100%}
   .aside{width:100%}
   .demo-bar .note{display:none}
 }
@@ -390,13 +436,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:860px}
 .phimg.before{filter:grayscale(.55) sepia(.35) brightness(.7) contrast(.82) blur(.5px)}
 .hero{background:linear-gradient(180deg,rgba(10,10,11,.25) 0%,rgba(10,10,11,.55) 45%,rgba(10,10,11,.92) 100%),url(assets/hero.jpg) center 35%/cover}
 /* logowanie do panelu */
-.login{max-width:380px;margin:8vh auto;background:var(--paper);border-radius:16px;padding:28px;display:grid;gap:14px}
+.login{max-width:380px;margin:8vh auto;background:var(--paper);border:1px solid var(--pline);border-radius:10px;padding:28px;display:grid;gap:14px}
 .login h1{margin:0;font-family:var(--display);font-size:24px}
 .login p{margin:0;color:var(--grey)}
 .login .errmsg{color:#b42318;font-size:13px}
 .panel.locked{grid-template-columns:1fr}
 .panel.locked .side{display:none}
-.side .out{margin-top:8px;background:none;border:1px solid #2b2d30;color:#c9ccd0;border-radius:8px;padding:6px 10px;font-weight:600;text-align:left}
 </style>
 
 <header class="demo-bar">
@@ -450,6 +495,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:860px}
     <aside class="side" id="side"></aside>
     <section class="main" id="pmain"></section>
   </div>
+  <dialog class="drw" id="drw" aria-label="Szczegóły"></dialog>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -546,7 +592,7 @@ function seatSVG(c){return `<svg viewBox="0 0 120 100" width="70%" aria-hidden="
 function photo(s,clean=true){return `<img class="phimg ${clean?'':'before'}" src="assets/${s.id}.jpg" alt="" loading="lazy">`}
 
 /* ================= REZERWACJE (wspólne dla klienta i panelu) ================= */
-const NAMES_SRC={ig:'Instagram',g:'Wizytówka Google',fb:'Facebook',d:'Bezpośrednio',web:'Strona www'};
+const NAMES_SRC={ig:'Instagram',g:'Wizytówka Google',fb:'Facebook',d:'Bezpośrednio',web:'Strona www',tel:'Telefon / na miejscu'};
 let BID=100;
 function mk(off,h,sid,pid,size,car,name,bay,status,src,photos=0,ago=0){
   let d=addDays(T0,off); if(d.getDay()===0) d=addDays(d,1); d.setHours(h,0,0,0);
@@ -588,7 +634,7 @@ function SEED(){
 // klucz publiczny z założenia; dane chronią reguły RLS w schema.sql
 const sb=supabase.createClient('https://zzypdeubmxhpauxzwubd.supabase.co','sb_publishable_ESHijLfIGC3qMWlalLlB6g_DXgdttsS');
 const SLUG=new URLSearchParams(location.search).get('salon')||'lumen';
-let STUDIO=null,BUSY=[],SESSION=null,LIVE=null,saveT;
+let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT;
 async function loadStudio(){
   const {data,error}=await sb.from('studios').select('id,name,catalog').eq('slug',SLUG).maybeSingle();
   if(error||!data){toast('Brak połączenia z bazą salonu');return}
@@ -596,16 +642,22 @@ async function loadStudio(){
   if(c.services) SERVICES.splice(0,SERVICES.length,...c.services);
   if(c.addons) ADDONS.splice(0,ADDONS.length,...c.addons);
   if(c.settings) Object.assign(SET,c.settings);
+  BLOCKS=c.blocks||[];
 }
 async function loadBusy(){
   if(!STUDIO) return;
   const {data}=await sb.rpc('busy_slots',{p_studio:STUDIO.id,p_from:T0.toISOString(),p_to:addDays(T0,30).toISOString()});
   BUSY=(data||[]).map(r=>({start:new Date(r.start_at),end:new Date(r.end_at),bay:r.bay}));
 }
-const overlaps=(bay,a,b)=>BUSY.some(x=>x.bay===bay&&x.start<b&&x.end>a);
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const pday=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+// shortcut: blokady siedzą w catalog (jsonb) i pilnuje ich tylko przeglądarka; przy prawdziwych salonach przenieść do tabeli i do busy_slots
+const inBlock=(k,bay,a,b)=>(k.bay===0||k.bay===bay)&&a<addDays(pday(k.to),1)&&b>pday(k.from);
+const blockHit=(bay,a,b)=>BLOCKS.some(k=>inBlock(k,bay,a,b));
+const overlaps=(bay,a,b)=>BUSY.some(x=>x.bay===bay&&x.start<b&&x.end>a)||blockHit(bay,a,b);
 function saveCatalog(){clearTimeout(saveT);return new Promise(r=>{saveT=setTimeout(async()=>{
-  const {error}=await sb.from('studios').update({catalog:{services:SERVICES,addons:ADDONS,settings:SET}}).eq('id',STUDIO.id);
-  if(error)toast('Nie udało się zapisać zmian');r()},300)})}
+  const {error}=await sb.from('studios').update({catalog:{services:SERVICES,addons:ADDONS,settings:SET,blocks:BLOCKS}}).eq('id',STUDIO.id);
+  if(error)toast('Nie udało się zapisać zmian');r(!error)},300)})}
 
 /* ================= KLIENT: STAN I EKRANY ================= */
 const S={screen:'home',svc:'ceramika',bk:null};
@@ -927,8 +979,8 @@ async function seedDemo(){
 function subscribe(){
   if(LIVE) return;
   LIVE=sb.channel('bookings-'+STUDIO.id).on('postgres_changes',{event:'*',schema:'public',table:'bookings',filter:`studio_id=eq.${STUDIO.id}`},async p=>{
-    if(p.eventType==='INSERT'&&!BOOKINGS.some(b=>b.id===p.new.id)){const b=toBk(p.new);b.isNew=!p.new.seed;await signUrls([b]);BOOKINGS.push(b);
-      if(!p.new.seed)toast(`Nowa rezerwacja: ${b.name}, ${svcById(b.svc).name}`)}
+    if(p.eventType==='INSERT'&&!BOOKINGS.some(b=>b.id===p.new.id)){const b=toBk(p.new);b.isNew=p.new.src==='web'&&!p.new.seed;await signUrls([b]);BOOKINGS.push(b);
+      if(b.isNew)toast(`Nowa rezerwacja: ${b.name}, ${svcById(b.svc).name}`)}
     if(p.eventType==='UPDATE'){const i=BOOKINGS.findIndex(b=>b.id===p.new.id);if(i>-1){const b=toBk(p.new);b.photoUrls=BOOKINGS[i].photoUrls;BOOKINGS[i]=b}}
     if(p.eventType==='DELETE') BOOKINGS=BOOKINGS.filter(b=>b.id!==p.old.id);
     if(!$('#view-panel').hidden&&SESSION) renderPanel();
@@ -954,6 +1006,8 @@ async function openPanel(){
   subscribe(); renderPanel();
 }
 document.getElementById('view-panel').addEventListener('submit',async e=>{
+  if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
+  if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
   const {error}=await sb.auth.signInWithPassword({email:$('#l-mail').value.trim(),password:$('#l-pw').value});
@@ -961,188 +1015,303 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   openPanel();
 });
 
-const P={view:'pulpit',filter:'all',wk:0};
+const P={view:'dzis',filter:'all',wk:0};
+const USL_IC='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
 const ICONS={
-  pulpit:'<path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/>',
+  dzis:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   rez:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
   kal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
-  usl:'<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  cen:USL_IC,
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
-  ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
+  ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>'
 };
-const ic=k=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}</svg>`;
+const ic=k=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
 const STL={pending:'Do potwierdzenia',confirmed:'Potwierdzona',done:'Zakończona',rejected:'Odrzucona',noshow:'Nie przyjechał',proposed:'Zaproponowano inny termin'};
+const ACT_ST=['confirmed','pending','proposed'];
 const stChip=s=>`<span class="st ${s}">${STL[s]}</span>`;
-const pending=()=>BOOKINGS.filter(b=>b.status==='pending').sort((a,b)=>b.created-a.created);
+const pending=()=>BOOKINGS.filter(b=>b.status==='pending'||b.status==='proposed').sort((a,b)=>b.created-a.created);
 const bName=b=>{const s=svcById(b.svc),p=pkgOf(s,b.pkg);return s.name+(s.pk.length>1?' · '+p.name:'')};
-const ago=d=>{const m=Math.round((Date.now()-d)/60e3);return m<1?'przed chwilą':m<60?`${m} min temu`:`${Math.round(m/60)} h temu`};
-const timeRange=b=>{const s=svcById(b.svc),p=pkgOf(s,b.pkg);return p.d?`${fd(b.start)} → ${fd(b.end)}`:`${b.start.getHours()}:00-${b.end.getHours()}:${pad(b.end.getMinutes())}`};
+const ago=d=>{const m=Math.round((Date.now()-d)/60e3);return m<1?'przed chwilą':m<60?`${m} min temu`:m<1440?`${Math.round(m/60)} h temu`:fd(d)};
+const fhm=d=>`${d.getHours()}:${pad(d.getMinutes())}`;
+const cap=s=>s[0].toUpperCase()+s.slice(1);
+const plAuta=n=>n===1?'auto':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20))?'auta':'aut';
+const sizeName=b=>(SIZES[sizeIdx(b.size)]||SIZES[1]).name;
+const onDay=(b,d)=>b.start<addDays(d,1)&&b.end>d;
+const fdr=k=>k.from===k.to?fd(pday(k.from)):`${fd(pday(k.from))} → ${fd(pday(k.to))}`;
+const drw=()=>$('#drw');
+function openDrawer(html){const d=drw();d.innerHTML=`<div class="drw-in">${html}</div>`;if(!d.open)d.showModal()}
 
 function renderSide(){
   const n=pending().length;
-  const items=[['pulpit','Pulpit'],['rez','Rezerwacje',n],['kal','Kalendarz'],['usl','Usługi i ceny'],['kli','Klienci'],['ust','Ustawienia']];
-  $('#side').innerHTML=`<div class="logo">LUMEN<span>panel</span></div>${items.map(i=>`<button class="nav" type="button" data-nav="${i[0]}" ${P.view===i[0]?'aria-current="page"':''}>${ic(i[0])}${i[1]}${i[2]?`<span class="badge">${i[2]}</span>`:''}</button>`).join('')}
-  <div class="salon"><b>Lumen Detailing</b><span>2 stanowiska · Poznań</span><span>${esc(SESSION?SESSION.user.email:"")}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
+  const it=(k,l,c)=>`<button class="nav" type="button" data-nav="${k}" ${P.view===k?'aria-current="page"':''}>${ic(k)}<span>${l}</span>${c?`<span class="badge" aria-label="${c} czeka na decyzję">${c}</span>`:''}</button>`;
+  $('#side').innerHTML=`<div class="logo">LUMEN<span>panel</span></div>
+  <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
+  ${it('dzis','Dziś',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}<div class="sep"></div>${it('cen','Cennik')}${it('ust','Ustawienia')}
+  <div class="salon"><b>Lumen Detailing</b><span>2 stanowiska · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();const m=$('#pmain');m.innerHTML={pulpit:pulpitHTML,rez:rezHTML,kal:kalHTML,usl:uslHTML,kli:kliHTML,ust:ustHTML}[P.view]();}
+function renderPanel(){renderSide();$('#pmain').innerHTML={dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML}[P.view]();}
+function topbar(title,sub,act=''){
+  return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
+}
 
-function topbar(title,sub){
-  return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div><div class="act"><input class="search" id="p-search" placeholder="Szukaj: klient, auto, telefon"><button class="pbtn dark" type="button" data-pact="add">+ Dodaj rezerwację</button></div></div>`;
+/* ---------- Dziś ---------- */
+function agendaRow(b,d){
+  const starts=+sod(b.start)===+d, multi=!!pkgOf(svcById(b.svc),b.pkg).d;
+  return `<button type="button" class="row-i" data-open="${b.id}"><time>${starts?fhm(b.start):'w trakcie'}<small>stan. ${b.bay}</small></time>
+    <span><span class="who">${esc(b.name)}</span><span class="what">${bName(b)} · ${esc(b.car)} · ${multi||!starts?'odbiór '+fd(b.end):'do '+fhm(b.end)}</span></span>
+    <span class="amt"><b>${zl(b.total)}</b>${b.status==='confirmed'?'':stChip(b.status)}</span></button>`;
 }
-function reqCard(b){
-  const s=svcById(b.svc);
-  const pics=b.photoUrls&&b.photoUrls.length?b.photoUrls.map(u=>`<i style="background:url(${u}) center/cover"></i>`).join(''):Array.from({length:Math.min(b.photos,4)},(_,i)=>`<i class="${i%2?'ph-dirty':'ph-clean'}"></i>`).join('');
-  return `<div class="req ${b.isNew?'new':''}">
-    <div><h3>${bName(b)}</h3><div class="sub">${esc(b.car)} · ${SIZES[sizeIdx(b.size)].name} · ${esc(b.name)}, ${esc(b.phone)}</div>${b.cond?`<div class="sub" style="color:var(--ink-2)">„${esc(b.cond)}”</div>`:''}</div>
-    <div class="when"><b>${fdt(b.start)}</b>odbiór ${fd(b.end)} · <b style="display:inline">${zl(b.total)}</b></div>
-    <div class="row">${b.photos?`<div class="pics">${pics}</div><small style="color:var(--grey)">${b.photos} zdjęć</small>`:'<small style="color:var(--grey)">bez zdjęć, zadzwoń po wycenę</small>'}
-      <small style="color:var(--grey)">· ${NAMES_SRC[b.src]} · ${ago(b.created)}</small>
-      <div class="acts"><button class="pbtn sm" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button></div></div>
-  </div>`;
+function dayAgenda(d){
+  const bl=BLOCKS.filter(k=>pday(k.from)<=d&&d<=pday(k.to));
+  const l=BOOKINGS.filter(b=>ACT_ST.concat('done').includes(b.status)&&onDay(b,d)).sort((a,b)=>a.start-b.start);
+  const off=bl.map(k=>`<div class="row-i off"><time>cały dzień<small>${k.bay?'stan. '+k.bay:'oba'}</small></time><span><span class="who">Zablokowane</span><span class="what">${esc(k.note||'bez opisu')}</span></span><span></span></div>`).join('');
+  if(d.getDay()===0&&!l.length) return off+'<div class="empty">Niedziela, salon zamknięty.</div>';
+  return off+(l.map(b=>agendaRow(b,d)).join('')||(bl.length?'':'<div class="empty">Brak wizyt.</div>'));
 }
-function notifHTML(){
-  const b=pending()[0];
-  if(!b) return `<div class="empty">Brak nowych zgłoszeń. Tu pojawi się podgląd SMS-a, który dostaje salon.</div>`;
-  return `<div class="notif"><div class="from"><span>SMS do salonu · ${b.start?ago(b.created):''}</span><span>od: Lumen Panel</span></div>
-    <div class="bubble">Nowa prośba o termin
-${bName(b)}
-${b.car}, ${SIZES[sizeIdx(b.size)].name.toLowerCase()}
-Oddanie: ${fdt(b.start)}
-Szacunkowo: ${zl(b.total)} · zdjęcia: ${b.photos}
-${b.name}, ${b.phone}</div>
-    <div class="qa"><button type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><button type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button type="button" class="dark" data-rq="confirm" data-id="${b.id}">Potwierdź</button></div>
-    <small style="color:var(--grey)">Salon odpowiada jednym kliknięciem z telefonu, bez logowania. Klient od razu dostaje SMS.</small></div>`;
+function decCard(b){
+  const pics=(b.photoUrls||[]).map(u=>`<i style="background-image:url('${u}')"></i>`).join('');
+  return `<div class="dec ${b.isNew?'new':''}">
+    <div class="top"><div><h3><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button></h3><div class="meta">${bName(b)} · ${esc(b.car)}, ${sizeName(b).toLowerCase()}</div></div>
+      <div class="when"><b>${fdt(b.start)}</b>${zl(b.total)}</div></div>
+    ${b.cond?`<div class="meta">„${esc(b.cond)}”</div>`:''}${pics?`<div class="pics">${pics}</div>`:''}
+    ${b.status==='proposed'?`<div>${stChip(b.status)}</div>`:''}
+    <div class="acts"><button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button>${b.status==='pending'?`<button class="pbtn sm" type="button" data-rq="propose" data-id="${b.id}">Inny termin</button>`:''}<button class="pbtn sm ghost" type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button><span class="ago">${ago(b.created)} · ${NAMES_SRC[b.src]||esc(b.src)}</span></div></div>`;
 }
+const LEGEND='<div class="legend"><span><i></i>powłoki, korekta, PPF</span><span><i class="l"></i>mycie, wnętrze</span><span><i class="p"></i>czeka na decyzję</span><span><i class="o"></i>zablokowane</span></div>';
+function dzisHTML(){
+  const n=pending().length, tom=addDays(T0,1), ws=weekStart(0);
+  const cnt=BOOKINGS.filter(b=>ACT_ST.includes(b.status)&&onDay(b,T0)).length;
+  const wk=BOOKINGS.filter(b=>['confirmed','done'].includes(b.status)&&b.start>=ws&&b.start<addDays(ws,7)).reduce((t,b)=>t+b.total,0);
+  return `${topbar('Dziś',`${cap(DNL[T0.getDay()])}, ${T0.getDate()}.${pad(T0.getMonth()+1)} · ${cnt} ${plAuta(cnt)} na stanowiskach · ${zl(wk)} potwierdzone w tym tygodniu`)}
+  <div class="cols">
+    <div class="stack">
+      <section class="psec"><div class="sec-h"><h2>Na stanowiskach</h2><small>dziś</small></div><div class="sec-b">${dayAgenda(T0)}</div></section>
+      <section class="psec"><div class="sec-h"><h2>Jutro</h2><small>${fd(tom)}</small></div><div class="sec-b">${dayAgenda(tom)}</div></section>
+    </div>
+    <section class="psec decide"><div class="sec-h"><h2>Czeka na decyzję</h2><small>${n?'najnowsze na górze':''}</small></div>
+      <div class="sec-b">${n?pending().map(decCard).join(''):'<div class="empty">Nic nie czeka. Nowe zgłoszenia ze strony pojawią się tutaj same.</div>'}</div></section>
+  </div>
+  <section class="psec"><div class="sec-h"><h2>Ten tydzień</h2>${LEGEND}</div><div class="sec-b">${weekHTML(0)}</div></section>`;
+}
+
+/* ---------- Kalendarz ---------- */
 function weekStart(off){const d=new Date(T0);const dow=(d.getDay()+6)%7;return addDays(d,-dow+off*7)}
 function weekHTML(off){
   const ws=weekStart(off), days=[0,1,2,3,4,5].map(i=>addDays(ws,i)), we=addDays(ws,6);
-  const lane=bay=>BOOKINGS.filter(b=>b.bay===bay&&!['rejected'].includes(b.status)&&b.start<we&&b.end>=ws).sort((a,b)=>a.start-b.start).map(b=>{
-    const si=Math.max(0,Math.round((sod(b.start)-ws)/864e5)), ei=Math.min(5,Math.round((sod(b.end)-ws)/864e5));
-    const cls=b.status==='pending'||b.status==='proposed'?'pend':(b.end<new Date()?'past':(svcById(b.svc).mode==='confirm'?'':'light'));
-    return `<div class="blk ${cls}" style="grid-column:${si+1} / ${ei+2}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(svcById(b.svc),b.pkg).d?'':b.start.getHours()+':00 '}${svcById(b.svc).name}</b><span>${esc(b.car)} · ${esc(b.name)}</span></div>`}).join('');
+  const col=(a,b)=>{const si=Math.max(0,Math.round((sod(a)-ws)/864e5)), ei=Math.min(5,Math.round((sod(b)-ws)/864e5));return `grid-column:${si+1} / ${ei+2}`};
+  const lane=bay=>BLOCKS.filter(k=>(k.bay===0||k.bay===bay)&&pday(k.from)<we&&pday(k.to)>=ws).map(k=>`<div class="blk off" style="${col(pday(k.from),pday(k.to))}"><b>Zablokowane</b><span>${esc(k.note||'')}</span></div>`).join('')
+    +BOOKINGS.filter(b=>b.bay===bay&&b.status!=='rejected'&&b.start<we&&b.end>=ws).sort((a,b)=>a.start-b.start).map(b=>{
+      const s=svcById(b.svc), cls=b.status==='pending'||b.status==='proposed'?'pend':(b.end<new Date()?'past':(s.mode==='confirm'?'':'light'));
+      return `<button type="button" class="blk ${cls}" style="${col(b.start,b.end)}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(s,b.pkg).d?'':fhm(b.start)+' '}${s.name}</b><span>${esc(b.car)} · ${esc(b.name)}</span></button>`}).join('');
   return `<div class="wk-wrap"><div class="wk">
     <div class="hd"></div>${days.map(d=>`<div class="hd ${+d===+T0?'today':''}">${DNL[d.getDay()]}<b>${d.getDate()}.${pad(d.getMonth()+1)}</b></div>`).join('')}
     <div class="bay">Stanowisko 1<small>lakier, powłoki, PPF</small></div><div class="lane">${lane(1)}</div>
     <div class="bay">Stanowisko 2<small>mycie, wnętrze</small></div><div class="lane">${lane(2)}</div>
   </div></div>`;
 }
-function pulpitHTML(){
-  const n=pending().length, demo=BOOKINGS.filter(b=>b.src==='web');
-  const today=BOOKINGS.filter(b=>b.start<=addDays(T0,1)&&b.end>=T0&&['confirmed'].includes(b.status)).length;
-  const val=18640+demo.reduce((t,b)=>t+b.total,0);
-  return `${topbar('Dzień dobry, Kamil',`Dziś ${DNL[T0.getDay()]}, ${T0.getDate()}.${pad(T0.getMonth()+1)}. Na stanowiskach ${today} ${today===1?'auto':'auta'}, ${n} ${n===1?'zgłoszenie czeka':'zgłoszenia czekają'} na potwierdzenie.`)}
-  <div class="kpis num">
-    <div class="kpi hl"><small>Zarezerwowane przez stronę · 30 dni</small><b>${zl(val)}</b><span><span class="up" style="color:#fff">▲ 32%</span> wobec poprzednich 30 dni</span></div>
-    <div class="kpi"><small>Rezerwacje online · 30 dni</small><b>${41+demo.length}</b><span><span class="up">▲ 11</span> · 64% wszystkich wizyt</span></div>
-    <div class="kpi"><small>Średni czas potwierdzenia</small><b>47 min</b><span>cel: poniżej 2 h</span></div>
-    <div class="kpi"><small>Nieodbyte wizyty · 30 dni</small><b>1</b><span>2% · wszystkie bez zadatku</span></div>
-  </div>
-  <div class="grid2">
-    <div class="box"><div class="box-h"><h2>Do potwierdzenia (${n})</h2><small>najnowsze na górze</small></div>${n?pending().map(reqCard).join(''):'<div class="empty">Wszystko potwierdzone.</div>'}</div>
-    <div class="box"><div class="box-h"><h2>Powiadomienie na telefon</h2><small>podgląd</small></div>${notifHTML()}</div>
-  </div>
-  <div class="box"><div class="box-h"><h2>Stanowiska w tym tygodniu</h2><div class="legend"><span><i></i>powłoki, korekta, PPF</span><span><i class="l"></i>mycie, wnętrze</span><span><i class="p"></i>czeka na potwierdzenie</span></div></div>${weekHTML(0)}</div>
-  <div class="grid3">
-    <div class="box"><div class="box-h"><h2>Skąd przychodzą rezerwacje</h2><small>30 dni</small></div><div class="bars num">
-      ${[['Instagram (bio)',17],['Wizytówka Google',15],['Facebook',5],['Bezpośrednio',4]].concat(demo.length?[['Strona www',demo.length]]:[]).map(r=>`<div class="bar"><span>${r[0]}</span><span class="tr"><i style="width:${r[1]/17*100}%"></i></span><b>${r[1]}</b></div>`).join('')}
-    </div><div class="insight">Link w bio na Instagramie daje najwięcej rezerwacji. Wizytówka Google rośnie od dodania linku „Zarezerwuj”.</div></div>
-    <div class="box funnel"><div class="box-h"><h2>Gdzie klienci odpadają</h2><small>formularz · 30 dni</small></div><div class="bars num">
-      ${[['Otworzyli formularz',214],['Wybrali auto',171],['Wybrali termin',98,1],['Podali dane',61],['Wysłali',41]].map((r,i,a)=>`<div class="bar ${r[2]?'worst':''}"><span>${r[0]}</span><span class="tr"><i style="width:${r[1]/214*100}%"></i></span><b>${r[1]}</b></div>${i&&r[2]?`<div class="bar"><span></span><span class="drop-l">−${Math.round((1-r[1]/a[i-1][1])*100)}% na tym kroku</span></div>`:''}`).join('')}
-    </div><div class="insight"><b>Najwięcej osób odpada przy wyborze terminu.</b> 6 z 10 szukało soboty, a soboty są zajęte na 3 tygodnie. Rozważ dłuższe soboty albo listę rezerwową.</div></div>
-    <div class="box"><div class="box-h"><h2>Automatyczne SMS-y</h2><small>ostatnie</small></div><div class="log">
-      <div><time>8:00</time><span>Przypomnienie: <b>Kamil Z.</b>, jutro 10:00, mycie</span></div>
-      <div><time>wczoraj</time><span>Prośba o opinię: <b>Magda R.</b> → zostawiła 5★ w Google</span></div>
-      <div><time>wczoraj</time><span>Potwierdzenie z zadatkiem: <b>Natalia K.</b>, 50 zł BLIK</span></div>
-      <div><time>pon</time><span>Zaplanowano „czas odświeżyć powłokę”: <b>Anna W.</b>, za 6 mies.</span></div>
-      <div><time>pon</time><span>Nieodebrany telefon → SMS z linkiem do rezerwacji: <b>+48 7** *** 214</b></span></div>
-    </div></div>
-  </div>`;
+function kalHTML(){
+  const ws=weekStart(P.wk), bl=BLOCKS.slice().sort((a,b)=>a.from<b.from?-1:1);
+  return `${topbar('Kalendarz','Klient na stronie widzi tylko wolne terminy. Zablokowane dni znikają z formularza.',`<button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button>`)}
+  <section class="psec"><div class="sec-h"><div class="wknav"><button class="pbtn sm" type="button" data-wk="-1" aria-label="Poprzedni tydzień">←</button><button class="pbtn sm" type="button" data-wk="0">Ten tydzień</button><button class="pbtn sm" type="button" data-wk="1" aria-label="Następny tydzień">→</button><b style="margin-left:8px">${fd(ws)} - ${fd(addDays(ws,5))}</b></div>${LEGEND}</div><div class="sec-b">${weekHTML(P.wk)}</div></section>
+  <section class="psec"><div class="sec-h"><h2>Blokady</h2><small>urlopy, przestoje, święta</small></div><div class="sec-b">
+    ${bl.map(k=>`<div class="row-i wide off"><time>${fdr(k)}</time><span><span class="who">${k.bay?'Stanowisko '+k.bay:'Oba stanowiska'}</span><span class="what">${esc(k.note||'bez opisu')}</span></span><button class="pbtn sm ghost" type="button" data-unblock="${esc(k.id)}">Usuń</button></div>`).join('')||'<div class="empty">Brak blokad. Urlop albo przestój dodasz przyciskiem „Zablokuj dzień”.</div>'}
+  </div></section>`;
 }
+
+/* ---------- Rezerwacje i klienci ---------- */
+const SEARCH=ph=>`<input class="search" type="search" data-q="1" placeholder="${ph}" aria-label="${ph}">`;
 function rezHTML(){
   const f=P.filter;
   const list=BOOKINGS.filter(b=>f==='all'||b.status===f||(f==='pending'&&b.status==='proposed')).sort((a,b)=>f==='done'?b.start-a.start:a.start-b.start);
-  const cnt=k=>BOOKINGS.filter(b=>k==='all'||b.status===k).length;
-  return `${topbar('Rezerwacje','Wszystkie wizyty ze strony, z telefonu i dodane ręcznie.')}
-  <div class="box"><div class="filters">${[['all','Wszystkie'],['pending','Do potwierdzenia'],['confirmed','Potwierdzone'],['done','Zakończone'],['noshow','Nie przyjechał'],['rejected','Odrzucone']].map(x=>`<button type="button" data-filter="${x[0]}" aria-pressed="${f===x[0]}">${x[1]} ${cnt(x[0])}</button>`).join('')}</div>
-  <div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Oddanie</th><th>Klient</th><th>Auto</th><th>Usługa</th><th>Stan.</th><th class="r">Wartość</th><th>Zadatek</th><th>Źródło</th><th>Status</th><th></th></tr></thead><tbody>
-  ${list.map(b=>`<tr><td><b>${fdt(b.start)}</b><br><small style="color:var(--grey)">odbiór ${fd(b.end)}</small></td><td>${esc(b.name)}<br><small style="color:var(--grey)">${esc(b.phone)}</small></td><td>${esc(b.car)}<br><small style="color:var(--grey)">${SIZES[sizeIdx(b.size)].name}</small></td><td>${bName(b)}${b.addons&&b.addons.length?`<br><small style="color:var(--grey)">+ ${b.addons.map(a=>ADDONS.find(x=>x.id===a).name).join(', ')}</small>`:''}</td><td>${b.bay}</td><td class="r"><b>${zl(b.total)}</b></td><td>${b.deposit?(b.paid?zl(b.deposit)+' ✓':'czeka'):'·'}</td><td>${NAMES_SRC[b.src]}</td><td>${stChip(b.status)}</td><td>${b.status==='pending'?`<button class="pbtn sm dark" type="button" data-rq="confirm" data-id="${b.id}">Potwierdź</button>`:''}</td></tr>`).join('')||`<tr><td colspan="10"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
-  </tbody></table></div></div>`;
+  const cnt=k=>BOOKINGS.filter(b=>k==='all'||b.status===k||(k==='pending'&&b.status==='proposed')).length;
+  return `${topbar('Rezerwacje','Kliknij wizytę, żeby zobaczyć szczegóły, zadzwonić albo zmienić status.',SEARCH('Szukaj: klient, auto, telefon'))}
+  <div class="filters">${[['all','Wszystkie'],['pending','Do potwierdzenia'],['confirmed','Potwierdzone'],['done','Zakończone'],['noshow','Nie przyjechał'],['rejected','Odrzucone']].map(x=>`<button type="button" data-filter="${x[0]}" aria-pressed="${f===x[0]}">${x[1]}<span>${cnt(x[0])}</span></button>`).join('')}</div>
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Termin</th><th>Klient</th><th>Auto</th><th>Usługa</th><th class="r">Kwota</th><th>Status</th></tr></thead><tbody>
+  ${list.map(b=>`<tr data-open="${b.id}" data-s="${esc((b.name+' '+b.car+' '+b.phone).toLowerCase())}"><td><b>${fdt(b.start)}</b><small>odbiór ${fd(b.end)}</small></td><td><button type="button" class="lnk" data-open="${b.id}">${esc(b.name)}</button><small>${esc(b.phone)}</small></td><td>${esc(b.car)}<small>${sizeName(b)}</small></td><td>${bName(b)}<small>stanowisko ${b.bay} · ${NAMES_SRC[b.src]||esc(b.src)}</small></td><td class="r"><b>${zl(b.total)}</b></td><td>${stChip(b.status)}</td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">Brak rezerwacji w tym widoku.</div></td></tr>`}
+  </tbody></table></div></section>`;
 }
-function kalHTML(){
-  const ws=weekStart(P.wk);
-  return `${topbar('Kalendarz stanowisk','Usługi wielodniowe zajmują stanowisko przez kilka dni. Klient widzi tylko terminy, w których stanowisko jest wolne.')}
-  <div class="box"><div class="box-h"><div class="wknav"><button class="pbtn sm" type="button" data-wk="-1">←</button><button class="pbtn sm" type="button" data-wk="0">Ten tydzień</button><button class="pbtn sm" type="button" data-wk="1">→</button><b style="margin-left:8px">${fd(ws)} - ${fd(addDays(ws,5))}</b></div><div class="legend"><span><i></i>powłoki, korekta, PPF</span><span><i class="l"></i>mycie, wnętrze</span><span><i class="p"></i>czeka na potwierdzenie</span></div></div>${weekHTML(P.wk)}</div>
-  <div class="grid2"><div class="box"><div class="box-h"><h2>Blokady</h2><small>urlopy, przestoje</small></div>
-    <div class="log"><div><time>24.12</time><span>Wigilia, zamknięte (oba stanowiska)</span></div><div><time>31.12</time><span>Sylwester, do 12:00</span></div></div>
-    <button class="pbtn" type="button" data-pact="block" style="justify-self:start">+ Zablokuj dzień</button></div>
-  <div class="box"><div class="box-h"><h2>Godziny przyjmowania aut</h2></div><div class="log"><div><time>pn-pt</time><span>8:00-18:00 · usługi wielodniowe: oddanie 8:00-9:00, odbiór od 16:00</span></div><div><time>sobota</time><span>9:00-14:00 · tylko mycie i wnętrze</span></div></div></div></div>`;
+function kliHTML(){
+  const m=new Map();BOOKINGS.forEach(b=>{const k=b.name;const x=m.get(k)||{name:b.name,phone:b.phone,car:b.car,n:0,sum:0,last:null,svc:b.svc,id:b.id};x.n++;if(b.status==='done'||b.status==='confirmed')x.sum+=b.total;if(!x.last||b.start>x.last){x.last=b.start;x.svc=b.svc;x.id=b.id}m.set(k,x)});
+  const rows=[...m.values()].sort((a,b)=>b.sum-a.sum);
+  const refresh=x=>{const s=x.svc;if(s==='ceramika')return fd(addDays(x.last,365))+' · przegląd powłoki';if(s==='mycie'||s==='wnetrze')return fd(addDays(x.last,s==='mycie'?42:180))+' · kolejna wizyta';return ''};
+  return `${topbar('Klienci',`${rows.length} klientów. Każda rezerwacja zapisuje auto i historię wizyt.`,SEARCH('Szukaj: klient, auto, telefon'))}
+  <section class="psec"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th><th class="r">Wartość</th><th>Ostatnia wizyta</th><th>Przypomnienie</th></tr></thead><tbody>
+  ${rows.map(x=>`<tr data-open="${x.id}" data-s="${esc((x.name+' '+x.car+' '+x.phone).toLowerCase())}"><td><b>${esc(x.name)}</b><small>${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td><td class="r"><b>${zl(x.sum)}</b></td><td>${fd(x.last)}<small>${svcById(x.svc).name}</small></td><td>${refresh(x)}</td></tr>`).join('')}
+  </tbody></table></div></section>`;
 }
-function uslHTML(){
-  return `${topbar('Usługi i ceny','Zmiany widać od razu na stronie i w formularzu. Sprawdź: zmień cenę i przełącz na widok klienta.')}
+
+/* ---------- Cennik i ustawienia ---------- */
+function cenHTML(){
+  return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.')}
   <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Usługa / pakiet</th><th>Sposób rezerwacji</th><th>Zadatek</th><th>Czas</th>${SIZES.map(z=>`<th class="r">${z.name}</th>`).join('')}</tr></thead><tbody>
-  ${SERVICES.map(s=>s.pk.map((p,pi)=>`<tr><td><b>${pi===0?s.name:''}</b>${pi===0?'<br>':''}<small style="color:var(--grey)">${p.name}</small></td>
+  ${SERVICES.map(s=>s.pk.map((p,pi)=>`<tr><td><b>${pi===0?s.name:''}</b><small>${p.name}</small></td>
     <td>${pi===0?`<div class="tg"><button type="button" data-mode="${s.id}:instant" aria-pressed="${s.mode==='instant'}">Od ręki z zadatkiem</button><button type="button" data-mode="${s.id}:confirm" aria-pressed="${s.mode==='confirm'}">Do potwierdzenia</button></div>`:''}</td>
     <td>${pi===0?(s.mode==='instant'?zl(s.deposit||50):'po potwierdzeniu'):''}</td><td>${durTxt(p)}</td>
     ${p.p.map((v,i)=>`<td class="r"><input class="cin" type="number" step="10" value="${v}" data-price="${s.id}:${p.id}:${i}" aria-label="${s.name} ${p.name} ${SIZES[i].name}"></td>`).join('')}</tr>`).join('')).join('')}
   </tbody></table></div></div>
   <div class="box"><div class="box-h"><h2>Dodatki</h2><small>pokazywane przy pasujących usługach</small></div><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Dodatek</th><th>Przy usługach</th><th>Czas</th><th class="r">Cena</th></tr></thead><tbody>
-  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><br><small style="color:var(--grey)">${a.desc}</small></td><td>${a.for.map(f=>svcById(f).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
-  </tbody></table></div></div>`;
-}
-function kliHTML(){
-  const m=new Map();BOOKINGS.forEach(b=>{const k=b.name;const x=m.get(k)||{name:b.name,phone:b.phone,car:b.car,n:0,sum:0,last:null,svc:b.svc};x.n++;if(b.status==='done'||b.status==='confirmed')x.sum+=b.total;if(!x.last||b.start>x.last){x.last=b.start;x.svc=b.svc}m.set(k,x)});
-  const rows=[...m.values()].sort((a,b)=>b.sum-a.sum);
-  const refresh=x=>{const s=x.svc;if(s==='ceramika')return fd(addDays(x.last,365))+' · przegląd powłoki';if(s==='mycie'||s==='wnetrze')return fd(addDays(x.last,s==='mycie'?42:180))+' · kolejna wizyta';return '·'};
-  return `${topbar('Klienci',`${rows.length} klientów w bazie. Każda rezerwacja zapisuje auto i historię wizyt.`)}
-  <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Klient</th><th>Auto</th><th class="r">Wizyty</th><th class="r">Wartość</th><th>Ostatnia</th><th>Automatyczne przypomnienie</th></tr></thead><tbody>
-  ${rows.map(x=>`<tr><td><b>${esc(x.name)}</b><br><small style="color:var(--grey)">${esc(x.phone)}</small></td><td>${esc(x.car)}</td><td class="r">${x.n}</td><td class="r"><b>${zl(x.sum)}</b></td><td>${fd(x.last)}<br><small style="color:var(--grey)">${svcById(x.svc).name}</small></td><td>${refresh(x)}</td></tr>`).join('')}
+  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>svcById(f).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
   </tbody></table></div></div>`;
 }
 const SET={sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false};
 function ustHTML(){
   const row=(k,t,d)=>`<div class="set-row"><div><b>${t}</b><small>${d}</small></div><button class="sw" type="button" data-sw="${k}" aria-pressed="${SET[k]}" aria-label="${t}"></button></div>`;
-  return `${topbar('Ustawienia','Salon, powiadomienia i zasady rezerwacji.')}
+  return `${topbar('Ustawienia','Powiadomienia i zasady rezerwacji.')}
   <div class="grid2">
-  <div class="box"><div class="box-h"><h2>SMS-y do klientów</h2><small>SMSAPI · ok. 0,16 zł za SMS</small></div>
+  <div class="box"><div class="box-h"><h2>SMS-y do klientów</h2><small>w demo bez wysyłki</small></div>
     ${row('sms_confirm','Potwierdzenie rezerwacji','Od razu po rezerwacji albo po potwierdzeniu przez salon')}
     ${row('sms_remind','Przypomnienie dzień przed','O 8:00 dzień przed wizytą, z adresem')}
     ${row('sms_review','Prośba o opinię w Google','Dzień po odbiorze auta')}
     ${row('sms_refresh','Przypomnienie o odświeżeniu','Mycie po 6 tyg., wnętrze po 6 mies., przegląd ceramiki po roku')}
     ${row('missed','SMS po nieodebranym telefonie','Z linkiem do rezerwacji online')}</div>
-  <div class="box"><div class="box-h"><h2>Powiadomienia dla salonu</h2></div>
+  <div class="box"><div class="box-h"><h2>Salon</h2></div>
     ${row('owner_sms','SMS o nowej rezerwacji','Z przyciskami Potwierdź / Inny termin / Odrzuć')}
     ${row('owner_wa','WhatsApp zamiast SMS','Wygodniejsze przy zdjęciach auta')}
     <div class="set-row"><div><b>Zadatek</b><small>Przy usługach „od ręki”. Przepada przy odwołaniu później niż 24 h przed wizytą.</small></div><span>50-100 zł</span></div>
-    <div class="set-row"><div><b>Płatności</b><small>BLIK, karta, szybki przelew. Pieniądze trafiają na konto salonu.</small></div><span class="st confirmed">Podłączone</span></div>
     <div class="set-row"><div><b>Stanowiska</b><small>Stanowisko 1: lakier, powłoki, PPF. Stanowisko 2: mycie, wnętrze.</small></div><span>2</span></div>
-    <div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty demo i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div></div>
+    <div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty demo i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div></div>
   </div>`;
 }
 
+/* ---------- szuflada: szczegóły wizyty ---------- */
+const RQ={confirm:'confirmed',reject:'rejected',propose:'proposed',done:'done',noshow:'noshow',cancel:'rejected',reopen:'confirmed'};
+function bkHTML(b){
+  const acts={pending:[['confirm','Potwierdź',1],['propose','Inny termin'],['reject','Odrzuć']],proposed:[['confirm','Potwierdź',1],['reject','Odrzuć']],
+    confirmed:[['done','Auto odebrane',1],['noshow','Nie przyjechał'],['cancel','Anuluj wizytę']]}[b.status]||[['reopen','Przywróć jako potwierdzoną']];
+  const row=(k,v)=>v?`<dt>${k}</dt><dd>${v}</dd>`:'';
+  return `<div class="drw-h"><div><h2>${esc(b.name)}</h2><p>${bName(b)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b">
+    <div>${stChip(b.status)}</div>
+    <dl class="dl">
+      ${row('Oddanie',fdt(b.start))}${row('Odbiór',fdt(b.end))}${row('Stanowisko',String(b.bay))}
+      ${row('Telefon',`<a href="tel:${b.phone.replace(/[^+\d]/g,'')}">${esc(b.phone)}</a>`)}${row('E-mail',b.email?`<a href="mailto:${esc(b.email)}">${esc(b.email)}</a>`:'')}
+      ${row('Auto',esc(b.car)+', '+sizeName(b).toLowerCase())}
+      ${row('Dodatki',(b.addons||[]).map(a=>esc((ADDONS.find(x=>x.id===a)||{name:a}).name)).join(', '))}
+      ${row('Stan auta',b.cond?esc(b.cond):'')}${row('Uwagi',b.note?esc(b.note):'')}
+      ${row('Kwota',zl(b.total)+(b.deposit?` · zadatek ${zl(b.deposit)} ${b.paid?'wpłacony':'niewpłacony'}`:''))}
+      ${row('Źródło',NAMES_SRC[b.src]||esc(b.src))}${row('Dodano',fdt(b.created))}
+    </dl>
+    ${b.photoUrls.length?`<div class="gal">${b.photoUrls.map(u=>`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="Zdjęcie auta od klienta"></a>`).join('')}</div>`:''}
+    <div class="acts">${acts.map(a=>`<button class="pbtn ${a[2]?'dark':''}" type="button" data-rq="${a[0]}" data-id="${b.id}">${a[1]}</button>`).join('')}</div>
+  </div>`;
+}
+function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=false;openDrawer(bkHTML(b))}
+
+/* ---------- szuflada: nowa rezerwacja ---------- */
+function addHTML(){
+  const day=T0.getDay()===6?addDays(T0,2):addDays(T0,1);
+  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map(p=>`<option value="${s.id}:${p.id}">${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
+  return `<form id="fadd" novalidate><div class="drw-h"><div><h2>Nowa rezerwacja</h2><p>Wizyta umówiona przez telefon albo na miejscu.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf full">Usługa<select name="svc">${opts}</select></label>
+    <label class="pf">Wielkość auta<select name="size">${SIZES.map(z=>`<option value="${z.id}" ${z.id==='m'?'selected':''}>${z.name}</option>`).join('')}</select></label>
+    <label class="pf">Auto<input name="car" maxlength="80" placeholder="np. Skoda Octavia" autocomplete="off"></label>
+    <label class="pf">Dzień<input name="day" type="date" value="${ymd(day)}" min="${ymd(T0)}" required></label>
+    <label class="pf">Godzina<select name="hour">${[8,9,10,11,12,13,14,15,16,17].map(h=>`<option value="${h}" ${h===9?'selected':''}>${h}:00</option>`).join('')}</select></label>
+    <label class="pf">Klient<input name="kname" maxlength="80" required autocomplete="off" placeholder="Imię i nazwisko"></label>
+    <label class="pf">Telefon<input name="ktel" type="tel" inputmode="tel" required placeholder="600 100 200"></label>
+    <label class="pf">Kwota (zł)<input name="total" type="number" min="0" step="10"></label>
+    <label class="pf">Status<select name="status"><option value="confirmed">Potwierdzona</option><option value="pending">Do potwierdzenia</option></select></label>
+    <label class="pf full">Uwagi<textarea name="note" maxlength="1000"></textarea></label>
+  </div>
+  <div class="sumline" id="fadd-sum"></div>
+  <div class="ferr" id="fadd-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">Zapisz rezerwację</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div>
+  </div></form>`;
+}
+function addCalc(f){
+  const E=f.elements, [svc,pkg]=E.svc.value.split(':'), b={svc,pkg,size:E.size.value,addons:new Set()};
+  const c=calc(b), day=E.day.value?pday(E.day.value):null, pu=day?pickup({day,hour:+E.hour.value},c):null, bay=c.days?1:2;
+  const busy=!!pu&&(BOOKINGS.some(x=>x.bay===bay&&ACT_ST.includes(x.status)&&x.start<pu.end&&x.end>pu.start)||blockHit(bay,pu.start,pu.end));
+  return {b,c,pu,bay,busy};
+}
+function addSync(f){
+  const r=addCalc(f), E=f.elements;
+  if(!E.total.dataset.touched) E.total.value=r.c.total;
+  $('#fadd-sum').innerHTML=r.pu?`<span>Stanowisko ${r.bay} · ${durOf(r.c)}</span><span>odbiór ${r.pu.txt}</span>`:'<span>Wybierz dzień</span>';
+  $('#fadd-err').textContent=r.pu&&r.pu.start.getDay()===0?'W niedzielę salon jest zamknięty.':r.busy?'Uwaga: stanowisko jest w tym czasie zajęte albo zablokowane.':'';
+}
+async function addSubmit(f){
+  const E=f.elements, r=addCalc(f), err=$('#fadd-err');
+  const tel=E.ktel.value.replace(/\D/g,'').replace(/^48(?=\d{9}$)/,'');
+  const fail=(m,el)=>{err.textContent=m;if(el)el.focus()};
+  if(E.kname.value.trim().length<2) return fail('Wpisz imię klienta.',E.kname);
+  if(tel.length!==9) return fail('Telefon: 9 cyfr, np. 600 100 200.',E.ktel);
+  if(!r.pu) return fail('Wybierz dzień.',E.day);
+  if(r.pu.start.getDay()===0) return fail('W niedzielę salon jest zamknięty.',E.day);
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Zapisuję…';
+  const row={studio_id:STUDIO.id,start_at:r.pu.start.toISOString(),end_at:r.pu.end.toISOString(),svc:r.b.svc,pkg:r.b.pkg,size:r.b.size,
+    car:E.car.value.trim()||null,name:E.kname.value.trim(),phone:'+48 '+tel,bay:r.bay,status:E.status.value,src:'tel',
+    total:Math.max(0,Math.round(+E.total.value||0)),note:E.note.value.trim()||null};
+  const {data,error}=await sb.from('bookings').insert(row).select().single();
+  btn.disabled=false;btn.textContent='Zapisz rezerwację';
+  if(error) return fail(error.code==='23P01'?'Stanowisko jest w tym czasie zajęte przez potwierdzoną wizytę. Wybierz inną godzinę albo status „Do potwierdzenia”.':'Nie udało się zapisać. Sprawdź dane i spróbuj ponownie.');
+  if(!BOOKINGS.some(x=>x.id===data.id)) BOOKINGS.push(toBk(data));
+  drw().close();renderPanel();toast(`Zapisano: ${row.name}, ${fdt(r.pu.start)}`);
+}
+
+/* ---------- szuflada: blokada ---------- */
+function blockHTML(){
+  const d=ymd(addDays(T0,1));
+  return `<form id="fblock" novalidate><div class="drw-h"><div><h2>Zablokuj termin</h2><p>Klienci nie zarezerwują tych dni na stronie.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf">Od<input name="from" type="date" value="${d}" min="${ymd(T0)}" required></label>
+    <label class="pf">Do (włącznie)<input name="to" type="date" value="${d}" min="${ymd(T0)}"></label>
+    <label class="pf full">Stanowisko<select name="bay"><option value="0">Oba stanowiska</option><option value="1">Stanowisko 1 (lakier, powłoki, PPF)</option><option value="2">Stanowisko 2 (mycie, wnętrze)</option></select></label>
+    <label class="pf full">Powód<input name="note" maxlength="80" placeholder="np. urlop, szkolenie, awaria"></label>
+  </div>
+  <div class="ferr" id="fblock-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">Zablokuj</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div>
+  </div></form>`;
+}
+async function blockSubmit(f){
+  const E=f.elements, err=$('#fblock-err'), from=E.from.value, to=E.to.value||from;
+  if(!from){err.textContent='Wybierz dzień.';return}
+  if(to<from){err.textContent='Data „do” jest wcześniejsza niż „od”.';return}
+  const k={id:crypto.randomUUID().slice(0,8),from,to,bay:+E.bay.value,note:E.note.value.trim()};
+  BLOCKS.push(k);
+  if(!(await saveCatalog())){BLOCKS.pop();err.textContent='Nie udało się zapisać blokady.';return}
+  const clash=BOOKINGS.filter(b=>ACT_ST.includes(b.status)&&inBlock(k,b.bay,b.start,b.end)).length;
+  drw().close();renderPanel();
+  toast(clash?`Zablokowano. W tym czasie ${clash===1?'jest już 1 wizyta':`są już wizyty (${clash})`}, sprawdź kalendarz.`:'Zablokowano. Te dni zniknęły z formularza na stronie.');
+}
+
 /* ---------- zdarzenia panelu ---------- */
+const RQ_MSG={confirmed:n=>`Potwierdzono. ${n} dostanie SMS z terminem (w demo bez wysyłki).`,rejected:n=>`Odrzucono. ${n} dostanie SMS (w demo bez wysyłki).`,
+  proposed:n=>`Oznaczono: zaproponowano ${n} inny termin.`,done:n=>`Zakończona. ${n} dostanie jutro prośbę o opinię (w demo bez wysyłki).`,noshow:n=>`Zapisano: ${n} nie przyjechał.`};
 document.getElementById('view-panel').addEventListener('click',async e=>{
-  const t=e.target.closest('button'); if(!t||t.type==='submit') return;
-  if(t.dataset.logout){await sb.auth.signOut();if(LIVE){sb.removeChannel(LIVE);LIVE=null}SESSION=null;BOOKINGS=[];renderLogin();return}
-  if(t.dataset.reseed){t.disabled=true;await sb.from('bookings').delete().eq('studio_id',STUDIO.id).eq('seed',true);await seedDemo();renderPanel();toast('Dane przykładowe odświeżone');return}
-  if(t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
-  if(t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
-  if(t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
-  if(t.dataset.rq){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;
-    const st={confirm:'confirmed',reject:'rejected',propose:'proposed'}[t.dataset.rq];
-    t.disabled=true;
+  if(e.target.id==='drw'){drw().close();return}
+  const t=e.target.closest('button'), o=e.target.closest('[data-open]');
+  if(t&&t.type==='submit') return;
+  if(t&&t.dataset.close){drw().close();return}
+  if(t&&t.dataset.logout){await sb.auth.signOut();if(LIVE){sb.removeChannel(LIVE);LIVE=null}SESSION=null;BOOKINGS=[];renderLogin();return}
+  if(t&&t.dataset.reseed){t.disabled=true;await sb.from('bookings').delete().eq('studio_id',STUDIO.id).eq('seed',true);await seedDemo();renderPanel();toast('Dane przykładowe odświeżone');return}
+  if(t&&t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
+  if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
+  if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
+  if(t&&t.dataset.pact){if(t.dataset.pact==='add'){openDrawer(addHTML());addSync($('#fadd'))}else openDrawer(blockHTML());return}
+  if(t&&t.dataset.unblock){const keep=BLOCKS;BLOCKS=BLOCKS.filter(k=>k.id!==t.dataset.unblock);if(!(await saveCatalog())){BLOCKS=keep;return}renderPanel();toast('Blokada usunięta, termin znów widać na stronie');return}
+  if(t&&t.dataset.rq){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;
+    const st=RQ[t.dataset.rq]; t.disabled=true;
     const {error}=await sb.from('bookings').update({status:st}).eq('id',b.id);
     if(error){t.disabled=false;toast(error.code==='23P01'?'Stanowisko jest już zajęte w tym czasie. Zaproponuj inny termin.':'Nie udało się zapisać zmiany.');return}
-    b.status=st;b.isNew=false;
-    toast({confirmed:`Potwierdzono. ${b.name} dostanie SMS z terminem (w demo bez wysyłki).`,rejected:`Odrzucono. ${b.name} dostanie SMS z prośbą o inny termin (w demo bez wysyłki).`,proposed:`Oznaczono: zaproponowano ${b.name} inny termin.`}[st]);
-    renderPanel();return}
-  if(t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
-  if(t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
-  if(t.dataset.pact){toast({add:'Tu salon dopisuje wizytę z telefonu (w kolejnej wersji demo)',block:'Tu salon blokuje dzień w kalendarzu'}[t.dataset.pact]);return}
+    b.status=st;b.isNew=false;toast(RQ_MSG[st](b.name));
+    renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
+  if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
+  if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
+  if(o) openBk(+o.dataset.open);
+});
+document.getElementById('view-panel').addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.q){const q=t.value.trim().toLowerCase();document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
+  if(t.form&&t.form.id==='fadd'){if(t.name==='total')t.dataset.touched=1;else addSync(t.form)}
 });
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
-  if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(()=>toast('Cena zapisana, widoczna na stronie salonu'))}
-  if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(()=>toast('Cena dodatku zapisana'))}
+  if(t.dataset.price){const [sid,pid,i]=t.dataset.price.split(':');const v=Math.max(0,+t.value||0);pkgOf(svcById(sid),pid).p[+i]=v;saveCatalog().then(ok=>ok&&toast('Cena zapisana, widoczna na stronie salonu'))}
+  if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });
 
 /* ================= ROUTING ================= */
@@ -1151,7 +1320,7 @@ function route(){
   $('#view-klient').hidden=v!=='klient'; $('#view-panel').hidden=v!=='panel';
   $('#tab-klient').toggleAttribute('aria-current',v==='klient'); if(v==='klient')$('#tab-klient').setAttribute('aria-current','page');
   $('#tab-panel').toggleAttribute('aria-current',v==='panel'); if(v==='panel')$('#tab-panel').setAttribute('aria-current','page');
-  if(v==='panel'){if(BOOKINGS.some(b=>b.isNew&&b.status==='pending'))P.view='pulpit';openPanel()} else renderClient();
+  if(v==='panel'){if(BOOKINGS.some(b=>b.isNew&&b.status==='pending'))P.view='dzis';openPanel()} else renderClient();
   window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
