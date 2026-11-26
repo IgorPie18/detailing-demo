@@ -1110,6 +1110,48 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 .sumline b,.summary .tot span:last-child{transition:color .2s}
 .hero-p h1{animation:rise .55s var(--ease) both}
 @media (prefers-reduced-motion:reduce){#pmain.enter>*,.scroller.enter>*,.drw[open],.drw.closing{animation:none!important}.tile:hover,.pill-c:hover,.mcard:hover,.vrow:hover,.row-i:hover{transform:none}}
+
+/* ===== v12: jedna paleta. Kolor marki + ciepłe szarości; inne kolory tylko dla stanów:
+   zielony = gotowe/w porządku, niebieski = w trakcie, czerwony = problem. Oczekujące = kolor marki, zaplanowane = szarość. ===== */
+:root{--s-wait-bg:var(--brand-50);--s-wait:var(--brand-600);--s-wait-b:var(--brand);--n-bg:#f1f1ef;--n-tx:#44403c;--n-b:#a8a29e}
+.st.s-wait,#view-panel .st.s-wait{background:var(--s-wait-bg);color:var(--s-wait)}
+.st.s-plan,#view-panel .st.s-plan{background:var(--n-bg);color:var(--n-tx)}
+#view-panel .blk.s-wait{background:var(--brand-50);color:var(--brand-600);border:1.5px dashed var(--brand)}
+#view-panel .blk.s-plan{background:var(--n-bg);color:#1c1917;border-left-color:var(--n-b)}
+#view-panel .legend i.s-wait{background:var(--brand-50);border:1.5px dashed var(--brand)}
+#view-panel .legend i.s-plan{background:#d6d3d1}
+.mchip.s-wait{background:var(--brand-50);color:var(--brand-600);border-color:var(--brand)}
+.mchip.s-plan{background:var(--n-bg);color:#1c1917;border-color:var(--n-b)}
+.dcard.s-wait{border-color:var(--brand)}.dcard.s-plan{border-color:var(--n-b)}
+.pos-chip.mid{background:var(--brand-50);color:var(--brand-600)}
+/* notatki w kalendarzu: szarość z akcentem marki zamiast żółtego */
+.mnote{background:var(--n-bg);color:var(--n-tx);box-shadow:inset 2px 0 0 var(--brand)}
+.nbadge{background:var(--n-bg);color:var(--n-tx)}
+.note-c{background:#fafaf9;border-color:var(--pline,#ebebe8);color:#1c1917;box-shadow:inset 3px 0 0 var(--brand)}
+.note-c small{color:#78716c}
+.sres mark{background:var(--brand-100)}
+/* ostrzeżenia, okienko „zamknąć bez zapisu”, edycja pulpitu: odcienie marki */
+.confirm-x{background:var(--brand-50);border-bottom-color:var(--brand-100)}
+.alert.warn,#view-panel .alert.warn{background:var(--brand-50);border-color:var(--brand-100)}
+.alert.warn .ai,#view-panel .alert.warn .ai{background:var(--brand-100);color:var(--brand-600)}
+.edit-note,#view-panel .edit-note{background:var(--brand-50);border-color:var(--brand-100)}
+.mem{background:var(--brand-50);border-color:var(--brand-100)}
+.gk.gs.warn{border-color:var(--brand-100);background:var(--brand-50)}
+#view-panel .funnel .drop-l{color:var(--brand-600)}
+@keyframes tourPulse{0%,100%{outline-color:var(--brand);outline-offset:2px}50%{outline-color:var(--brand-100);outline-offset:7px}}
+/* podgląd Telegrama w barwach panelu */
+.tg-card{border-color:var(--pline,#ebebe8);background:#fafaf9}
+.tg-ic{background:var(--brand)}
+.tg-btns button{border-color:var(--pline,#ebebe8);color:var(--brand-600)}
+.tg-btns button.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+/* Google: druga seria szara, gwiazdki w kolorze marki */
+.hb .r.c2 .tr i{background:#57534e}
+.stars{color:var(--brand)}
+/* znaczniki uszkodzeń: jeden kolor, rodzaj widać na liście pod schematem */
+.t-W,.t-R,.t-O,.t-P,.t-I{background:var(--brand-600);fill:var(--brand-600)}
+/* strona klienta: akcent marki zamiast bursztynu */
+.stages li.now i{background:var(--brand);border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-100)}
+.extra{border-color:var(--brand);background:var(--brand-50)}
 </style>
 
 <header class="demo-bar">
@@ -2666,8 +2708,8 @@ function startHTML(){
     ${tile('#ea580c','clock',p.length?`Potwierdź: ${esc(p[0].name)}`:'Nic nie czeka',p.length?`${bName(p[0])} · zgłoszenie ${ago(p[0].created)}`:'Nowe zgłoszenia pojawią się tutaj same',p.length?`data-open="${p[0].id}"`:'data-nav="rez"')}
     ${tile('#1c1917','check',ready.length?`Gotowe do odbioru: ${ready.length}`:'Brak aut do odbioru',ready.length?ready.map(b=>esc(b.name)+' · '+esc(b.car)).join(', '):'Gdy oznaczysz auto jako gotowe, klient dostanie SMS',ready.length?`data-open="${ready[0].id}"`:'data-nav="dzis"')}
     ${tile('#57534e','car',next?`Następne auto: ${fhm(next.start)}`:'Brak kolejnych wizyt',next?`${esc(next.name)} · ${esc(next.car)} · ${fd(next.start)}`:'Kalendarz jest pusty',next?`data-open="${next.id}"`:'data-nav="kal"')}
-    ${acc.length?tile('#16a34a','wyc',`Wycena przyjęta: ${esc(acc[0].name)}`,`${esc((ofPick(acc[0])||{}).name||'')} · ${zl(+(acc[0].choice||{}).total||0)} · umów termin`,`data-offer="${acc[0].id}"`):''}
-    ${due.length?tile('#7c3aed','gw',`Przeglądy gwarancyjne: ${due.length}`,due.slice(0,3).map(x=>esc(x.b.name)+' · '+(x.days<0?'zaległy':'za '+x.days+' dni')).join(', '),'data-nav="gw"'):''}
+    ${acc.length?tile('#ea580c','wyc',`Wycena przyjęta: ${esc(acc[0].name)}`,`${esc((ofPick(acc[0])||{}).name||'')} · ${zl(+(acc[0].choice||{}).total||0)} · umów termin`,`data-offer="${acc[0].id}"`):''}
+    ${due.length?tile('#1c1917','gw',`Przeglądy gwarancyjne: ${due.length}`,due.slice(0,3).map(x=>esc(x.b.name)+' · '+(x.days<0?'zaległy':'za '+x.days+' dni')).join(', '),'data-nav="gw"'):''}
   </div>
   ${me&&!A?`<div class="st-h">${ic('user')}Twoje zlecenia<button class="more" type="button" data-nav="rez" data-filter="mine">Wszystkie Twoje →</button></div>
   <div class="vlist">${mine.slice(0,6).map(b=>`<button type="button" class="vrow" data-open="${b.id}">${wAv(me)}<span><b>${esc(b.name)} · ${esc(b.car)}</b><small>${bName(b)}</small></span><span>${stChip(b)}</span><span><b>${fd(b.start)}</b><small>${fhm(b.start)} · odbiór ${fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Nie masz teraz przypisanych zleceń. Administrator przypisuje je w szczegółach wizyty.</div>'}</div>`:''}
@@ -2888,8 +2930,8 @@ function googleHTML(){
   return `${topbar('Google',`Wizytówka, Search Console i Analytics w jednym miejscu · ${per}. Do czasu podłączenia kont pokazujemy dane przykładowe.`,`<span class="seg-t" role="group" aria-label="Zakres dat">${[[7,'7 dni'],[28,'28 dni'],[90,'3 miesiące']].map(([v,l])=>`<button type="button" data-grange="${v}" aria-pressed="${d===v}">${l}</button>`).join('')}</span>`)}
   <div class="g-conn">
     ${src('#ea580c','G','Wizytówka Google','Business Profile Performance API','Wyświetlenia profilu, połączenia, trasy, kliknięcia w stronę i „Zarezerwuj”, frazy wyszukiwania, opinie.')}
-    ${src('#2563eb','SC','Search Console','Search Analytics API','Kliknięcia i wyświetlenia w Google, CTR, średnia pozycja, zapytania i strony. Dane z opóźnieniem ok. 2 dni.')}
-    ${src('#0d9488','GA','Google Analytics 4','GA4 Data API','Użytkownicy, sesje, zaangażowanie, kanały ruchu, lejek rezerwacji i strony wejścia.')}
+    ${src('#1c1917','SC','Search Console','Search Analytics API','Kliknięcia i wyświetlenia w Google, CTR, średnia pozycja, zapytania i strony. Dane z opóźnieniem ok. 2 dni.')}
+    ${src('#57534e','GA','Google Analytics 4','GA4 Data API','Użytkownicy, sesje, zaangażowanie, kanały ruchu, lejek rezerwacji i strony wejścia.')}
   </div>
   <div class="g-ins">
     <div><b>Telefon to główne źródło klientów</b>${Math.round((g.split[0][1]+g.split[1][1])/g.views*100)}% wyświetleń wizytówki i ${c.dev[0][1]}% kliknięć z Google to telefony. Przycisk „Zarezerwuj” na wizytówce dał ${nf(g.book)} wejść do formularza.<small>Wizytówka + Search Console</small></div>
@@ -2924,8 +2966,8 @@ function googleHTML(){
     <div class="g-grid">
       <section class="psec"><div class="sec-h"><h2>Strony</h2><small>kliknięcia</small></div><div class="sec-b">${hbars(c.pages,c.pages[0][1])}</div></section>
       <section class="psec"><div class="sec-h"><h2>Urządzenia</h2><small>udział w kliknięciach</small></div><div class="sec-b">
-        <div class="stack2" role="img" aria-label="${c.dev.map(x=>x[0]+' '+x[1]+'%').join(', ')}">${c.dev.map((x,i)=>`<i style="width:${x[1]}%;background:${['#ea580c','#2563eb','#0d9488'][i]}"></i>`).join('')}</div>
-        <div class="lg2">${c.dev.map((x,i)=>`<span><i style="background:${['#ea580c','#2563eb','#0d9488'][i]}"></i>${x[0]} <b>${x[1]}%</b></span>`).join('')}</div></div></section>
+        <div class="stack2" role="img" aria-label="${c.dev.map(x=>x[0]+' '+x[1]+'%').join(', ')}">${c.dev.map((x,i)=>`<i style="width:${x[1]}%;background:${['#ea580c','#1c1917','#a8a29e'][i]}"></i>`).join('')}</div>
+        <div class="lg2">${c.dev.map((x,i)=>`<span><i style="background:${['#ea580c','#1c1917','#a8a29e'][i]}"></i>${x[0]} <b>${x[1]}%</b></span>`).join('')}</div></div></section>
     </div>
   </div>
 
@@ -3102,10 +3144,11 @@ const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes'];
 const ME=()=>SESSION?TEAM.find(t=>t.user_id===SESSION.user.id)||null:null;
 const memberOf=id=>id?TEAM.find(t=>t.id===id)||null:null;
 const inits=n=>esc(String(n||'?').trim().split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase());
-const okColor=c=>/^#[0-9a-f]{6}$/.test(c||'')?c:'#ea580c';
+const okColor=c=>T_COLORS.includes(c)?c:'#ea580c';
 const wAv=(m,cls='')=>m?`<span class="wav ${cls}" style="--c:${okColor(m.color)}" title="${esc(m.name)}" aria-hidden="true">${inits(m.name)}</span>`:'';
 const ROLE_L={owner:'Właściciel',admin:'Administrator',worker:'Pracownik'};
-const T_COLORS=['#ea580c','#2563eb','#0d9488','#7c3aed','#db2777','#ca8a04'];
+// kolory osób: odcienie marki i szarości (jedna paleta panelu)
+const T_COLORS=['#ea580c','#c2410c','#9a3412','#1c1917','#57534e','#a8a29e'];
 const monthRange=off=>{const a=new Date(T0.getFullYear(),T0.getMonth()+off,1);return [a,new Date(a.getFullYear(),a.getMonth()+1,1)]};
 const isOwnerRow=m=>!!(m&&m.user_id&&SESSION&&m.user_id===SESSION.user.id&&ROLE==='owner');
 Object.assign(ICONS,{
@@ -3127,8 +3170,8 @@ async function loadTeam(){
 async function seedTeam(){
   // osoby z założonym kontem zostają, inaczej odświeżenie danych zabrałoby komuś dostęp
   await sb.from('team').delete().eq('studio_id',STUDIO.id).eq('seed',true).is('user_id',null); await loadTeam();
-  const rows=[{studio_id:STUDIO.id,name:'Michał Nowicki',role:'worker',color:'#2563eb',commission:12,seed:true},
-    {studio_id:STUDIO.id,name:'Patryk Kaczmarek',role:'worker',color:'#0d9488',commission:10,seed:true}].filter(r=>!TEAM.some(t=>t.seed&&t.name===r.name));
+  const rows=[{studio_id:STUDIO.id,name:'Michał Nowicki',role:'worker',color:'#1c1917',commission:12,seed:true},
+    {studio_id:STUDIO.id,name:'Patryk Kaczmarek',role:'worker',color:'#c2410c',commission:10,seed:true}].filter(r=>!TEAM.some(t=>t.seed&&t.name===r.name));
   if(rows.length) await sb.from('team').insert(rows);
   await loadTeam();
 }
