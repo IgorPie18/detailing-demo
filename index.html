@@ -1152,6 +1152,48 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 /* strona klienta: akcent marki zamiast bursztynu */
 .stages li.now i{background:var(--brand);border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-100)}
 .extra{border-color:var(--brand);background:var(--brand-50)}
+
+/* ===== ekran logowania (wspólny dla całego zespołu) ===== */
+#view-panel .panel.locked{grid-template-columns:minmax(0,1fr);background:var(--pbg)}
+.lg-card.again,.lg-card.again .lg-side li{animation:none}
+#view-panel .panel.locked section.main{display:grid;place-items:center;padding:40px 20px;min-height:calc(100vh - 52px);background:radial-gradient(900px 420px at 15% 0%,var(--brand-50),transparent 70%),var(--pbg)}
+.lg-wrap{width:100%;display:grid;place-items:center}
+.lg-card{width:min(940px,100%);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);background:#fff;border:1px solid var(--pline);border-radius:22px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(28,25,23,.35);animation:pop .5s var(--ease) both}
+.lg-side{position:relative;background:radial-gradient(520px 320px at 0% 0%,rgba(234,88,12,.55),transparent 70%),radial-gradient(420px 300px at 110% 110%,rgba(234,88,12,.3),transparent 70%),#1c1917;color:#fff;padding:36px 34px;display:flex;flex-direction:column;gap:22px}
+.lg-logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
+.lg-logo i{width:28px;height:28px;border-radius:8px;background:var(--brand);box-shadow:inset 0 -7px 0 rgba(0,0,0,.14)}
+.lg-logo span{font-weight:400;color:#a8a29e;font-size:13px}
+.lg-side h2{margin:18px 0 0;font-size:30px;line-height:1.15;font-weight:600;letter-spacing:-.03em;max-width:12ch}
+.lg-side ul{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.lg-side li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#d6d3d1;animation:rise .5s var(--ease) both}
+.lg-side li:nth-child(2){animation-delay:.08s}.lg-side li:nth-child(3){animation-delay:.16s}
+.lg-side li b{display:block;color:#fff;font-weight:600;margin-bottom:1px}
+.lg-ic{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex:none;color:#fdba74}
+.lg-side small{margin-top:auto;color:#78716c;font-size:12.5px}
+.lg-form{padding:42px 40px;display:grid;gap:18px;align-content:center}
+.lg-form h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-.03em}
+.lg-form>div>p{margin:6px 0 0;color:#78716c;font-size:14.5px;line-height:1.5}
+.lg-f{display:grid;gap:6px;font-size:13.5px;font-weight:500;color:#44403c}
+.lg-in{display:flex;align-items:center;gap:10px;height:48px;border:1px solid #e4e4e1;border-radius:12px;padding:0 6px 0 14px;background:#fff;color:#a8a29e;transition:border-color .18s,box-shadow .18s}
+.lg-in:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-50);color:var(--brand)}
+.lg-in input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:15px;color:var(--ink);height:100%}
+.lg-in input::placeholder{color:#a8a29e}
+.lg-eye{width:36px;height:36px;border:0;border-radius:9px;background:none;color:#78716c;display:grid;place-items:center}
+.lg-eye:hover{background:#f1f1ef;color:var(--ink)}
+.lg-caps{color:var(--brand-600);font-weight:500}
+.lg-err{display:flex;gap:10px;align-items:center;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:12px;padding:10px 12px;font-size:14px;animation:shake .4s ease}
+.lg-err svg{flex:none;width:16px;height:16px}
+.lg-btn{height:50px;border:0;border-radius:12px;background:var(--brand);color:#fff;font:inherit;font-size:15.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 20px -8px rgba(234,88,12,.6);transition:background-color .18s,transform .2s var(--ease),box-shadow .2s}
+.lg-btn:hover{background:var(--brand-600)}
+.lg-btn:active{transform:scale(.98)}
+.lg-btn.busy{opacity:.92;cursor:progress}
+.lg-spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;animation:sp .7s linear infinite}
+.lg-help summary{cursor:pointer;color:#57534e;font-size:13.5px;width:max-content}
+.lg-help summary:hover{color:var(--brand-600)}
+.lg-help p{margin:8px 0 0;font-size:13.5px;color:#57534e;line-height:1.55;background:var(--pbg);border-radius:10px;padding:10px 12px}
+@keyframes shake{0%,100%{transform:none}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+@media (max-width:820px){.lg-card{grid-template-columns:minmax(0,1fr)}.lg-side{padding:24px 24px 22px;gap:12px}.lg-side h2{font-size:22px;margin:4px 0 0;max-width:none}.lg-side ul,.lg-side small{display:none}.lg-form{padding:28px 22px}}
+@media (prefers-reduced-motion:reduce){.lg-card,.lg-side li,.lg-err{animation:none}}
 </style>
 
 <header class="demo-bar">
@@ -1941,13 +1983,27 @@ function subscribe(){
     if(!$('#view-panel').hidden&&SESSION) renderPanel();
   }).subscribe();
 }
-function renderLogin(err=''){
+// jeden ekran logowania dla właściciela, administratorów i pracowników; panel sam dobiera widoki do roli konta
+function renderLogin(err='',mail=''){
   $('.panel').classList.add('locked');
-  $('#pmain').innerHTML=`<form class="login" id="login"><h1>Panel salonu</h1><p>Zaloguj się kontem salonu.</p>
-    <div class="field"><label for="l-mail">E-mail</label><input class="inp" id="l-mail" type="email" autocomplete="username" required></div>
-    <div class="field"><label for="l-pw">Hasło</label><input class="inp" id="l-pw" type="password" autocomplete="current-password" required></div>
-    ${err?`<span class="errmsg" role="alert">${esc(err)}</span>`:''}
-    <button class="pbtn dark" type="submit">Zaloguj</button></form>`;
+  const li=(k,t,d)=>`<li><span class="lg-ic">${ic(k)}</span><span><b>${t}</b>${d}</span></li>`;
+  $('#pmain').innerHTML=`<div class="lg-wrap"><div class="lg-card${err?' again':''}">
+    <aside class="lg-side" aria-hidden="true">
+      <div class="lg-logo"><i></i>Lumen<span>panel salonu</span></div>
+      <h2>Cały salon w jednym miejscu</h2>
+      <ul>${li('kal','Rezerwacje na żywo','Zgłoszenia ze strony pojawiają się od razu.')}${li('zes','Każdy ma swoje konto','Pracownik widzi swoje zlecenia, administrator cały salon.')}${li('gw','Protokoły i gwarancje','Przyjęcie, wydanie i certyfikat z kodem QR.')}</ul>
+      <small>Lumen Detailing · Poznań</small>
+    </aside>
+    <form class="lg-form" id="login" novalidate>
+      <div><h1>Zaloguj się</h1><p>Jedno logowanie dla właściciela i zespołu. Po wejściu zobaczysz to, do czego masz dostęp.</p></div>
+      ${err?`<div class="lg-err" role="alert">${ic('x')}<span>${esc(err)}</span></div>`:''}
+      <label class="lg-f" for="l-mail"><span>E-mail</span><span class="lg-in">${ic('user')}<input id="l-mail" type="email" autocomplete="username" inputmode="email" required placeholder="np. michal@lumendetailing.pl" value="${esc(mail)}"></span></label>
+      <label class="lg-f" for="l-pw"><span>Hasło</span><span class="lg-in">${ic('lock')}<input id="l-pw" type="password" autocomplete="current-password" required placeholder="Twoje hasło"><button class="lg-eye" type="button" data-pwshow="1" aria-label="Pokaż hasło" aria-pressed="false">${ic('eye')}</button></span>
+        <small class="lg-caps" id="l-caps" hidden>Włączony Caps Lock</small></label>
+      <button class="lg-btn" type="submit"><span>Zaloguj się</span></button>
+      <details class="lg-help"><summary>Nie pamiętasz hasła?</summary><p><b>Pracownik:</b> poproś administratora salonu o nowe hasło. Ustawi je w zakładce Zespół, przycisk „Edytuj”.<br><b>Właściciel:</b> napisz do opiekuna systemu, wyślemy link do zmiany hasła.</p></details>
+    </form></div></div>`;
+  setTimeout(()=>{const f=$(mail?'#l-pw':'#l-mail');if(f)f.focus()},50);
 }
 async function openPanel(){
   const {data:{session}}=await sb.auth.getSession(); SESSION=session;
@@ -1976,9 +2032,13 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='foffer'){e.preventDefault();offerSubmit(e.target);return}
   if(e.target.id==='fmember'){e.preventDefault();memberSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
-  const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
-  const {error}=await sb.auth.signInWithPassword({email:$('#l-mail').value.trim(),password:$('#l-pw').value});
-  if(error){renderLogin('Nieprawidłowy e-mail lub hasło.');return}
+  const mail=$('#l-mail').value.trim(), pw=$('#l-pw').value;
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){renderLogin('Wpisz adres e-mail, np. imie@firma.pl.',mail);$('#l-mail').focus();return}
+  if(!pw){renderLogin('Wpisz hasło.',mail);return}
+  const btn=e.target.querySelector('[type=submit]'); btn.disabled=true; btn.classList.add('busy'); btn.innerHTML='<i class="lg-spin"></i><span>Loguję…</span>';
+  const {error}=await sb.auth.signInWithPassword({email:mail,password:pw});
+  if(error){renderLogin(/fetch|network/i.test(error.message||'')?'Brak połączenia z internetem. Spróbuj jeszcze raz.':'Nieprawidłowy e-mail lub hasło.',mail);return}
+  btn.innerHTML='<i class="lg-spin"></i><span>Wczytuję panel…</span>';
   openPanel();
 });
 
@@ -2006,7 +2066,10 @@ const ICONS={
   check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
   send:'<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>',
   bon:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8C10 4 6 3 6 6s4 2 6 2c2 0 6 1 6-2s-4-2-6 2"/>',
-  x:'<path d="M6 6l12 12M18 6L6 18"/>'
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+  eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  eyeoff:'<path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/>'
 };
 const ic=k=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
 const STL={pending:'Do potwierdzenia',confirmed:'Potwierdzona',done:'Zakończona',rejected:'Odrzucona',noshow:'Nie przyjechał',proposed:'Nowy termin u klienta'};
@@ -3544,6 +3607,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   const t=e.target.closest('button'), o=e.target.closest('[data-open]');
   if(t&&t.type==='submit') return;
   if(t&&t.dataset.tourstart){tourStart();return}
+  if(t&&t.dataset.pwshow){const i=$('#l-pw'),on=i.type==='password';i.type=on?'text':'password';t.setAttribute('aria-pressed',on);t.setAttribute('aria-label',on?'Ukryj hasło':'Pokaż hasło');t.innerHTML=ic(on?'eyeoff':'eye');i.focus();return}
   if(t&&t.dataset.close){tryClose();return}
   if(t&&t.dataset.keep){drw().querySelector('.confirm-x').hidden=true;return}
   if(t&&t.dataset.discard){GUARD=false;const n=PENDING;PENDING=null;(n||(()=>drw().close()))();return}
@@ -3659,6 +3723,7 @@ document.getElementById('view-panel').addEventListener('keydown',e=>{
   if(e.target.matches&&e.target.matches('.mc[data-calday]')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();P.cal={m:'day',a:e.target.dataset.calday};renderPanel()}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!$('#view-panel').hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!drw().open){const g=$('[data-gsearch]');if(g){e.preventDefault();g.focus()}}});
 document.getElementById('view-panel').addEventListener('mousemove',gHover);
+['keydown','keyup'].forEach(ev=>document.getElementById('view-panel').addEventListener(ev,e=>{if(e.target.id==='l-pw'&&e.getModifierState){const c=$('#l-caps');if(c)c.hidden=!e.getModifierState('CapsLock')}}));
 document.getElementById('view-panel').addEventListener('mouseleave',e=>{if(e.target.classList&&e.target.classList.contains('lc')){e.target.querySelector('.lc-tip').hidden=true;e.target.classList.remove('on')}},true);
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;
