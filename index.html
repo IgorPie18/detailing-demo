@@ -1203,10 +1203,10 @@ async function seedSide(){
   await Promise.all([sb.from('waitlist').delete().eq('studio_id',id).eq('seed',true),sb.from('vouchers').delete().eq('studio_id',id).eq('seed',true)]);
   await Promise.all([
     sb.from('waitlist').insert([{studio_id:id,day:sat,svc:'mycie',name:'Kasia T.',phone:'+48 605 412 118',note:'pasuje każda godzina',seed:true},
-      {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',seed:true}]),
-    sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',src:'web',seed:true,created_at:ago(3)},
-      {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
-      {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',src:'salon',seed:true,created_at:ago(12)}])]);
+      {studio_id:id,day:sat,svc:'wnetrze',name:'Bartosz M.',phone:'+48 698 230 377',note:null,seed:true}]),
+    sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',status:'active',used_at:null,src:'web',seed:true,created_at:ago(3)},
+      {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',message:null,status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
+      {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',status:'active',used_at:null,src:'salon',seed:true,created_at:ago(12)}])]);
   await loadSide();
 }
 function subscribe(){

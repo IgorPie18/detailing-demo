@@ -48,6 +48,14 @@ alter table public.bookings add column if not exists extras jsonb not null defau
 alter table public.bookings add column if not exists points_used int not null default 0 check (points_used >= 0);
 alter table public.bookings add column if not exists token uuid not null default gen_random_uuid();
 create unique index if not exists bookings_token on public.bookings(token);
+-- Link klienta zawsze losuje baza, nigdy przeglądarka klienta.
+create or replace function public.bookings_force_token() returns trigger language plpgsql as $$
+begin
+  if new.src = 'web' then new.token := gen_random_uuid(); end if;
+  return new;
+end $$;
+drop trigger if exists bookings_force_token on public.bookings;
+create trigger bookings_force_token before insert on public.bookings for each row execute function public.bookings_force_token();
 
 -- Dwie potwierdzone wizyty nie mogą zająć tego samego stanowiska w tym samym czasie.
 do $$ begin
@@ -98,8 +106,9 @@ returns json language sql stable security definer set search_path = public as $$
     'start_at', b.start_at, 'end_at', b.end_at, 'status', b.status, 'stage', b.stage, 'total', b.total, 'deposit', b.deposit, 'paid', b.paid,
     'extras', b.extras, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
     'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used,
-    'spent', (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done'),
-    'used', (select coalesce(sum(x.points_used), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone))
+    -- punkty tylko dla wizyty, którą salon fizycznie przyjął (sam numer telefonu z formularza niczego nie odblokowuje)
+    'spent', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done') else 0 end,
+    'used', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.points_used), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone) else 0 end)
   from public.bookings b where b.token = p_token
 $$;
 revoke all on function public.booking_public(uuid) from public;
