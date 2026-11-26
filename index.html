@@ -862,6 +862,50 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .tour-btns button[data-tour="end"]{margin-right:auto;border-color:transparent;color:#78716c}
 .tour-bar{height:3px;background:#f1f1ef;border-radius:2px;overflow:hidden}.tour-bar i{display:block;height:100%;background:var(--brand);transition:width .38s}
 @media (prefers-reduced-motion:reduce){.tour-spot,.tour-card{transition:none}.tour-spot.click{animation:none}}
+
+/* ===== kalendarz: miesiąc, 2 tygodnie, tydzień, dzień + notatki ===== */
+.calbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.calbar .ttl{font-weight:600;font-size:16px;margin:0 6px;min-width:170px}
+.mon{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--pline);border-left:1px solid var(--pline);border-radius:10px;overflow:hidden}
+.mon .mh{padding:8px 10px;font-size:12px;color:#8a8a93;font-weight:500;border-right:1px solid var(--pline);border-bottom:1px solid var(--pline);background:#fbfbfa}
+.mon .mc{min-height:120px;border-right:1px solid var(--pline);border-bottom:1px solid var(--pline);padding:6px;display:flex;flex-direction:column;gap:3px;background:#fff;cursor:pointer;min-width:0}
+.mon .mc:hover{background:#fffcfa}
+.mon .mc.out{background:#fafaf9}.mon .mc.out .dn{color:#c4c0b8}
+.mon .mc.sun{background:#f7f7f5}
+.mon .mc.off{background:repeating-linear-gradient(135deg,#f4f3ef 0 6px,#fff 6px 12px)}
+.mc .dn{font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.mc .dn small{font-weight:500;color:#a8a29e;font-size:11px}
+.mc.today .dn b{background:var(--brand);color:#fff;border-radius:999px;padding:1px 7px}
+.mchip{display:block;width:100%;border:0;border-left:3px solid;border-radius:5px;padding:2px 6px;font:inherit;font-size:11.5px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;min-height:20px}
+.mchip.s-wait{background:#fef3c7;color:#92400e;border-color:#f59e0b}.mchip.s-plan{background:#f1f5f9;color:#1e293b;border-color:#64748b}
+.mchip.s-in{background:#eff6ff;color:#1e3a8a;border-color:#2563eb}.mchip.s-ready{background:#f0fdf4;color:#14532d;border-color:#16a34a}
+.mchip.s-done{background:#f5f5f4;color:#57534e;border-color:#a8a29e}.mchip.s-bad{background:#fef2f2;color:#991b1b;border-color:#dc2626;text-decoration:line-through}
+.mnote{display:block;width:100%;border:0;font:inherit;font-size:11.5px;text-align:left;background:#fef9c3;color:#713f12;border-radius:5px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.mnote::before{content:"✎ "}
+.mmore{font-size:11.5px;color:#78716c;padding-left:4px}
+.nbadge{display:inline-flex;align-items:center;gap:3px;margin-top:3px;border:0;background:#fef9c3;color:#713f12;border-radius:5px;padding:1px 6px;font:inherit;font-size:11px;cursor:pointer}
+.dayv{display:grid;gap:12px;align-items:start}
+.dcol{background:#fafaf9;border:1px solid var(--pline);border-radius:10px;padding:12px;display:grid;gap:8px;align-content:start;min-width:0}
+.dcol h3{margin:0;font-size:14px;font-weight:600}.dcol h3 small{display:block;font-weight:400;color:#8a8a93;font-size:12px}
+.dcard{border:0;border-left:3px solid;border-radius:8px;padding:10px 12px;text-align:left;font:inherit;cursor:pointer;display:grid;gap:2px;background:#fff;color:inherit}
+.dcard b{font-size:14px}.dcard small{color:#78716c;font-size:12.5px}
+.dcard.s-wait{border-color:#f59e0b}.dcard.s-plan{border-color:#64748b}.dcard.s-in{border-color:#2563eb}.dcard.s-ready{border-color:#16a34a}.dcard.s-done{border-color:#a8a29e}.dcard.s-bad{border-color:#dc2626}
+.notes-d{display:grid;gap:8px}
+.note-c{display:flex;gap:10px;align-items:flex-start;background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;text-align:left;font:inherit;color:#422006;cursor:pointer;width:100%}
+.note-c time{font-weight:600;font-size:13px;min-width:44px}
+.note-c span{white-space:pre-line;font-size:14px}
+.note-c small{display:block;color:#a16207;font-size:12px;margin-top:2px}
+/* ===== wyszukiwarka ===== */
+.sres{display:grid;gap:18px}
+.sres h2{font-size:14px;font-weight:600;margin:0 0 8px;display:flex;gap:8px;align-items:center}
+.sres h2 span{font-weight:500;color:#8a8a93}
+.sres mark{background:#fde68a;color:inherit;border-radius:3px;padding:0 1px}
+.srow{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;padding:11px 16px;border:0;border-top:1px solid var(--pline);background:none;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.srow:first-child{border-top:0}.srow:hover{background:#fcfcfb}
+.srow small{display:block;color:#78716c;font-size:13px}
+.srow .ico{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:#f4f4f2;color:#57534e}
+.s-empty{background:#fff;border:1px dashed var(--pline);border-radius:12px;padding:26px;text-align:center;color:#78716c}
+@media (max-width:820px){.mon .mc{min-height:76px}.mchip{font-size:10.5px}.calbar .ttl{min-width:0}}
 </style>
 
 <header class="demo-bar">
@@ -1068,7 +1112,7 @@ function SEED(){
 // klucz publiczny z założenia; dane chronią reguły RLS w schema.sql
 const sb=supabase.createClient('https://zzypdeubmxhpauxzwubd.supabase.co','sb_publishable_ESHijLfIGC3qMWlalLlB6g_DXgdttsS');
 const SLUG=new URLSearchParams(location.search).get('salon')||'lumen';
-let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false;
+let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false,NOTES=[],NOTES_ERR=false;
 const DEMO_TOKEN='00000000-0000-4000-8000-000000000001', DEMO_TOKEN_P='00000000-0000-4000-8000-000000000003', DEMO_TOKEN_W='00000000-0000-4000-8000-000000000002';
 async function loadStudio(){
   const {data,error}=await sb.from('studios').select('id,name,catalog').eq('slug',SLUG).maybeSingle();
@@ -1574,6 +1618,7 @@ async function seedDemo(){
 async function loadSide(){
   const [w,v]=await Promise.all([sb.from('waitlist').select('*').eq('studio_id',STUDIO.id).order('day'),sb.from('vouchers').select('*').eq('studio_id',STUDIO.id).order('created_at',{ascending:false})]);
   SIDE_ERR=!!(w.error||v.error); WAIT=w.data||[]; VOUCH=v.data||[];
+  const n=await sb.from('cal_notes').select('*').eq('studio_id',STUDIO.id).order('day'); NOTES_ERR=!!n.error; NOTES=n.data||[];
 }
 async function seedSide(){
   const id=STUDIO.id, sat=ymd(addDays(T0,((6-T0.getDay()+7)%7)||7)), ago=d=>addDays(new Date(),-d).toISOString();
@@ -1588,6 +1633,11 @@ async function seedSide(){
     sb.from('vouchers').insert([{studio_id:id,code:'LUMN-7K2Q',amount:300,buyer_name:'Agnieszka P.',buyer_phone:'+48 512 330 904',recipient:'Tomek',message:'Wszystkiego najlepszego!',status:'active',used_at:null,src:'web',seed:true,created_at:ago(3)},
       {studio_id:id,code:'LUMN-3XPA',amount:500,buyer_name:'Marek W.',buyer_phone:'+48 601 778 215',recipient:'Ewa',message:null,status:'used',used_at:ago(2),src:'salon',seed:true,created_at:ago(40)},
       {studio_id:id,code:'GIFT-9M4D',amount:1000,buyer_name:'Kowalski Sp. z o.o.',buyer_phone:'+48 790 115 100',recipient:'Dla zespołu',message:'Dziękujemy za rok pracy',status:'active',used_at:null,src:'salon',seed:true,created_at:ago(12)}])]);
+  const sat2=ymd(addDays(T0,((6-T0.getDay()+7)%7)||7));
+  await sb.from('cal_notes').delete().eq('studio_id',id).eq('seed',true);
+  await sb.from('cal_notes').insert([{studio_id:id,day:ymd(T0),at_time:'11:00',body:'Dostawa powłok i past od hurtowni. Odebrać i sprawdzić daty ważności.',author:'Kamil',seed:true},
+    {studio_id:id,day:sat2,at_time:null,body:'Michał na szkoleniu z PPF. Na stanowisku 1 tylko korekta, bez folii.',author:'Kamil',seed:true},
+    {studio_id:id,day:ymd(addDays(T0,10)),at_time:'16:00',body:'Przegląd kompresora i myjki ciśnieniowej (serwis).',author:'Kamil',seed:true}]);
   await loadSide();
 }
 function subscribe(){
@@ -1633,6 +1683,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fvouch'){e.preventDefault();vIssue(e.target);return}
   if(e.target.id==='fsvc'){e.preventDefault();svcSubmit(e.target);return}
   if(e.target.id==='fprop'){e.preventDefault();propSubmit(e.target);return}
+  if(e.target.id==='fnote'){e.preventDefault();noteSubmit(e.target);return}
   if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const btn=e.target.querySelector('button'); btn.disabled=true; btn.textContent='Loguję…';
@@ -1641,7 +1692,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   openPanel();
 });
 
-const P={view:'start',filter:'all',wk:0,bay:null,edit:false,drag:null,q:''};
+const P={view:'start',filter:'all',wk:0,bay:null,edit:false,drag:null,q:'',cal:{m:'month',a:null}};
 const USL_IC='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
 const ICONS={
   dzis:'<path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/>',
@@ -1651,6 +1702,8 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  note:'<path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8 12h8M8 16h6"/>',
+  gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/>',
   help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
   start:'<path d="M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z"/>',
   car:'<path d="M5 16l1.5-5h11L19 16M3 16h18v3H3zM7 19v2M17 19v2"/><circle cx="7.5" cy="16" r=".5"/>',
@@ -1699,7 +1752,7 @@ function renderSide(){
   <button class="whatsnew" type="button" data-nav="wl"><b>Nowość: lista rezerwowa</b><span>Zwolniony termin trafia sam do kolejnej osoby.</span></button>
   <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span>${esc(SESSION?SESSION.user.email:'')}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
 }
-function renderPanel(){renderSide();$('#pmain').innerHTML={start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
+function renderPanel(){renderSide();$('#pmain').innerHTML={szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML}[P.view]();}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -1739,28 +1792,133 @@ function dzisHTML(){
 }
 /* ---------- Kalendarz ---------- */
 function weekStart(off){const d=new Date(T0);const dow=(d.getDay()+6)%7;return addDays(d,-dow+off*7)}
-function weekHTML(off){
-  const ws=weekStart(off), days=[0,1,2,3,4,5].map(i=>addDays(ws,i)), we=addDays(ws,6);
-  const col=(a,b)=>{const si=Math.max(0,Math.round((sod(a)-ws)/864e5)), ei=Math.min(5,Math.round((sod(b)-ws)/864e5));return `grid-column:${si+1} / ${ei+2}`};
-  const lane=bay=>BLOCKS.filter(k=>(k.bay===0||k.bay===bay)&&pday(k.from)<we&&pday(k.to)>=ws).map(k=>`<div class="blk off" style="${col(pday(k.from),pday(k.to))}"><b>Zablokowane</b><span>${esc(k.note||'')}</span></div>`).join('')
-    +BOOKINGS.filter(b=>b.bay===bay&&b.status!=='rejected'&&b.start<we&&b.end>=ws).sort((a,b)=>a.start-b.start).map(b=>{
-      const s=svcById(b.svc), cls='s-'+(STATE[stateOf(b)]||['','plan'])[1]+(b.end<new Date()&&['done','rejected','noshow'].includes(b.status)?' past':'');
-      return `<button type="button" class="blk ${cls}" style="${col(b.start,b.end)}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(s,b.pkg).d?'':fhm(b.start)+' '}${s.name}</b><span>${esc(b.car)} · ${esc(b.name)}</span></button>`}).join('');
-  return `<div class="wk-wrap"><div class="wk">
-    <div class="hd"></div>${days.map(d=>`<div class="hd ${+d===+T0?'today':''}">${DNL[d.getDay()]}<b>${d.getDate()}.${pad(d.getMonth()+1)}</b></div>`).join('')}
-    ${BAYS().map(x=>`<div class="bay">${esc(x.name)}<small>${esc(x.desc||'')}</small></div><div class="lane">${lane(x.id)}</div>`).join('')}
+function weekHTML(off){return laneHTML(weekStart(off),7)}
+// n kolejnych dni od „from”, bez niedziel; wiersz na stanowisko, wizyty wielodniowe rozciągnięte
+function laneHTML(from,n){
+  const days=[];for(let i=0;i<n;i++){const d=addDays(from,i);if(d.getDay()!==0)days.push(d)}
+  const N=days.length, end=addDays(days[N-1],1), first=days[0];
+  const si=x=>{const t=+sod(x),k=days.findIndex(d=>+d>=t);return k<0?N-1:k}, ei=x=>{const t=+sod(x);let k=0;days.forEach((d,i)=>{if(+d<=t)k=i});return k};
+  const col=(a,b)=>`grid-column:${si(a)+1} / ${Math.max(si(a),ei(b))+2}`;
+  const lane=bay=>BLOCKS.filter(k=>(k.bay===0||k.bay===bay)&&pday(k.from)<end&&pday(k.to)>=first).map(k=>`<div class="blk off" style="${col(pday(k.from),pday(k.to))}"><b>Zablokowane</b><span>${esc(k.note||'')}</span></div>`).join('')
+    +BOOKINGS.filter(b=>b.bay===bay&&b.status!=='rejected'&&b.start<end&&b.end>=first).sort((a,b)=>a.start-b.start).map(b=>{
+      const s=svcById(b.svc)||{name:b.svc,pk:[{}]}, cls='s-'+(STATE[stateOf(b)]||['','plan'])[1]+(b.end<new Date()&&['done','rejected','noshow'].includes(b.status)?' past':'');
+      return `<button type="button" class="blk ${cls}" style="${col(b.start,b.end)}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}"><b>${pkgOf(s,b.pkg).d?'':fhm(b.start)+' '}${esc(s.name)}</b><span>${esc(b.car)} · ${esc(b.name)}</span></button>`}).join('');
+  const cw=N>6?96:112, grid=`grid-template-columns:repeat(${N},minmax(0,1fr));background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/${N} - 1px),var(--pline) calc(100%/${N} - 1px),var(--pline) calc(100%/${N}))`;
+  return `<div class="wk-wrap"><div class="wk" style="grid-template-columns:110px repeat(${N},minmax(${cw}px,1fr));min-width:${110+N*cw}px">
+    <div class="hd"></div>${days.map(d=>{const nn=NOTES.filter(x=>x.day===ymd(d)).length;return `<div class="hd ${+d===+T0?'today':''}">${DNL[d.getDay()]}<b>${d.getDate()}.${pad(d.getMonth()+1)}</b>${nn?`<button type="button" class="nbadge" data-calday="${ymd(d)}" aria-label="${nn} notatek, pokaż dzień">${ic('note')}${nn}</button>`:''}</div>`}).join('')}
+    ${BAYS().map(x=>`<div class="bay">${esc(x.name)}<small>${esc(x.desc||'')}</small></div><div class="lane" style="${grid}">${lane(x.id)}</div>`).join('')}
   </div></div>`;
 }
+const CALM={day:'Dzień',week:'Tydzień',two:'2 tygodnie',month:'Miesiąc'};
+const MIES=['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
+const calAnchor=()=>P.cal.a?pday(P.cal.a):T0;
+function calShift(dir){
+  const a=calAnchor(), m=P.cal.m;
+  const n=m==='month'?new Date(a.getFullYear(),a.getMonth()+dir,1):addDays(a,dir*(m==='day'?1:m==='week'?7:14));
+  P.cal.a=dir?ymd(n):null;
+}
 function kalHTML(){
-  const ws=weekStart(P.wk), bl=BLOCKS.slice().sort((a,b)=>a.from<b.from?-1:1);
-  return `${topbar('Kalendarz','Klient na stronie widzi tylko wolne terminy. Zablokowane dni znikają z formularza.',`<button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button>`)}
-  <section class="psec"><div class="sec-h"><div class="wknav"><button class="pbtn sm" type="button" data-wk="-1" aria-label="Poprzedni tydzień">←</button><button class="pbtn sm" type="button" data-wk="0">Ten tydzień</button><button class="pbtn sm" type="button" data-wk="1" aria-label="Następny tydzień">→</button><b style="margin-left:8px">${fd(ws)} - ${fd(addDays(ws,5))}</b></div>${LEGEND}</div><div class="sec-b">${weekHTML(P.wk)}</div></section>
+  const m=P.cal.m, a=calAnchor(), bl=BLOCKS.slice().sort((x,y)=>x.from<y.from?-1:1);
+  let title, body;
+  if(m==='month'){title=`${cap(MIES[a.getMonth()])} ${a.getFullYear()}`;body=monthHTML(a)}
+  else if(m==='day'){title=`${cap(DNL[a.getDay()])}, ${a.getDate()} ${['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'][a.getMonth()]}`;body=dayViewHTML(a)}
+  else{const ws=addDays(a,-((a.getDay()+6)%7)), n=m==='week'?7:14;title=`${fd(ws)} do ${fd(addDays(ws,n-2))}`;body=laneHTML(ws,n)}
+  return `${topbar('Kalendarz','Klient na stronie widzi tylko wolne terminy. Notatki widzą wyłącznie osoby zalogowane do panelu.',`<button class="pbtn" type="button" data-noteadd="${ymd(m==='day'?a:T0)}">${ic('note')}Notatka</button><button class="pbtn" type="button" data-pact="block">Zablokuj dzień</button>`)}
+  <section class="psec"><div class="sec-h"><div class="calbar">
+      <span class="seg-t" role="group" aria-label="Widok kalendarza">${Object.entries(CALM).map(([k,v])=>`<button type="button" data-calm="${k}" aria-pressed="${m===k}">${v}</button>`).join('')}</span>
+      <button class="pbtn sm" type="button" data-calnav="-1" aria-label="Wcześniej">←</button><button class="pbtn sm" type="button" data-calnav="0">Dziś</button><button class="pbtn sm" type="button" data-calnav="1" aria-label="Później">→</button>
+      <span class="ttl">${title}</span></div>${LEGEND}</div>
+    <div class="sec-b">${body}</div></section>
   <section class="psec"><div class="sec-h"><h2>Blokady</h2><small>urlopy, przestoje, święta</small></div><div class="sec-b">
     ${bl.map(k=>`<div class="row-i wide off"><time>${fdr(k)}</time><span><span class="who">${k.bay?esc(bayName(k.bay)):'Wszystkie stanowiska'}</span><span class="what">${esc(k.note||'bez opisu')}</span></span><button class="pbtn sm ghost" type="button" data-unblock="${esc(k.id)}">Usuń</button></div>`).join('')||'<div class="empty">Brak blokad. Urlop albo przestój dodasz przyciskiem „Zablokuj dzień”.</div>'}
-  </div></section>
-`;
+  </div></section>`;
+}
+function monthHTML(a){
+  const f=new Date(a.getFullYear(),a.getMonth(),1), start=addDays(f,-((f.getDay()+6)%7)), last=new Date(a.getFullYear(),a.getMonth()+1,0);
+  const weeks=Math.ceil((((f.getDay()+6)%7)+last.getDate())/7), cells=[];
+  for(let i=0;i<weeks*7;i++){
+    const d=addDays(start,i), k=ymd(d), out=d.getMonth()!==a.getMonth();
+    const l=BOOKINGS.filter(b=>b.status!=='rejected'&&onDay(b,d)).sort((x,y)=>x.start-y.start), nt=NOTES.filter(n=>n.day===k), off=BLOCKS.some(b=>b.bay===0&&pday(b.from)<=d&&d<=pday(b.to));
+    const max=nt.length?2:3;
+    cells.push(`<div class="mc ${out?'out':''} ${d.getDay()===0?'sun':''} ${off?'off':''} ${+d===+T0?'today':''}" data-calday="${k}" role="button" tabindex="0" aria-label="${DNL[d.getDay()]} ${d.getDate()}.${pad(d.getMonth()+1)}, wizyt: ${l.length}">
+      <span class="dn"><b>${d.getDate()}</b>${l.length?`<small>${l.length} ${l.length===1?'wizyta':l.length<5?'wizyty':'wizyt'}</small>`:''}</span>
+      ${nt.slice(0,1).map(n=>`<button type="button" class="mnote" data-note="${n.id}" title="${esc(n.body)}">${n.at_time?esc(n.at_time)+' ':''}${esc(n.body)}</button>`).join('')}
+      ${l.slice(0,max).map(b=>`<button type="button" class="mchip s-${(STATE[stateOf(b)]||['','plan'])[1]}" data-open="${b.id}" title="${esc(bName(b)+' · '+b.car+' · '+b.name)}">${+sod(b.start)===+d&&!pkgOf(svcById(b.svc)||{pk:[{}]},b.pkg).d?fhm(b.start)+' ':''}${esc(b.name)}</button>`).join('')}
+      ${l.length>max||nt.length>1?`<span class="mmore">+${Math.max(0,l.length-max)+Math.max(0,nt.length-1)} więcej</span>`:''}
+    </div>`);
+  }
+  return `<div class="mon">${['pn','wt','śr','cz','pt','sb','nd'].map(x=>`<div class="mh">${x}</div>`).join('')}${cells.join('')}</div>`;
+}
+function dayViewHTML(d){
+  const k=ymd(d), nt=NOTES.filter(n=>n.day===k).sort((x,y)=>(x.at_time||'')<(y.at_time||'')?-1:1);
+  const bl=BLOCKS.filter(b=>pday(b.from)<=d&&d<=pday(b.to));
+  const card=b=>{const starts=+sod(b.start)===+d;return `<button type="button" class="dcard s-${(STATE[stateOf(b)]||['','plan'])[1]}" data-open="${b.id}"><b>${starts?fhm(b.start):'od '+fd(b.start)} · ${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}</small><small>odbiór ${+sod(b.end)===+d?fhm(b.end):fdt(b.end)}</small><span>${stChip(b)}</span></button>`};
+  return `<div class="notes-d" style="margin-bottom:14px">
+      ${nt.map(n=>`<button type="button" class="note-c" data-note="${n.id}"><time>${n.at_time?esc(n.at_time):'cały dzień'}</time><span>${esc(n.body)}<small>${n.author?esc(n.author)+' · ':''}tylko dla panelu</small></span></button>`).join('')}
+      ${bl.map(b=>`<div class="note-c" style="background:#f4f3ef;border-color:var(--pline);cursor:default"><time>blokada</time><span>${b.bay?esc(bayName(b.bay)):'Wszystkie stanowiska'}: ${esc(b.note||'bez opisu')}</span></div>`).join('')}
+      <button class="pbtn sm" type="button" data-noteadd="${k}" style="justify-self:start">${ic('plus')}Dodaj notatkę na ten dzień</button>
+      ${NOTES_ERR?'<span class="hint-p">Notatki zadziałają po uruchomieniu schema.sql w Supabase.</span>':''}
+    </div>
+    ${d.getDay()===0?'<div class="empty">Niedziela, salon zamknięty.</div>':''}
+    <div class="dayv" style="grid-template-columns:repeat(${BAYS().length},minmax(220px,1fr))">${BAYS().map(x=>{const l=BOOKINGS.filter(b=>b.bay===x.id&&b.status!=='rejected'&&onDay(b,d)).sort((p,q)=>p.start-q.start);
+      return `<div class="dcol"><h3>${esc(x.name)}<small>${esc(x.desc||'')} · ${l.length} ${l.length===1?'wizyta':l.length>1&&l.length<5?'wizyty':'wizyt'}</small></h3>${l.map(card).join('')||'<div class="empty" style="padding:10px 2px">Wolne.</div>'}</div>`}).join('')}</div>`;
 }
 
+/* ---------- notatki w kalendarzu (tylko dla panelu) ---------- */
+function noteHTML(n,day){
+  return `<form id="fnote" novalidate data-id="${n?n.id:''}"><div class="drw-h"><div><h2>${n?'Notatka':'Nowa notatka'}</h2><p>Widzą ją tylko osoby zalogowane do panelu. Klient jej nie zobaczy.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf">Dzień<input name="day" type="date" value="${esc(n?n.day:day)}" required></label>
+    <label class="pf">Godzina <span class="opt-l">(opcjonalnie)</span><input name="at" type="time" value="${esc(n&&n.at_time||'')}"></label>
+    <label class="pf full">Treść<textarea name="body" maxlength="500" required placeholder="np. Dostawa powłok ok. 11:00, odebrać i sprawdzić daty">${esc(n?n.body:'')}</textarea></label>
+  </div>
+  <div class="ferr" id="fn-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">${n?'Zapisz zmiany':'Dodaj notatkę'}</button>${n?`<button class="pbtn ghost" type="button" data-notedel="${n.id}">Usuń notatkę</button>`:''}<button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div></div></form>`;
+}
+async function noteSubmit(f){
+  const E=f.elements, err=$('#fn-err'), body=E.body.value.trim(), id=+f.dataset.id||0;
+  if(!E.day.value){err.textContent='Wybierz dzień.';return} if(!body){err.textContent='Wpisz treść notatki.';return}
+  const row={day:E.day.value,at_time:E.at.value||null,body:body.slice(0,500)};
+  const q=id?sb.from('cal_notes').update(row).eq('id',id).select().single():sb.from('cal_notes').insert({...row,studio_id:STUDIO.id,author:(SESSION&&SESSION.user.email||'').split('@')[0]}).select().single();
+  const {data,error}=await q;
+  if(error){err.textContent=NOTES_ERR||['42P01','PGRST205'].includes(error.code)?'Uruchom schema.sql w Supabase (brak tabeli notatek).':'Nie udało się zapisać notatki.';return}
+  NOTES=NOTES.filter(n=>n.id!==data.id).concat(data); GUARD=false; drw().close(); renderPanel(); toast(id?'Notatka zapisana':'Notatka dodana do kalendarza');
+}
+
+/* ---------- wyszukiwarka: klienci, wizyty, bony, lista rezerwowa, notatki ---------- */
+const norm=t=>String(t||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'');
+function markQ(text,terms){
+  const t=String(text||''), n=norm(t); let out='', i=0;
+  const hits=[];terms.forEach(q=>{let k=n.indexOf(q);while(k>=0&&q){hits.push([k,k+q.length]);k=n.indexOf(q,k+q.length)}});
+  hits.sort((a,b)=>a[0]-b[0]).forEach(([a,b])=>{if(a<i)return;out+=esc(t.slice(i,a))+'<mark>'+esc(t.slice(a,b))+'</mark>';i=b});
+  return out+esc(t.slice(i));
+}
+function searchHTML(){
+  const q=P.q.trim(), terms=norm(q).split(/\s+/).filter(Boolean);
+  if(q.length<2) return `${topbar('Wyszukiwarka','Wpisz co najmniej 2 znaki w polu po lewej.')}<div class="s-empty">Szukaj po imieniu i nazwisku, telefonie, modelu auta, usłudze, uwagach, kodzie bonu albo treści notatki. Wielkość liter i polskie znaki nie mają znaczenia.</div>`;
+  const hit=(...f)=>{const h=norm(f.join(' '));return terms.every(x=>h.includes(x))}, M=x=>markQ(x,terms);
+  const cm=new Map();
+  BOOKINGS.forEach(b=>{if(!hit(b.name,b.phone,b.car,b.email))return;const x=cm.get(b.phone)||{key:b.phone,name:b.name,cars:new Set(),n:0,last:b.start};x.n++;x.cars.add(b.car);if(b.start>=x.last){x.last=b.start;x.name=b.name}cm.set(b.phone,x)});
+  const cl=[...cm.values()].sort((a,b)=>a.name.localeCompare(b.name,'pl'));
+  const bk=BOOKINGS.filter(b=>hit(b.name,b.phone,b.car,bName(b),b.note,b.cond,b.email)).sort((a,b)=>b.start-a.start).slice(0,60);
+  const vo=VOUCH.filter(v=>hit(v.code,v.buyer_name,v.recipient,v.buyer_phone,v.message)), wl=WAIT.filter(w=>w.status!=='closed'&&hit(w.name,w.phone,w.note)), nt=NOTES.filter(n=>hit(n.body,n.author));
+  const sec=(t,n,body)=>n?`<div><h2>${t}<span>${n}</span></h2><div class="vlist">${body}</div></div>`:'';
+  const total=cl.length+bk.length+vo.length+wl.length+nt.length;
+  return `${topbar(`Wyniki dla „${esc(q)}”`,total?`${cl.length} ${cl.length===1?'klient':'klientów'} · ${bk.length} ${bk.length===1?'wizyta':bk.length<5&&bk.length?'wizyty':'wizyt'}${vo.length?` · ${vo.length} bony`:''}${wl.length?` · ${wl.length} na liście rezerwowej`:''}${nt.length?` · ${nt.length} notatki`:''}`:'Brak wyników.')}
+  <div class="sres">
+    ${total?'':`<div class="s-empty">Nic nie pasuje do „${esc(q)}”. Spróbuj samego imienia, marki auta albo kilku cyfr telefonu.</div>`}
+    ${sec('Klienci',cl.length,cl.map(c=>`<button type="button" class="srow" data-client="${esc(c.key)}"><span class="ico">${ic('user')}</span><span><b>${M(c.name)}</b><small>${M(c.key)} · ${[...c.cars].map(M).join(', ')}</small></span><span><small>${c.n} ${c.n===1?'wizyta':c.n<5?'wizyty':'wizyt'} · ostatnio ${fd(c.last)}</small></span></button>`).join(''))}
+    ${sec('Wizyty',bk.length,bk.map(b=>`<button type="button" class="srow" data-open="${b.id}"><span class="ico">${ic('car')}</span><span><b>${M(b.name)} · ${M(b.car)}</b><small>${M(bName(b))} · ${fdt(b.start)}${b.note?' · '+M(b.note):''}</small></span><span>${stChip(b)}</span></button>`).join(''))}
+    ${sec('Lista rezerwowa',wl.length,wl.map(w=>`<button type="button" class="srow" data-nav="wl"><span class="ico">${ic('wl')}</span><span><b>${M(w.name)}</b><small>${M(w.phone)} · czeka na ${fd(pday(w.day))}</small></span><span></span></button>`).join(''))}
+    ${sec('Bony',vo.length,vo.map(v=>`<button type="button" class="srow" data-nav="bon"><span class="ico">${ic('gift')}</span><span><b class="mono">${M(v.code)}</b><small>${zl(v.amount)} · ${M(v.buyer_name)}${v.recipient?' dla '+M(v.recipient):''}</small></span><span>${v.status==='active'?'<span class="st s-ready">Aktywny</span>':'<span class="st s-done">Wykorzystany</span>'}</span></button>`).join(''))}
+    ${sec('Notatki',nt.length,nt.map(n=>`<button type="button" class="srow" data-note="${n.id}"><span class="ico">${ic('note')}</span><span><b>${fd(pday(n.day))}${n.at_time?', '+esc(n.at_time):''}</b><small>${M(n.body)}</small></span><span></span></button>`).join(''))}
+  </div>`;
+}
+function runSearch(){
+  P.view='szukaj';
+  $('#pmain').innerHTML=searchHTML();
+  document.querySelectorAll('#side .nav').forEach(x=>x.removeAttribute('aria-current'));
+}
 /* ---------- Rezerwacje i klienci ---------- */
 const SEARCH=ph=>`<input class="search" type="search" data-q="1" placeholder="${ph}" aria-label="${ph}">`;
 function rezHTML(){
@@ -2332,9 +2490,11 @@ const TOUR=[
   {v:'dzis',sel:'.alerts',t:'Pulpit: alerty na górze',d:'Najpierw to, co czeka na Ciebie. „Potwierdź teraz” otwiera najdłużej czekające zgłoszenie.'},
   {v:'dzis',sel:'[data-wdg="bays"] .seg-t',t:'Stanowiska na żywo',d:'Kafelek pokazuje, które auto jest teraz robione, a które czeka w kolejce. Kliknij stanowisko w przełączniku.',click:1,clickSel:'[data-wdg="bays"] [data-baytab]'},
   {v:'dzis',sel:'[data-dedit]',t:'Pulpit po Twojemu',d:'„Dostosuj pulpit” pozwala przeciągać kafelki. Reszta przesuwa się na żywo, a układ zapisuje się dla całego salonu.'},
-  {v:'kal',sel:'.wk-wrap',t:'Kalendarz stanowisk',d:'Każde stanowisko ma swój wiersz. Kolor pokazuje stan wizyty i jest taki sam w całym panelu i u klienta.'},
+  {v:'kal',sel:'.calbar .seg-t',t:'Kalendarz: dzień, tydzień, 2 tygodnie, miesiąc',d:'Na start widzisz cały miesiąc. Kliknięcie dnia otwiera jego widok ze stanowiskami. Kolor wizyty jest taki sam w całym panelu i u klienta.'},
+  {v:'kal',sel:'[data-noteadd]',t:'Notatki tylko dla salonu',d:'Dostawa, serwis, kto ma wolne. Notatki widzą wyłącznie osoby zalogowane do panelu.'},
   {v:'kal',sel:'[data-pact="block"]',t:'Zablokuj dzień',d:'Urlop, szkolenie albo awaria. Zablokowane dni znikają z formularza na stronie.'},
-  {v:'rez',sel:'.filters',t:'Rezerwacje',d:'Wszystkie wizyty z filtrami i wyszukiwarką (skrót „/”).'},
+  {v:'rez',sel:'.side .gsearch',t:'Wyszukiwarka',d:'Wpisz imię, telefon albo model auta (np. „volvo”). Wyniki pokażą klientów, wizyty, bony, listę rezerwową i notatki. Skrót: „/”.'},
+  {v:'rez',sel:'.filters',t:'Rezerwacje',d:'Wszystkie wizyty z filtrami.'},
   {v:'rez',sel:'tbody tr[data-open]',t:'Otwórz wizytę',d:'Kliknij dowolną wizytę.',click:1},
   {sel:'#drw .drw-b',t:'Wizyta krok po kroku',d:'Po lewej dane i etap pracy, po prawej protokoły, dopłaty i punkty. Przyciski zmieniają się z etapem: przyjęcie, praca, gotowe, wydanie.',after:()=>{if(drw().open)drw().close()}},
   {v:'kli',sel:'tbody tr[data-client]',t:'Konto klienta',d:'Wizyty łączą się po numerze telefonu. Kliknij klienta.',click:1},
@@ -2545,6 +2705,15 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.nav){P.view=t.dataset.nav;renderPanel();window.scrollTo(0,0);return}
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
   if(t&&t.dataset.wk){P.wk=t.dataset.wk==='0'?0:P.wk+(+t.dataset.wk);renderPanel();return}
+  if(t&&t.dataset.calm){P.cal.m=t.dataset.calm;renderPanel();return}
+  if(t&&t.dataset.calnav){calShift(+t.dataset.calnav);renderPanel();return}
+  if(t&&t.dataset.noteadd){openDrawer(noteHTML(null,t.dataset.noteadd),true,true);return}
+  if(t&&t.dataset.note){const n=NOTES.find(x=>x.id===+t.dataset.note);if(n)openDrawer(noteHTML(n),true,true);return}
+  if(t&&t.dataset.notedel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno usunąć?';return}
+    const {error}=await sb.from('cal_notes').delete().eq('id',+t.dataset.notedel);if(error){toast('Nie udało się usunąć notatki');return}
+    NOTES=NOTES.filter(x=>x.id!==+t.dataset.notedel);GUARD=false;drw().close();renderPanel();toast('Notatka usunięta');return}
+  if(t&&t.dataset.calday){P.cal={m:'day',a:t.dataset.calday};P.view='kal';renderPanel();return}
+  {const cd=!t&&e.target.closest('[data-calday]');if(cd){P.cal={m:'day',a:cd.dataset.calday};renderPanel();return}}
   if(t&&t.dataset.pact){const a=t.dataset.pact;if(a==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(a==='voucher')openDrawer(vIssueHTML(),true,true);else if(a==='svc')openDrawer(svcFormHTML(),true);else if(a==='walkin'){openDrawer(addHTML(),true);const f=$('#fadd');f.elements.walkin.checked=true;f.elements.walkin.dispatchEvent(new Event('input',{bubbles:true}));GUARD=false}else openDrawer(blockHTML(),true,true);return}
   if(t&&t.dataset.baytab){P.bay=+t.dataset.baytab;renderPanel();return}
   if(t&&t.dataset.dedit){P.edit=!P.edit;renderPanel();return}
@@ -2610,7 +2779,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
 });
 document.getElementById('view-panel').addEventListener('input',e=>{
   const t=e.target;
-  if(t.dataset.gsearch){P.q=t.value;return}
+  if(t.dataset.gsearch){P.q=t.value;clearTimeout(P.qt);P.qt=setTimeout(()=>{if(P.q.trim().length>=2||P.view==='szukaj')runSearch()},180);return}
   if(t.dataset.q){const q=t.value.trim().toLowerCase();P.q=t.value;document.querySelectorAll('#pmain tr[data-s]').forEach(r=>r.hidden=!!q&&!r.dataset.s.includes(q));return}
   if(t.closest('#drw')) GUARD=true;
   if(t.form&&t.form.id==='fsvc'&&t.name==='cat'){$('#newcat').hidden=t.value!=='__new'}
@@ -2630,7 +2799,9 @@ document.getElementById('view-panel').addEventListener('input',e=>{
     SET.dash=[...document.querySelectorAll('.dash [data-wdg]')].map(x=>x.dataset.wdg);saveCatalog().then(ok=>ok&&toast('Układ pulpitu zapisany'))};
   vp.addEventListener('pointerup',drop);vp.addEventListener('pointercancel',drop);}
 document.getElementById('view-panel').addEventListener('keydown',e=>{
-  if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Enter'){P.view='rez';P.filter='all';renderPanel();const q=$('#pmain [data-q]');if(q){q.value=P.q;q.dispatchEvent(new Event('input',{bubbles:true}))}}});
+  if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Enter'){P.q=e.target.value;runSearch()}
+  if(e.target.dataset&&e.target.dataset.gsearch&&e.key==='Escape'){e.target.value='';P.q='';P.view='start';renderPanel()}
+  if(e.target.matches&&e.target.matches('.mc[data-calday]')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();P.cal={m:'day',a:e.target.dataset.calday};renderPanel()}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!$('#view-panel').hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!drw().open){const g=$('[data-gsearch]');if(g){e.preventDefault();g.focus()}}});
 document.getElementById('view-panel').addEventListener('change',e=>{
   const t=e.target;

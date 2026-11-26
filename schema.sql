@@ -224,6 +224,23 @@ grant execute on function public.waitlist_public(uuid) to anon, authenticated;
 grant execute on function public.waitlist_join(uuid, date, text, text, text, text) to anon, authenticated;
 grant execute on function public.waitlist_leave(uuid) to anon, authenticated;
 
+-- Notatki w kalendarzu: widzi je tylko właściciel salonu (brak dostępu dla klientów strony).
+create table if not exists public.cal_notes (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  day date not null,
+  at_time text check (at_time ~ '^[0-2][0-9]:[0-5][0-9]$'),
+  body text not null check (char_length(body) between 1 and 500),
+  author text check (char_length(author) <= 120),
+  seed boolean not null default false,
+  created_at timestamptz not null default now()
+);
+alter table public.cal_notes enable row level security;
+drop policy if exists cal_notes_owner_all on public.cal_notes;
+create policy cal_notes_owner_all on public.cal_notes for all to authenticated
+  using (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()))
+  with check (exists (select 1 from public.studios s where s.id = studio_id and s.owner_id = auth.uid()));
+
 -- Bony prezentowe.
 -- shortcut: bon ze strony jest od razu aktywny (płatność w demo udawana); przy prawdziwych płatnościach aktywuje go webhook.
 create table if not exists public.vouchers (
