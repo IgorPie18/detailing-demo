@@ -112,6 +112,16 @@ create policy studios_read on public.studios for select to anon, authenticated u
 drop policy if exists studios_owner_update on public.studios;
 create policy studios_owner_update on public.studios for update to authenticated
   using (public.is_admin(id)) with check (public.is_admin(id));
+-- Administrator zmienia katalog salonu, ale właściciela i adres (slug) zmienia tylko właściciel.
+create or replace function public.studios_guard() returns trigger language plpgsql set search_path = public as $$
+begin
+  if (new.owner_id is distinct from old.owner_id or new.slug is distinct from old.slug) and old.owner_id is distinct from auth.uid() then
+    raise exception 'Właściciela salonu zmienia tylko właściciel';
+  end if;
+  return new;
+end $$;
+drop trigger if exists studios_guard on public.studios;
+create trigger studios_guard before update on public.studios for each row execute function public.studios_guard();
 
 -- Klient strony może tylko DODAĆ rezerwację, nie widzi cudzych.
 -- shortcut: status 'confirmed' przy usłudze „od ręki” ufa klientowi (płatność w demo jest udawana);
@@ -299,13 +309,21 @@ create policy vouchers_public_insert on public.vouchers for insert to anon, auth
   with check (status = 'active' and used_at is null and seed = false and src = 'web' and expires_at <= current_date + 366);
 drop policy if exists vouchers_owner_all on public.vouchers;
 create policy vouchers_owner_all on public.vouchers for all to authenticated
-  using (public.is_member(studio_id))
-  with check (public.is_member(studio_id));
+  using (public.is_admin(studio_id))
+  with check (public.is_admin(studio_id));
 
 -- ===== Zespół: reguły dostępu i konta =====
 alter table public.team enable row level security;
 drop policy if exists team_member_read on public.team;
-create policy team_member_read on public.team for select to authenticated using (public.is_member(studio_id));
+create policy team_member_read on public.team for select to authenticated using (public.is_admin(studio_id) or user_id = auth.uid());
+create or replace function public.team_list(p_studio uuid)
+returns table (id bigint, name text, role text, color text, active boolean, user_id uuid, seed boolean)
+language sql stable security definer set search_path = public as $$
+  select t.id, t.name, t.role, t.color, t.active, case when t.user_id = auth.uid() then t.user_id end, t.seed
+  from public.team t where t.studio_id = p_studio and public.is_member(p_studio) order by t.created_at
+$$;
+revoke all on function public.team_list(uuid) from public;
+grant execute on function public.team_list(uuid) to authenticated;
 drop policy if exists team_admin_write on public.team;
 create policy team_admin_write on public.team for all to authenticated
   using (public.is_admin(studio_id)) with check (public.is_admin(studio_id));

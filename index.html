@@ -3118,7 +3118,12 @@ function workStats(m,off=0){
   const [a,z]=monthRange(off), l=BOOKINGS.filter(b=>b.worker_id===m.id&&b.status==='done'&&b.end>=a&&b.end<z), rev=l.reduce((t,b)=>t+b.total,0);
   return {n:l.length,rev,com:Math.round(rev*(+m.commission||0)/100),now:BOOKINGS.filter(b=>b.worker_id===m.id&&b.status==='confirmed'&&b.stage&&b.stage!=='wydane').length};
 }
-async function loadTeam(){const {data,error}=await sb.from('team').select('*').eq('studio_id',STUDIO.id).order('created_at');TEAM_ERR=!!error;TEAM=data||[]}
+// pracownik dostaje listę bez e-maili i prowizji; swoją prowizję czyta ze swojego wiersza
+async function loadTeam(){
+  if(isAdm()){const {data,error}=await sb.from('team').select('*').eq('studio_id',STUDIO.id).order('created_at');TEAM_ERR=!!error;TEAM=data||[];return}
+  const [l,me]=await Promise.all([sb.rpc('team_list',{p_studio:STUDIO.id}),sb.from('team').select('*').eq('studio_id',STUDIO.id).eq('user_id',SESSION.user.id).maybeSingle()]);
+  TEAM_ERR=!!l.error; TEAM=(l.data||[]).map(t=>me.data&&t.id===me.data.id?me.data:t);
+}
 async function seedTeam(){
   // osoby z założonym kontem zostają, inaczej odświeżenie danych zabrałoby komuś dostęp
   await sb.from('team').delete().eq('studio_id',STUDIO.id).eq('seed',true).is('user_id',null); await loadTeam();
