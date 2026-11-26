@@ -64,7 +64,7 @@ create policy studios_owner_update on public.studios for update to authenticated
 -- przy prawdziwych płatnościach status ustawia webhook operatora płatności.
 drop policy if exists bookings_public_insert on public.bookings;
 create policy bookings_public_insert on public.bookings for insert to anon, authenticated
-  with check (status in ('pending','confirmed') and seed = false and src = 'web'
+  with check (status in ('pending','confirmed') and seed = false and src = 'web' and intake is null
     and start_at > now() and start_at < now() + interval '60 days');
 
 drop policy if exists bookings_owner_all on public.bookings;

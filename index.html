@@ -1007,8 +1007,11 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
 }));
 
 /* ================= PANEL SALONU ================= */
+// ścieżki zdjęć przychodzą od anonimowego klienta: tylko nasze wzorce, nic do wstrzyknięcia w HTML
+const SAFE_PATH=/^(assets\/[\w.-]+|[0-9a-f-]{36}\/(intake\/)?[\w.-]+)$/;
+const safePaths=a=>(a||[]).filter(x=>typeof x==='string'&&SAFE_PATH.test(x));
 const toBk=r=>({id:r.id,start:new Date(r.start_at),end:new Date(r.end_at),svc:r.svc,pkg:r.pkg,size:r.size,car:r.car||'auto nie podane',name:r.name,phone:r.phone,email:r.email,
-  bay:r.bay,status:r.status,src:r.src,photos:r.photo_paths.length,paths:r.photo_paths,photoUrls:[],total:r.total,deposit:r.deposit,paid:r.paid,
+  bay:r.bay,status:r.status,src:r.src,photos:safePaths(r.photo_paths).length,paths:safePaths(r.photo_paths),photoUrls:[],total:r.total,deposit:r.deposit,paid:r.paid,
   created:new Date(r.created_at),addons:r.addons,cond:r.cond,note:r.note,isNew:false,seed:r.seed,intake:r.intake||null});
 async function signUrls(list){
   const paths=list.flatMap(b=>b.paths.filter(p=>!p.startsWith('assets/'))), map={};
@@ -1281,7 +1284,7 @@ function carMap(marks,locked){
 }
 let PR=null;
 const mkList=()=>PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}${PR.sign?'':`<button type="button" class="pbtn sm ghost" data-unmark="${i}" aria-label="Usuń znacznik ${i+1}">Usuń</button>`}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
-const galHTML=()=>PR.photos.map(p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta przy przyjęciu"></a><figcaption>${fdt(new Date(p.at))}</figcaption></figure>`).join('');
+const galHTML=()=>PR.photos.map(p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta przy przyjęciu"></a><figcaption>${esc(fdt(new Date(p.at)))}</figcaption></figure>`).join('');
 function protoHTML(b){
   const L=!!PR.sign, dis=L?'disabled':'';
   return `<div class="drw-h"><div><h2>Protokół przyjęcia</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
@@ -1308,7 +1311,7 @@ function protoHTML(b){
 }
 async function openProto(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
-  PR={id,tool:'W',marks:(i.marks||[]).map(m=>({...m})),photos:(i.photos||[]).map(p=>({...p})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:i.sign||null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
+  PR={id,tool:'W',marks:(i.marks||[]).map(m=>({x:+m.x||0,y:+m.y||0,t:DMG[m.t]?m.t:'I'})),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
   const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[]).filter(p=>!p.startsWith('assets/')), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
   const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign);
