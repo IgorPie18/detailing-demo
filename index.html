@@ -1211,14 +1211,6 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 @media (max-width:820px){
   .demo-bar{position:relative;top:0}
   #view-panel .panel,#view-panel .panel.locked{grid-template-columns:minmax(0,1fr)!important;background:var(--pbg)}
-  #view-panel .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;overflow-x:auto;gap:4px;padding:8px 10px;border-right:0;border-bottom:1px solid var(--pline);background:rgba(251,251,250,.96);backdrop-filter:blur(8px);scrollbar-width:none}
-  #view-panel .side::-webkit-scrollbar{display:none}
-  #view-panel .side .logo,#view-panel .side .gsearch,#view-panel .side .sep,#view-panel .side .whatsnew,#view-panel .side .nav-h,#view-panel .side .salon>b,#view-panel .side .salon>span{display:none}
-  #view-panel .side .new{flex:none;margin:0 4px 0 0;height:40px;padding:0 12px;font-size:0;gap:0}
-  #view-panel .side .new svg{width:20px;height:20px}
-  #view-panel .nav{flex:none;width:auto;height:40px;white-space:nowrap;padding:0 12px}
-  #view-panel .side .salon{display:block;margin:0;padding:0;border:0;flex:none}
-  #view-panel .side .out{margin:0;height:40px;padding:0 12px;text-decoration:none;border:1px solid var(--pline);border-radius:9px;background:#fff}
   #view-panel section.main{padding:16px 14px 40px;min-height:0}
   #view-panel .hero-p{margin:-16px -14px 0;padding:24px 16px 22px}
   #view-panel .hero-p h1{font-size:26px}
@@ -1256,6 +1248,46 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
   #view-panel .tbl.cards td[colspan]{grid-column:1/-1}
   #view-panel .psec>.tbl-wrap{padding:0 8px}
 }
+
+/* ===== v14: telefon, górny pasek z menu i przyciskiem rezerwacji ===== */
+.mtop{display:none}
+.sbody{display:contents}
+.mhead{display:contents}
+.mclose{display:none}
+@media (max-width:820px){
+  #view-panel .side{position:sticky;top:0;z-index:30;height:auto;display:block;padding:0;border:0;border-bottom:1px solid var(--pline);background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;overflow:visible}
+  .mtop{display:flex;align-items:center;gap:10px;padding:10px 12px}
+  .mham{position:relative;width:44px;height:44px;border-radius:12px;border:1px solid var(--pline);background:#fff;display:grid;place-items:center;color:var(--ink);flex:none}
+  .mham svg{width:22px;height:22px}
+  .mdot{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--brand);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
+  .mlogo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px;min-width:0;overflow:hidden;white-space:nowrap}
+  .mlogo i{width:22px;height:22px;border-radius:7px;background:var(--brand);box-shadow:inset 0 -5px 0 rgba(0,0,0,.14);flex:none}
+  #view-panel .mnew{margin-left:auto;height:44px;padding:0 16px;border-radius:12px;font-weight:600;font-size:15px;flex:none}
+  #view-panel .mnew svg{width:18px;height:18px}
+  .sbody{display:flex;flex-direction:column;gap:2px;position:fixed;top:0;bottom:0;left:0;width:min(320px,86vw);background:#fbfbfa;padding:14px 12px 20px;overflow-y:auto;z-index:70;transform:translateX(-104%);transition:transform .3s var(--ease);box-shadow:24px 0 60px -20px rgba(28,25,23,.35);visibility:hidden}
+  .side.open .sbody{transform:none;visibility:visible}
+  #view-panel .side.open{z-index:90}
+  #view-panel .qact [data-pact="add"]{display:none}
+  .side::after{content:"";position:fixed;inset:0;background:rgba(17,18,19,.38);opacity:0;pointer-events:none;transition:opacity .25s;z-index:65}
+  .side.open::after{opacity:1;pointer-events:auto}
+  .mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .mhead .logo{padding:2px 6px!important}
+  .mclose{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:12px;background:none;color:var(--ink)}
+  .mclose:hover{background:#f1f1ef}
+  #view-panel .sbody .new{display:none}
+  #view-panel .sbody .nav{height:46px;font-size:15.5px;width:100%}
+  #view-panel .sbody .gsearch{height:44px}
+  #view-panel .sbody .gsearch input{font-size:16px!important}
+  #view-panel .sbody .whatsnew{margin-top:14px}
+  #view-panel .sbody .out{min-height:40px}
+  body.mopen{overflow:hidden}
+  html,body{overflow-x:clip}
+  #view-panel .side .logo,#view-panel .side .salon,#view-panel .side .sep{display:revert}
+  #view-panel .side .salon{display:grid}
+  #view-panel .side .logo{display:flex}
+}
+@media (max-width:380px){#view-panel .mnew{padding:0 12px;font-size:14px}.mlogo{display:none}}
+@media (prefers-reduced-motion:reduce){.sbody,.side::after{transition:none}}
 </style>
 
 <header class="demo-bar">
@@ -2132,6 +2164,7 @@ const ICONS={
   send:'<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>',
   bon:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8C10 4 6 3 6 6s4 2 6 2c2 0 6 1 6-2s-4-2-6 2"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
   lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
   eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
   eyeoff:'<path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/>'
@@ -2164,14 +2197,18 @@ function renderSide(){
   const n=pending().length, off=WAIT.filter(w=>w.status==='offer').length;
   const it=(k,l,c)=>`<button class="nav" type="button" data-nav="${k}" ${P.view===k?'aria-current="page"':''}>${ic(k)}<span>${l}</span>${c?`<span class="badge" aria-label="${c} czeka na decyzję">${c}</span>`:''}</button>`;
   const A=isAdm(), acc=OFFERS.filter(o=>o.status==='accepted').length, due=gwList().filter(x=>x.st==='late'||x.st==='soon').length, me=ME();
-  $('#side').innerHTML=`<div class="logo">Lumen<span>panel salonu</span></div>
+  const pend=n+off+acc;
+  $('#side').innerHTML=`<div class="mtop"><button class="mham" type="button" data-mmenu="1" aria-label="Otwórz menu" aria-expanded="false" aria-controls="sbody">${ic('menu')}${pend?`<span class="mdot" aria-hidden="true">${pend}</span>`:''}</button>
+    <span class="mlogo"><i></i>${esc(SAL().name.split(' ')[0])}</span>
+    <button class="pbtn dark mnew" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button></div>
+  <div class="sbody" id="sbody"><div class="mhead"><div class="logo">Lumen<span>panel salonu</span></div><button class="mclose" type="button" data-mclose="1" aria-label="Zamknij menu">${ic('x')}</button></div>
   <label class="gsearch">${ic('search')}<input type="search" data-gsearch="1" placeholder="Szukaj klienta, auta" aria-label="Szukaj klienta, auta albo telefonu" value="${esc(P.q)}"><kbd>/</kbd></label>
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   <div class="nav-h">Sprzedaż</div>${it('wyc','Wyceny',acc)}${it('gw','Gwarancje',due)}${it('wl','Lista rezerwowa',off)}${A?it('bon','Bony'):''}
   ${A?`<div class="nav-h">Salon</div>${it('dzis','Statystyki')}${it('google','Google')}${it('zes','Zespół')}${it('cen','Cennik')}${it('ust','Ustawienia')}`:''}
   <button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>
-  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>`;
+  <div class="salon"><b>Lumen Detailing</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'} · Poznań</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div></div>`;
 }
 function renderPanel(){if(!isAdm()&&ADMIN_VIEWS.includes(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML}[P.view]();}
 function topbar(title,sub,act=''){
@@ -3700,6 +3737,10 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(e.target.id==='drw'){if(!drw().classList.contains('strict'))tryClose();return}
   const t=e.target.closest('button'), o=e.target.closest('[data-open]');
   if(t&&t.type==='submit') return;
+  if(t&&t.dataset.mmenu){mMenu(true);return}
+  if(t&&t.dataset.mclose){mMenu(false);return}
+  if(e.target.id==='side'&&$('#side').classList.contains('open')){mMenu(false);return}
+  if(t&&(t.dataset.nav||t.dataset.pact||t.dataset.tourstart||t.dataset.logout)&&t.closest('#sbody'))mMenu(false);
   if(t&&t.dataset.tourstart){tourStart();return}
   if(t&&t.dataset.pwshow){const i=$('#l-pw'),on=i.type==='password';i.type=on?'text':'password';t.setAttribute('aria-pressed',on);t.setAttribute('aria-label',on?'Ukryj hasło':'Pokaż hasło');t.innerHTML=ic(on?'eyeoff':'eye');i.focus();return}
   if(t&&t.dataset.close){tryClose();return}
@@ -3817,6 +3858,10 @@ document.getElementById('view-panel').addEventListener('keydown',e=>{
   if(e.target.matches&&e.target.matches('.mc[data-calday]')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();P.cal={m:'day',a:e.target.dataset.calday};renderPanel()}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!$('#view-panel').hidden&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!drw().open){const g=$('[data-gsearch]');if(g){e.preventDefault();g.focus()}}});
 document.getElementById('view-panel').addEventListener('mousemove',gHover);
+// menu na telefonie: wysuwane z lewej, Esc i klik w tło zamykają
+function mMenu(on){const sd=$('#side');if(!sd)return;sd.classList.toggle('open',on);document.body.classList.toggle('mopen',on);const b=sd.querySelector('.mham');if(b)b.setAttribute('aria-expanded',on);
+  if(on){const f=sd.querySelector('#sbody .nav[aria-current]')||sd.querySelector('#sbody .nav');if(f)setTimeout(()=>f.focus({preventScroll:true}),320)}else if(b&&sd.contains(document.activeElement))b.focus({preventScroll:true})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side')&&$('#side').classList.contains('open')&&!drw().open){mMenu(false)}});
 ['keydown','keyup'].forEach(ev=>document.getElementById('view-panel').addEventListener(ev,e=>{if(e.target.id==='l-pw'&&e.getModifierState){const c=$('#l-caps');if(c)c.hidden=!e.getModifierState('CapsLock')}}));
 document.getElementById('view-panel').addEventListener('mouseleave',e=>{if(e.target.classList&&e.target.classList.contains('lc')){e.target.querySelector('.lc-tip').hidden=true;e.target.classList.remove('on')}},true);
 document.getElementById('view-panel').addEventListener('change',e=>{
