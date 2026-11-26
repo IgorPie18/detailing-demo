@@ -908,6 +908,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 @media (max-width:820px){.mon .mc{min-height:76px}.mchip{font-size:10.5px}.calbar .ttl{min-width:0}}
 
 /* ===== zakładka Google ===== */
+.gk.gs{text-align:left;font:inherit;color:inherit;cursor:pointer}
+.gk.gs:hover{border-color:var(--brand-100)}
+.gk.gs.warn{border-color:#fdba74;background:#fffaf5}
+.tag-demo{font-size:11px;font-weight:600;color:#8a8a93;background:#f1f1ef;border-radius:6px;padding:2px 7px}
 .g-conn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .g-src{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
 .g-src .top{display:flex;align-items:center;gap:10px}
@@ -2469,6 +2473,7 @@ function startHTML(){
     ${tile('#1c1917','check',ready.length?`Gotowe do odbioru: ${ready.length}`:'Brak aut do odbioru',ready.length?ready.map(b=>esc(b.name)+' · '+esc(b.car)).join(', '):'Gdy oznaczysz auto jako gotowe, klient dostanie SMS',ready.length?`data-open="${ready[0].id}"`:'data-nav="dzis"')}
     ${tile('#57534e','car',next?`Następne auto: ${fhm(next.start)}`:'Brak kolejnych wizyt',next?`${esc(next.name)} · ${esc(next.car)} · ${fd(next.start)}`:'Kalendarz jest pusty',next?`data-open="${next.id}"`:'data-nav="kal"')}
   </div>
+  ${gStartHTML()}
   <div class="st-h">${ic('kal')}Dzisiejsze wizyty<button class="more" type="button" data-nav="dzis">Pełny pulpit →</button></div>
   <div class="vlist">${today.map(b=>`<button type="button" class="vrow" data-open="${b.id}"><span class="av" aria-hidden="true">${ini(b.name)}</span><span><b>${esc(b.name)}</b><small>${bName(b)} · ${esc(b.car)}</small></span><span>${stChip(b)}</span><span><b>${+sod(b.start)===+T0?fhm(b.start):'w trakcie'}</b><small>odbiór ${fd(b.end)===fd(T0)?fhm(b.end):fd(b.end)}</small></span></button>`).join('')||'<div class="empty" style="padding:22px 16px">Dziś brak wizyt.</div>'}</div>`;
 }
@@ -2736,6 +2741,19 @@ function googleHTML(){
     </div>
     <section class="psec"><div class="sec-h"><h2>Strony wejścia</h2><small>${a.mob}% sesji z telefonu</small></div><div class="tbl-wrap"><table class="tbl g-tbl"><thead><tr><th>Strona</th><th class="r">Sesje</th><th class="r">Zaangażowanie</th></tr></thead><tbody>
       ${a.land.map(r=>`<tr><td>${esc(r[0])}</td><td class="r"><b>${nf(r[1])}</b></td><td class="r">${pf(r[2])}%</td></tr>`).join('')}</tbody></table></div></section>
+  </div>`;
+}
+// skrót najważniejszych liczb z Google na ekranie Start
+function gStartHTML(){
+  const D=gData(28), g=D.gbp, c=D.gsc, a=D.ga;
+  const t=(lbl,val,ch,sub,inv)=>`<button type="button" class="gk gs" data-nav="google"><small>${lbl}</small><b>${val}</b><span class="cmp">${chg(ch,inv)} ${sub}</span></button>`;
+  return `<div class="st-h">${ic('google')}Google · ostatnie 28 dni<span class="tag-demo">dane przykładowe</span><button class="more" type="button" data-nav="google">Wszystko z Google →</button></div>
+  <div class="g-kpis">
+    ${t('Wyświetlenia wizytówki',nf(g.views),g.viewsCh,'vs poprzednie 28 dni')}
+    ${t('Telefony z wizytówki',nf(g.calls),g.callsCh,`i ${nf(g.dir)} próśb o trasę`)}
+    ${t('Kliknięcia z wyszukiwarki',nf(c.clicks),c.clicksCh,`śr. pozycja ${pf(c.pos)}`)}
+    ${t('Rezerwacje ze strony',nf(a.key),a.keyCh,`z ${nf(a.users)} odwiedzających`)}
+    <button type="button" class="gk gs ${g.noReply?'warn':''}" data-nav="google"><small>Opinie w Google</small><b>${pf(g.rating)} <span class="stars" aria-hidden="true">★</span></b><span class="cmp">${g.reviews} opinii · <b class="${g.noReply?'dn':''}" style="font-size:12px">${g.noReply} bez odpowiedzi</b></span></button>
   </div>`;
 }
 function gHover(e){
