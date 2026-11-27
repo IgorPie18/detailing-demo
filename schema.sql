@@ -616,6 +616,43 @@ create or replace function public.email_free(p_email text) returns boolean langu
   select not exists (select 1 from auth.users where lower(email) = lower(trim(p_email))) $$;
 grant execute on function public.email_free(text) to anon, authenticated;
 
+-- Zgłoszenia z zakładki Pomoc: dane nadawcy dopisuje baza (z rejestracji salonu i konta), nie formularz.
+create table if not exists public.support_tickets (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  user_id uuid references auth.users on delete set null,
+  topic text not null check (char_length(topic) between 2 and 40),
+  place text check (char_length(place) <= 40),
+  message text not null check (char_length(message) between 10 and 2000),
+  meta jsonb not null default '{}'::jsonb,
+  status text not null default 'nowe' check (status in ('nowe', 'w_toku', 'zamkniete')),
+  created_at timestamptz not null default now()
+);
+alter table public.support_tickets enable row level security;
+drop policy if exists support_member_read on public.support_tickets;
+create policy support_member_read on public.support_tickets for select to authenticated using (public.is_member(studio_id));
+create or replace function public.support_send(p_studio uuid, p_topic text, p_place text, p_message text)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare s public.studios; m public.team; em text; meta jsonb; tid bigint; msg text := left(trim(regexp_replace(coalesce(p_message, ''), '[<>]', '', 'g')), 2000);
+begin
+  if not public.is_member(p_studio) then raise exception 'Brak dostępu do tego salonu'; end if;
+  if char_length(msg) < 10 then raise exception 'Opisz sprawę w co najmniej 10 znakach'; end if;
+  if (select count(*) from public.support_tickets where studio_id = p_studio and created_at > now() - interval '1 hour') >= 10 then
+    raise exception 'LIMIT: Wysłałeś już 10 zgłoszeń w ciągu godziny. Spróbuj później.'; end if;
+  select * into s from public.studios where id = p_studio;
+  select * into m from public.team where studio_id = p_studio and user_id = auth.uid() limit 1;
+  select email into em from auth.users where id = auth.uid();
+  meta := jsonb_build_object('salon', s.name, 'slug', s.slug, 'name', coalesce(m.name, ''), 'role', public.team_role(p_studio), 'email', em,
+    'phone', coalesce(s.catalog->'settings'->'salon'->>'phone', ''), 'city', coalesce(s.catalog->'settings'->'salon'->>'city', ''),
+    'plan', coalesce(s.catalog->'settings'->>'plan', 'studio'), 'billing', coalesce(s.catalog->'settings'->>'billing', 'month'), 'since', s.created_at);
+  insert into public.support_tickets (studio_id, user_id, topic, place, message, meta)
+  values (p_studio, auth.uid(), left(trim(regexp_replace(coalesce(p_topic, 'Inne'), '[<>]', '', 'g')), 40), left(trim(regexp_replace(coalesce(p_place, ''), '[<>]', '', 'g')), 40), msg, meta)
+  returning id into tid;
+  return jsonb_build_object('id', tid, 'meta', meta);
+end $$;
+revoke all on function public.support_send(uuid, text, text, text) from public;
+grant execute on function public.support_send(uuid, text, text, text) to authenticated;
+
 -- Salon demo przypisany do konta admina (katalog uzupełni panel przy pierwszym logowaniu).
 insert into public.studios (slug, name, owner_id)
 select 'lumen', 'Lumen Detailing', u.id from auth.users u where u.email = 'demo.panel@example.com'

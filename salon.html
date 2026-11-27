@@ -468,6 +468,39 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .pl-bar{height:8px;border-radius:99px;background:#ececea;margin-top:8px;overflow:hidden}.pl-bar i{display:block;height:100%;background:var(--brand)}
 .pl-use{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:6px}
 /* Jak to zrobić? */
+.pom-hero{max-width:720px;margin:6px auto 18px;text-align:center;display:grid;gap:10px;justify-items:center}
+.pom-hero h1{margin:0;font-size:30px;letter-spacing:-.02em}.pom-hero p{margin:0;color:var(--grey);font-size:15px}
+.pom-hero .pom-q{width:100%;height:52px;border-radius:14px;margin-top:6px;box-shadow:0 10px 30px -22px rgba(28,25,23,.5)}
+.pom-cats{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:1100px;margin:0 auto 18px}
+.pom-chip{display:inline-flex;align-items:center;gap:7px;min-height:40px;border:1px solid var(--pline);background:#fff;border-radius:999px;padding:0 14px;font:inherit;font-size:14px;font-weight:500;color:var(--ink-2);cursor:pointer}
+.pom-chip svg{width:16px;height:16px;color:var(--grey)}.pom-chip span{font-size:12px;color:var(--grey);background:#f1f1ef;border-radius:999px;padding:1px 7px}
+.pom-chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}.pom-chip[aria-pressed="true"] svg{color:#fff}.pom-chip[aria-pressed="true"] span{background:rgba(255,255,255,.18);color:#fff}
+.pom-tour{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;max-width:1100px;margin:0 auto 16px;text-align:left;font:inherit;cursor:pointer;border:0;border-radius:18px;padding:16px 20px;color:#fff;background:radial-gradient(420px 200px at 0% 0%,rgba(234,88,12,.55),transparent 70%),#1c1917}
+.pom-tour .pi{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;color:#fdba74}
+.pom-tour b{display:block;font-size:16px}.pom-tour small{color:#d6d3d1;font-size:13.5px}
+.pom-tour .go{display:inline-flex;align-items:center;gap:6px;background:var(--brand);border-radius:10px;padding:10px 14px;font-weight:600;font-size:14px}.pom-tour .go svg{width:15px;height:15px}
+.pom-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:1100px;margin:0 auto}
+.pom-c{text-align:left;background:#fff;border:1px solid var(--pline);border-radius:16px;padding:16px;display:grid;grid-template-rows:auto auto 1fr auto;gap:6px;font:inherit;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s}
+.pom-c[hidden]{display:none}
+.pom-c:hover{border-color:var(--brand);box-shadow:0 14px 28px -20px rgba(234,88,12,.6);transform:translateY(-2px)}
+.pom-c .pi{width:36px;height:36px;border-radius:10px;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin-bottom:4px}
+.pom-c b{font-size:15px;line-height:1.3}.pom-c .pd{color:var(--grey);font-size:13.5px}
+.pom-c .pf2{display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-top:10px;border-top:1px solid var(--pline)}
+.pom-c .pf2 small{color:var(--grey);font-size:12.5px}.pom-c em{font-style:normal;display:inline-flex;align-items:center;gap:5px;color:var(--brand-600);font-weight:600;font-size:13px}.pom-c em svg{width:13px;height:13px}
+.pom-none{text-align:center;color:var(--grey)}
+.pom-foot{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin:22px auto 4px;color:var(--grey)}
+.kon-wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+.kon-f{display:grid;gap:14px}.kon-t{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}.kon-t legend{font-weight:600;font-size:14px;margin-bottom:8px;padding:0}
+.kon-t label{cursor:pointer}.kon-t input{position:absolute;opacity:0;pointer-events:none}
+.kon-t span{display:inline-flex;align-items:center;min-height:40px;border:1px solid var(--pline);border-radius:999px;padding:0 14px;font-size:14px;background:#fff}
+.kon-t input:checked+span{background:var(--brand-50);border-color:var(--brand);color:var(--brand-600);font-weight:600}.kon-t input:focus-visible+span{outline:2px solid var(--brand);outline-offset:2px}
+.kon-c{justify-self:end;color:var(--grey);font-size:12px}
+.kon-ok{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px}.kon-ok>svg{color:#15803d}.kon-ok b{display:block}.kon-ok span{color:var(--grey);font-size:14px}
+.kon-dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:8px 0 0;font-size:14px}.kon-dl dt{color:var(--grey)}.kon-dl dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.kon-list{list-style:none;margin:0;padding:0;display:grid}.kon-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-top:1px solid var(--pline)}.kon-list li:first-child{border-top:0}
+.kon-list p{margin:4px 0 0;font-size:14px;color:var(--ink-2)}.kon-list small{grid-column:1/-1;color:var(--grey);font-size:12px}
+@media (max-width:1000px){.pom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.pom-grid{grid-template-columns:minmax(0,1fr)}.pom-hero h1{font-size:24px}.pom-tour{grid-template-columns:44px minmax(0,1fr)}.pom-tour .go{grid-column:1/-1;justify-content:center}.kon-wrap{grid-template-columns:minmax(0,1fr)}.kon-ok{grid-template-columns:auto minmax(0,1fr)}.kon-ok .pbtn{grid-column:1/-1}.kon-f textarea,.kon-f select{font-size:16px}}
 .pom-top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 .pom-q{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;height:46px;border:1px solid var(--pline);border-radius:12px;padding:0 14px;background:#fff;color:var(--grey)}
 .pom-q:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-50)}
@@ -487,13 +520,16 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .ph b{font-size:14px}.ph small{color:var(--grey);font-size:12.5px}
 .dmg{flex-wrap:wrap;margin-bottom:8px}
 .dot{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-style:normal;font-size:10px;font-weight:700;color:#fff;margin-right:6px;vertical-align:-4px;flex:none}
-.dmg .dot{width:10px;height:10px;vertical-align:0}
+.dmg .dot{width:12px;height:12px;vertical-align:-1px;margin-right:6px}
 .t-W{background:#b45309;fill:#b45309}.t-R{background:#a3261b;fill:#a3261b}.t-O{background:#0e7490;fill:#0e7490}.t-P{background:#4338ca;fill:#4338ca}.t-I{background:#57534e;fill:#57534e}
 .carmap{width:100%;height:auto;display:block;cursor:crosshair;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;touch-action:manipulation}
 .carmap.locked{cursor:default}
-.carmap .shape *{fill:none;stroke:#8b877d;stroke-width:1.6;stroke-linejoin:round}
+.carmap .shape *{fill:none;stroke:#78716c;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
+.carmap .shape .bd{fill:#fff;stroke-width:1.8}.carmap .shape .gl{fill:#e3eaf1;stroke:#9aa5b1}.carmap .shape .rf{fill:#f4f4f2}
+.carmap .shape .wh,.carmap .shape .tw{fill:#3f3f46;stroke:#3f3f46}.carmap .shape .rim{fill:#d6d3d1;stroke:#a8a29e}.carmap .shape .hub{fill:#78716c;stroke:none}.carmap .shape .sp{stroke:#a8a29e;stroke-width:1.2}
+.carmap .shape .lt{fill:#fef3c7;stroke:#d6a84a}.carmap .shape .tl{fill:#fecaca;stroke:#e08b8b}.carmap .shape .ms,.carmap .shape .hd{fill:#e7e5e4}.carmap .shape .gr{fill:#57534e;stroke:#57534e}.carmap .shape .pl{fill:#fff}.carmap .shape .ex{fill:#a8a29e}
 .carmap>text{font:600 11px var(--body);fill:var(--grey)}
-.carmap .mk circle{stroke:#fff;stroke-width:2}
+.carmap .mk circle{stroke:#fff;stroke-width:2.5;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
 .carmap .mk text{font:700 10px var(--body);fill:#fff;text-anchor:middle;pointer-events:none}
 .mklist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:2px;font-size:14px}
 .mklist li{display:flex;align-items:center;gap:4px;min-height:34px;border-bottom:1px solid var(--pline)}
@@ -1196,7 +1232,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 .hb .r.c2 .tr i{background:#57534e}
 .stars{color:var(--brand)}
 /* znaczniki uszkodzeń: jeden kolor, rodzaj widać na liście pod schematem */
-.t-W,.t-R,.t-O,.t-P,.t-I{background:var(--brand-600);fill:var(--brand-600)}
+.t-W{background:#2563eb;fill:#2563eb}.t-R{background:#dc2626;fill:#dc2626}.t-O{background:#d97706;fill:#d97706}.t-P{background:#7c3aed;fill:#7c3aed}.t-I{background:#475569;fill:#475569}
 /* strona klienta: akcent marki zamiast bursztynu */
 .stages li.now i{background:var(--brand);border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-100)}
 .extra{border-color:var(--brand);background:var(--brand-50)}
@@ -2215,11 +2251,9 @@ async function openPanel(){
   if(isAdm()&&SET.tour_new){SET.tour_new=false;saveCatalog();setTimeout(()=>tourStart(true),700)}
 }
 document.getElementById('view-panel').addEventListener('input',e=>{
-  if(!e.target.dataset.pomq) return; const q=e.target.value.trim().toLowerCase().replace(/[ąćęłńóśźż]/g,c=>'acelnoszz'['ąćęłńóśźż'.indexOf(c)]);
-  const nz=x=>x.replace(/[ąćęłńóśźż]/g,c=>'acelnoszz'['ąćęłńóśźż'.indexOf(c)]);
-  let any=0; document.querySelectorAll('[data-guide]').forEach(c=>{const on=!q||nz(c.dataset.txt).includes(q);c.hidden=!on;any+=on});
-  document.querySelectorAll('[data-pomg]').forEach(g=>{g.hidden=![...g.querySelectorAll('[data-guide]')].some(c=>!c.hidden)});
-  $('.pom-none').hidden=!!any;
+  if(e.target.dataset.pomq){P.pomQ=e.target.value;pomFilter();return}
+  if(e.target.name==='kmsg'){const c=$('.kon-c');if(c)c.textContent=e.target.value.length+'/2000';const er=$('#kon-err');if(er&&e.target.value.trim().length>=10)er.textContent=''}
+  if(e.target.name==='ktopic') KON.topic=e.target.value;
 });
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
@@ -2231,6 +2265,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fblock'){e.preventDefault();blockSubmit(e.target);return}
   if(e.target.id==='foffer'){e.preventDefault();offerSubmit(e.target);return}
   if(e.target.id==='fmember'){e.preventDefault();memberSubmit(e.target);return}
+  if(e.target.id==='fkon'){e.preventDefault();konSubmit(e.target);return}
   if(e.target.id!=='login') return; e.preventDefault();
   const mail=$('#l-mail').value.trim(), pw=$('#l-pw').value;
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){renderLogin('Wpisz adres e-mail, np. imie@firma.pl.',mail);$('#l-mail').focus();return}
@@ -2253,6 +2288,7 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  kon:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/>',
   pom:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
   google:'<path d="M12 3a9 9 0 1 0 8.6 11.6H12v-3.4h9"/>',
   dzis:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
@@ -2313,12 +2349,12 @@ function renderSide(){
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   ${grp('Sprzedaż',it('wyc','Wyceny',acc)+it('gw','Gwarancje',due)+it('wl','Lista rezerwowa',off)+(A?it('bon','Bony'):''))}
   ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('ust','Ustawienia')+it('plan','Twój plan')):''}
-  ${grp('Pomoc',it('pom','Jak to zrobić?'))}
+  ${grp('Pomoc',it('pom','Jak to zrobić?')+it('kon','Pomoc'))}
   ${SLUG!=='lumen'?'':`<button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>`}
   <div class="salon"><b>${esc(SAL().name)}</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'}${CITY()?' · '+esc(CITY()):''}</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
   <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
-function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
+function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML,kon:konHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -2593,10 +2629,27 @@ function statsHTML(){return ''}
 /* ---------- protokół przyjęcia auta ---------- */
 const DMG={W:'Wgniecenie',R:'Rysa',O:'Odprysk',P:'Pęknięcie',I:'Inne'};
 const FUEL=['rezerwa','1/4','1/2','3/4','pełny'];
-const PROF='<path d="M18 84 C18 72 26 66 42 63 L92 56 C110 40 132 30 162 30 L208 30 C230 30 246 40 264 56 L292 60 C304 62 308 70 308 80 L308 90 C308 94 305 96 301 96 L22 96 C19 96 18 93 18 90 Z"/><path d="M102 58 C114 45 132 39 156 39 L160 39 L160 58 Z"/><path d="M168 39 L206 39 C222 39 236 47 250 58 L168 58 Z"/><path d="M164 58 V92"/><circle cx="86" cy="96" r="20"/><circle cx="250" cy="96" r="20"/><circle cx="86" cy="96" r="8"/><circle cx="250" cy="96" r="8"/>';
-const TOP='<rect x="18" y="16" width="292" height="92" rx="30"/><rect x="118" y="32" width="96" height="60" rx="6"/><path d="M92 28 L118 34 V90 L92 96"/><path d="M240 26 L214 34 V90 L240 98"/><path d="M262 30 Q296 40 300 62 Q296 84 262 94"/><path d="M196 16 l4 -9 h12 l-3 9 M196 108 l4 9 h12 l-3 -9"/>';
-const FRONT='<path d="M12 88 V60 Q14 46 30 44 L42 20 Q46 12 56 12 H94 Q104 12 108 20 L120 44 Q136 46 138 60 V88 Z"/><path d="M48 22 H102 L112 42 H38 Z"/><rect x="18" y="54" width="24" height="9" rx="3"/><rect x="108" y="54" width="24" height="9" rx="3"/><rect x="54" y="64" width="42" height="13" rx="3"/><rect x="16" y="88" width="20" height="12" rx="2"/><rect x="114" y="88" width="20" height="12" rx="2"/>';
-const REAR='<path d="M12 88 V60 Q14 46 30 44 L42 20 Q46 12 56 12 H94 Q104 12 108 20 L120 44 Q136 46 138 60 V88 Z"/><path d="M50 22 H100 L106 38 H44 Z"/><rect x="16" y="52" width="32" height="10" rx="3"/><rect x="102" y="52" width="32" height="10" rx="3"/><rect x="58" y="68" width="34" height="11" rx="2"/><rect x="16" y="88" width="20" height="12" rx="2"/><rect x="114" y="88" width="20" height="12" rx="2"/>';
+// widoki w tych samych obszarach co wcześniej (zapisane znaczniki mają współrzędne w tym układzie); przód auta z prawej
+const WHEEL=(x,y)=>`<circle class="wh" cx="${x}" cy="${y}" r="21"/><circle class="rim" cx="${x}" cy="${y}" r="12.5"/><circle class="hub" cx="${x}" cy="${y}" r="3.5"/>${[0,72,144,216,288].map(a=>{const r=a*Math.PI/180;return `<path class="sp" d="M${x+4*Math.cos(r)} ${y+4*Math.sin(r)} L${x+11.5*Math.cos(r)} ${y+11.5*Math.sin(r)}"/>`}).join('')}`;
+const PROF=`<path class="bd" d="M14 86 C14 76 20 70 34 67 L90 58 C106 43 130 32 160 31 L212 31 C234 31 250 41 268 56 L298 61 C310 63 314 71 314 81 L314 92 C314 96 311 98 307 98 L280 98 A30 30 0 0 0 220 98 L116 98 A30 30 0 0 0 56 98 L20 98 C16 98 14 95 14 92 Z"/>
+<path class="gl" d="M100 59 C113 46 131 39 155 38 L158 38 L158 59 Z"/><path class="gl" d="M166 38 L208 38 C224 38 238 46 251 58 L166 58 Z"/>
+<path d="M162 60 L162 95 M100 62 L98 95 M246 60 Q252 80 246 95"/><path d="M118 92 H218"/><rect class="hd" x="130" y="68" width="13" height="3.5" rx="1.7"/><rect class="hd" x="196" y="68" width="13" height="3.5" rx="1.7"/>
+<path class="ms" d="M250 58 l9 -7 h7 l-2 9 Z"/><path class="lt" d="M299 66 Q309 68 311 77 L298 77 Z"/><path class="tl" d="M15 73 L29 69 L29 80 L15 81 Z"/><circle cx="70" cy="74" r="3.5"/><path d="M308 86 H314 M14 86 H22"/>${WHEEL(86,98)}${WHEEL(250,98)}`;
+const TOP=`<rect class="tw" x="68" y="9" width="36" height="7" rx="3"/><rect class="tw" x="232" y="9" width="36" height="7" rx="3"/><rect class="tw" x="68" y="110" width="36" height="7" rx="3"/><rect class="tw" x="232" y="110" width="36" height="7" rx="3"/>
+<path class="bd" d="M32 16 Q18 16 16 40 L16 86 Q18 110 32 110 L278 110 Q312 108 314 63 Q312 18 278 16 Z"/>
+<path class="gl" d="M210 25 L246 30 Q253 63 246 96 L210 101 Q217 63 210 25 Z"/><path class="gl" d="M98 27 L72 32 Q66 63 72 94 L98 99 Q92 63 98 27 Z"/>
+<path class="rf" d="M102 25 H206 Q213 63 206 101 H102 Q95 63 102 25 Z"/><path d="M250 22 Q263 63 250 104 M60 20 Q51 63 60 106 M156 17 V25 M156 101 V109"/>
+<path class="ms" d="M214 16 l6 -9 h10 l-4 9 Z"/><path class="ms" d="M214 110 l6 9 h10 l-4 -9 Z"/><path class="lt" d="M300 28 Q307 35 309 44 L302 44 Z"/><path class="lt" d="M300 98 Q307 91 309 82 L302 82 Z"/><path class="tl" d="M18 28 H24 V40 H17 Z"/><path class="tl" d="M18 98 H24 V86 H17 Z"/>`;
+const FRONT=`<rect class="tw" x="18" y="88" width="22" height="12" rx="3"/><rect class="tw" x="110" y="88" width="22" height="12" rx="3"/>
+<path class="bd" d="M14 86 V62 Q16 50 30 47 L42 22 Q46 14 56 14 H94 Q104 14 108 22 L120 47 Q134 50 136 62 V86 Q136 90 132 90 H18 Q14 90 14 86 Z"/>
+<path class="gl" d="M50 22 H100 L111 44 H39 Z"/><path d="M52 42 L72 37 M78 42 L98 37"/><path class="ms" d="M31 47 l-13 -5 v9 Z"/><path class="ms" d="M119 47 l13 -5 v9 Z"/>
+<path class="lt" d="M20 55 L45 58 L43 66 L20 64 Z"/><path class="lt" d="M130 55 L105 58 L107 66 L130 64 Z"/><path class="gr" d="M50 58 H100 L96 72 H54 Z"/><path d="M56 63 H94 M58 67.5 H92"/>
+<rect class="pl" x="58" y="76" width="34" height="9" rx="1.5"/><circle cx="27" cy="78" r="3.5"/><circle cx="123" cy="78" r="3.5"/>`;
+const REAR=`<rect class="tw" x="18" y="88" width="22" height="12" rx="3"/><rect class="tw" x="110" y="88" width="22" height="12" rx="3"/>
+<path class="bd" d="M14 86 V62 Q16 50 30 47 L42 22 Q46 14 56 14 H94 Q104 14 108 22 L120 47 Q134 50 136 62 V86 Q136 90 132 90 H18 Q14 90 14 86 Z"/>
+<path class="gl" d="M48 22 H102 L109 40 H41 Z"/><path d="M24 47 H126"/><path class="ms" d="M31 47 l-13 -5 v9 Z"/><path class="ms" d="M119 47 l13 -5 v9 Z"/>
+<path class="tl" d="M17 53 H47 L45 64 H17 Z"/><path class="tl" d="M133 53 H103 L105 64 H133 Z"/><circle cx="75" cy="55" r="3"/>
+<rect class="pl" x="58" y="66" width="34" height="9" rx="1.5"/><path d="M14 79 H136"/><rect class="ex" x="102" y="83" width="13" height="4.5" rx="2"/>`;
 function carMap(marks,locked){
   const g=(tx,ty,shape,label,flip)=>`<text x="${tx}" y="${ty-6}">${label}</text><g class="shape" transform="translate(${flip?tx+320:tx},${ty})${flip?' scale(-1,1)':''}">${shape}</g>`;
   return `<svg class="carmap ${locked?'locked':''}" id="carmap" viewBox="0 0 360 616" role="img" aria-label="Schemat auta${locked?'':'. Kliknij miejsce uszkodzenia.'}">
@@ -2694,10 +2747,13 @@ async function protoMail(kind,id,btn){
   const b=BOOKINGS.find(x=>x.id===id), inp=drw().querySelector('[name=sendto]'), to=(inp.value||'').trim(), err=$('#proto-err');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){err.textContent=to?'Sprawdź adres e-mail, np. jan.kowalski@gmail.com.':'Wpisz e-mail klienta.';inp.focus();return}
   const key=kind==='out'?'handover':'intake', p=b[key]||{}, nm=SAL().name, marks=(b.intake&&b.intake.marks)||[];
+  // strona statusu pokazuje rysunek auta z zaznaczonymi uszkodzeniami; wizyty z panelu nie miały tokenu
+  if(!b.token){const tk=crypto.randomUUID(),{error:te}=await sb.from('bookings').update({token:tk}).eq('id',id);if(!te)b.token=tk}
+  const stUrl=b.token?location.origin+location.pathname+location.search+'#status='+b.token:'';
   const lines=[`Dzień dobry ${b.name.split(' ')[0]},`,'',kind==='out'?`odbiór auta ${b.car} w ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`:`przyjęcie auta ${b.car} do ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`,
     `Usługa: ${bName(b)}`, `Uszkodzenia zapisane przy przyjęciu: ${marks.length?marks.map((m,i)=>`${i+1}. ${DMG[m.t]}`).join(', '):'brak'}`,
     kind==='in'&&p.km?`Przebieg: ${p.km} km, paliwo: ${p.fuel}`:'', `Zdjęcia w protokole: ${(p.photos||[]).length}`, kind==='out'&&p.note?`Zalecenia: ${p.note}`:'',
-    `Protokół podpisali: klient${p.signer?' i '+p.signer+' ('+nm+')':''}.`, kind==='out'&&b.cert?`Historia auta i gwarancja: ${passUrl(b.cert)}`:'', '', 'Pozdrawiamy,', nm, SAL().phone||''].filter(x=>x!=='');
+    `Protokół podpisali: klient${p.signer?' i '+p.signer+' ('+nm+')':''}.`, stUrl?`Rysunek auta z zaznaczonymi uszkodzeniami i zdjęcia: ${stUrl}`:'', kind==='out'&&b.cert?`Historia auta i gwarancja: ${passUrl(b.cert)}`:'', '', 'Pozdrawiamy,', nm, SAL().phone||''].filter(x=>x!=='');
   openMail(`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(`Protokół ${kind==='out'?'wydania':'przyjęcia'} auta ${b.car}, ${nm}`)}&body=${encodeURIComponent(lines.join('\n'))}`);
   btn.disabled=true; const sent=(p.sent||[]).concat({to,at:new Date().toISOString()}).slice(-10), upd={[key]:{...p,sent}};
   if(!b.email) upd.email=to;
@@ -2764,7 +2820,7 @@ function handHTML(b){
     <div class="col"><div><div class="ph"><b>Przed</b><small>z protokołu przyjęcia</small></div><div class="gal">${PR.before.map(fig).join('')||'<span class="hint-p">Brak zdjęć z przyjęcia.</span>'}</div></div>
     <div><div class="ph"><b>Po</b><small>zdjęcia gotowego auta</small></div><div class="gal" id="pgal">${galHTML()}</div>
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
-    ${PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div><ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
+    ${PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${carMap(PR.marks,true).replace('id="carmap"','')}<ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
     </div><div class="col"><label class="pf">Zalecenia dla klienta<textarea name="hnote" maxlength="1000" ${L?'disabled':''} placeholder="np. pierwsze mycie po 7 dniach, bez myjni szczotkowej">${esc(PR.note)}</textarea></label>
     ${!L&&warrYears(b)?warrForm(b):''}
     <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
@@ -3130,13 +3186,60 @@ const GUIDES=[
   {v:'google',sel:'.g-conn',t:'Źródła danych',d:'Po podłączeniu kont dane wpadają same. Teraz widać przykładowe.'}]}
 ];
 const gVis=g=>FON(g.need)&&(isAdm()||!ADMIN_VIEWS.includes(g.need));
+const GIC={'Rezerwacje i klienci':'rez','Przyjęcie i wydanie auta':'car','Kalendarz':'kal','Cennik':'cen','Sprzedaż':'gift','Salon':'ust'};
 function pomHTML(){
-  const list=GUIDES.filter(gVis), groups=[...new Set(list.map(g=>g.g))];
-  return `${topbar('Jak to zrobić?','Krótkie instrukcje do konkretnych czynności. Kliknij temat, a panel sam pokaże, gdzie kliknąć. Nic nie zapisujemy.')}
-  <div class="pom-top"><label class="pom-q">${ic('search')}<input type="search" data-pomq="1" placeholder="Czego szukasz? np. cennik, protokół, bon" aria-label="Szukaj instrukcji"></label>
-    <button class="pbtn" type="button" data-tourstart="1">${ic('help')}Pełny samouczek panelu</button></div>
-  ${groups.map(gr=>`<section class="pom-g" data-pomg="1"><h2>${gr}</h2><div class="pom-grid">${list.filter(g=>g.g===gr).map(g=>`<button class="pom-c" type="button" data-guide="${g.id}" data-txt="${esc((g.t+' '+g.d+' '+gr).toLowerCase())}"><b>${g.t}</b><span>${g.d}</span><small>${g.steps.length} ${g.steps.length===1?'krok':g.steps.length<5?'kroki':'kroków'} · Pokaż mi ${ic('send')}</small></button>`).join('')}</div></section>`).join('')}
-  <p class="pom-none" hidden>Nic nie znaleźliśmy. Spróbuj innego słowa albo uruchom pełny samouczek.</p>`;
+  const list=GUIDES.filter(gVis), groups=[...new Set(list.map(g=>g.g))], cat=groups.includes(P.pomCat)?P.pomCat:'';
+  const chip=(k,l,n)=>`<button type="button" class="pom-chip" data-pomcat="${esc(k)}" aria-pressed="${cat===k}">${k?ic(GIC[k]||'help'):''}${l}<span>${n}</span></button>`;
+  return `<section class="pom-hero"><h1>Jak to zrobić?</h1><p>Wybierz czynność, a panel pokaże Ci krok po kroku, gdzie kliknąć. Nic przy tym nie zapisujemy.</p>
+    <label class="pom-q">${ic('search')}<input type="search" data-pomq="1" placeholder="Czego szukasz? np. cennik, protokół, bon" aria-label="Szukaj instrukcji" value="${esc(P.pomQ||'')}"></label></section>
+  <div class="pom-cats" role="group" aria-label="Kategorie">${chip('','Wszystkie',list.length)}${groups.map(g=>chip(g,g,list.filter(x=>x.g===g).length)).join('')}</div>
+  <button class="pom-tour" type="button" data-tourstart="1"><span class="pi">${ic('help')}</span><span><b>Pełny samouczek panelu</b><small>${TOUR_ALL.filter(x=>!x.v||FON(x.v)).length} kroków po wszystkich funkcjach, około 4 minut</small></span><span class="go">Zacznij ${ic('send')}</span></button>
+  <div class="pom-grid">${list.map(g=>`<button class="pom-c" type="button" data-guide="${g.id}" data-g="${esc(g.g)}" data-txt="${esc((g.t+' '+g.d+' '+g.g).toLowerCase())}" ${cat&&g.g!==cat?'hidden':''}>
+    <span class="pi">${ic(GIC[g.g]||'help')}</span><b>${g.t}</b><span class="pd">${g.d}</span>
+    <span class="pf2"><small>${g.steps.length} ${g.steps.length===1?'krok':g.steps.length<5?'kroki':'kroków'}</small><em>Pokaż mi ${ic('send')}</em></span></button>`).join('')}</div>
+  <p class="pom-none" hidden>Nic nie znaleźliśmy. Spróbuj innego słowa albo napisz do nas.</p>
+  <div class="pom-foot"><span>Nie ma tu odpowiedzi?</span><button class="pbtn" type="button" data-nav="kon">${ic('send')}Napisz do nas</button></div>`;
+}
+function pomFilter(){
+  const nz=x=>String(x||'').toLowerCase().replace(/[ąćęłńóśźż]/g,c=>'acelnoszz'['ąćęłńóśźż'.indexOf(c)]), q=nz((P.pomQ||'').trim()), cat=P.pomCat||'';
+  let any=0; document.querySelectorAll('[data-guide]').forEach(c=>{const on=(!q||nz(c.dataset.txt).includes(q))&&(!cat||c.dataset.g===cat);c.hidden=!on;any+=on});
+  document.querySelectorAll('[data-pomcat]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pomcat===cat));
+  const n=$('.pom-none'); if(n) n.hidden=!!any;
+}
+/* ---------- Pomoc: formularz kontaktowy, dane nadawcy dopisuje baza ---------- */
+// shortcut: adres do powiadomień mailem (FormSubmit.co). Pusty = zgłoszenia tylko w bazie; wpisać, gdy Igor poda adres
+const SUPPORT_EMAIL='';
+const KON_T=['Problem z panelem','Pytanie o funkcję','Propozycja nowej funkcji','Plan i płatności','Inne'];
+const VIEW_L={start:'Start',kal:'Kalendarz',rez:'Rezerwacje',kli:'Klienci',wyc:'Wyceny',gw:'Gwarancje',wl:'Lista rezerwowa',bon:'Bony',dzis:'Statystyki',google:'Google',zes:'Zespół',cen:'Cennik',ust:'Ustawienia',plan:'Twój plan',pom:'Jak to zrobić?'};
+let KON={topic:'Problem z panelem',sent:null,list:null};
+async function konLoad(){const {data}=await sb.from('support_tickets').select('id,topic,place,message,status,created_at').eq('studio_id',STUDIO.id).order('created_at',{ascending:false}).limit(20);KON.list=data||[];if(P.view==='kon')renderPanel()}
+function konHTML(){
+  if(!KON.list){konLoad();KON.list=[]}
+  const me=ME(), S2=SAL(), plan={start:'Start',salon:'Salon',studio:'Studio'}[SET.plan||'studio'];
+  const ST={nowe:['Nowe','wait'],w_toku:['W toku','in'],zamkniete:['Zamknięte','done']};
+  return `${topbar('Pomoc','Napisz, co nie działa albo czego potrzebujesz. Odpowiemy na adres, którym logujesz się do panelu.')}
+  <div class="kon-wrap"><form class="box kon-f" id="fkon" novalidate>
+    ${KON.sent?`<div class="kon-ok" role="status">${ic('check')}<div><b>Dziękujemy, zgłoszenie nr ${KON.sent} jest u nas.</b><span>Odpowiemy na ${esc((SESSION&&SESSION.user.email)||'Twój adres')}, zwykle w ciągu jednego dnia roboczego.</span></div><button class="pbtn sm" type="button" data-konnew="1">Napisz kolejne</button></div>`:`
+    <fieldset class="kon-t"><legend>Temat</legend>${KON_T.map(t=>`<label><input type="radio" name="ktopic" value="${t}" ${KON.topic===t?'checked':''}><span>${t}</span></label>`).join('')}</fieldset>
+    <label class="pf">Gdzie w panelu? <em style="font-style:normal;color:var(--grey)">(opcjonalnie)</em><select name="kplace"><option value="">Nie dotyczy konkretnego miejsca</option>${Object.entries(VIEW_L).map(([k,l])=>`<option value="${l}" ${P.lastView===k?'selected':''}>${l}</option>`).join('')}</select></label>
+    <label class="pf">Twoja wiadomość<textarea name="kmsg" maxlength="2000" rows="6" placeholder="Opisz, co się dzieje albo czego potrzebujesz. Przy problemie napisz, co kliknąłeś i co się stało."></textarea><small class="kon-c">0/2000</small></label>
+    <div class="ferr" id="kon-err" role="alert"></div>
+    <div class="acts"><button class="pbtn dark" type="submit">${ic('send')}Wyślij zgłoszenie</button></div>`}</form>
+  <aside class="box kon-me"><div class="box-h"><h2>Dołączymy automatycznie</h2></div><p class="hint-p">Nie musisz nic wpisywać. Bierzemy dane z rejestracji salonu i Twojego konta:</p>
+    <dl class="kon-dl"><dt>Salon</dt><dd>${esc(S2.name)}</dd><dt>Osoba</dt><dd>${esc(me?me.name:'')}</dd><dt>E-mail</dt><dd>${esc((SESSION&&SESSION.user.email)||'')}</dd><dt>Telefon salonu</dt><dd>${esc(S2.phone||'brak')}</dd><dt>Plan</dt><dd>${plan}</dd></dl></aside></div>
+  <div class="box"><div class="box-h"><h2>Twoje zgłoszenia</h2><small>${KON.list.length}</small></div>
+    ${KON.list.length?`<ul class="kon-list">${KON.list.map(x=>`<li><div><b>${esc(x.topic)}</b>${x.place?` <span class="hint-p">· ${esc(x.place)}</span>`:''}<p>${esc(x.message.slice(0,160))}${x.message.length>160?'…':''}</p></div><span class="st s-${(ST[x.status]||ST.nowe)[1]}">${(ST[x.status]||ST.nowe)[0]}</span><small>nr ${x.id} · ${fdt(new Date(x.created_at))}</small></li>`).join('')}</ul>`:'<p class="hint-p">Jeszcze nic nie wysłałeś.</p>'}</div>`;
+}
+async function konSubmit(f){
+  const E=f.elements, err=$('#kon-err'), msg=E.kmsg.value.trim(), topic=(f.querySelector('[name=ktopic]:checked')||{}).value||'Inne', place=E.kplace.value;
+  if(msg.length<10){err.textContent='Opisz sprawę w co najmniej 10 znakach.';E.kmsg.focus();return}
+  const btn=f.querySelector('[type=submit]'); btn.disabled=true;
+  const {data,error}=await sb.rpc('support_send',{p_studio:STUDIO.id,p_topic:topic,p_place:place,p_message:msg});
+  btn.disabled=false;
+  if(error){err.textContent=/LIMIT:/.test(error.message)?error.message.replace(/^.*LIMIT:\s*/,''):/function|schema/i.test(error.message)?'Formularz chwilowo nie działa. Napisz do opiekuna systemu.':'Nie udało się wysłać. Sprawdź internet i spróbuj jeszcze raz.';return}
+  if(SUPPORT_EMAIL){const m=data.meta;fetch('https://formsubmit.co/ajax/'+encodeURIComponent(SUPPORT_EMAIL),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({_subject:`[Detailo] ${topic}: ${m.salon}`,_template:'table',Zgloszenie:data.id,Temat:topic,Gdzie:place||'-',Wiadomosc:msg,Salon:`${m.salon} (${m.slug})`,Osoba:`${m.name} (${m.role})`,Email:m.email,Telefon:m.phone,Plan:`${m.plan}, ${m.billing}`})}).catch(()=>{})}
+  KON.sent=data.id; KON.topic='Problem z panelem'; await konLoad(); renderPanel();
 }
 function guideStart(id){
   const g=GUIDES.find(x=>x.id===id); if(!g) return;
@@ -3388,7 +3491,8 @@ async function tourGo(i,dir){
   if(st.v){if(drw().open){closeDrw();await sleep(200)}if(P.view!==st.v){P.view=st.v;renderPanel();window.scrollTo(0,0)}}
   if(st.pre){const ok=await st.pre();if(seq!==TR.seq)return;if(ok===false){TR.moving=false;tourGo(i+dir,dir);return}}
   let el=await waitEl(st.sel,st.opt?400:1600); if(seq!==TR.seq) return;
-  if(!el){TR.moving=false;tourGo(i+dir,dir);return}
+  // brak elementu po kroku „kliknij” (np. okno się nie otworzyło): wracamy do kliknięcia zamiast przeskakiwać dalej
+  if(!el){TR.moving=false;const pv=TOUR[i-1];if(!st.opt&&dir>0&&pv&&pv.click){tourGo(i-1,-1);return}tourGo(i+dir,dir);return}
   if(st.parent) el=el.closest(st.parent)||el;
   TR.el=el;
   const b=el.getBoundingClientRect();
@@ -3404,7 +3508,7 @@ function tourPlace(full){
   sp.classList.toggle('click',!!st.click);
   Object.assign(sp.style,{left:b.left-pd+'px',top:b.top-pd+'px',width:b.width+pd*2+'px',height:Math.min(b.height,innerHeight-40)+pd*2+'px'});
   if(full){cd.innerHTML=`<div class="tour-bar"><i style="width:${(TR.i+1)/TOUR.length*100}%"></i></div>${TR.g?`<span class="tour-g">${esc(TR.g.t)}</span>`:''}<small>Krok ${TR.i+1} z ${TOUR.length}</small><b>${st.t}</b><p>${st.d}</p>${st.click?'<span class="tour-do">Kliknij podświetlone miejsce</span>':''}
-    <div class="tour-btns"><button type="button" data-tour="end">Zakończ</button>${TR.i?'<button type="button" data-tour="prev">Wstecz</button>':''}<button type="button" class="pri" data-tour="next">${st.click?'Pomiń':TR.i===TOUR.length-1?'Koniec':'Dalej'}</button></div>`;
+    <div class="tour-btns"><button type="button" data-tour="end">Zakończ</button>${TR.i?'<button type="button" data-tour="prev">Wstecz</button>':''}${st.click?'':`<button type="button" class="pri" data-tour="next">${TR.i===TOUR.length-1?'Koniec':'Dalej'}</button>`}</div>`;
     requestAnimationFrame(()=>cd.classList.remove('out'))}
   const ch=cd.offsetHeight, cw=cd.offsetWidth, below=b.bottom+16+ch<innerHeight;
   const top=below?b.bottom+16:(b.top-16-ch>12?b.top-16-ch:Math.max(12,innerHeight-ch-12));
@@ -4145,7 +4249,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     let c=SET.cats.find(x=>x.name.toLowerCase()===n.toLowerCase());if(!c){let id=slugify(n)||'praca';while(SET.cats.some(x=>x.id===id))id=id.slice(0,26)+'-'+(SET.cats.length+1);c={id,name:n};SET.cats.push(c)}
     const b=BAYS().find(x=>x.id===+t.dataset.baycatadd);b.cats=[...new Set((b.cats||[]).concat(c.id))];SET.bays=BAYS();await saveCatalog();renderPanel();toast(`${b.name} przyjmuje teraz: ${c.name}`);return}
   if(t&&t.dataset.reseed){t.disabled=true;SET.no_seed=false;await reseedAll();renderPanel();toast('Dane przykładowe odświeżone');return}
-  if(t&&t.dataset.nav){P.view=t.dataset.nav;if(t.dataset.filter)P.filter=t.dataset.filter;renderPanel();enter($('#pmain'));window.scrollTo(0,0);return}
+  if(t&&t.dataset.nav){if(t.dataset.nav==='kon'&&P.view!=='kon')P.lastView=P.view;P.view=t.dataset.nav;if(t.dataset.filter)P.filter=t.dataset.filter;renderPanel();enter($('#pmain'));window.scrollTo(0,0);return}
   if(t&&v11Click(t)) return;
   {const of=e.target.closest('[data-offer]');if(of&&!t?.dataset.open){openOffer(+of.dataset.offer);return}}
   if(t&&t.dataset.filter){P.filter=t.dataset.filter;renderPanel();return}
@@ -4185,6 +4289,8 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     const i=ADDONS.findIndex(x=>x.id===t.dataset.addondel);if(i<0)return;const [rm]=ADDONS.splice(i,1);if(!(await saveCatalog())){ADDONS.splice(i,0,rm);toast('Nie udało się usunąć dodatku');return}renderPanel();toast(`Usunięto dodatek „${rm.name}”`);return}
   if(t&&t.dataset.planchg){planConfirm(t.dataset.planchg);return}
   if(t&&t.dataset.guide){guideStart(t.dataset.guide);return}
+  if(t&&t.dataset.pomcat!=null){P.pomCat=t.dataset.pomcat;pomFilter();return}
+  if(t&&t.dataset.konnew){KON.sent=null;renderPanel();return}
   if(t&&t.dataset.bill){P.bill=t.dataset.bill;P.billAnim=1;renderPanel();P.billAnim=0;return}
   if(t&&t.dataset.planok){planApply(t.dataset.planok);return}
   if(t&&t.dataset.svcdel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
