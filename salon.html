@@ -1410,6 +1410,174 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
   #view-panel .panel.locked section.main{min-height:100vh}
 }
 @media (max-width:440px){.phone{height:100vh;height:100dvh}}
+
+/* ===== strona salonu: motyw z mini CMS (assets/site-cms.js), wersja na komputer, tryb strony i podglądu ===== */
+#scroller{container:site/inline-size;--s-bg:#fff;--s-bg-a:rgba(255,255,255,.94);--s-acc:#111213;--s-on:#fff;--s-dk:#151617;--s-dk2:#363738;--s-on-dk:#fff;--s-hb:#fff;--s-hb-on:#111213;--s-r:1;--gut:16px;background:var(--s-bg);color:var(--ink);font-family:var(--body)}
+#scroller .site-h,#scroller .dock{background:var(--s-bg-a)}
+#scroller .logo{color:var(--ink)}
+#scroller .logo-img{display:flex;align-items:center}
+#scroller .logo-img img{display:block;width:auto;max-width:180px;object-fit:contain}
+#scroller .hbtns{display:flex;gap:8px;align-items:center}
+#scroller .icon-btn{color:var(--ink);text-decoration:none}
+#scroller .dnav,#scroller .hcta{display:none}
+#scroller .smenu{position:sticky;top:61px;z-index:5;display:grid;gap:2px;padding:8px var(--gut) 14px;background:var(--s-bg);border-bottom:1px solid var(--line);box-shadow:0 18px 30px -24px rgba(0,0,0,.4)}
+#scroller .smenu button:not(.btn){background:none;border:0;text-align:left;padding:12px 4px;font-weight:600;font-size:16px;border-bottom:1px solid var(--line)}
+#scroller .smenu .btn{margin-top:10px}
+#scroller .btn{border-radius:calc(14px*var(--s-r))}
+#scroller .btn-dark,#scroller .tag.dark{background:var(--s-acc);color:var(--s-on)}
+#scroller .btn-light{background:var(--paper);color:var(--ink)}
+#scroller .btn-ghost{color:var(--ink);border-color:var(--line)}
+#scroller a.btn{align-self:flex-start}
+#scroller .btn[disabled]{background:var(--line);color:var(--grey)}
+#scroller .hero{background:linear-gradient(170deg,var(--s-dk2) 0%,var(--s-dk) 70%);color:var(--s-on-dk);padding:28px var(--gut) 24px}
+#scroller .hero .eyebrow{color:inherit;opacity:.72}
+#scroller .hero .rating{color:inherit}
+#scroller .hero .rating b{color:inherit}
+#scroller .hero .rating span:not(.stars){opacity:.8}
+#scroller .hero h1{max-width:15ch}
+#scroller .hero-sub{margin:10px 0 0;font-size:15px;line-height:1.45;opacity:.86;max-width:46ch}
+#scroller .hero .cta-row{margin-top:26px;flex-wrap:wrap}
+#scroller .hero .btn-light{background:var(--s-hb);color:var(--s-hb-on)}
+#scroller .hero .btn-ghost{color:inherit;border-color:color-mix(in srgb,currentColor 40%,transparent)}
+#scroller .hero.has-img{min-height:470px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,calc(var(--hero-dim,.55)*.45)) 0%,rgba(0,0,0,var(--hero-dim,.55)) 62%,rgba(0,0,0,calc(var(--hero-dim,.55) + .1)) 100%),var(--hero-img) var(--hero-pos,center)/cover no-repeat,var(--s-dk)}
+#scroller .stars{color:#e8a317}
+#scroller .chip{background:var(--mist);color:var(--ink)}
+#scroller .svc,#scroller .opt,#scroller .size{border-radius:calc(16px*var(--s-r))}
+#scroller .thumb{border-radius:calc(11px*var(--s-r))}
+#scroller .thumb img,#scroller .svc-hero img,#scroller .ba img{width:100%;height:100%;object-fit:cover;display:block}
+#scroller .ba,#scroller .svc-hero,#scroller .voucher,#scroller .rev,#scroller .map,#scroller .summary,#scroller .info,#scroller .mode-box,#scroller .fact{border-radius:calc(16px*var(--s-r))}
+#scroller .inp,#scroller .pref,#scroller .day,#scroller .slot,#scroller .drop{border-radius:calc(12px*var(--s-r))}
+#scroller .inp{color:var(--ink)}
+#scroller .steps3 li::before,#scroller .prog i.on,#scroller .done .ok{background:var(--s-acc);color:var(--s-on)}
+#scroller .done .ok svg{stroke:var(--s-on)}
+#scroller .opt[aria-pressed="true"],#scroller .size[aria-pressed="true"]{border-color:var(--s-acc);box-shadow:inset 0 0 0 1px var(--s-acc)}
+#scroller .opt[aria-pressed="true"] .rad{border-color:var(--s-acc);background:var(--s-acc)}
+#scroller .opt[aria-pressed="true"] .rad::after{background:var(--s-on)}
+#scroller .opt.chk[aria-pressed="true"] .rad::after{background:none;border-color:var(--s-on)}
+#scroller .day[aria-pressed="true"],#scroller .slot[aria-pressed="true"]{background:var(--s-acc);border-color:var(--s-acc);color:var(--s-on)}
+#scroller .day[aria-pressed="true"] small,#scroller .day[aria-pressed="true"] em{color:inherit;opacity:.75}
+#scroller .inp:focus,#scroller .pref:focus-within,#scroller .blik input:focus{border-color:var(--s-acc)}
+#scroller .check input{accent-color:var(--s-acc)}
+#scroller .map::after{background:var(--s-acc)}
+#scroller .map{background:linear-gradient(0deg,transparent 48%,var(--s-bg) 48% 52%,transparent 52%) 0 0/100% 60px,linear-gradient(90deg,transparent 48%,var(--s-bg) 48% 52%,transparent 52%) 0 0/80px 100%,var(--line)}
+#scroller .voucher,#scroller .foot{background:var(--s-dk);color:var(--s-on-dk)}
+#scroller .voucher p{color:inherit;opacity:.78}
+#scroller .voucher .btn-light{background:var(--s-hb);color:var(--s-hb-on)}
+#scroller .foot{color:color-mix(in srgb,var(--s-on-dk) 72%,var(--s-dk));padding:26px var(--gut) 30px}
+#scroller .foot .logo,#scroller .foot a,#scroller .foot button{color:var(--s-on-dk)}
+#scroller .foot .logo span{color:inherit;opacity:.6}
+#scroller .foot .links button{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px}
+#scroller .f-brand{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+#scroller .soc{display:flex;gap:8px}
+#scroller .soc a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,currentColor 30%,transparent)}
+#scroller .f-copy{opacity:.7}
+#scroller .gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#scroller .gal figure{margin:0;position:relative;aspect-ratio:4/3;border-radius:calc(12px*var(--s-r));overflow:hidden;background:var(--mist)}
+#scroller .gal img{width:100%;height:100%;object-fit:cover;display:block}
+#scroller .gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 6px;font-size:11px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+#scroller .about{display:grid;gap:14px}
+#scroller .ab-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:calc(16px*var(--s-r));display:block}
+#scroller .ab-txt{display:grid;gap:10px}
+#scroller .ab-txt p{margin:0;color:var(--ink-2)}
+#scroller .ab-num{font-family:var(--display);font-weight:700;font-size:20px;color:var(--ink)!important}
+#scroller .brands{display:flex;gap:6px;flex-wrap:wrap}
+#scroller .brands span{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+#scroller .map-wrap{display:grid;gap:12px}
+#scroller .doc{color:var(--ink)}
+#scroller .sec,#scroller .chips,#scroller .crumb,#scroller .svc-title,#scroller .facts,#scroller .site-h,#scroller .dock,#scroller .bk-head,#scroller .bk-body{padding-left:var(--gut);padding-right:var(--gut)}
+#scroller .svc-hero{margin-left:var(--gut);margin-right:var(--gut)}
+
+/* komputer: ta sama treść, szerszy układ (container query, działa też w podglądzie edytora) */
+@container site (min-width:860px){
+  #scroller .site-h,#scroller .sec,#scroller .chips,#scroller .crumb,#scroller .svc-title,#scroller .facts,#scroller .foot,#scroller .hero,#scroller .smenu{--gut:max(40px,calc(50cqi - 580px))}
+  #scroller .site-h{padding-top:14px;padding-bottom:14px}
+  #scroller .logo{font-size:22px}
+  #scroller .dnav{display:flex;gap:4px;margin-left:auto;margin-right:16px}
+  #scroller .dnav button{background:none;border:0;padding:8px 12px;border-radius:999px;font-weight:600;color:var(--ink-2)}
+  #scroller .dnav button:hover{background:var(--mist);color:var(--ink)}
+  #scroller .hcta{display:inline-flex}
+  #scroller .mmenu,#scroller .smenu,#scroller .dock-site{display:none}
+  #scroller .hero{padding-top:84px;padding-bottom:72px}
+  #scroller .hero.has-img{min-height:min(640px,78vh)}
+  #scroller .hero h1{font-size:clamp(44px,5.4cqi,68px);max-width:14ch;line-height:1.02}
+  #scroller .hero-sub{font-size:18px;margin-top:16px}
+  #scroller .hero .eyebrow{font-size:13px}
+  #scroller .hero .cta-row{margin-top:34px;gap:12px}
+  #scroller .hero .btn{min-height:54px;padding:0 26px;font-size:16px}
+  #scroller .chips{justify-content:center;flex-wrap:wrap;padding-top:22px;padding-bottom:10px}
+  #scroller .sec{padding-top:64px;gap:18px}
+  #scroller .sec h2{font-size:34px}
+  #scroller .sec .lead{font-size:16px;max-width:60ch}
+  #scroller .sec-svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  #scroller .sec-svc>h2,#scroller .sec-svc>.lead,#scroller .sec-svc>.cat-h{grid-column:1/-1}
+  #scroller .sec-svc .svc{grid-template-columns:1fr;align-content:start;padding:12px;transition:transform .2s,box-shadow .2s}
+  #scroller .sec-svc .svc:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(0,0,0,.35)}
+  #scroller .sec-svc .thumb{width:100%;height:auto;aspect-ratio:16/10}
+  #scroller .ba{height:min(480px,40cqi)}
+  #scroller .gal{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  #scroller .gal figcaption{font-size:13px;padding:24px 12px 10px}
+  #scroller .steps3{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  #scroller .steps3 li{grid-template-columns:1fr;gap:14px}
+  #scroller .about.has-img{grid-template-columns:1fr 1fr;align-items:center;gap:48px}
+  #scroller .ab-img{aspect-ratio:4/3}
+  #scroller .ab-txt p{font-size:16px}
+  #scroller .reviews{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));overflow:visible}
+  #scroller .rev{width:auto}
+  #scroller .voucher{padding:40px;grid-template-columns:1fr auto;align-items:center}
+  #scroller .voucher h3{font-size:28px}
+  #scroller .voucher .btn{grid-row:1/3;grid-column:2}
+  #scroller .map-wrap{grid-template-columns:1.3fr 1fr;align-items:start;gap:32px}
+  #scroller .map{height:280px}
+  #scroller .hours{font-size:15px;gap:10px 20px}
+  #scroller .sec-faq{max-width:900px}
+  #scroller .foot{grid-template-columns:1.2fr 1fr 1fr;align-items:start;padding-top:44px;padding-bottom:44px;margin-top:64px}
+  #scroller .foot .f-copy{grid-column:1/-1;border-top:1px solid color-mix(in srgb,currentColor 18%,transparent);padding-top:16px}
+  #scroller .svc-top{display:grid;grid-template-columns:1.25fr 1fr;grid-template-areas:"crumb crumb" "img title" "img facts";column-gap:40px;padding:0 var(--gut);--gut:max(40px,calc(50cqi - 580px))}
+  #scroller .svc-top .crumb{grid-area:crumb;padding:20px 0 0}
+  #scroller .svc-top .svc-hero{grid-area:img;margin:14px 0 0;height:auto;aspect-ratio:4/3}
+  #scroller .svc-top .svc-title{grid-area:title;padding:14px 0 0;align-self:end}
+  #scroller .svc-top .svc-title h1{font-size:40px}
+  #scroller .svc-top .facts{grid-area:facts;padding:18px 0 0;align-self:start}
+  #scroller .bk-head,#scroller .bk-body,#scroller div.done,#scroller .stp,#scroller .doc{--gut:max(24px,calc(50cqi - 360px));padding-left:var(--gut);padding-right:var(--gut)}
+  #scroller .dock{--gut:max(24px,calc(50cqi - 360px))}
+}
+
+#scroller .fcta{border:1px solid var(--line);background:var(--mist);border-radius:calc(20px*var(--s-r));padding:26px 20px;display:grid;gap:12px;justify-items:center;text-align:center}
+#scroller .fcta p{margin:0;color:var(--ink-2);max-width:52ch}
+@container site (min-width:860px){#scroller .fcta{padding:48px 32px}#scroller .fcta h2{font-size:34px}#scroller .fcta .btn{min-height:54px;padding:0 28px}}
+/* panel: Strona www */
+#view-panel .www-st{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#view-panel .www-st>div{flex:1;min-width:220px;display:grid;gap:2px}#view-panel .www-st small{color:#78716c}#view-panel .www-st a{color:inherit}
+#view-panel .www-dot{width:12px;height:12px;border-radius:50%;background:#1d6b45;box-shadow:0 0 0 4px #e8f2ec;flex:none}#view-panel .www-dot.w{background:#b45309;box-shadow:0 0 0 4px #f7efe2}
+#view-panel .www-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+#view-panel .www-t{border:1px solid var(--pline);background:#fff;border-radius:12px;padding:14px;text-align:left;display:grid;gap:4px;transition:border-color .15s,transform .15s}
+#view-panel .www-t:hover{border-color:var(--brand);transform:translateY(-2px)}#view-panel .www-t span{color:#78716c;font-size:13px}
+#view-panel .www-how{margin:0;padding-left:18px;display:grid;gap:8px;color:#44403c}
+html.bare body{margin:0}
+/* ekrany klienta (status, wycena, paszport, rezerwacja) w kolorach motywu */
+#scroller .loy{background:var(--s-dk);color:var(--s-on-dk);box-shadow:inset 0 0 0 1px var(--line)}#scroller .loy small{color:inherit;opacity:.72}
+#scroller .stages li i{background:var(--s-bg)}
+#scroller .extra{border-color:var(--s-acc);background:var(--paper)}
+#scroller .mem{background:var(--mist);border-color:var(--line)}#scroller .mem p{color:var(--ink-2)}#scroller .mem .forget{color:var(--grey)}
+#scroller .of-opt,#scroller .of-add,#scroller .of-card{background:var(--paper);color:var(--ink)}
+#scroller .of-opt[aria-checked="true"]{border-color:var(--s-acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--s-acc) 18%,transparent)}
+#scroller .of-add[aria-pressed="true"]{background:var(--s-acc);border-color:var(--s-acc);color:var(--s-on)}#scroller .of-add[aria-pressed="true"] small{color:inherit;opacity:.75}
+#scroller .pp-hero{background:linear-gradient(160deg,var(--s-dk),var(--s-dk2));color:var(--s-on-dk)}#scroller .pp-hero .eyebrow-d,#scroller .pp-hero .hint{color:inherit;opacity:.75}
+#scroller .pp-tl li::before{background:var(--s-bg);border-color:var(--s-acc)}
+#scroller .size svg>path:nth-of-type(1){fill:var(--ink)}#scroller .size svg>path:nth-of-type(2),#scroller .size svg>path:nth-of-type(3){fill:var(--grey)}
+/* sama strona na pełny ekran (?strona=1) i podgląd w edytorze (?podglad=1) */
+html.bare,html.bare body{background:var(--paper)}
+html.bare .demo-bar,html.bare .aside,html.bare .sbar,html.bare .urlbar,html.bare body::before{display:none}
+html.bare .stage{display:block;padding:0}
+html.bare .phone{width:100%;height:100vh;height:100dvh;min-height:0;border-radius:0;padding:0;box-shadow:none;background:none}
+html.bare .screen{border-radius:0}
+html.pv .scroller{scrollbar-width:thin}
+html.pv [data-cms]{cursor:pointer;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .15s}
+html.pv [data-cms]:not(.site-h):not(.dock){position:relative}
+html.pv [data-cms]:hover{outline:2px dashed #3b82f6}
+html.pv [data-cms].cms-on{outline:2px solid #2563eb}
+html.pv [data-cms].cms-on::before{content:attr(data-cms-l);position:absolute;left:6px;top:6px;z-index:9;background:#2563eb;color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;padding:5px 7px;border-radius:6px;pointer-events:none;letter-spacing:0;text-transform:none}
+html.pv .hero.cms-on::before{top:10px}
 </style>
 
 <header class="demo-bar">
@@ -1477,6 +1645,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/dist/umd/supabase.js" integrity="sha384-A97u3Qnt9GZHURO9YJZRe7VQgGUeFzcv6I1oIGnUTxQrCxnpQMwR0/G8F2zt9abZ" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" integrity="sha384-8FWZA6BGMXhsfO+BLtrJK0We6gg5o1JyO8xQm6peWDEUs17ACA5ziE/NIAkl9z2k" crossorigin="anonymous"></script>
+<script src="assets/site-cms.js"></script>
 <script>
 /* ================= DANE ================= */
 const SIZES=[
@@ -1565,7 +1734,7 @@ function carSVG(o={}){
 }
 function seatSVG(c){return `<svg viewBox="0 0 120 100" width="70%" aria-hidden="true"><path d="M38 10 h34 a8 8 0 0 1 8 8 v42 h-50 v-42 a8 8 0 0 1 8 -8z" fill="${c}"/><path d="M26 60 h66 a8 8 0 0 1 8 8 v14 h-82 v-14 a8 8 0 0 1 8 -8z" fill="${c}"/><rect x="40" y="82" width="8" height="12" fill="${c}"/><rect x="72" y="82" width="8" height="12" fill="${c}"/></svg>`}
 // shortcut: „przed” to to samo zdjęcie z filtrem CSS; prawdziwy salon wgra własne pary przed/po
-function photo(s,clean=true){return `<img class="phimg ${clean?'':'before'}" src="${esc(svcImg(s))}" alt="" loading="lazy">`}
+function photo(s,clean=true){return `<img class="phimg ${clean?'':'before'}" src="${esc(simg(s))}" alt="" loading="lazy">`}
 
 /* ================= REZERWACJE (wspólne dla klienta i panelu) ================= */
 const NAMES_SRC={ig:'Instagram',g:'Wizytówka Google',fb:'Facebook',d:'Bezpośrednio',web:'Strona www',tel:'Telefon / na miejscu'};
@@ -1723,89 +1892,122 @@ function renderClient(){
   if(S.screen==='offer') el.innerHTML=offerPageHTML();
   if(S.screen==='auto') el.innerHTML=passHTML();
   if(S.screen==='doc') el.innerHTML=docHTML();
+  CMS.apply(el,SITE());
+  if(BARE){const so=CMS.seo(SITE());document.title=so.title||`${SAL().name} · detailing, rezerwacja online`;const md=document.querySelector('meta[name=description]');if(md&&so.desc)md.content=so.desc}
+  if(PV){pvMark();parent.postMessage({t:'cms-at',screen:S.screen,svc:S.svc,doc:S.doc},location.origin)}
   bindBA(el);
   const key=S.screen+(S.screen==='book'&&S.bk?':'+S.bk.step:'')+(S.screen==='offer'&&S.of?':'+S.of.status:'');
   if(key!==S.lastKey){S.lastKey=key;enter(el)}
   mwSync();
 }
 
-function siteHeader(){return `<header class="site-h"><button class="logo" data-go="home" type="button">LUMEN<span>detailing</span></button>
-  <div style="display:flex;gap:8px"><button class="icon-btn" type="button" data-act="call" aria-label="Zadzwoń"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></button>
-  <button class="icon-btn" type="button" data-act="menu" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" stroke="#111" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>`}
-function baHTML(s){return `<div class="ba" style="--p:50%"><div class="layer before">${photo(s,false)}</div><div class="layer after">${photo(s,true)}</div><div class="line"></div><div class="knob">⇆</div><span class="lbl l">Przed</span><span class="lbl r">Po</span><input type="range" min="0" max="100" value="50" aria-label="Porównaj przed i po"></div>`}
+/* ---------- mini CMS: treści i wygląd strony (assets/site-cms.js) ---------- */
+// ?podglad=1 = podgląd w edytorze (iframe), ?strona=1 = sama strona na pełny ekran (bez ramki telefonu)
+const QS=new URLSearchParams(location.search), PV=QS.has('podglad')&&window.parent!==window, BARE=PV||QS.has('strona');
+let PV_CFG=null;
+const SITE=()=>PV_CFG||SET.site||{};
+const CTX=()=>({lumen:SLUG==='lumen',reviews:REVIEWS});
+const SC=id=>CMS.sec(SITE(),CTX(),id);
+const SON=id=>{const d=CMS.secDef(CTX(),id);return !!d&&(d.fixed||SC(id).on!==false)};
+const cimg=u=>{u=String(u||'');return CMS.STOCK.includes(u)||(u.startsWith(SB_PUB)&&!/["'<>\s()\\]/.test(u))?u:''};
+const cm=id=>{if(!PV)return '';const d=CMS.secDef(CTX(),id);return ` data-cms="${id}" data-cms-l="${esc(d?d.name:id)}"`};
+const simg=s=>cimg(CMS.svcOv(SITE(),s.id).img)||svcImg(s);
+const ICO_SOC={ig:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>',fb:'<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/>',tt:'<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 3 2.5 5 5.5 5"/>',yt:'<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>'};
+const SOC_L={ig:'Instagram',fb:'Facebook',tt:'TikTok',yt:'YouTube'};
+function logoHTML(){const L=CMS.logo(SITE()),img=cimg(L.img),nm=SAL().name;
+  if(img) return `<button class="logo logo-img" data-go="home" type="button"><img src="${esc(img)}" alt="${esc(nm)}" style="height:${Math.max(18,Math.min(64,+L.h||32))}px"></button>`;
+  return `<button class="logo" data-go="home" type="button">${esc(L.t||nm.split(' ')[0].toUpperCase())}${L.s?`<span>${esc(L.s)}</span>`:''}</button>`}
+function siteHeader(){const H=SC('home.header');return `<header class="site-h"${cm('home.header')}>${logoHTML()}
+  <nav class="dnav" aria-label="Menu strony"><button type="button" data-scroll="uslugi">Usługi</button>${SON('home.gallery')?'<button type="button" data-scroll="realizacje">Realizacje</button>':''}${SON('home.reviews')?'<button type="button" data-scroll="opinie">Opinie</button>':''}<button type="button" data-scroll="kontakt">Kontakt</button>${FON('bon')?'<button type="button" data-act="voucher">Bon</button>':''}</nav>
+  <div class="hbtns">${H.call?`<a class="icon-btn" href="tel:${esc(SAL().phone.replace(/[^\d+]/g,''))}" aria-label="Zadzwoń do salonu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>`:''}
+  <button class="icon-btn mmenu" type="button" data-act="menu" aria-label="Menu" aria-expanded="${!!S.menu}"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="${S.menu?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h16'}"/></svg></button>
+  <button class="btn btn-dark hcta" type="button" data-book="">${esc(H.cta)}</button></div></header>
+  ${S.menu?`<nav class="smenu" aria-label="Menu strony"><button type="button" data-scroll="uslugi">Usługi i ceny</button>${SON('home.gallery')?'<button type="button" data-scroll="realizacje">Realizacje</button>':''}${SON('home.reviews')?'<button type="button" data-scroll="opinie">Opinie</button>':''}<button type="button" data-scroll="kontakt">Dojazd i godziny</button>${FON('bon')?'<button type="button" data-act="voucher">Bon podarunkowy</button>':''}<button type="button" class="btn btn-dark" data-book="">Zarezerwuj termin</button></nav>`:''}`}
+function baHTML(s,bef,aft){const b=cimg(bef),a=cimg(aft);return `<div class="ba" style="--p:50%"><div class="layer before">${b?`<img class="phimg" src="${esc(b)}" alt="" loading="lazy">`:photo(s,false)}</div><div class="layer after">${a?`<img class="phimg" src="${esc(a)}" alt="" loading="lazy">`:photo(s,true)}</div><div class="line"></div><div class="knob">⇆</div><span class="lbl l">Przed</span><span class="lbl r">Po</span><input type="range" min="0" max="100" value="50" aria-label="Porównaj przed i po"></div>`}
 function bindBA(root){root.querySelectorAll('.ba input').forEach(i=>i.addEventListener('input',e=>e.target.closest('.ba').style.setProperty('--p',e.target.value+'%')))}
-function footer(){return `<footer class="foot"><div class="logo">LUMEN<span>detailing</span></div>
+function hoursRows(){return String(SAL().hours||'').split(/[,;]\s*/).map(x=>x.trim()).filter(Boolean).map(x=>{const m=x.match(/^(\S+)\s+(.+)$/);return m?`<span>${esc(m[1])}</span><span>${esc(m[2])}</span>`:`<span></span><span>${esc(x)}</span>`}).join('')}
+function footer(){const F=SC('home.footer'),soc=['ig','fb','tt','yt'].map(k=>[k,CMS.safeUrl(F[k])]).filter(x=>x[1]);
+  return `<footer class="foot"${cm('home.footer')}><div class="f-brand">${logoHTML()}${soc.length?`<div class="soc">${soc.map(([k,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${SOC_L[k]}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICO_SOC[k]}</svg></a>`).join('')}</div>`:''}</div>
   <div>${esc(SAL().addr)}, ${esc(SAL().city)}<br>${esc(SAL().hours)}<br>${esc(SAL().phone)}</div>
+  ${F.text?`<div class="f-txt">${esc(F.text)}</div>`:''}
   <div class="links"><button type="button" data-doc="regulamin">Regulamin rezerwacji</button><button type="button" data-doc="prywatnosc">Polityka prywatności</button>${FON('bon')?'<button type="button" data-act="voucher">Voucher</button>':''}</div>
-  <div style="color:#7d8186">${esc(SAL().name)} (dane przykładowe)</div></footer>`}
-function svcCard(s){return `<button class="svc" type="button" data-svc="${esc(s.id)}"><div class="thumb">${photo(s,true)}</div><div><h3>${esc(s.name)}</h3><p>${esc(s.short)}</p><div class="meta"><span class="price-from">od ${zl(minPrice(s))}</span><span class="tag ${s.mode==='instant'?'dark':''}">${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</span></div></div></button>`}
+  <div class="f-copy">© ${new Date().getFullYear()} ${esc(SAL().name)}${SLUG==='lumen'?' (dane przykładowe)':''}</div></footer>`}
+function svcCard(s){return `<button class="svc" type="button" data-svc="${esc(s.id)}"><div class="thumb">${photo(s,true)}</div><div><h3>${esc(s.name)}</h3><p>${esc(CMS.svcOv(SITE(),s.id).short||s.short)}</p><div class="meta"><span class="price-from">od ${zl(minPrice(s))}</span><span class="tag ${s.mode==='instant'?'dark':''}">${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</span></div></div></button>`}
+const lowPrice=()=>{const l=OFFER();return l.length?Math.min(...l.map(minPrice)):0};
 
 function homeHTML(){
+  const H=SC('home.hero'), hi=cimg(H.img), ch=SC('home.chips'), us=SC('home.services'), ba=SC('home.ba'), ga=SC('home.gallery'), st=SC('home.steps'), ab=SC('home.about'), rv=SC('home.reviews'), vo=SC('home.voucher'), mp=SC('home.map'), fq=SC('home.faq'), dk=SC('home.dock');
+  const addr=`${SAL().addr}, ${SAL().city.replace(/^[0-9-]+ /,'')}`, baSvc=svcById('ceramika')||OFFER()[0]||SERVICES[0];
+  const igl=CMS.safeUrl(ga.ig), rvl=CMS.safeUrl(rv.link), ab_img=cimg(ab.img), brands=String(ab.brands||'').split(',').map(x=>x.trim()).filter(Boolean);
   return `${siteHeader()}
-  <section class="hero">
-    <div class="eyebrow">Detailing${CITY()?' · '+esc(CITY()):''}</div>
-    <h1>Auto jak z salonu. Termin online w 2 minuty.</h1>
-    ${SLUG==='lumen'?'<div class="rating"><span>★★★★★</span><b>4,9</b><span>· 212 opinii Google</span></div>':''}
-    <div class="cta-row"><button class="btn btn-light" type="button" data-book="">Zarezerwuj termin</button><button class="btn btn-ghost" type="button" data-scroll="uslugi">Cennik</button></div>
+  <section class="hero${hi?' has-img':''}"${cm('home.hero')}${hi?` style="--hero-img:url('${esc(hi)}');--hero-pos:${['top','bottom'].includes(H.pos)?H.pos:'center'};--hero-dim:${Math.max(0,Math.min(85,+H.dim||0))/100}"`:''}>
+    <div class="hero-in"><div class="eyebrow">${esc(H.eyebrow||('Detailing'+(CITY()?' · '+CITY():'')))}</div>
+    <h1>${esc(H.title)}</h1>${H.sub?`<p class="hero-sub">${esc(H.sub)}</p>`:''}
+    ${H.rating?`<div class="rating"><span class="stars">★★★★★</span><b>${esc(H.rate)}</b><span>· ${esc(H.revs)}</span></div>`:''}
+    <div class="cta-row"><button class="btn btn-light" type="button" data-book="">${esc(H.cta)}</button>${H.cta2?`<button class="btn btn-ghost" type="button" data-scroll="uslugi">${esc(H.cta2)}</button>`:''}</div></div>
   </section>
-  <div class="chips"><span class="chip">✓ Cena znana przed wizytą</span><span class="chip">✓ Zadatek BLIK</span><span class="chip">✓ Potwierdzenie SMS</span><span class="chip">✓ Gwarancja na powłoki</span></div>
-  <section class="sec" id="uslugi"><h2>Usługi i ceny</h2><p class="lead">Cena zależy od wielkości auta. Dokładną kwotę zobaczysz przy rezerwacji.</p>
+  ${SON('home.chips')&&ch.items.length?`<div class="chips"${cm('home.chips')}>${ch.items.map(x=>`<span class="chip">✓ ${esc(x.t)}</span>`).join('')}</div>`:''}
+  <section class="sec sec-svc" id="uslugi"${cm('home.services')}><h2>${esc(us.title)}</h2>${us.lead?`<p class="lead">${esc(us.lead)}</p>`:''}
     ${catGroups()}</section>
-  <section class="sec"><h2>Przed i po</h2><p class="lead">Korekta lakieru i ceramika, Hyundai Tucson. Przesuń suwak.</p>${baHTML(svcById('ceramika'))}</section>
-  <section class="sec"><h2>Jak wygląda rezerwacja</h2><ol class="steps3">
-    <li><div><b>Wybierasz usługę i auto</b><span>Cena przelicza się od razu.</span></div></li>
-    <li><div><b>Wybierasz dzień oddania auta</b><span>Przy usługach wielodniowych widzisz też datę odbioru.</span></div></li>
-    <li><div><b>Dostajesz SMS z potwierdzeniem</b><span>Dzień przed wizytą przypomnimy o terminie.</span></div></li></ol></section>
-  <section class="sec"><h2>Opinie klientów</h2><div class="reviews">${REVIEWS.map(r=>`<div class="rev"><span class="stars">★★★★★</span><p>${r[1]}</p><small>${r[0]} · ${r[2]} · Google</small></div>`).join('')}</div></section>
-  ${FON('bon')?`<section class="sec"><div class="voucher"><h3>Voucher na prezent</h3><p>Mycie, wnętrze albo ceramika. Kwota od 150 zł, PDF od razu na maila.</p><button class="btn btn-light" type="button" data-act="voucher" style="justify-self:start">Kup voucher</button></div></section>`:''}
-  <section class="sec"><h2>Dojazd i godziny</h2><div class="map" role="img" aria-label="Mapa dojazdu"></div>
-    <div class="hours"><span>Adres</span><span>${esc(SAL().addr)}, ${esc(SAL().city.replace(/^[0-9-]+ /,''))}</span><span>pn-pt</span><span>8:00-18:00</span><span>sobota</span><span>9:00-14:00</span><span>niedziela</span><span>zamknięte</span></div></section>
-  <section class="sec"><h2>Pytania</h2>
-    <details class="faq"><summary>Czy muszę płacić z góry?</summary><p>Przy myciu i wnętrzu pobieramy zadatek 50-100 zł BLIK-iem, resztę płacisz na miejscu. Przy ceramice, korekcie i PPF najpierw potwierdzamy cenę po zdjęciach.</p></details>
-    <details class="faq"><summary>Mogę zmienić termin?</summary><p>Tak, do 24 godzin przed wizytą odpowiedz na SMS albo zadzwoń. Zadatek przechodzi na nowy termin.</p></details>
-    <details class="faq"><summary>Czy mogę zostawić auto dzień wcześniej?</summary><p>Tak, napisz o tym w uwagach przy rezerwacji.</p></details>
-  </section>
+  ${SON('home.ba')&&baSvc?`<section class="sec"${cm('home.ba')}><h2>${esc(ba.title)}</h2>${ba.lead?`<p class="lead">${esc(ba.lead)}</p>`:''}${baHTML(baSvc,ba.before,ba.after)}</section>`:''}
+  ${SON('home.gallery')&&ga.items.some(x=>cimg(x.img))?`<section class="sec" id="realizacje"${cm('home.gallery')}><h2>${esc(ga.title)}</h2>${ga.lead?`<p class="lead">${esc(ga.lead)}</p>`:''}
+    <div class="gal">${ga.items.filter(x=>cimg(x.img)).map(x=>`<figure><img src="${esc(cimg(x.img))}" alt="${esc(x.t||'Realizacja')}" loading="lazy">${x.t?`<figcaption>${esc(x.t)}</figcaption>`:''}</figure>`).join('')}</div>
+    ${igl?`<a class="btn btn-ghost" href="${esc(igl)}" target="_blank" rel="noopener">Więcej na Instagramie ↗</a>`:''}</section>`:''}
+  ${SON('home.steps')?`<section class="sec"${cm('home.steps')}><h2>${esc(st.title)}</h2><ol class="steps3">
+    ${st.items.map(x=>`<li><div><b>${esc(x.t)}</b>${x.d?`<span>${esc(x.d)}</span>`:''}</div></li>`).join('')}</ol></section>`:''}
+  ${SON('home.about')?`<section class="sec about${ab_img?' has-img':''}" id="o-nas"${cm('home.about')}>${ab_img?`<img class="ab-img" src="${esc(ab_img)}" alt="" loading="lazy">`:''}<div class="ab-txt"><h2>${esc(ab.title)}</h2>${CMS.paras(ab.text,esc)}
+    ${ab.since?`<p class="ab-num">${esc(ab.since)}</p>`:''}${brands.length?`<div class="brands">${brands.map(b=>`<span>${esc(b)}</span>`).join('')}</div>`:''}</div></section>`:''}
+  ${SON('home.reviews')&&rv.items.length?`<section class="sec" id="opinie"${cm('home.reviews')}><h2>${esc(rv.title)}</h2><div class="reviews">${rv.items.map(r=>`<div class="rev"><span class="stars">★★★★★</span><p>${esc(r.t)}</p><small>${esc(r.n)}${r.car?' · '+esc(r.car):''}</small></div>`).join('')}</div>
+    ${rvl?`<a class="btn btn-ghost" href="${esc(rvl)}" target="_blank" rel="noopener">Wszystkie opinie w Google ↗</a>`:''}</section>`:''}
+  ${FON('bon')&&SON('home.voucher')?`<section class="sec"${cm('home.voucher')}><div class="voucher"><h3>${esc(vo.title)}</h3><p>${esc(vo.text)}</p><button class="btn btn-light" type="button" data-act="voucher" style="justify-self:start">${esc(vo.cta)}</button></div></section>`:''}
+  <section class="sec sec-map" id="kontakt"${cm('home.map')}><h2>${esc(mp.title)}</h2><div class="map-wrap"><div class="map" role="img" aria-label="Mapa dojazdu"></div>
+    <div class="hours"><span>Adres</span><span>${esc(addr)}</span><span>Telefon</span><span>${esc(SAL().phone)}</span>${hoursRows()}</div></div>
+    ${mp.route?`<a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(SAL().name+', '+addr)}" target="_blank" rel="noopener">Wyznacz trasę ↗</a>`:''}</section>
+  ${SON('home.faq')&&fq.items.length?`<section class="sec sec-faq"${cm('home.faq')}><h2>${esc(fq.title)}</h2>
+    ${fq.items.map(x=>`<details class="faq"><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join('')}</section>`:''}
+  ${SON('home.cta')?(()=>{const C=SC('home.cta');return `<section class="sec"${cm('home.cta')}><div class="fcta"><h2>${esc(C.title)}</h2>${C.text?`<p>${esc(C.text)}</p>`:''}<button class="btn btn-dark" type="button" data-book="">${esc(C.cta)}</button></div></section>`})():''}
   ${footer()}
-  <div class="dock"><div class="sum"><small>Mycie, wnętrze, ceramika, PPF</small><b>od 149 zł</b></div><button class="btn btn-dark" type="button" data-book="">Zarezerwuj termin</button></div>`;
+  <div class="dock dock-site"${cm('home.dock')}><div class="sum"><small>${esc(dk.small)}</small><b>od ${zl(lowPrice())}</b></div><button class="btn btn-dark" type="button" data-book="">${esc(dk.cta)}</button></div>`;
 }
 
 function svcHTML(s){
-  const p0=s.pk[0];
+  const p0=s.pk[0], o=CMS.svcOv(SITE(),s.id), oi=cimg(o.img), incl=Array.isArray(o.incl)?o.incl.map(x=>esc(x.t)):s.incl, faq=Array.isArray(o.faq)?o.faq.map(x=>[esc(x.q),esc(x.a)]):s.faq;
+  const tp=SC('svc.price'), ti=SC('svc.incl'), tb=SC('svc.ba'), tf=SC('svc.faq'), tm=SC('svc.more'), more=OFFER().filter(x=>x.id!==s.id).slice(0,3);
   return `${siteHeader()}
-  <div class="crumb"><button type="button" data-go="home">Strona główna</button><span>/</span><span>${esc(s.name)}</span></div>
-  <div class="svc-hero">${photo(s,true)}</div>
-  <div class="svc-title"><h1>${esc(s.seo)}</h1><p>${esc(s.short)}</p></div>
-  <div class="facts"><div class="fact"><small>Cena</small><b>od ${zl(minPrice(s))}</b></div><div class="fact"><small>Czas</small><b>${durTxt(p0)}</b></div><div class="fact"><small>Trwałość</small><b>${s.dur}</b></div></div>
+  <div class="svc-top"${cm('svc.top')}><div class="crumb"><button type="button" data-go="home">Strona główna</button><span>/</span><span>${esc(s.name)}</span></div>
+  <div class="svc-hero">${oi?`<img class="phimg" src="${esc(oi)}" alt="" loading="lazy">`:photo(s,true)}</div>
+  <div class="svc-title"><h1>${esc(o.title||s.seo)}</h1><p>${esc(o.short||s.short)}</p></div>
+  <div class="facts"><div class="fact"><small>Cena</small><b>od ${zl(minPrice(s))}</b></div><div class="fact"><small>Czas</small><b>${durTxt(p0)}</b></div><div class="fact"><small>Trwałość</small><b>${esc(s.dur||'zależy od pielęgnacji')}</b></div></div></div>
   <section class="sec"><div class="mode-box"><span>${s.mode==='instant'?'⚡':'📷'}</span><div>${s.mode==='instant'?`<b>Termin od ręki.</b> Rezerwujesz i płacisz ${zl(s.deposit)} zadatku BLIK-iem, resztę na miejscu.`:`<b>Termin do potwierdzenia.</b> Wyślij zdjęcia auta przy rezerwacji. Salon potwierdzi cenę i termin SMS-em, zwykle w ciągu 2 godzin.`}</div></div></section>
-  <section class="sec"><h2>Cennik według auta</h2>
+  <section class="sec"${cm('svc.price')}><h2>${esc(tp.title)}</h2>
     <table class="ptable num"><thead><tr><th>Auto</th>${s.pk.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody>
     ${SIZES.map((z,i)=>`<tr><td>${z.name}<small>${z.ex}</small></td>${s.pk.map(p=>`<td>${zl(p.p[i])}</td>`).join('')}</tr>`).join('')}</tbody></table>
     ${s.pk.length>1?`<div style="display:grid;gap:6px;font-size:13px;color:var(--grey)">${s.pk.map(p=>`<div><b style="color:var(--ink)">${esc(p.name)}</b> (${durTxt(p)}): ${esc(p.desc)}</div>`).join('')}</div>`:''}
   </section>
-  <section class="sec"><h2>Co obejmuje</h2><ul class="incl">${s.incl.map(i=>`<li>${i}</li>`).join('')}</ul></section>
-  <section class="sec"><h2>Efekt</h2>${baHTML(s)}</section>
-  <section class="sec"><h2>Pytania</h2>${s.faq.map(f=>`<details class="faq"><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</section>
-  <section class="sec"><h2>Inne usługi</h2>${OFFER().filter(x=>x.id!==s.id).slice(0,3).map(svcCard).join('')}</section>
+  ${SON('svc.incl')&&incl.length?`<section class="sec"${cm('svc.incl')}><h2>${esc(ti.title)}</h2><ul class="incl">${incl.map(i=>`<li>${i}</li>`).join('')}</ul></section>`:''}
+  ${SON('svc.ba')?`<section class="sec"${cm('svc.ba')}><h2>${esc(tb.title)}</h2>${baHTML(s,'',oi)}</section>`:''}
+  ${SON('svc.faq')&&faq.length?`<section class="sec sec-faq"${cm('svc.faq')}><h2>${esc(tf.title)}</h2>${faq.map(f=>`<details class="faq"><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</section>`:''}
+  ${SON('svc.more')&&more.length?`<section class="sec sec-svc"${cm('svc.more')}><h2>${esc(tm.title)}</h2>${more.map(svcCard).join('')}</section>`:''}
   ${footer()}
-  <div class="dock"><div class="sum"><small>${esc(s.name)}</small><b>od ${zl(minPrice(s))}</b></div><button class="btn btn-dark" type="button" data-book="${s.id}">Zarezerwuj</button></div>`;
+  <div class="dock dock-site"><div class="sum"><small>${esc(s.name)}</small><b>od ${zl(minPrice(s))}</b></div><button class="btn btn-dark" type="button" data-book="${s.id}">Zarezerwuj</button></div>`;
 }
 
 /* ---------- formularz ---------- */
 function bookHTML(){
-  const b=S.bk, steps=stepsOf(b), key=steps[b.step], c=calc(b);
-  const head=`<div class="bk-head"><div class="bk-top"><button class="ghost-ic" type="button" data-bk="back" aria-label="Wstecz"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button><b>Rezerwacja</b><button class="ghost-ic" type="button" data-go="home" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" stroke="#111" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  const b=S.bk, steps=stepsOf(b), key=steps[b.step], c=calc(b), BT=SC('book.steps');
+  const head=`<div class="bk-head"><div class="bk-top"><button class="ghost-ic" type="button" data-bk="back" aria-label="Wstecz"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button><b>Rezerwacja</b><button class="ghost-ic" type="button" data-go="home" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="prog">${steps.map((s,i)=>`<i class="${i<=b.step?'on':''}"></i>`).join('')}</div>
     <div class="prog-l"><span>Krok ${b.step+1} z ${steps.length} · ${STEP_L[key]}</span>${c?`<span>${c.s.name}</span>`:''}</div></div>`;
   let body='';
-  if(key==='usluga') body=`${memBanner(b)}<h2>Co robimy z autem?</h2><p class="hint">Możesz wybrać jedną usługę główną. Dodatki będą za chwilę.</p>
+  if(key==='usluga') body=`${memBanner(b)}<h2>${esc(BT.usluga)}</h2><p class="hint">${esc(BT.usluga_h)}</p>
     ${OFFER().map(s=>`<button class="opt" type="button" data-pick-svc="${s.id}" aria-pressed="${b.svc===s.id}"><span class="rad"></span><span><b>${esc(s.name)}</b><small>${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</small></span><span class="pr">od ${zl(minPrice(s))}</span></button>`).join('')}
     ${b.svc&&svcById(b.svc).pk.length>1?`<h2 style="font-size:18px;margin-top:8px">Pakiet</h2>${svcById(b.svc).pk.map(p=>`<button class="opt" type="button" data-pick-pkg="${p.id}" aria-pressed="${b.pkg===p.id}"><span class="rad"></span><span><b>${esc(p.name)}</b><small>${esc(p.desc)} · ${durTxt(p)}</small></span><span class="pr">od ${zl(p.p[0])}</span></button>`).join('')}`:''}`;
-  if(key==='auto') body=`<h2>Jakie masz auto?</h2><p class="hint">Od wielkości zależy cena i czas pracy.</p>
+  if(key==='auto') body=`<h2>${esc(BT.auto)}</h2><p class="hint">${esc(BT.auto_h)}</p>
     <div class="sizes">${SIZES.map((z,i)=>`<button class="size" type="button" data-size="${z.id}" aria-pressed="${b.size===z.id}">${carSVG({w:Math.round(70*z.sc)})}<b>${z.name}</b><small>${z.ex}</small><span class="pr">${zl(pkgOf(c.s,b.pkg).p[i])}</span></button>`).join('')}</div>
     <div class="field"><label for="f-car">Marka i model <em>(opcjonalnie)</em></label><input class="inp" id="f-car" data-f="car" value="${esc(b.car)}" placeholder="np. Skoda Octavia 2019" autocomplete="off"></div>
     ${addonsHTML(b,c)}`;
-  if(key==='zdjecia') body=`<h2>Pokaż stan lakieru</h2><p class="hint">2-4 zdjęcia z telefonu wystarczą. Dzięki nim salon potwierdzi dokładną cenę bez oględzin.</p>
-    <label class="drop" for="f-photos"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>Dodaj zdjęcia</b><small>Całe auto z boku, maska z bliska, największe rysy</small><input type="file" id="f-photos" accept="image/*" multiple></label>
+  if(key==='zdjecia') body=`<h2>${esc(BT.zdjecia)}</h2><p class="hint">${esc(BT.zdjecia_h)}</p>
+    <label class="drop" for="f-photos"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>Dodaj zdjęcia</b><small>Całe auto z boku, maska z bliska, największe rysy</small><input type="file" id="f-photos" accept="image/*" multiple></label>
     ${b.photos.length?`<div class="thumbs">${b.photos.map(u=>`<div style="background-image:url(${u})"></div>`).join('')}</div>`:''}
     <div class="field"><label for="f-cond">Coś, o czym powinniśmy wiedzieć? <em>(opcjonalnie)</em></label><textarea class="inp" id="f-cond" data-f="cond" placeholder="np. rysa na drzwiach kierowcy, auto po lakierowaniu tylnego zderzaka">${esc(b.cond)}</textarea></div>
     <p class="hint" style="margin:0">Nie masz zdjęć pod ręką? Przejdź dalej, salon oddzwoni w sprawie wyceny.</p>`;
@@ -1814,13 +2016,13 @@ function bookHTML(){
     ${list.map(a=>`<button class="opt chk" type="button" data-addon="${a.id}" aria-pressed="${b.addons.has(a.id)}"><span class="rad"></span><span><b>${a.name}</b><small>${a.desc}${c.days?'':' · +'+String(a.h).replace('.',',')+' h'}</small></span><span class="pr">+${zl(a.p)}</span></button>`).join('')}`}
   if(key==='termin'){
     const days=dayList(), sel=b.day&&days.find(d=>+d===+b.day), slots=sel?slotsFor(sel,c):[], pu=pickup(b,c);
-    body=`<h2>Kiedy oddajesz auto?</h2><p class="hint">${c.days?`Usługa trwa ${durOf(c)}. Auto oddajesz rano, odbiór pokażemy od razu.`:`Wizyta potrwa ${durOf(c)}.`}</p>
+    body=`<h2>${esc(BT.termin)}</h2><p class="hint">${c.days?`Usługa trwa ${durOf(c)}. Auto oddajesz rano, odbiór pokażemy od razu.`:`Wizyta potrwa ${durOf(c)}.`}</p>
     <div class="days">${days.map(d=>{const free=dayFree(d,c);return `<button class="day" type="button" data-day="${+d}" aria-pressed="${!!sel&&+d===+sel}" ${free?'':'disabled'}><small>${DN[d.getDay()]}</small><b>${d.getDate()}</b><em>${free?['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'][d.getMonth()]:'brak'}</em></button>`}).join('')}</div>
     ${sel?`<div class="slots">${slots.map(x=>`<button class="slot num" type="button" data-hour="${x.h}" aria-pressed="${b.hour===x.h}" ${x.free?'':'disabled'}>${x.h}:00</button>`).join('')}</div>`:`<div class="info">Wybierz dzień, żeby zobaczyć wolne godziny.</div>`}
     ${pu?`<div class="info"><span>Oddanie auta: <b>${DNL[pu.start.getDay()]} ${pu.start.getDate()}.${pad(pu.start.getMonth()+1)}, ${pu.start.getHours()}:00</b></span><span>Odbiór: <b>${pu.txt}</b></span></div>`:''}
     ${wlHTML(b,c)}`;}
   if(key==='dane'){const e=b.errors;
-    body=`<h2>Twoje dane</h2><p class="hint">Bez zakładania konta. Numer telefonu jest potrzebny do SMS-a z potwierdzeniem.</p>
+    body=`<h2>${esc(BT.dane)}</h2><p class="hint">${esc(BT.dane_h)}</p>
     <div class="field"><label for="f-name">Imię</label><input class="inp ${e.name?'err':''}" id="f-name" data-f="name" value="${esc(b.name)}" autocomplete="given-name">${e.name?`<span class="errmsg">${e.name}</span>`:''}</div>
     <div class="field"><label for="f-phone">Telefon</label><div class="pref ${e.phone?'err':''}"><span>+48</span><input class="inp" id="f-phone" data-f="phone" type="tel" inputmode="tel" autocomplete="tel-national" value="${esc(b.phone)}" placeholder="600 000 000"></div>${e.phone?`<span class="errmsg">${e.phone}</span>`:''}</div>
     <div class="field"><label for="f-email">E-mail <em>(opcjonalnie, wyślemy potwierdzenie i fakturę)</em></label><input class="inp" id="f-email" data-f="email" type="email" autocomplete="email" value="${esc(b.email)}"></div>
@@ -1882,7 +2084,7 @@ function bkNext(){
   b.step++; renderClient(); $('#scroller').scrollTop=0;
   if(stepsOf(b)[b.step]==='termin') loadBusy().then(()=>{if(S.screen==='book')renderClient()});
 }
-async function finish(b,c){
+async function finish(b,c){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   const pu=pickup(b,c), instant=c.s.mode==='instant';
   if(!STUDIO){b.paying=false;toast('Brak połączenia z bazą, spróbuj ponownie');renderClient();return}
   b.paying=true;renderClient();
@@ -1909,11 +2111,11 @@ async function finish(b,c){
   S.screen='done'; renderClient(); $('#scroller').scrollTop=0;
 }
 function doneHTML(){
-  const {rec,c,pu}=S.last, instant=rec.status==='confirmed';
-  return `${siteHeader()}<div class="done">
+  const {rec,c,pu}=S.last, instant=rec.status==='confirmed', DT=SC('done.main');
+  return `${siteHeader()}<div class="done"${cm('done.main')}>
     <div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
-    <h2>${instant?'Termin zarezerwowany':'Prośba wysłana'}</h2>
-    <p>${instant?`Zadatek ${zl(rec.deposit)} opłacony. SMS z potwierdzeniem jest już w drodze.`:'Salon potwierdzi termin i cenę SMS-em, zwykle w ciągu 2 godzin.'}</p>
+    <h2>${esc(instant?DT.t1:DT.t2)}</h2>
+    <p>${instant?`Zadatek ${zl(rec.deposit)} opłacony. SMS z potwierdzeniem jest już w drodze.`:esc(DT.p2)}</p>
     <div class="summary num">
       <div class="r"><span>Usługa</span><span>${c.s.name}${c.s.pk.length>1?', '+c.p.name:''}</span></div>
       <div class="r"><span>Oddanie</span><span>${fdt(pu.start)}</span></div>
@@ -1921,9 +2123,9 @@ function doneHTML(){
       <div class="r"><span>Adres</span><span>${esc(SAL().addr)}, ${esc(SAL().city.replace(/^[0-9-]+ /,''))}</span></div>
       <div class="r tot"><span>${instant?'Do zapłaty na miejscu':'Szacunkowo'}</span><span>${zl(instant?rec.total-rec.deposit:rec.total)}</span></div>
     </div>
-    <ul class="next"><li><i>1</i><span>${instant?'SMS z potwierdzeniem i adresem':'SMS z potwierdzeniem terminu i linkiem do zadatku'}</span></li><li><i>2</i><span>Przypomnienie dzień przed wizytą</span></li><li><i>3</i><span>Po odbiorze prośba o opinię w Google</span></li></ul>
+    <ul class="next"><li><i>1</i><span>${instant?'SMS z potwierdzeniem i adresem':'SMS z potwierdzeniem terminu i linkiem do zadatku'}</span></li><li><i>2</i><span>${esc(DT.n2)}</span></li><li><i>3</i><span>${esc(DT.n3)}</span></li></ul>
     <button class="btn btn-ghost full" type="button" data-act="cal">Dodaj do kalendarza</button>
-    <button class="btn btn-dark full" type="button" data-to-panel="1">Zobacz, jak to widzi salon →</button>
+    ${BARE?'':'<button class="btn btn-dark full" type="button" data-to-panel="1">Zobacz, jak to widzi salon →</button>'}
     <button class="btn full" type="button" data-go="home" style="background:none">Wróć na stronę</button>
   </div>`;
 }
@@ -1934,7 +2136,7 @@ async function loadStatus(){
   const {data,error}=await sb.rpc('booking_public',{p_token:S.token});
   S.st=error||!data?{err:1}:data; if(S.screen==='status') renderClient();
 }
-async function respondExtra(id,ok){
+async function respondExtra(id,ok){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   const {data,error}=await sb.rpc('extra_respond',{p_token:S.token,p_id:id,p_accept:ok});
   if(error||!data){toast('Nie udało się zapisać odpowiedzi');return}
   S.st=data; renderClient(); toast(ok?'Dziękujemy. Salon dostał akceptację.':'Salon dostał informację. Nic nie dopisujemy.');
@@ -1960,13 +2162,14 @@ function statusHTML(){
     <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button>
   </div>`;
 }
-function openVoucher(){S.v={amount:300,custom:'',to:'',msg:'',name:'',phone:'',errors:{},paying:false};go('voucher')}
+const vAmts=()=>{const a=String(SC('voucher.main').amounts||'').split(/[,;\s]+/).map(x=>Math.round(+x)).filter(x=>x>=50&&x<=5000).slice(0,6);return a.length?a:[150,300,500,1000]};
+function openVoucher(){S.v={amount:vAmts()[Math.min(1,vAmts().length-1)],custom:'',to:'',msg:'',name:'',phone:'',errors:{},paying:false};go('voucher')}
 const vAmt=v=>v.custom?(+v.custom.replace(/\D/g,'')||0):v.amount;
 function voucherHTML(){
-  const v=S.v, e=v.errors;
-  return `${siteHeader()}<div class="bk-body">
-    <div class="voucher"><h3>Bon podarunkowy</h3><p>Na dowolną usługę w ${esc(SAL().name)}. Ważny 12 miesięcy.</p><b class="vamt num">${zl(vAmt(v))}</b></div>
-    <h2>Kwota</h2><div class="slots">${[150,300,500,1000].map(a=>`<button class="slot num" type="button" data-vamt="${a}" aria-pressed="${!v.custom&&v.amount===a}">${a} zł</button>`).join('')}</div>
+  const v=S.v, e=v.errors, VT=SC('voucher.main');
+  return `${siteHeader()}<div class="bk-body"${cm('voucher.main')}>
+    <div class="voucher"><h3>${esc(VT.title)}</h3><p>${esc(VT.text)}</p><b class="vamt num">${zl(vAmt(v))}</b></div>
+    <h2>Kwota</h2><div class="slots">${vAmts().map(a=>`<button class="slot num" type="button" data-vamt="${a}" aria-pressed="${!v.custom&&v.amount===a}">${a} zł</button>`).join('')}</div>
     <div class="field"><label for="v-custom">Inna kwota <em>(50-5000 zł)</em></label><input class="inp ${e.amount?'err':''}" id="v-custom" data-v="custom" inputmode="numeric" value="${esc(v.custom)}">${e.amount?`<span class="errmsg">${e.amount}</span>`:''}</div>
     <div class="field"><label for="v-to">Dla kogo <em>(opcjonalnie, pojawi się na bonie)</em></label><input class="inp" id="v-to" data-v="to" maxlength="80" value="${esc(v.to)}"></div>
     <div class="field"><label for="v-msg">Życzenia <em>(opcjonalnie)</em></label><textarea class="inp" id="v-msg" data-v="msg" maxlength="200">${esc(v.msg)}</textarea></div>
@@ -1976,7 +2179,7 @@ function voucherHTML(){
   </div>
   <div class="dock"><div class="sum"><small>Bon podarunkowy</small><b class="num vsum">${zl(vAmt(v))}</b></div><button class="btn btn-dark" type="button" data-vbuy="1" ${v.paying?'disabled':''}>${v.paying?'<span class="spin"></span> Czekam na bank':'Zapłać BLIK-iem'}</button></div>`;
 }
-async function buyVoucher(){
+async function buyVoucher(){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   const v=S.v, e={}, amt=vAmt(v), ph=v.phone.replace(/\D/g,'');
   if(amt<50||amt>5000) e.amount='Kwota od 50 do 5000 zł.';
   if(v.name.trim().length<2) e.name='Wpisz swoje imię.';
@@ -2011,7 +2214,7 @@ function wlHTML(b,c){
     ${w.err?`<span class="errmsg">${w.err}</span>`:''}
     <button class="btn btn-dark full" type="button" data-wl="save">Zapisz mnie na listę</button></div>`;
 }
-async function wlSave(b){
+async function wlSave(b){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   const w=b.wl, ph=w.phone.replace(/\D/g,'');
   if(w.name.trim().length<2||ph.length!==9){w.err='Wpisz imię i 9 cyfr telefonu.';renderClient();return}
   const {data,error}=await sb.rpc('waitlist_join',{p_studio:STUDIO.id,p_day:w.day,p_svc:b.svc,p_name:w.name.trim(),p_phone:'+48 '+ph,p_note:null});
@@ -2035,7 +2238,7 @@ function wlstatusHTML(){
   </div>`;
 }
 async function loadWl(){const {data,error}=await sb.rpc('waitlist_public',{p_token:S.wtoken});S.wls=error||!data?{err:1}:data;if(S.screen==='wlstatus')renderClient()}
-async function wlLeave(){const {data,error}=await sb.rpc('waitlist_leave',{p_token:S.wtoken});if(error||!data){toast('Nie udało się wypisać. Zadzwoń do salonu.');return}S.wls=data;renderClient();toast('Wypisano Cię z listy rezerwowej')}
+async function wlLeave(){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}const {data,error}=await sb.rpc('waitlist_leave',{p_token:S.wtoken});if(error||!data){toast('Nie udało się wypisać. Zadzwoń do salonu.');return}S.wls=data;renderClient();toast('Wypisano Cię z listy rezerwowej')}
 function propClient(d){
   const pr=d.proposal; if(!pr||typeof pr!=='object') return '';
   if(pr.status==='pending') return `<div class="extra"><b>Proponujemy nowy termin</b><p>${pr.msg?`„${esc(pr.msg)}”<br>`:''}Zamiast ${fdt(new Date(d.start_at))}:</p><div class="r"><span>Nowy termin</span><b>${fdt(new Date(pr.start_at))}</b></div><div class="r"><span>Odbiór</span><b>${fdt(new Date(pr.end_at))}</b></div><div class="two"><button class="btn btn-ghost" type="button" data-prop="0">Nie pasuje</button><button class="btn btn-dark" type="button" data-prop="1">Pasuje mi</button></div><small>Po akceptacji termin od razu jest Twój.</small></div>`;
@@ -2043,7 +2246,7 @@ function propClient(d){
   if(pr.status==='taken') return `<div class="info"><b>Ten termin zajął się chwilę wcześniej</b><span>Salon zaproponuje kolejny.</span></div>`;
   return '';
 }
-async function respondProp(ok){
+async function respondProp(ok){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   const {data,error}=await sb.rpc('proposal_respond',{p_token:S.token,p_accept:ok});
   if(error||!data){toast('Nie udało się zapisać odpowiedzi');return}
   S.st=data; renderClient(); toast(ok?(data.proposal&&data.proposal.status==='accepted'?'Termin potwierdzony':'Ten termin właśnie się zajął'):'Salon dostał informację');
@@ -2060,10 +2263,12 @@ const sc=$('#scroller');
 sc.addEventListener('click',e=>{
   const t=e.target.closest('button,[data-go]'); if(!t) return;
   const b=S.bk;
-  if(t.dataset.go){go(t.dataset.go);return}
+  if(t.dataset.go){S.menu=false;go(t.dataset.go);return}
+  if(t.dataset.book!==undefined||t.dataset.act==='voucher')S.menu=false;
   if(t.dataset.svc!==undefined&&t.classList.contains('svc')){go('svc',{svc:t.dataset.svc});return}
   if(t.dataset.book!==undefined){go('book',{svc:t.dataset.book||null});if(S.bk.skipSvc){S.bk.step=1;renderClient()}return}
-  if(t.dataset.scroll){const x=sc.querySelector('#'+t.dataset.scroll);if(x)sc.scrollTop=x.offsetTop-60;return}
+  if(t.dataset.scroll){const id=t.dataset.scroll;S.menu=false;if(S.screen!=='home')go('home');else renderClient();const x=sc.querySelector('#'+id);if(x)sc.scrollTop=x.offsetTop-(sc.querySelector('.site-h')||{offsetHeight:60}).offsetHeight-8;return}
+  if(t.dataset.act==='menu'){S.menu=!S.menu;renderClient();return}
   if(t.dataset.doc){S.doc=t.dataset.doc;go('doc');return}
   if(t.dataset.extra){respondExtra(t.dataset.extra,t.dataset.ok==='1');return}
   if(t.dataset.ofopt&&S.ofSel){S.ofSel.opt=t.dataset.ofopt;renderClient();return}
@@ -2077,7 +2282,7 @@ sc.addEventListener('click',e=>{
   if(t.dataset.vamt){S.v.amount=+t.dataset.vamt;S.v.custom='';renderClient();return}
   if(t.dataset.vbuy){buyVoucher();return}
   if(t.dataset.act==='voucher'){openVoucher();return}
-  if(t.dataset.act){toast({call:'Tu klient dzwoni do salonu (w demo bez połączenia)',menu:'Menu: usługi, cennik, opinie, kontakt',voucher:'Vouchery w kolejnej wersji demo',cal:'Tu dodaje się wydarzenie do kalendarza telefonu'}[t.dataset.act]);return}
+  if(t.dataset.act){toast({call:'Tu klient dzwoni do salonu (w demo bez połączenia)',voucher:'Vouchery w kolejnej wersji demo',cal:'Tu dodaje się wydarzenie do kalendarza telefonu'}[t.dataset.act]);return}
   if(t.dataset.toPanel){location.hash='panel';return}
   if(!b) return;
   if(t.dataset.wl==='open'){const c=calc(b),d=dayList().find(x=>x.getDay()!==0&&!dayFree(x,c))||dayList().find(x=>x.getDay()!==0);b.wl={day:ymd(d),name:b.name,phone:b.phone,err:''};renderClient();return}
@@ -2306,6 +2511,7 @@ document.getElementById('view-panel').addEventListener('submit',async e=>{
 const P={grange:28,view:'start',filter:'all',wk:0,bay:null,edit:false,drag:null,q:'',cal:{m:'month',a:null}};
 const USL_IC='<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>';
 const ICONS={
+  www:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01M8 13h8M8 16.5h5"/>',
   dzis_old:'<path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/>',
   rez:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
   kal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
@@ -2374,13 +2580,13 @@ function renderSide(){
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   ${grp('Sprzedaż',it('wyc','Wyceny',acc)+it('gw','Gwarancje',due)+it('wl','Lista rezerwowa',off)+(A?it('bon','Bony'):''))}
-  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')):''}
+  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('www','Strona www')):''}
   ${grp('Konto i pomoc',(A?it('ust','Ustawienia')+it('plan','Twój plan'):'')+it('pom','Jak to zrobić?')+it('kon','Pomoc'))}
   ${SLUG!=='lumen'?'':`<button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>`}
   <div class="salon"><b>${esc(SAL().name)}</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'}${CITY()?' · '+esc(CITY()):''}</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
   <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
-function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML,kon:konHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000);if(TR.i>=0&&!TR.moving)requestAnimationFrame(tourFollow)}
+function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML,kon:konHTML,www:wwwHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000);if(TR.i>=0&&!TR.moving)requestAnimationFrame(tourFollow)}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -3916,7 +4122,7 @@ async function blockSubmit(f){
 
 /* ================= v11: zespół i role, wyceny, gwarancje, paszport auta, ruch ================= */
 const isAdm=()=>ROLE==='owner'||ROLE==='admin';
-const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes','plan'];
+const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes','plan','www'];
 const narrow=()=>matchMedia('(max-width: 820px)').matches;
 const ME=()=>SESSION?TEAM.find(t=>t.user_id===SESSION.user.id)||null:null;
 const memberOf=id=>id?TEAM.find(t=>t.id===id)||null:null;
@@ -4210,7 +4416,7 @@ async function loadOffer(){
   if(!S.of.err){const l=ofOpts(S.of),r=l.find(x=>x.rec)||l[0];S.ofSel={opt:(S.of.choice&&S.of.choice.option)||(r&&r.id),add:new Set(),note:''}}
   if(S.screen==='offer') renderClient();
 }
-async function respondOffer(ok,btn){
+async function respondOffer(ok,btn){if(PV){toast('To podgląd w edytorze: tu klient wyśle formularz, nic się nie zapisze.');return}
   btn.disabled=true;
   const {data,error}=await sb.rpc('offer_respond',{p_token:S.otoken,p_option:S.ofSel.opt||'',p_addons:[...S.ofSel.add],p_accept:ok,p_note:cleanTxt(S.ofSel.note).slice(0,300)||null});
   if(error||!data){btn.disabled=false;toast('Nie udało się wysłać odpowiedzi. Spróbuj jeszcze raz.');return}
@@ -4338,8 +4544,37 @@ function docHTML(){
     <h2>Jak długo</h2><p>Dane wizyty przechowujemy przez okres gwarancji i przedawnienia roszczeń. Zgodę na przypomnienia możesz wycofać w każdej chwili.</p>
     <h2>Komu przekazujemy</h2><p>Dostawcy hostingu i bazy danych oraz bramce SMS, wyłącznie w zakresie potrzebnym do obsługi rezerwacji.</p>
     <h2>Twoje prawa</h2><p>Dostęp do danych, ich poprawienie, usunięcie, ograniczenie przetwarzania, przeniesienie i sprzeciw. Możesz też złożyć skargę do Prezesa UODO.</p>`;
-  return siteHeader()+`<div class="doc">${S.doc==='prywatnosc'?pry:reg}<p class="wz">Wzór w wersji demo. Salon uzupełnia go swoimi danymi przed startem; to nie jest porada prawna.</p><button class="btn btn-ghost full" type="button" data-go="home">Wróć na stronę salonu</button></div>`;
+  const own=SC('doc.'+(S.doc==='prywatnosc'?'prywatnosc':'regulamin')).own;
+  if(String(own||'').trim()) return siteHeader()+`<div class="doc"${cm('doc.'+(S.doc==='prywatnosc'?'prywatnosc':'regulamin'))}><h1>${S.doc==='prywatnosc'?'Polityka prywatności':'Regulamin rezerwacji'}</h1>${CMS.doc(own,esc)}<button class="btn btn-ghost full" type="button" data-go="home">Wróć na stronę salonu</button></div>`;
+  return siteHeader()+`<div class="doc"${cm('doc.'+(S.doc==='prywatnosc'?'prywatnosc':'regulamin'))}>${S.doc==='prywatnosc'?pry:reg}<p class="wz">Wzór w wersji demo. Salon uzupełnia go swoimi danymi przed startem; to nie jest porada prawna.</p><button class="btn btn-ghost full" type="button" data-go="home">Wróć na stronę salonu</button></div>`;
 }
+
+/* ---------- Strona www: mini CMS (assets/site-cms.js, edytor w assets/site-editor.js ładowany na żądanie) ---------- */
+const SITE_URL=(k='strona')=>{const u=new URL('salon.html',location.href);u.hash='';if(SLUG!=='lumen')u.searchParams.set('salon',SLUG);u.searchParams.set(k,'1');return u.href};
+const siteDirty=()=>!!SET.site_draft&&JSON.stringify(SET.site_draft)!==JSON.stringify(SET.site||{});
+function wwwHTML(){const d=siteDirty(),at=SET.site_at?new Date(SET.site_at):null;
+  const tile=(k,t,x)=>`<button type="button" class="www-t" data-www="${k}"><b>${t}</b><span>${x}</span></button>`;
+  return `${topbar('Strona www','Teksty, zdjęcia, kolory i czcionki strony salonu. Układ jest gotowy, zmieniasz tylko treść i wygląd.',`<a class="pbtn" href="${esc(SITE_URL())}" target="_blank" rel="noopener">Zobacz stronę ↗</a><button class="pbtn dark" type="button" data-www="">Edytuj stronę</button>`)}
+  <div class="box"><div class="box-h"><h2>Stan strony</h2><small>${d?'są zmiany w szkicu':'wszystko opublikowane'}</small></div>
+    <div class="www-st"><span class="www-dot ${d?'w':''}"></span><div><b>${d?'Masz nieopublikowane zmiany':'Klienci widzą aktualną wersję'}</b><small>${at?'Ostatnia publikacja: '+fdt(at):'Strona działa na ustawieniach początkowych.'} Adres: <a href="${esc(SITE_URL())}" target="_blank" rel="noopener">${esc(SITE_URL().replace(/^https?:\/\//,''))}</a></small></div>
+    <button class="pbtn" type="button" data-www="">${d?'Wróć do edycji':'Otwórz edytor'}</button></div></div>
+  <div class="box"><div class="box-h"><h2>Szybkie zmiany</h2><small>otwiera edytor od razu we właściwym miejscu</small></div>
+    <div class="www-tiles">${tile('sel:home.hero','Baner główny','tytuł, zdjęcie w tle, przyciski')}${tile('tab:look','Kolory i czcionki','8 palet, własne kolory, logo')}${tile('sel:home.gallery','Realizacje','zdjęcia Twoich aut')}${tile('sel:home.reviews','Opinie','prawdziwe opinie klientów')}${tile('sel:svc.top','Opisy usług','tekst i zdjęcie każdej usługi')}${tile('tab:set','Wygląd w Google','tytuł i opis strony')}</div></div>
+  <div class="box"><div class="box-h"><h2>Jak to działa</h2></div><ul class="www-how"><li><b>Stały układ.</b> Kolejność sekcji jest sprawdzona na stronach salonów detailingu, więc nic się nie rozjedzie na telefonie.</li><li><b>Szkic i publikacja.</b> Zmiany zapisują się same jako szkic. Klienci zobaczą je dopiero po kliknięciu „Opublikuj”.</li><li><b>Telefon i komputer.</b> Podgląd przełączasz u góry edytora. Większość klientów wchodzi z telefonu, z Instagrama i wizytówki Google.</li></ul></div>`}
+let SE_P=null;
+const seLoad=()=>SE_P||(SE_P=new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='assets/site-editor.js';sc.onload=()=>window.SiteEditor?res(window.SiteEditor):rej();sc.onerror=()=>{SE_P=null;sc.remove();rej()};document.head.append(sc)}));
+async function openSite(arg=''){let ed;try{ed=await seLoad()}catch(_){toast('Nie udało się wczytać edytora. Sprawdź internet.');return}
+  const [k,v]=String(arg).split(':'),o={};
+  if(k==='sel'){const pg=CMS.schema(CTX()).find(p=>p.sections.some(x=>x.id===v));if(pg){o.page=pg.id;o.sel=v}}
+  if(k==='tab')o.tab=v;
+  ed.open({...o,live:SET.site||{},draft:SET.site_draft||null,ctx:CTX,services:()=>OFFER().length?OFFER():SERVICES,svc:id=>svcById(id),fon:FON,salonName:()=>SAL().name,city:CITY,
+    previewUrl:SITE_URL('podglad'),liveUrl:SITE_URL(),
+    save:async c=>{SET.site_draft=c;return await saveCatalog()},
+    publish:async c=>{SET.site=c;SET.site_draft=JSON.parse(JSON.stringify(c));SET.site_at=new Date().toISOString();return await saveCatalog()},
+    upload:async f=>{if(!STUDIO)return null;const ext=({'image/png':'png','image/webp':'webp'})[f.type]||'jpg',path=`${STUDIO.id}/site-${crypto.randomUUID()}.${ext}`;
+      const {error}=await sb.storage.from('public').upload(path,f,{contentType:f.type||'image/jpeg'});return error?null:sb.storage.from('public').getPublicUrl(path).data.publicUrl},
+    nav:v=>{P.view=v;renderPanel();window.scrollTo(0,0)},
+    onClose:()=>{if(P.view==='www')renderPanel()}})}
 
 /* ---------- zdarzenia panelu ---------- */
 const RQ_MSG={confirmed:n=>`Potwierdzono. ${n} dostanie SMS z terminem (w demo bez wysyłki).`,rejected:n=>`Odrzucono. ${n} dostanie SMS (w demo bez wysyłki).`,
@@ -4370,6 +4605,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     let c=SET.cats.find(x=>x.name.toLowerCase()===n.toLowerCase());if(!c){let id=slugify(n)||'praca';while(SET.cats.some(x=>x.id===id))id=id.slice(0,26)+'-'+(SET.cats.length+1);c={id,name:n};SET.cats.push(c)}
     const b=BAYS().find(x=>x.id===+t.dataset.baycatadd);b.cats=[...new Set((b.cats||[]).concat(c.id))];SET.bays=BAYS();await saveCatalog();renderPanel();toast(`${b.name} przyjmuje teraz: ${c.name}`);return}
   if(t&&t.dataset.reseed){t.disabled=true;SET.no_seed=false;await reseedAll();renderPanel();toast('Dane przykładowe odświeżone');return}
+  if(t&&t.dataset.www!==undefined){openSite(t.dataset.www);return}
   if(t&&t.dataset.nav){if(t.dataset.nav==='kon'&&P.view!=='kon')P.lastView=P.view;P.view=t.dataset.nav;if(t.dataset.filter)P.filter=t.dataset.filter;renderPanel();enter($('#pmain'));window.scrollTo(0,0);return}
   if(t&&v11Click(t)) return;
   {const of=e.target.closest('[data-offer]');if(of&&!t?.dataset.open){openOffer(+of.dataset.offer);return}}
@@ -4518,6 +4754,30 @@ document.getElementById('view-panel').addEventListener('change',e=>{
   if(t.dataset.addprice){ADDONS.find(a=>a.id===t.dataset.addprice).p=Math.max(0,+t.value||0);saveCatalog().then(ok=>ok&&toast('Cena dodatku zapisana'))}
 });
 
+/* ================= MINI CMS: tryb strony i podgląd w edytorze ================= */
+document.documentElement.classList.toggle('bare',BARE);document.documentElement.classList.toggle('pv',PV);
+let PV_SEL=null;
+function pvMark(){const el=$('#scroller');el.querySelectorAll('.cms-on').forEach(x=>x.classList.remove('cms-on'));if(PV_SEL){const x=el.querySelector(`[data-cms="${CSS.escape(PV_SEL)}"]`);if(x)x.classList.add('cms-on')}}
+function pvSample(){const sv=OFFER().find(x=>x.mode==='instant')||OFFER()[0]||SERVICES[0],b=newBk(sv.id);b.size=SIZES[1].id;b.day=addWork(T0,2);b.hour=10;const c=calc(b);return {sv,c,pu:pickup(b,c)}}
+function pvGo(m){S.menu=false;const first=(OFFER()[0]||SERVICES[0]).id;
+  if(m.page==='svc')go('svc',{svc:svcById(m.svc)?m.svc:first});
+  else if(m.page==='book')go('book');
+  else if(m.page==='done'){const {sv,c,pu}=pvSample();S.last={rec:{status:sv.mode==='instant'?'confirmed':'pending',deposit:sv.deposit||100,total:c.total},c,pu};go('done')}
+  else if(m.page==='status'){const {sv,c,pu}=pvSample();S.st={name:'Robert',car:'Audi A4 Avant',svc:sv.id,size:SIZES[1].id,status:'confirmed',stage:'w_trakcie',start_at:pu.start.toISOString(),end_at:pu.end.toISOString(),extras:[],total:c.total,deposit:sv.deposit||100,paid:true,spent:1800,used:0};go('status')}
+  else if(m.page==='voucher')openVoucher();
+  else if(m.page==='reg'||m.page==='pry'){S.doc=m.page==='pry'?'prywatnosc':'regulamin';go('doc')}
+  else go('home');
+}
+if(PV){
+  window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent)return;const m=e.data||{},sc=$('#scroller');
+    if(m.t==='cms-cfg'){const top=sc.scrollTop;PV_CFG=m.cfg&&typeof m.cfg==='object'?m.cfg:{};renderClient();sc.scrollTo({top,behavior:'instant'})}
+    if(m.t==='cms-go')pvGo(m);
+    if(m.t==='cms-sel'){PV_SEL=m.id||null;pvMark();const x=PV_SEL&&sc.querySelector(`[data-cms="${CSS.escape(PV_SEL)}"]`);if(x&&m.scroll){const h=x.classList.contains('site-h')||x.classList.contains('dock')?0:(sc.querySelector('.site-h')||{offsetHeight:0}).offsetHeight;sc.scrollTo({top:Math.max(0,x.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-h-8),behavior:calm()?'instant':'smooth'})}}
+  });
+  $('#scroller').addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&!a.target){e.preventDefault();toast('W podglądzie linki są wyłączone')}
+    const x=e.target.closest('[data-cms]');if(x){PV_SEL=x.dataset.cms;pvMark();parent.postMessage({t:'cms-pick',id:x.dataset.cms},location.origin)}},true);
+}
+
 /* ================= ROUTING ================= */
 function route(){
   if(typeof mMenu==='function'&&$('#side')&&$('#side').classList.contains('open'))mMenu(false);
@@ -4541,5 +4801,5 @@ setInterval(()=>{if(S.screen==='status'&&S.token&&!$('#view-klient').hidden&&doc
 drw().addEventListener('cancel',e=>{e.preventDefault();tryClose()});
 const tick=()=>{const d=new Date();$('#clock').textContent=d.getHours()+':'+pad(d.getMinutes())};tick();setInterval(tick,30000);
 route();
-loadStudio().then(()=>{if(location.hash!=='#panel')renderClient();loadBusy()});
+loadStudio().then(()=>{if(location.hash!=='#panel')renderClient();loadBusy();if(PV)parent.postMessage({t:'cms-ready'},location.origin)});
 </script>
