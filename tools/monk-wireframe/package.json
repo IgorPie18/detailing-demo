@@ -1,0 +1,14 @@
+{
+  "name": "monk-wireframe-bundle",
+  "private": true,
+  "description": "Buduje assets/monk-wireframe.js: komponent VehicleDynamicWireframe z MonkJS (BSD-3-Clause-Clear) + React, z 4 modelami aut. Uruchom: npm install && npm run build",
+  "scripts": { "build": "node build.mjs" },
+  "dependencies": {
+    "@monkvision/common-ui-web": "5.4.9",
+    "@monkvision/sights": "5.4.9",
+    "@monkvision/types": "5.4.9",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "esbuild": "0.28.2"
+  }
+}

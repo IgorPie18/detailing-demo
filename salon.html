@@ -530,6 +530,15 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .pmap .axle{stroke:#d6d3d1;stroke-width:3}
 .pmap .lb{font:700 10px var(--body);fill:#a8a29e;text-anchor:middle;letter-spacing:.12em}.pmap .lb.sm{font-size:8.5px}
 .pmap .pn circle{fill:#1c1917;stroke:#fff;stroke-width:2}.pmap .pn text{font:700 10px var(--body);fill:#fff;text-anchor:middle;pointer-events:none}
+.mwbox{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:8px 8px 4px;max-width:520px;margin:0 auto}
+.mw-svg{aspect-ratio:541/308;width:100%}.mw-svg svg{display:block;width:100%;height:100%}
+.mw-bar{display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 0 2px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+.mw-bar button{width:44px;height:44px;border-radius:50%;border:1px solid var(--pline);background:#fff;font-size:24px;line-height:1;color:var(--ink);cursor:pointer}
+.mw-bar button:hover{border-color:var(--brand);color:var(--brand-600)}.mw-bar span{min-width:150px;text-align:center}
+.mw-load{height:220px;display:grid;place-items:center;color:var(--grey);font-size:14px}
+.dv-sw{display:inline-flex;background:#efefec;border-radius:999px;padding:3px;gap:3px;margin:0 0 8px}
+.dv-sw button{border:0;background:none;border-radius:999px;min-height:36px;padding:0 14px;font:inherit;font-size:13.5px;font-weight:600;color:var(--grey);cursor:pointer}
+.dv-sw button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(28,25,23,.14)}
 .pe{border:1px solid var(--brand-100);background:#fffaf6;border-radius:12px;padding:12px;display:grid;gap:10px;margin-top:10px;animation:fadeIn .18s ease}
 .pe-h{display:flex;align-items:center;gap:8px}.pe-h b{flex:1}
 .pe-r{display:grid;gap:6px}.pe-r>span{font-size:13px;font-weight:600;color:var(--ink-2)}.pe-r em{font-style:normal;font-weight:400;color:var(--grey)}
@@ -1717,6 +1726,7 @@ function renderClient(){
   bindBA(el);
   const key=S.screen+(S.screen==='book'&&S.bk?':'+S.bk.step:'')+(S.screen==='offer'&&S.of?':'+S.of.status:'');
   if(key!==S.lastKey){S.lastKey=key;enter(el)}
+  mwSync();
 }
 
 function siteHeader(){return `<header class="site-h"><button class="logo" data-go="home" type="button">LUMEN<span>detailing</span></button>
@@ -1944,7 +1954,7 @@ function statusHTML(){
     <div class="summary num">${ex.filter(x=>x.status!=='pending').map(x=>`<div class="r"><span>${esc(x.desc)}</span><span>${x.status==='accepted'?'+'+zl(+x.amount||0):'odrzucone'}</span></div>`).join('')}
       ${d.points_used?`<div class="r"><span>Rabat z punktów</span><span>−${zl(d.points_used)}</span></div>`:''}
       <div class="r tot"><span>${d.status==='done'?'Zapłacono':'Do zapłaty przy odbiorze'}</span><span>${zl(d.total-(d.paid?d.deposit:0))}</span></div></div>
-    ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${parts.length||!marks.length?`${partsMap(parts,true,'')}<ol class="mklist">${parts.length?partsList(parts,true):'<li class="none">Bez uszkodzeń.</li>'}</ol>`:`${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol>`}</div>`:''}
+    ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${parts.length||!marks.length?`${dmgView(parts,true,'st',d.size)}<ol class="mklist">${parts.length?partsList(parts,true):'<li class="none">Bez uszkodzeń.</li>'}</ol>`:`${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol>`}</div>`:''}
     ${SET.loy_on?`<div class="loy"><b>${L.bal} pkt</b><span>= ${zl(L.bal)} rabatu w programie lojalnościowym</span><small>${L.bal>=SET.loy_min?'Odliczymy je automatycznie przy odbiorze auta.':`Od ${SET.loy_min} pkt odliczamy je automatycznie. Brakuje ${SET.loy_min-L.bal} pkt.`}</small></div>`:''}
     ${d.cert&&/^[0-9a-f-]{36}$/.test(d.cert)?`<a class="btn btn-dark full" href="#auto=${d.cert}">Paszport auta i karta gwarancyjna</a>`:''}
     <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button>
@@ -2690,29 +2700,59 @@ const PARTS=(()=>{const L=[
   L.forEach(([id,n,d,cx,cy,k])=>{P.push([id,n,d,cx,cy,k,0]);P.push([id.replace(/l$/,'r'),n.replace(/lew(y|e|a)$/,(m,e)=>'praw'+e),d,300-cx,cy,k,1])});
   return P.map(([id,n,d,cx,cy,k,fl])=>({id,n,d,cx,cy,k:k||'',fl:!!fl}));})();
 const PART=Object.fromEntries(PARTS.map(p=>[p.id,p]));
-const cleanParts=a=>(Array.isArray(a)?a:[]).filter(x=>x&&PART[x.p]).map(x=>({p:x.p,t:DMG[x.t]?x.t:'I',s:[0,1,2,3].includes(+x.s)?+x.s:0,n:cleanTxt(x.n||'').slice(0,120),ph:(Array.isArray(x.ph)?x.ph:[]).filter(f=>f&&SAFE_PATH.test(f.path)).map(f=>({path:f.path,at:f.at,url:f.url}))}));
-const partTxt=(x,i)=>`${i+1}. ${PART[x.p].n}: ${DMG[x.t].toLowerCase()}${x.s?', '+SZ[x.s]:''}${x.n?' ('+x.n+')':''}`;
+/* widok „Auto 3D”: komponent React z MonkJS w osobnym pliku assets/monk-wireframe.js (źródło: tools/monk-wireframe), ładowany dopiero przy protokole i stronie statusu */
+const MODEL_OF={s:'ffocus18',m:'haccord',l:'fesc20',xl:'jgc21'};
+const O2M={bf:'bumper_front',hl:'head_light_left',hr:'head_light_right',hood:'hood',ws:'windshield_front',roof:'roof',rw:'windshield_back',trunk:'trunk',br:'bumper_back',tll:'tail_light_left',tlr:'tail_light_right',
+  ffl:'fender_front_left',ffr:'fender_front_right',dfl:'door_front_left',dfr:'door_front_right',drl:'door_back_left',drr:'door_back_right',frl:'fender_back_left',frr:'fender_back_right',
+  ml:'mirror_left',mr:'mirror_right',wfl:'wheel_front_left',wfr:'wheel_front_right',wrl:'wheel_back_left',wrr:'wheel_back_right'};
+const M2O=Object.fromEntries(Object.entries(O2M).map(([a,b])=>[b,a]));
+// części, które ma tylko model 3D (na schemacie płaskim są tylko na liście)
+const MPL={handle_front_left:'Klamka przednia lewa',handle_front_right:'Klamka przednia prawa',handle_back_left:'Klamka tylna lewa',handle_back_right:'Klamka tylna prawa',
+  window_front_left:'Szyba drzwi przednich lewych',window_front_right:'Szyba drzwi przednich prawych',window_back_left:'Szyba drzwi tylnych lewych',window_back_right:'Szyba drzwi tylnych prawych',
+  quarter_window_back_left:'Szybka boczna tylna lewa',quarter_window_back_right:'Szybka boczna tylna prawa',rocker_panel_left:'Próg lewy',rocker_panel_right:'Próg prawy',
+  fog_light_front_left:'Halogen przedni lewy',fog_light_front_right:'Halogen przedni prawy',fog_light_back_left:'Światło tylne dolne lewe',fog_light_back_right:'Światło tylne dolne prawe',
+  grill_radiator:'Grill',grill_low:'Dolna kratka zderzaka',license_plate_front:'Tablica przednia',license_plate_back:'Tablica tylna',pillar:'Słupek'};
+const pName=p=>(PART[p]&&PART[p].n)||MPL[p]||p;
+const DV=()=>{try{return localStorage.getItem('dmg_view')==='flat'?'flat':'monk'}catch(_){return 'monk'}};
+const MW={p:null,inst:new Map(),reg:{}};
+function mwLoad(){return MW.p||(MW.p=new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='assets/monk-wireframe.js';sc.onload=()=>window.MonkWire?res(window.MonkWire):rej();sc.onerror=()=>{MW.p=null;sc.remove();rej()};document.head.append(sc)}))}
+const mwColors=parts=>{const c={};parts.forEach(x=>{const m=O2M[x.p]||x.p;c[m]={color:DCOL[x.t]};if(m==='head_light_right')c['head_light_right-2']=c[m]});return c};
+function dmgView(parts,locked,key,size){
+  if(DV()==='flat') return partsMap(parts,locked,key==='edit'?'pmap':'');
+  MW.reg[key]={parts,locked,model:MODEL_OF[size]||'haccord'};
+  return `<div class="mwbox" data-mwk="${key}"><div class="mw-load">Wczytuję model auta…</div></div>`;
+}
+async function mwSync(){
+  for(const [el,i] of MW.inst){if(!el.isConnected){i.unmount();MW.inst.delete(el)}}
+  const boxes=[...document.querySelectorAll('.mwbox[data-mwk]')].filter(b=>!MW.inst.has(b)); if(!boxes.length) return;
+  let lib; try{lib=await mwLoad()}catch(_){boxes.forEach(b=>{const r=MW.reg[b.dataset.mwk];if(b.isConnected&&r)b.outerHTML=partsMap(r.parts,r.locked,b.dataset.mwk==='edit'?'pmap':'')});return}
+  boxes.forEach(b=>{const r=MW.reg[b.dataset.mwk];if(!b.isConnected||MW.inst.has(b)||!r)return;b.innerHTML='';
+    MW.inst.set(b,lib.mount(b,{model:r.model,parts:mwColors(r.parts),locked:r.locked,onPart:id=>{const m=id.replace(/-2$/,'');partTap(M2O[m]||m)}}))});
+}
+function mwUpdate(){for(const [el,i] of MW.inst)if(el.isConnected&&el.dataset.mwk==='edit')i.update({parts:mwColors(PR.parts)})}
+const cleanParts=a=>(Array.isArray(a)?a:[]).filter(x=>x&&(PART[x.p]||MPL[x.p])).map(x=>({p:x.p,t:DMG[x.t]?x.t:'I',s:[0,1,2,3].includes(+x.s)?+x.s:0,n:cleanTxt(x.n||'').slice(0,120),ph:(Array.isArray(x.ph)?x.ph:[]).filter(f=>f&&SAFE_PATH.test(f.path)).map(f=>({path:f.path,at:f.at,url:f.url}))}));
+const partTxt=(x,i)=>`${i+1}. ${pName(x.p)}: ${DMG[x.t].toLowerCase()}${x.s?', '+SZ[x.s]:''}${x.n?' ('+x.n+')':''}`;
 function partsMap(parts,locked,id='pmap'){
   const at=Object.fromEntries(parts.map((x,i)=>[x.p,i]));
   return `<svg class="pmap${locked?' locked':''}" ${id?`id="${id}"`:''} viewBox="0 0 300 470" role="${locked?'img':'group'}" aria-label="Schemat auta${locked?' z zaznaczonymi uszkodzeniami':'. Dotknij część, żeby zaznaczyć uszkodzenie.'}">
     <text x="150" y="20" class="lb">PRZÓD</text><text x="150" y="458" class="lb">TYŁ</text><text x="66" y="458" class="lb sm">LEWA</text><text x="234" y="458" class="lb sm">PRAWA</text>
     <path class="axle" d="M24 101H44M24 343H44M276 101H256M276 343H256"/>
     ${PARTS.map(p=>{const i=at[p.id],x=parts[i];return `<path class="pt ${p.k}${x?' on':''}" d="${p.d}"${p.fl?' transform="matrix(-1 0 0 1 300 0)"':''} data-part="${p.id}"${x?` style="fill:${DCOL[x.t]}"`:''}${locked?'':' tabindex="0" role="button"'} aria-label="${p.n}${x?': '+DMG[x.t]:''}"><title>${p.n}</title></path>`}).join('')}
-    ${parts.map((x,i)=>{const p=PART[x.p];return `<g class="pn" aria-hidden="true"><circle cx="${p.cx}" cy="${p.cy}" r="9"/><text x="${p.cx}" y="${p.cy+3.5}">${i+1}</text></g>`}).join('')}</svg>`;
+    ${parts.map((x,i)=>{const p=PART[x.p];return !p?'':`<g class="pn" aria-hidden="true"><circle cx="${p.cx}" cy="${p.cy}" r="9"/><text x="${p.cx}" y="${p.cy+3.5}">${i+1}</text></g>`}).join('')}</svg>`;
 }
 function partsList(parts,locked){
-  return parts.map((x,i)=>`<li${locked?'':` data-peedit="${i}"`}><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><span><b>${PART[x.p].n}</b><small>${DMG[x.t]}${x.s?' · '+SZ[x.s]:''}${x.ph.length?` · ${x.ph.length} zdj.`:''}${x.n?' · '+esc(x.n):''}</small></span>${locked?'':'<em>Zmień</em>'}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
+  return parts.map((x,i)=>`<li${locked?'':` data-peedit="${i}"`}><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><span><b>${pName(x.p)}</b><small>${DMG[x.t]}${x.s?' · '+SZ[x.s]:''}${x.ph.length?` · ${x.ph.length} zdj.`:''}${x.n?' · '+esc(x.n):''}</small></span>${locked?'':'<em>Zmień</em>'}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
 }
 function peHTML(i){
   const x=PR.parts[i]; if(!x) return '';
-  return `<div class="pe-h"><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><b>${PART[x.p].n}</b><button type="button" class="pbtn sm ghost" data-pedel="${i}">Usuń</button><button type="button" class="pbtn sm dark" data-peok="1">Gotowe</button></div>
+  return `<div class="pe-h"><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><b>${pName(x.p)}</b><button type="button" class="pbtn sm ghost" data-pedel="${i}">Usuń</button><button type="button" class="pbtn sm dark" data-peok="1">Gotowe</button></div>
     <div class="pe-r"><span>Rodzaj</span><div class="tg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-pet="${k}" aria-pressed="${x.t===k}"><i class="dot" style="background:${DCOL[k]}"></i>${v}</button>`).join('')}</div></div>
     <div class="pe-r"><span>Wielkość <em>(opcjonalnie)</em></span><div class="tg">${[1,2,3].map(k=>`<button type="button" data-pes="${k}" aria-pressed="${x.s===k}">${SZ[k]}</button>`).join('')}</div></div>
     <div class="pe-r"><span>Zdjęcie i notatka <em>(opcjonalnie)</em></span><div class="pe-ph">${x.ph.map(f=>`<a href="${f.url||'#'}" target="_blank" rel="noopener"><img src="${f.url||''}" alt="Zdjęcie uszkodzenia"></a>`).join('')}<label class="pbtn sm upl">${ic('plus')}Zdjęcie<input type="file" accept="image/*" capture="environment" data-pephoto="${i}" hidden></label></div>
       <input class="pe-n" data-pen="${i}" maxlength="120" value="${esc(x.n)}" placeholder="np. 5 cm przy klamce"></div>`;
 }
 function partsRefresh(){
-  const L=!!PR.sign, m=$('#pmap'); if(m) m.outerHTML=partsMap(PR.parts,L);
+  const L=!!PR.sign, m=$('#pmap'); if(m) m.outerHTML=partsMap(PR.parts,L); mwUpdate();
   const pe=$('#pe'); if(pe){pe.innerHTML=PR.edit!=null&&!L?peHTML(PR.edit):'';pe.hidden=PR.edit==null||L}
   const l=$('#plist'); if(l) l.innerHTML=partsList(PR.parts,L);
 }
@@ -2748,7 +2788,8 @@ function protoHTML(b){
     ${L?`<div class="sumline span2"><span>${PR.sign2?'Podpisany przez klienta i salon':'Podpisany przez klienta'}, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
     <div class="col"><div><div class="ph"><b>Uszkodzenia przy oddaniu auta</b><small>${L?'':'Wybierz rodzaj i kliknij miejsce na schemacie'}</small></div>
       ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div><p class="hint-p" style="margin:6px 0">Wybierz rodzaj i dotknij część auta. Zdjęcie i wielkość dodasz pod schematem, jeśli chcesz.</p>`}
-      ${L&&PR.marks.length&&!PR.parts.length?`${carMap(PR.marks,true)}<ol class="mklist">${mkList()}</ol>`:`${partsMap(PR.parts,L)}<div class="pe" id="pe" ${PR.edit!=null&&!L?'':'hidden'}>${PR.edit!=null&&!L?peHTML(PR.edit):''}</div><ol class="mklist" id="plist">${partsList(PR.parts,L)}</ol>`}</div></div>
+      <div class="dv-sw" role="group" aria-label="Widok schematu"><button type="button" data-dview="monk" aria-pressed="${DV()==='monk'}">Auto 3D</button><button type="button" data-dview="flat" aria-pressed="${DV()==='flat'}">Schemat płaski</button></div>
+      ${L&&PR.marks.length&&!PR.parts.length?`${carMap(PR.marks,true)}<ol class="mklist">${mkList()}</ol>`:`<div id="dvwrap">${dmgView(PR.parts,L,'edit',PR.size)}</div><div class="pe" id="pe" ${PR.edit!=null&&!L?'':'hidden'}>${PR.edit!=null&&!L?peHTML(PR.edit):''}</div><ol class="mklist" id="plist">${partsList(PR.parts,L)}</ol>`}</div></div>
     <div class="col"><div class="fgrid">
       <label class="pf">Przebieg (km)<input name="km" type="number" min="0" value="${esc(PR.km)}" ${dis}></label>
       <label class="pf">Paliwo<select name="fuel" ${dis}>${FUEL.map(f=>`<option ${f===PR.fuel?'selected':''}>${f}</option>`).join('')}</select></label>
@@ -2768,11 +2809,11 @@ function protoHTML(b){
 }
 async function openProto(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
-  PR={id,tool:'R',edit:null,parts:cleanParts(i.parts),marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,sign2:SAFE_PATH.test(i.sign2||'')?i.sign2:null,signer:i.signer||null,signedAt:i.signedAt||null,at:i.at||null,signed:false,signed2:false};
+  PR={id,tool:'R',edit:null,size:b.size,parts:cleanParts(i.parts),marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,sign2:SAFE_PATH.test(i.sign2||'')?i.sign2:null,signer:i.signer||null,signedAt:i.signedAt||null,at:i.at||null,signed:false,signed2:false};
   const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[],PR.sign2?[PR.sign2]:[],PR.parts.flatMap(x=>x.ph.map(f=>f.path))).filter(p=>!p.startsWith('assets/')), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
   const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); PR.parts.forEach(x=>x.ph.forEach(f=>f.url=u(f.path))); if(PR.sign) PR.signUrl=u(PR.sign); if(PR.sign2) PR.sign2Url=u(PR.sign2);
-  openDrawer(protoHTML(b),true); sigInit();
+  openDrawer(protoHTML(b),true); sigInit(); mwSync();
 }
 // pola podpisu: #sig (klient) ustawia PR.signed, #sig2 (salon) PR.signed2
 function sigInit(){['sig','sig2'].forEach(id=>{
@@ -2889,7 +2930,7 @@ async function openHand(id){
   PR={id,mode:'out',parts:cleanParts(b.intake&&b.intake.parts),marks:cleanMarks(b.intake&&b.intake.marks),photos:safe(h.photos),before:safe(b.intake&&b.intake.photos),note:h.note||'',
     sign:SAFE_PATH.test(h.sign||'')?h.sign:null,sign2:SAFE_PATH.test(h.sign2||'')?h.sign2:null,signer:h.signer||null,signedAt:h.signedAt||null,signed:false,signed2:false};
   const sg=PR.sign?[{path:PR.sign}]:[], sg2=PR.sign2?[{path:PR.sign2}]:[]; await signObjs(PR.photos.concat(PR.before,sg,sg2)); if(sg.length) PR.signUrl=sg[0].url; if(sg2.length) PR.sign2Url=sg2[0].url;
-  openDrawer(handHTML(b),true); sigInit();
+  openDrawer(handHTML(b),true); sigInit(); mwSync();
 }
 function handHTML(b){
   const L=!!PR.sign, loy=loyOf(b.phone), pts=!L&&SET.loy_on&&SET.loy_auto&&!b.points_used&&loy.bal>=SET.loy_min?Math.min(loy.bal,b.total):0;
@@ -2900,7 +2941,7 @@ function handHTML(b){
     <div class="col"><div><div class="ph"><b>Przed</b><small>z protokołu przyjęcia</small></div><div class="gal">${PR.before.map(fig).join('')||'<span class="hint-p">Brak zdjęć z przyjęcia.</span>'}</div></div>
     <div><div class="ph"><b>Po</b><small>zdjęcia gotowego auta</small></div><div class="gal" id="pgal">${galHTML()}</div>
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
-    ${PR.parts.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${partsMap(PR.parts,true,'')}<ol class="mklist">${partsList(PR.parts,true)}</ol></div>`:PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${carMap(PR.marks,true).replace('id="carmap"','')}<ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
+    ${PR.parts.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${dmgView(PR.parts,true,'hand',BOOKINGS.find(x=>x.id===PR.id)?.size)}<ol class="mklist">${partsList(PR.parts,true)}</ol></div>`:PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${carMap(PR.marks,true).replace('id="carmap"','')}<ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
     </div><div class="col"><label class="pf">Zalecenia dla klienta<textarea name="hnote" maxlength="1000" ${L?'disabled':''} placeholder="np. pierwsze mycie po 7 dniach, bez myjni szczotkowej">${esc(PR.note)}</textarea></label>
     ${!L&&warrYears(b)?warrForm(b):''}
     <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
@@ -3187,7 +3228,7 @@ const GUIDES=[
   {sel:'#drw .cl-stats',t:'Konto klienta',d:'Historia wizyt, auta i punkty. Stąd dodasz kolejną wizytę z wpisanym autem.',after:()=>closeDrw()}]},
  {g:'Przyjęcie i wydanie auta',id:'accept',need:'rez',t:'Jak przyjąć auto z protokołem',d:'Uszkodzenia, zdjęcia i dwa podpisy.',ok:gBk('acc',x=>x.status==='confirmed'&&!x.stage),steps:[
   {pre:async()=>{P.view='rez';renderPanel();openBk(GB.acc)},sel:'#drw [data-proto]',t:'Przyjęcie zaczyna się od protokołu',d:'W szczegółach zaplanowanej wizyty kliknij „Przyjmij auto (protokół)”. Bez protokołu auta nie przyjmiesz.'},
-  {pre:async()=>{await openProto(GB.acc)},sel:'#pmap',t:'Uszkodzenia na schemacie',d:'Wybierz rodzaj (każdy ma swój kolor) i dotknij część auta, np. drzwi. Zdjęcie i wielkość dodasz pod schematem, nie trzeba.'},
+  {pre:async()=>{await openProto(GB.acc)},sel:'#pmap, .mwbox[data-mwk="edit"]',t:'Uszkodzenia na schemacie',d:'Wybierz rodzaj (każdy ma swój kolor) i dotknij część auta, np. drzwi. Zdjęcie i wielkość dodasz pod schematem, nie trzeba.'},
   {sel:'#drw [name=km]',t:'Przebieg, paliwo, rzeczy w aucie',d:'Wpisz przebieg i poziom paliwa. Rzeczy zostawione w aucie chronią przed sporem przy odbiorze.'},
   {sel:'#drw .upl',t:'Zdjęcia',d:'Zdjęcia zapisują się z datą i godziną. Na telefonie od razu otwiera się aparat.'},
   {sel:'#sig',t:'Podpis klienta',d:'Klient podpisuje palcem na telefonie albo tablecie.'},
@@ -4410,6 +4451,8 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
+  if(t&&t.dataset.dview&&PR){try{localStorage.setItem('dmg_view',t.dataset.dview)}catch(_){}drw().querySelectorAll('[data-dview]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dview===t.dataset.dview));
+    $('#dvwrap').innerHTML=dmgView(PR.parts,!!PR.sign,'edit',PR.size);mwSync();return}
   if(PR&&!PR.sign){const pt=e.target.closest('#pmap [data-part]');if(pt){partTap(pt.dataset.part);return}}
   if(t&&t.dataset.peedit!=null&&PR&&!PR.sign){PR.edit=+t.dataset.peedit;partsRefresh();$('#pe').scrollIntoView({block:'nearest',behavior:'smooth'});return}
   if(t&&t.dataset.pet&&PR){PR.parts[PR.edit].t=t.dataset.pet;PR.tool=t.dataset.pet;GUARD=true;partsRefresh();drw().querySelectorAll('[data-dmg]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dmg===PR.tool));return}
