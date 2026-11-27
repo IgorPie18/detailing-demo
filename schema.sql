@@ -154,7 +154,10 @@ create or replace function public.booking_public(p_token uuid)
 returns json language sql stable security definer set search_path = public as $$
   select json_build_object('id', b.id, 'name', split_part(b.name, ' ', 1), 'car', b.car, 'svc', b.svc, 'pkg', b.pkg, 'size', b.size,
     'start_at', b.start_at, 'end_at', b.end_at, 'status', b.status, 'stage', b.stage, 'total', b.total, 'deposit', b.deposit, 'paid', b.paid,
-    'extras', b.extras, 'proposal', b.proposal, 'marks', coalesce(b.intake->'marks', '[]'::jsonb), 'km', b.intake->>'km', 'intake_at', b.intake->>'at',
+    'extras', b.extras, 'proposal', b.proposal, 'marks', coalesce(b.intake->'marks', '[]'::jsonb),
+    -- części auta z protokołu, bez zdjęć (zdjęcia są tylko dla salonu)
+    'parts', coalesce((select jsonb_agg(jsonb_build_object('p', e->>'p', 't', e->>'t', 's', e->'s', 'n', e->>'n')) from jsonb_array_elements(case when jsonb_typeof(b.intake->'parts') = 'array' then b.intake->'parts' else '[]'::jsonb end) e), '[]'::jsonb),
+    'km', b.intake->>'km', 'intake_at', b.intake->>'at',
     'intake_signed', b.intake->>'signedAt', 'handover_signed', b.handover->>'signedAt', 'points_used', b.points_used, 'cert', b.cert,
     -- punkty tylko dla wizyty, którą salon fizycznie przyjął (sam numer telefonu z formularza niczego nie odblokowuje)
     'spent', case when b.stage is not null or b.status = 'done' then (select coalesce(sum(x.total), 0) from public.bookings x where x.studio_id = b.studio_id and x.phone = b.phone and x.status = 'done') else 0 end,
@@ -438,7 +441,7 @@ create or replace function public.car_passport(p_cert uuid)
 returns json language sql stable security definer set search_path = public as $$
   select json_build_object('studio', s.name, 'car', b0.car, 'size', b0.size, 'cert', b0.cert,
     'visits', (select coalesce(json_agg(json_build_object('svc', x.svc, 'pkg', x.pkg, 'at', coalesce(x.handover->>'at', x.end_at::text),
-        'km', x.intake->>'km', 'warranty', x.warranty, 'cert', x.cert, 'marks', jsonb_array_length(coalesce(x.intake->'marks', '[]'::jsonb)),
+        'km', x.intake->>'km', 'warranty', x.warranty, 'cert', x.cert, 'marks', jsonb_array_length(coalesce(x.intake->'marks', '[]'::jsonb)) + case when jsonb_typeof(x.intake->'parts') = 'array' then jsonb_array_length(x.intake->'parts') else 0 end,
         'note', x.handover->>'note') order by x.end_at desc), '[]'::json)
       from public.bookings x where x.studio_id = b0.studio_id and x.phone = b0.phone and x.status = 'done'
         and lower(coalesce(x.car, '')) = lower(coalesce(b0.car, ''))))

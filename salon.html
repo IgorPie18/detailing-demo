@@ -522,6 +522,22 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .dot{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-style:normal;font-size:10px;font-weight:700;color:#fff;margin-right:6px;vertical-align:-4px;flex:none}
 .dmg .dot{width:12px;height:12px;vertical-align:-1px;margin-right:6px}
 .t-W{background:#b45309;fill:#b45309}.t-R{background:#a3261b;fill:#a3261b}.t-O{background:#0e7490;fill:#0e7490}.t-P{background:#4338ca;fill:#4338ca}.t-I{background:#57534e;fill:#57534e}
+.pmap{width:100%;max-width:420px;height:auto;display:block;margin:0 auto;background:var(--pbg);border:1px solid var(--pline);border-radius:12px;touch-action:manipulation}
+.pmap .pt{fill:#e9ebee;stroke:#fff;stroke-width:3;cursor:pointer;transition:fill .18s,filter .18s}
+.pmap .pt.gl{fill:#d7e2ec}.pmap .pt.wh{fill:#44403c}.pmap .pt.li{fill:#fdf0c4}.pmap .pt.tl{fill:#fbd5d5}.pmap .pt.mi{fill:#d6d3d1}
+.pmap:not(.locked) .pt:hover,.pmap .pt:focus-visible{filter:brightness(.93);outline:none;stroke:var(--brand)}
+.pmap.locked .pt{cursor:default}
+.pmap .axle{stroke:#d6d3d1;stroke-width:3}
+.pmap .lb{font:700 10px var(--body);fill:#a8a29e;text-anchor:middle;letter-spacing:.12em}.pmap .lb.sm{font-size:8.5px}
+.pmap .pn circle{fill:#1c1917;stroke:#fff;stroke-width:2}.pmap .pn text{font:700 10px var(--body);fill:#fff;text-anchor:middle;pointer-events:none}
+.pe{border:1px solid var(--brand-100);background:#fffaf6;border-radius:12px;padding:12px;display:grid;gap:10px;margin-top:10px;animation:fadeIn .18s ease}
+.pe-h{display:flex;align-items:center;gap:8px}.pe-h b{flex:1}
+.pe-r{display:grid;gap:6px}.pe-r>span{font-size:13px;font-weight:600;color:var(--ink-2)}.pe-r em{font-style:normal;font-weight:400;color:var(--grey)}
+.pe .tg{display:flex;flex-wrap:wrap;gap:6px}.pe .tg button{min-height:38px}
+.pe-ph{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pe-ph img{width:56px;height:56px;object-fit:cover;border-radius:8px;display:block}
+.pe-n{height:42px;border:1px solid var(--pline);border-radius:10px;padding:0 12px;font:inherit;font-size:15px}
+#plist li[data-peedit]{cursor:pointer}#plist li{display:flex;gap:8px;align-items:center}#plist li span{flex:1;display:grid}#plist li small{color:var(--grey)}#plist li em{font-style:normal;color:var(--brand-600);font-size:13px;font-weight:600}
+@media (max-width:640px){.pe-n{font-size:16px}}
 .carmap{width:100%;height:auto;display:block;cursor:crosshair;background:var(--pbg);border:1px solid var(--pline);border-radius:8px;touch-action:manipulation}
 .carmap.locked{cursor:default}
 .carmap .shape *{fill:none;stroke:#78716c;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round}
@@ -1579,7 +1595,7 @@ function SEED(){
   l.find(b=>b.name==='Robert J.').addons=['felgi'];
   const pAt=addDays(T0,-1);pAt.setHours(8,10);
   l.find(b=>b.name==='Robert J.').intake={at:pAt.toISOString(),km:'48210',fuel:'3/4',items:'fotelik dziecięcy, ładowarka',note:'Lakier zmatowiony na masce, ryski przy klamkach.',
-    marks:[{x:182,y:84,t:'W'},{x:266,y:236,t:'R'},{x:96,y:396,t:'O'}],photos:[{path:'assets/klient-2.jpg',at:pAt.toISOString()},{path:'assets/klient-3.jpg',at:pAt.toISOString()}],sign:null,signedAt:null};
+    marks:[],parts:[{p:'dfl',t:'R',s:2,n:'przy klamce',ph:[]},{p:'hood',t:'O',s:1,n:'',ph:[]},{p:'br',t:'W',s:2,n:'',ph:[]}],photos:[{path:'assets/klient-2.jpg',at:pAt.toISOString()},{path:'assets/klient-3.jpg',at:pAt.toISOString()}],sign:null,signedAt:null};
   const rj=l.find(b=>b.name==='Robert J.'); rj.phone='+48 601 *** 482';
   rj.x={intake:rj.intake,stage:'w_trakcie',token:DEMO_TOKEN,extras:[{id:'demo1',desc:'Usunięcie smoły i asfaltu z progów i nadkoli',amount:180,status:'pending',sent:new Date(Date.now()-40*60e3).toISOString()}]};
   l.find(b=>b.name==='Ola B.').x={stage:'gotowe'};
@@ -1917,7 +1933,7 @@ function statusHTML(){
   const d=S.st;
   if(!d) return siteHeader()+'<div class="stp"><p class="hint">Wczytuję status auta…</p></div>';
   if(d.err) return siteHeader()+`<div class="done"><h2>Nie znaleźliśmy wizyty</h2><p>Link jest nieaktualny albo niepełny. Zadzwoń do salonu.</p><button class="btn btn-dark full" type="button" data-go="home">Strona salonu</button></div>`;
-  const s=svcById(d.svc)||{name:'Usługa'}, idx=d.status==='done'?3:STAGES.findIndex(x=>x[0]===d.stage), ex=Array.isArray(d.extras)?d.extras:[], marks=cleanMarks(d.marks), L=loyCalc(d.spent,d.used);
+  const s=svcById(d.svc)||{name:'Usługa'}, idx=d.status==='done'?3:STAGES.findIndex(x=>x[0]===d.stage), ex=Array.isArray(d.extras)?d.extras:[], marks=cleanMarks(d.marks), parts=cleanParts(d.parts), L=loyCalc(d.spent,d.used);
   const head=d.proposal&&d.proposal.status==='pending'?'Salon proponuje inny termin':d.status==='rejected'?'Wizyta odwołana':d.status==='noshow'?'Wizyta nieodbyta':d.status==='pending'||d.status==='proposed'?'Czekamy na potwierdzenie salonu':d.status==='done'?'Auto odebrane. Dziękujemy!':idx===2?'Auto czeka na Ciebie':idx>=0?'Pracujemy nad Twoim autem':'Wizyta potwierdzona';
   return `${siteHeader()}<div class="stp">
     <div><p class="eyebrow-d">Cześć ${esc(d.name)}</p><h1>${head}</h1><p class="hint">${esc(d.car||'')}${d.car?' · ':''}${esc(s.name)}<br>oddanie ${fdt(new Date(d.start_at))} · odbiór ${fdt(new Date(d.end_at))}</p></div>
@@ -1928,7 +1944,7 @@ function statusHTML(){
     <div class="summary num">${ex.filter(x=>x.status!=='pending').map(x=>`<div class="r"><span>${esc(x.desc)}</span><span>${x.status==='accepted'?'+'+zl(+x.amount||0):'odrzucone'}</span></div>`).join('')}
       ${d.points_used?`<div class="r"><span>Rabat z punktów</span><span>−${zl(d.points_used)}</span></div>`:''}
       <div class="r tot"><span>${d.status==='done'?'Zapłacono':'Do zapłaty przy odbiorze'}</span><span>${zl(d.total-(d.paid?d.deposit:0))}</span></div></div>
-    ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')||'<li class="none">Bez uszkodzeń.</li>'}</ol></div>`:''}
+    ${d.intake_at?`<div><h2 style="font-family:var(--display);font-size:20px;margin:0 0 4px">Stan auta przy przyjęciu</h2><p class="hint" style="margin:0 0 10px">${fdt(new Date(d.intake_at))}${d.km?` · ${esc(d.km)} km`:''}${d.intake_signed?' · podpisany przez Ciebie':''}</p>${parts.length||!marks.length?`${partsMap(parts,true,'')}<ol class="mklist">${parts.length?partsList(parts,true):'<li class="none">Bez uszkodzeń.</li>'}</ol>`:`${carMap(marks,true)}<ol class="mklist">${marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol>`}</div>`:''}
     ${SET.loy_on?`<div class="loy"><b>${L.bal} pkt</b><span>= ${zl(L.bal)} rabatu w programie lojalnościowym</span><small>${L.bal>=SET.loy_min?'Odliczymy je automatycznie przy odbiorze auta.':`Od ${SET.loy_min} pkt odliczamy je automatycznie. Brakuje ${SET.loy_min-L.bal} pkt.`}</small></div>`:''}
     ${d.cert&&/^[0-9a-f-]{36}$/.test(d.cert)?`<a class="btn btn-dark full" href="#auto=${d.cert}">Paszport auta i karta gwarancyjna</a>`:''}
     <button class="btn btn-ghost full" type="button" data-act="call">Zadzwoń do salonu</button>
@@ -2348,13 +2364,13 @@ function renderSide(){
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   ${grp('Sprzedaż',it('wyc','Wyceny',acc)+it('gw','Gwarancje',due)+it('wl','Lista rezerwowa',off)+(A?it('bon','Bony'):''))}
-  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('ust','Ustawienia')+it('plan','Twój plan')):''}
-  ${grp('Pomoc',it('pom','Jak to zrobić?')+it('kon','Pomoc'))}
+  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')):''}
+  ${grp('Konto i pomoc',(A?it('ust','Ustawienia')+it('plan','Twój plan'):'')+it('pom','Jak to zrobić?')+it('kon','Pomoc'))}
   ${SLUG!=='lumen'?'':`<button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>`}
   <div class="salon"><b>${esc(SAL().name)}</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'}${CITY()?' · '+esc(CITY()):''}</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
   <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
-function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML,kon:konHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
+function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML,kon:konHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000);if(TR.i>=0&&!TR.moving)requestAnimationFrame(tourFollow)}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -2656,6 +2672,70 @@ function carMap(marks,locked){
     ${g(20,24,PROF,'Lewy bok',1)}${g(20,184,TOP,'Góra · przód z prawej')}${g(20,344,PROF,'Prawy bok')}${g(20,494,FRONT,'Przód')}${g(190,494,REAR,'Tył')}
     ${marks.map((m,i)=>`<g class="mk"><circle class="t-${m.t}" cx="${m.x}" cy="${m.y}" r="9"/><text x="${m.x}" y="${m.y+3.5}">${i+1}</text></g>`).join('')}</svg>`;
 }
+
+/* ---------- schemat uszkodzeń z klikalnymi częściami auta (moduł samodzielny, do przeniesienia jako komponent przy przejściu na React) ----------
+   dane w intake.parts: [{p: id części, t: rodzaj (DMG), s: wielkość 0-3, n: notatka, ph: [{path, at}]}]; stare protokoły mają intake.marks (kropki) i zostają na starym rysunku */
+const DCOL={W:'#2563eb',R:'#dc2626',O:'#d97706',P:'#7c3aed',I:'#475569'};
+const SZ=['','drobne','średnie','duże'];
+const rr=(x,y,w,h,r)=>`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${y+h-r}Q${x+w} ${y+h} ${x+w-r} ${y+h}H${x+r}Q${x} ${y+h} ${x} ${y+h-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`;
+const ell=(cx,cy,rx,ry)=>`M${cx-rx} ${cy}A${rx} ${ry} 0 1 0 ${cx+rx} ${cy}A${rx} ${ry} 0 1 0 ${cx-rx} ${cy}Z`;
+// rozłożone auto: w środku widok z góry (przód u góry), po bokach lewa i prawa strona; prawa = lustro lewej
+const PARTS=(()=>{const L=[
+  ['ffl','Błotnik przedni lewy',rr(44,62,48,78,10),68,101],['dfl','Drzwi przednie lewe',rr(40,142,52,74,8),66,179],['drl','Drzwi tylne lewe',rr(40,218,52,74,8),66,255],
+  ['frl','Błotnik tylny lewy',rr(44,294,48,98,10),68,343],['ml','Lusterko lewe',ell(28,150,10,6),28,150,'mi'],['wfl','Koło przednie lewe',ell(24,101,13,22),24,101,'wh'],['wrl','Koło tylne lewe',ell(24,343,13,22),24,343,'wh']];
+  const P=[['bf','Zderzak przedni','M98 58V46Q150 30 202 46V58Z',150,49],['hl','Reflektor lewy',rr(102,47,22,9,4),113,51,'li'],['hr','Reflektor prawy',rr(176,47,22,9,4),187,51,'li'],
+    ['hood','Maska','M98 62H202L198 140H102Z',150,101],['ws','Szyba przednia','M103 143H197L189 177H111Z',150,160,'gl'],['roof','Dach',rr(110,180,80,110,8),150,235],
+    ['rw','Szyba tylna','M111 293H189L196 319H104Z',150,306,'gl'],['trunk','Klapa bagażnika','M103 322H197L200 392H100Z',150,357],['br','Zderzak tylny','M98 396H202V408Q150 424 98 408Z',150,407],
+    ['tll','Lampa tylna lewa',rr(102,397,22,8,3),113,401,'tl'],['tlr','Lampa tylna prawa',rr(176,397,22,8,3),187,401,'tl']];
+  L.forEach(([id,n,d,cx,cy,k])=>{P.push([id,n,d,cx,cy,k,0]);P.push([id.replace(/l$/,'r'),n.replace(/lew(y|e|a)$/,(m,e)=>'praw'+e),d,300-cx,cy,k,1])});
+  return P.map(([id,n,d,cx,cy,k,fl])=>({id,n,d,cx,cy,k:k||'',fl:!!fl}));})();
+const PART=Object.fromEntries(PARTS.map(p=>[p.id,p]));
+const cleanParts=a=>(Array.isArray(a)?a:[]).filter(x=>x&&PART[x.p]).map(x=>({p:x.p,t:DMG[x.t]?x.t:'I',s:[0,1,2,3].includes(+x.s)?+x.s:0,n:cleanTxt(x.n||'').slice(0,120),ph:(Array.isArray(x.ph)?x.ph:[]).filter(f=>f&&SAFE_PATH.test(f.path)).map(f=>({path:f.path,at:f.at,url:f.url}))}));
+const partTxt=(x,i)=>`${i+1}. ${PART[x.p].n}: ${DMG[x.t].toLowerCase()}${x.s?', '+SZ[x.s]:''}${x.n?' ('+x.n+')':''}`;
+function partsMap(parts,locked,id='pmap'){
+  const at=Object.fromEntries(parts.map((x,i)=>[x.p,i]));
+  return `<svg class="pmap${locked?' locked':''}" ${id?`id="${id}"`:''} viewBox="0 0 300 470" role="${locked?'img':'group'}" aria-label="Schemat auta${locked?' z zaznaczonymi uszkodzeniami':'. Dotknij część, żeby zaznaczyć uszkodzenie.'}">
+    <text x="150" y="20" class="lb">PRZÓD</text><text x="150" y="458" class="lb">TYŁ</text><text x="66" y="458" class="lb sm">LEWA</text><text x="234" y="458" class="lb sm">PRAWA</text>
+    <path class="axle" d="M24 101H44M24 343H44M276 101H256M276 343H256"/>
+    ${PARTS.map(p=>{const i=at[p.id],x=parts[i];return `<path class="pt ${p.k}${x?' on':''}" d="${p.d}"${p.fl?' transform="matrix(-1 0 0 1 300 0)"':''} data-part="${p.id}"${x?` style="fill:${DCOL[x.t]}"`:''}${locked?'':' tabindex="0" role="button"'} aria-label="${p.n}${x?': '+DMG[x.t]:''}"><title>${p.n}</title></path>`}).join('')}
+    ${parts.map((x,i)=>{const p=PART[x.p];return `<g class="pn" aria-hidden="true"><circle cx="${p.cx}" cy="${p.cy}" r="9"/><text x="${p.cx}" y="${p.cy+3.5}">${i+1}</text></g>`}).join('')}</svg>`;
+}
+function partsList(parts,locked){
+  return parts.map((x,i)=>`<li${locked?'':` data-peedit="${i}"`}><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><span><b>${PART[x.p].n}</b><small>${DMG[x.t]}${x.s?' · '+SZ[x.s]:''}${x.ph.length?` · ${x.ph.length} zdj.`:''}${x.n?' · '+esc(x.n):''}</small></span>${locked?'':'<em>Zmień</em>'}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
+}
+function peHTML(i){
+  const x=PR.parts[i]; if(!x) return '';
+  return `<div class="pe-h"><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><b>${PART[x.p].n}</b><button type="button" class="pbtn sm ghost" data-pedel="${i}">Usuń</button><button type="button" class="pbtn sm dark" data-peok="1">Gotowe</button></div>
+    <div class="pe-r"><span>Rodzaj</span><div class="tg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-pet="${k}" aria-pressed="${x.t===k}"><i class="dot" style="background:${DCOL[k]}"></i>${v}</button>`).join('')}</div></div>
+    <div class="pe-r"><span>Wielkość <em>(opcjonalnie)</em></span><div class="tg">${[1,2,3].map(k=>`<button type="button" data-pes="${k}" aria-pressed="${x.s===k}">${SZ[k]}</button>`).join('')}</div></div>
+    <div class="pe-r"><span>Zdjęcie i notatka <em>(opcjonalnie)</em></span><div class="pe-ph">${x.ph.map(f=>`<a href="${f.url||'#'}" target="_blank" rel="noopener"><img src="${f.url||''}" alt="Zdjęcie uszkodzenia"></a>`).join('')}<label class="pbtn sm upl">${ic('plus')}Zdjęcie<input type="file" accept="image/*" capture="environment" data-pephoto="${i}" hidden></label></div>
+      <input class="pe-n" data-pen="${i}" maxlength="120" value="${esc(x.n)}" placeholder="np. 5 cm przy klamce"></div>`;
+}
+function partsRefresh(){
+  const L=!!PR.sign, m=$('#pmap'); if(m) m.outerHTML=partsMap(PR.parts,L);
+  const pe=$('#pe'); if(pe){pe.innerHTML=PR.edit!=null&&!L?peHTML(PR.edit):'';pe.hidden=PR.edit==null||L}
+  const l=$('#plist'); if(l) l.innerHTML=partsList(PR.parts,L);
+}
+// jedno dotknięcie = zaznaczenie wybranym rodzajem; ponowne dotknięcie otwiera szczegóły tej części
+function partTap(id){
+  let i=PR.parts.findIndex(x=>x.p===id);
+  if(i<0){PR.parts.push({p:id,t:PR.tool||'R',s:0,n:'',ph:[]});i=PR.parts.length-1;GUARD=true}
+  PR.edit=i; partsRefresh();
+}
+document.addEventListener('keydown',e=>{const pt=e.target.closest&&e.target.closest('#pmap [data-part]');if(pt&&PR&&!PR.sign&&(e.key==='Enter'||e.key===' ')){e.preventDefault();partTap(pt.dataset.part)}});
+document.addEventListener('change',e=>{if(e.target.dataset.pephoto!=null&&PR)partPhoto(+e.target.dataset.pephoto,e.target.files)});
+document.addEventListener('input',e=>{if(e.target.dataset.pen!=null&&PR&&PR.parts[+e.target.dataset.pen]){PR.parts[+e.target.dataset.pen].n=cleanTxt(e.target.value).slice(0,120);GUARD=true;const l=$('#plist');if(l)l.innerHTML=partsList(PR.parts,false)}});
+async function partPhoto(i,files){
+  const x=PR.parts[i], err=$('#proto-err'); if(!x) return; err.textContent='Wgrywam zdjęcie…';
+  for(const f of [...files].slice(0,4)){
+    const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg', path=`${STUDIO.id}/intake/${PR.id}-dmg-${crypto.randomUUID()}.${ext}`;
+    const {error}=await sb.storage.from('photos').upload(path,f,{contentType:f.type||'image/jpeg'});
+    if(error){err.textContent='Nie udało się wgrać zdjęcia: '+f.name;continue}
+    x.ph.push({path,at:new Date().toISOString(),url:URL.createObjectURL(f)}); GUARD=true;
+  }
+  if(err.textContent==='Wgrywam zdjęcie…') err.textContent=''; partsRefresh();
+}
+
 let PR=null;
 const mkList=()=>PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}${PR.sign?'':`<button type="button" class="pbtn sm ghost" data-unmark="${i}" aria-label="Usuń znacznik ${i+1}">Usuń</button>`}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
 const fig=p=>`<figure><a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="Zdjęcie auta"></a><figcaption>${esc(fdt(new Date(p.at)))}</figcaption></figure>`;
@@ -2667,8 +2747,8 @@ function protoHTML(b){
     <button class="pbtn sm ghost span2" type="button" data-open="${b.id}" style="justify-self:start">← Wróć do wizyty</button>
     ${L?`<div class="sumline span2"><span>${PR.sign2?'Podpisany przez klienta i salon':'Podpisany przez klienta'}, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
     <div class="col"><div><div class="ph"><b>Uszkodzenia przy oddaniu auta</b><small>${L?'':'Wybierz rodzaj i kliknij miejsce na schemacie'}</small></div>
-      ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div>`}
-      ${carMap(PR.marks,L)}<ol class="mklist">${mkList()}</ol></div></div>
+      ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div><p class="hint-p" style="margin:6px 0">Wybierz rodzaj i dotknij część auta. Zdjęcie i wielkość dodasz pod schematem, jeśli chcesz.</p>`}
+      ${L&&PR.marks.length&&!PR.parts.length?`${carMap(PR.marks,true)}<ol class="mklist">${mkList()}</ol>`:`${partsMap(PR.parts,L)}<div class="pe" id="pe" ${PR.edit!=null&&!L?'':'hidden'}>${PR.edit!=null&&!L?peHTML(PR.edit):''}</div><ol class="mklist" id="plist">${partsList(PR.parts,L)}</ol>`}</div></div>
     <div class="col"><div class="fgrid">
       <label class="pf">Przebieg (km)<input name="km" type="number" min="0" value="${esc(PR.km)}" ${dis}></label>
       <label class="pf">Paliwo<select name="fuel" ${dis}>${FUEL.map(f=>`<option ${f===PR.fuel?'selected':''}>${f}</option>`).join('')}</select></label>
@@ -2688,10 +2768,10 @@ function protoHTML(b){
 }
 async function openProto(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
-  PR={id,tool:'W',marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,sign2:SAFE_PATH.test(i.sign2||'')?i.sign2:null,signer:i.signer||null,signedAt:i.signedAt||null,at:i.at||null,signed:false,signed2:false};
-  const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[],PR.sign2?[PR.sign2]:[]).filter(p=>!p.startsWith('assets/')), map={};
+  PR={id,tool:'R',edit:null,parts:cleanParts(i.parts),marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,sign2:SAFE_PATH.test(i.sign2||'')?i.sign2:null,signer:i.signer||null,signedAt:i.signedAt||null,at:i.at||null,signed:false,signed2:false};
+  const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[],PR.sign2?[PR.sign2]:[],PR.parts.flatMap(x=>x.ph.map(f=>f.path))).filter(p=>!p.startsWith('assets/')), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
-  const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign); if(PR.sign2) PR.sign2Url=u(PR.sign2);
+  const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); PR.parts.forEach(x=>x.ph.forEach(f=>f.url=u(f.path))); if(PR.sign) PR.signUrl=u(PR.sign); if(PR.sign2) PR.sign2Url=u(PR.sign2);
   openDrawer(protoHTML(b),true); sigInit();
 }
 // pola podpisu: #sig (klient) ustawia PR.signed, #sig2 (salon) PR.signed2
@@ -2729,7 +2809,7 @@ async function protoSave(id,btn){
   const sign=await up('#sig','podpis'), sign2=sign&&await up('#sig2','podpis-salon'), signedAt=new Date().toISOString();
   if(!sign||!sign2){btn.disabled=false;err.textContent='Nie udało się zapisać podpisów. Sprawdź internet i spróbuj jeszcze raz.';return}
   const intake={at:PR.at||new Date().toISOString(),km:v('km'),fuel:v('fuel'),items:v('items').trim(),note:v('pnote').trim(),
-    marks:PR.marks.map(({x,y,t})=>({x,y,t})),photos:PR.photos.map(({path,at})=>({path,at})),sign,sign2,signer:(ME()||{}).name||null,signedAt};
+    marks:PR.marks.map(({x,y,t})=>({x,y,t})),parts:PR.parts.map(({p,t,s,n,ph})=>({p,t,s,n,ph:ph.map(({path,at})=>({path,at}))})),photos:PR.photos.map(({path,at})=>({path,at})),sign,sign2,signer:(ME()||{}).name||null,signedAt};
   const {error}=await sb.from('bookings').update(b.stage?{intake}:{intake,stage:'przyjete'}).eq('id',id);
   btn.disabled=false;
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
@@ -2746,12 +2826,12 @@ function openMail(url){const a=document.createElement('a');a.href=url;a.click()}
 async function protoMail(kind,id,btn){
   const b=BOOKINGS.find(x=>x.id===id), inp=drw().querySelector('[name=sendto]'), to=(inp.value||'').trim(), err=$('#proto-err');
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){err.textContent=to?'Sprawdź adres e-mail, np. jan.kowalski@gmail.com.':'Wpisz e-mail klienta.';inp.focus();return}
-  const key=kind==='out'?'handover':'intake', p=b[key]||{}, nm=SAL().name, marks=(b.intake&&b.intake.marks)||[];
+  const key=kind==='out'?'handover':'intake', p=b[key]||{}, nm=SAL().name, marks=(b.intake&&b.intake.marks)||[], parts=cleanParts(b.intake&&b.intake.parts);
   // strona statusu pokazuje rysunek auta z zaznaczonymi uszkodzeniami; wizyty z panelu nie miały tokenu
   if(!b.token){const tk=crypto.randomUUID(),{error:te}=await sb.from('bookings').update({token:tk}).eq('id',id);if(!te)b.token=tk}
   const stUrl=b.token?location.origin+location.pathname+location.search+'#status='+b.token:'';
   const lines=[`Dzień dobry ${b.name.split(' ')[0]},`,'',kind==='out'?`odbiór auta ${b.car} w ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`:`przyjęcie auta ${b.car} do ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`,
-    `Usługa: ${bName(b)}`, `Uszkodzenia zapisane przy przyjęciu: ${marks.length?marks.map((m,i)=>`${i+1}. ${DMG[m.t]}`).join(', '):'brak'}`,
+    `Usługa: ${bName(b)}`, `Uszkodzenia zapisane przy przyjęciu: ${parts.length?'\n'+parts.map(partTxt).join('\n'):marks.length?marks.map((m,i)=>`${i+1}. ${DMG[m.t]}`).join(', '):'brak'}`,
     kind==='in'&&p.km?`Przebieg: ${p.km} km, paliwo: ${p.fuel}`:'', `Zdjęcia w protokole: ${(p.photos||[]).length}`, kind==='out'&&p.note?`Zalecenia: ${p.note}`:'',
     `Protokół podpisali: klient${p.signer?' i '+p.signer+' ('+nm+')':''}.`, stUrl?`Rysunek auta z zaznaczonymi uszkodzeniami i zdjęcia: ${stUrl}`:'', kind==='out'&&b.cert?`Historia auta i gwarancja: ${passUrl(b.cert)}`:'', '', 'Pozdrawiamy,', nm, SAL().phone||''].filter(x=>x!=='');
   openMail(`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(`Protokół ${kind==='out'?'wydania':'przyjęcia'} auta ${b.car}, ${nm}`)}&body=${encodeURIComponent(lines.join('\n'))}`);
@@ -2764,7 +2844,7 @@ async function protoMail(kind,id,btn){
 }
 function protoBox(b){
   const it=b.intake;
-  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign&&it.sign2?'podpisany przez obie strony '+fdt(new Date(it.signedAt)):it.sign?'podpis klienta '+fdt(new Date(it.signedAt)):'bez podpisów'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
+  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.parts||[]).length||(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign&&it.sign2?'podpisany przez obie strony '+fdt(new Date(it.signedAt)):it.sign?'podpis klienta '+fdt(new Date(it.signedAt)):'bez podpisów'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
   return `<div class="proto-box"><div><b>Brak protokołu przyjęcia</b><small>Auto przyjęte bez protokołu. Możesz go jeszcze uzupełnić: zdjęcia, uszkodzenia i podpis klienta.</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Uzupełnij</button></div>`;
 }
 /* ---------- etapy pracy, wydanie auta, dopłaty, punkty ---------- */
@@ -2806,7 +2886,7 @@ async function signObjs(objs){
 async function openHand(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const h=b.handover||{};
   const safe=a=>(Array.isArray(a)?a:[]).filter(x=>x&&SAFE_PATH.test(x.path)).map(x=>({path:x.path,at:x.at}));
-  PR={id,mode:'out',marks:cleanMarks(b.intake&&b.intake.marks),photos:safe(h.photos),before:safe(b.intake&&b.intake.photos),note:h.note||'',
+  PR={id,mode:'out',parts:cleanParts(b.intake&&b.intake.parts),marks:cleanMarks(b.intake&&b.intake.marks),photos:safe(h.photos),before:safe(b.intake&&b.intake.photos),note:h.note||'',
     sign:SAFE_PATH.test(h.sign||'')?h.sign:null,sign2:SAFE_PATH.test(h.sign2||'')?h.sign2:null,signer:h.signer||null,signedAt:h.signedAt||null,signed:false,signed2:false};
   const sg=PR.sign?[{path:PR.sign}]:[], sg2=PR.sign2?[{path:PR.sign2}]:[]; await signObjs(PR.photos.concat(PR.before,sg,sg2)); if(sg.length) PR.signUrl=sg[0].url; if(sg2.length) PR.sign2Url=sg2[0].url;
   openDrawer(handHTML(b),true); sigInit();
@@ -2820,7 +2900,7 @@ function handHTML(b){
     <div class="col"><div><div class="ph"><b>Przed</b><small>z protokołu przyjęcia</small></div><div class="gal">${PR.before.map(fig).join('')||'<span class="hint-p">Brak zdjęć z przyjęcia.</span>'}</div></div>
     <div><div class="ph"><b>Po</b><small>zdjęcia gotowego auta</small></div><div class="gal" id="pgal">${galHTML()}</div>
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
-    ${PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${carMap(PR.marks,true).replace('id="carmap"','')}<ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
+    ${PR.parts.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${partsMap(PR.parts,true,'')}<ol class="mklist">${partsList(PR.parts,true)}</ol></div>`:PR.marks.length?`<div><div class="ph"><b>Uszkodzenia zgłoszone przy przyjęciu</b><small>dla porównania przy odbiorze</small></div>${carMap(PR.marks,true).replace('id="carmap"','')}<ol class="mklist">${PR.marks.map((m,i)=>`<li><i class="dot t-${m.t}">${i+1}</i>${DMG[m.t]}</li>`).join('')}</ol></div>`:''}
     </div><div class="col"><label class="pf">Zalecenia dla klienta<textarea name="hnote" maxlength="1000" ${L?'disabled':''} placeholder="np. pierwsze mycie po 7 dniach, bez myjni szczotkowej">${esc(PR.note)}</textarea></label>
     ${!L&&warrYears(b)?warrForm(b):''}
     <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
@@ -3107,7 +3187,7 @@ const GUIDES=[
   {sel:'#drw .cl-stats',t:'Konto klienta',d:'Historia wizyt, auta i punkty. Stąd dodasz kolejną wizytę z wpisanym autem.',after:()=>closeDrw()}]},
  {g:'Przyjęcie i wydanie auta',id:'accept',need:'rez',t:'Jak przyjąć auto z protokołem',d:'Uszkodzenia, zdjęcia i dwa podpisy.',ok:gBk('acc',x=>x.status==='confirmed'&&!x.stage),steps:[
   {pre:async()=>{P.view='rez';renderPanel();openBk(GB.acc)},sel:'#drw [data-proto]',t:'Przyjęcie zaczyna się od protokołu',d:'W szczegółach zaplanowanej wizyty kliknij „Przyjmij auto (protokół)”. Bez protokołu auta nie przyjmiesz.'},
-  {pre:async()=>{await openProto(GB.acc)},sel:'#carmap',t:'Uszkodzenia na schemacie',d:'Wybierz rodzaj (rysa, wgniecenie, odprysk) i kliknij miejsce na schemacie auta.'},
+  {pre:async()=>{await openProto(GB.acc)},sel:'#pmap',t:'Uszkodzenia na schemacie',d:'Wybierz rodzaj (każdy ma swój kolor) i dotknij część auta, np. drzwi. Zdjęcie i wielkość dodasz pod schematem, nie trzeba.'},
   {sel:'#drw [name=km]',t:'Przebieg, paliwo, rzeczy w aucie',d:'Wpisz przebieg i poziom paliwa. Rzeczy zostawione w aucie chronią przed sporem przy odbiorze.'},
   {sel:'#drw .upl',t:'Zdjęcia',d:'Zdjęcia zapisują się z datą i godziną. Na telefonie od razu otwiera się aparat.'},
   {sel:'#sig',t:'Podpis klienta',d:'Klient podpisuje palcem na telefonie albo tablecie.'},
@@ -4330,6 +4410,12 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
+  if(PR&&!PR.sign){const pt=e.target.closest('#pmap [data-part]');if(pt){partTap(pt.dataset.part);return}}
+  if(t&&t.dataset.peedit!=null&&PR&&!PR.sign){PR.edit=+t.dataset.peedit;partsRefresh();$('#pe').scrollIntoView({block:'nearest',behavior:'smooth'});return}
+  if(t&&t.dataset.pet&&PR){PR.parts[PR.edit].t=t.dataset.pet;PR.tool=t.dataset.pet;GUARD=true;partsRefresh();drw().querySelectorAll('[data-dmg]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dmg===PR.tool));return}
+  if(t&&t.dataset.pes&&PR){const x=PR.parts[PR.edit];x.s=x.s===+t.dataset.pes?0:+t.dataset.pes;GUARD=true;partsRefresh();return}
+  if(t&&t.dataset.pedel!=null&&PR){PR.parts.splice(+t.dataset.pedel,1);PR.edit=null;GUARD=true;partsRefresh();return}
+  if(t&&t.dataset.peok&&PR){PR.edit=null;partsRefresh();return}
   if(e.target.closest('#carmap')&&PR&&!PR.sign){protoMark(e);return}
   if(t&&t.dataset.proto){openProto(+t.dataset.proto);return}
   if(t&&t.dataset.dmg){PR.tool=t.dataset.dmg;t.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===t));return}
