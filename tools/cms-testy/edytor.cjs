@@ -1,6 +1,6 @@
 // Test edytora strony (mini CMS): pliki z dysku pod http://app.test, zapisy do bazy podmienione atrapą
 const {chromium}=require(process.env.PW);const fs=require('fs'),path=require('path');
-const ROOT='C:/Users/Igor/Documents/shopify-workspace/a_detailing/app-druga',SP=process.env.SP||require('os').tmpdir();
+const ROOT=require('path').resolve(__dirname,'../..'),SP=process.env.SP||require('os').tmpdir();
 const env=Object.fromEntries(fs.readFileSync('C:/Users/Igor/Documents/shopify-workspace/a_detailing/.env','utf8').split(/\r?\n/).filter(l=>l.includes('=')).map(l=>[l.slice(0,l.indexOf('=')).trim(),l.slice(l.indexOf('=')+1).trim()]));
 const TYPES={'.html':'text/html','.js':'application/javascript','.jpg':'image/jpeg','.png':'image/png','.css':'text/css'};
 let pass=0,fail=0;const ok=(c,m)=>{c?pass++:fail++;console.log((c?'PASS ':'FAIL ')+m)};

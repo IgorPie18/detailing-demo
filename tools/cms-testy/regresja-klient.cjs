@@ -1,6 +1,6 @@
 // Regresja: demo telefonu (#klient) bez zmian w działaniu + ekrany klienta w ciemnej palecie
 const {chromium}=require(process.env.PW);const fs=require('fs'),path=require('path');
-const ROOT='C:/Users/Igor/Documents/shopify-workspace/a_detailing/app-druga',SP=process.env.SP||require('os').tmpdir();
+const ROOT=require('path').resolve(__dirname,'../..'),SP=process.env.SP||require('os').tmpdir();
 const TYPES={'.html':'text/html','.js':'application/javascript','.jpg':'image/jpeg','.png':'image/png'};
 let pass=0,fail=0;const ok=(c,m)=>{c?pass++:fail++;console.log((c?'PASS ':'FAIL ')+m)};
 (async()=>{const b=await chromium.launch({channel:'msedge'});const errs=[];
