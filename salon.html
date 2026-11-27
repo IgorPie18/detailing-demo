@@ -1667,22 +1667,22 @@ function homeHTML(){
 function svcHTML(s){
   const p0=s.pk[0];
   return `${siteHeader()}
-  <div class="crumb"><button type="button" data-go="home">Strona główna</button><span>/</span><span>${s.name}</span></div>
+  <div class="crumb"><button type="button" data-go="home">Strona główna</button><span>/</span><span>${esc(s.name)}</span></div>
   <div class="svc-hero">${photo(s,true)}</div>
-  <div class="svc-title"><h1>${s.seo}</h1><p>${s.short}</p></div>
+  <div class="svc-title"><h1>${esc(s.seo)}</h1><p>${esc(s.short)}</p></div>
   <div class="facts"><div class="fact"><small>Cena</small><b>od ${zl(minPrice(s))}</b></div><div class="fact"><small>Czas</small><b>${durTxt(p0)}</b></div><div class="fact"><small>Trwałość</small><b>${s.dur}</b></div></div>
   <section class="sec"><div class="mode-box"><span>${s.mode==='instant'?'⚡':'📷'}</span><div>${s.mode==='instant'?`<b>Termin od ręki.</b> Rezerwujesz i płacisz ${zl(s.deposit)} zadatku BLIK-iem, resztę na miejscu.`:`<b>Termin do potwierdzenia.</b> Wyślij zdjęcia auta przy rezerwacji. Salon potwierdzi cenę i termin SMS-em, zwykle w ciągu 2 godzin.`}</div></div></section>
   <section class="sec"><h2>Cennik według auta</h2>
-    <table class="ptable num"><thead><tr><th>Auto</th>${s.pk.map(p=>`<th>${p.name}</th>`).join('')}</tr></thead><tbody>
+    <table class="ptable num"><thead><tr><th>Auto</th>${s.pk.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody>
     ${SIZES.map((z,i)=>`<tr><td>${z.name}<small>${z.ex}</small></td>${s.pk.map(p=>`<td>${zl(p.p[i])}</td>`).join('')}</tr>`).join('')}</tbody></table>
-    ${s.pk.length>1?`<div style="display:grid;gap:6px;font-size:13px;color:var(--grey)">${s.pk.map(p=>`<div><b style="color:var(--ink)">${p.name}</b> (${durTxt(p)}): ${p.desc}</div>`).join('')}</div>`:''}
+    ${s.pk.length>1?`<div style="display:grid;gap:6px;font-size:13px;color:var(--grey)">${s.pk.map(p=>`<div><b style="color:var(--ink)">${esc(p.name)}</b> (${durTxt(p)}): ${esc(p.desc)}</div>`).join('')}</div>`:''}
   </section>
   <section class="sec"><h2>Co obejmuje</h2><ul class="incl">${s.incl.map(i=>`<li>${i}</li>`).join('')}</ul></section>
   <section class="sec"><h2>Efekt</h2>${baHTML(s)}</section>
   <section class="sec"><h2>Pytania</h2>${s.faq.map(f=>`<details class="faq"><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</section>
   <section class="sec"><h2>Inne usługi</h2>${OFFER().filter(x=>x.id!==s.id).slice(0,3).map(svcCard).join('')}</section>
   ${footer()}
-  <div class="dock"><div class="sum"><small>${s.name}</small><b>od ${zl(minPrice(s))}</b></div><button class="btn btn-dark" type="button" data-book="${s.id}">Zarezerwuj</button></div>`;
+  <div class="dock"><div class="sum"><small>${esc(s.name)}</small><b>od ${zl(minPrice(s))}</b></div><button class="btn btn-dark" type="button" data-book="${s.id}">Zarezerwuj</button></div>`;
 }
 
 /* ---------- formularz ---------- */
@@ -1693,8 +1693,8 @@ function bookHTML(){
     <div class="prog-l"><span>Krok ${b.step+1} z ${steps.length} · ${STEP_L[key]}</span>${c?`<span>${c.s.name}</span>`:''}</div></div>`;
   let body='';
   if(key==='usluga') body=`${memBanner(b)}<h2>Co robimy z autem?</h2><p class="hint">Możesz wybrać jedną usługę główną. Dodatki będą za chwilę.</p>
-    ${OFFER().map(s=>`<button class="opt" type="button" data-pick-svc="${s.id}" aria-pressed="${b.svc===s.id}"><span class="rad"></span><span><b>${s.name}</b><small>${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</small></span><span class="pr">od ${zl(minPrice(s))}</span></button>`).join('')}
-    ${b.svc&&svcById(b.svc).pk.length>1?`<h2 style="font-size:18px;margin-top:8px">Pakiet</h2>${svcById(b.svc).pk.map(p=>`<button class="opt" type="button" data-pick-pkg="${p.id}" aria-pressed="${b.pkg===p.id}"><span class="rad"></span><span><b>${p.name}</b><small>${p.desc} · ${durTxt(p)}</small></span><span class="pr">od ${zl(p.p[0])}</span></button>`).join('')}`:''}`;
+    ${OFFER().map(s=>`<button class="opt" type="button" data-pick-svc="${s.id}" aria-pressed="${b.svc===s.id}"><span class="rad"></span><span><b>${esc(s.name)}</b><small>${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</small></span><span class="pr">od ${zl(minPrice(s))}</span></button>`).join('')}
+    ${b.svc&&svcById(b.svc).pk.length>1?`<h2 style="font-size:18px;margin-top:8px">Pakiet</h2>${svcById(b.svc).pk.map(p=>`<button class="opt" type="button" data-pick-pkg="${p.id}" aria-pressed="${b.pkg===p.id}"><span class="rad"></span><span><b>${esc(p.name)}</b><small>${esc(p.desc)} · ${durTxt(p)}</small></span><span class="pr">od ${zl(p.p[0])}</span></button>`).join('')}`:''}`;
   if(key==='auto') body=`<h2>Jakie masz auto?</h2><p class="hint">Od wielkości zależy cena i czas pracy.</p>
     <div class="sizes">${SIZES.map((z,i)=>`<button class="size" type="button" data-size="${z.id}" aria-pressed="${b.size===z.id}">${carSVG({w:Math.round(70*z.sc)})}<b>${z.name}</b><small>${z.ex}</small><span class="pr">${zl(pkgOf(c.s,b.pkg).p[i])}</span></button>`).join('')}</div>
     <div class="field"><label for="f-car">Marka i model <em>(opcjonalnie)</em></label><input class="inp" id="f-car" data-f="car" value="${esc(b.car)}" placeholder="np. Skoda Octavia 2019" autocomplete="off"></div>
@@ -1841,7 +1841,7 @@ function statusHTML(){
   const s=svcById(d.svc)||{name:'Usługa'}, idx=d.status==='done'?3:STAGES.findIndex(x=>x[0]===d.stage), ex=Array.isArray(d.extras)?d.extras:[], marks=cleanMarks(d.marks), L=loyCalc(d.spent,d.used);
   const head=d.proposal&&d.proposal.status==='pending'?'Salon proponuje inny termin':d.status==='rejected'?'Wizyta odwołana':d.status==='noshow'?'Wizyta nieodbyta':d.status==='pending'||d.status==='proposed'?'Czekamy na potwierdzenie salonu':d.status==='done'?'Auto odebrane. Dziękujemy!':idx===2?'Auto czeka na Ciebie':idx>=0?'Pracujemy nad Twoim autem':'Wizyta potwierdzona';
   return `${siteHeader()}<div class="stp">
-    <div><p class="eyebrow-d">Cześć ${esc(d.name)}</p><h1>${head}</h1><p class="hint">${esc(d.car||'')}${d.car?' · ':''}${s.name}<br>oddanie ${fdt(new Date(d.start_at))} · odbiór ${fdt(new Date(d.end_at))}</p></div>
+    <div><p class="eyebrow-d">Cześć ${esc(d.name)}</p><h1>${head}</h1><p class="hint">${esc(d.car||'')}${d.car?' · ':''}${esc(s.name)}<br>oddanie ${fdt(new Date(d.start_at))} · odbiór ${fdt(new Date(d.end_at))}</p></div>
     <div class="st-badge">${stChip(d.status==='confirmed'&&d.stage?d.stage:d.status)}</div>
     ${!['confirmed','done'].includes(d.status)?'':`<ol class="stages">${STAGES.map((x,i)=>`<li class="${i<idx?'ok':i===idx?'now n'+i:''}"><i></i><span>${x[1]}${i===idx&&i===2?'<small>Możesz przyjechać: ${esc(SAL().addr)}.</small>':''}${i===idx&&i===1?'<small>Napiszemy SMS-em, gdy auto będzie gotowe.</small>':''}</span></li>`).join('')}</ol>`}
     ${propClient(d)}
@@ -2133,9 +2133,11 @@ function applySvcInit(){
     if(t){const k=x.price>0?x.price/t.pk[0].p[0]:1;used.add(t.id);Object.assign(t,{cat:x.cat,staff,off:false});
       t.pk.forEach(p=>{p.p=p.p.map(v=>r10(v*k))});const {h,d,...rest}=t.pk[0];t.pk[0]={...rest,...durOf(x)};return}
     if(!x.name) return;
-    let id=slugify(x.name)||'usluga'; while(svcById(id)) id=id.slice(0,26)+'-'+Math.floor(Math.random()*90+10);
-    SERVICES.push({id,name:x.name,seo:x.name,short:'',mode:x.unit==='d'?'confirm':'instant',deposit:50,cat:x.cat,img:null,custom:true,ph:'wash',dur:'',incl:[],faq:[],staff,
-      pk:[{id:'std',name:'Standard',desc:x.name,p:SIZES.map(z=>r10(x.price*z.sc/SIZES[0].sc)),...durOf(x)}]});
+    // dane z kreatora przyszły z formularza bez logowania: czyścimy jak w „Dodaj usługę”
+    const nm=cleanTxt(x.name).slice(0,60); if(nm.length<2) return;
+    let id=slugify(nm)||'usluga'; while(svcById(id)) id=id.slice(0,26)+'-'+Math.floor(Math.random()*90+10);
+    SERVICES.push({id,name:nm,seo:nm,short:'',mode:x.unit==='d'?'confirm':'instant',deposit:50,cat:x.cat,img:null,custom:true,ph:'wash',dur:'',incl:[],faq:[],staff,
+      pk:[{id:'std',name:'Standard',desc:nm,p:SIZES.map(z=>r10(x.price*z.sc/SIZES[0].sc)),...durOf(x)}]});
   });
   SERVICES.forEach(z=>{if(!z.custom&&!used.has(z.id))z.off=true});
 }

@@ -531,7 +531,7 @@ create or replace function public.studio_register(p_owner text, p_email text, p_
   p_team jsonb, p_features jsonb, p_wish text default null, p_sample boolean default true, p_plan text default 'start',
   p_cats jsonb default null, p_services jsonb default null)
 returns text language plpgsql security definer set search_path = public, extensions as $$
-declare em text := lower(trim(p_email)); own text := left(trim(coalesce(p_owner, '')), 60); sname text := left(trim(coalesce(p_salon->>'name', '')), 60);
+declare em text := lower(trim(p_email)); own text := left(trim(regexp_replace(coalesce(p_owner, ''), '[<>"&]', '', 'g')), 60); sname text := left(trim(regexp_replace(coalesce(p_salon->>'name', ''), '[<>"&]', '', 'g')), 60);
   uid uuid := gen_random_uuid(); sid uuid; base text; sl text; n int := 1; bays jsonb := '[]'; feats jsonb := '{}'; k text; x jsonb; i int := 0;
   pal text[] := array['#1c1917','#c2410c','#0f766e','#4338ca','#a16207','#be185d']; cats jsonb := '[]'; catids text[] := '{}'; svcs jsonb := '[]';
 begin
@@ -549,8 +549,8 @@ begin
 
   for x in select * from jsonb_array_elements(case when jsonb_typeof(p_cats) = 'array' then p_cats else '[]' end) limit 12 loop
     k := left(regexp_replace(lower(coalesce(x->>'id', '')), '[^a-z0-9-]', '', 'g'), 30);
-    if k <> '' and char_length(trim(coalesce(x->>'name', ''))) between 2 and 30 and not k = any(catids) then
-      catids := catids || k; cats := cats || jsonb_build_array(jsonb_build_object('id', k, 'name', trim(x->>'name')));
+    if k <> '' and char_length(trim(regexp_replace(coalesce(x->>'name', ''), '[<>"&]', '', 'g'))) between 2 and 30 and not k = any(catids) then
+      catids := catids || k; cats := cats || jsonb_build_array(jsonb_build_object('id', k, 'name', trim(regexp_replace(x->>'name', '[<>"&]', '', 'g'))));
     end if;
   end loop;
   if cardinality(catids) = 0 then catids := array['mycie', 'lakier']; cats := '[{"id":"mycie","name":"Mycie i wnętrze"},{"id":"lakier","name":"Lakier i ochrona"}]'; end if;
@@ -558,16 +558,16 @@ begin
   for x in select * from jsonb_array_elements(case when jsonb_typeof(p_services) = 'array' then p_services else '[]' end) limit 30 loop
     svcs := svcs || jsonb_build_array(jsonb_strip_nulls(jsonb_build_object(
       'tpl', nullif(left(regexp_replace(coalesce(x->>'tpl', ''), '[^a-z0-9-]', '', 'g'), 30), ''),
-      'name', nullif(left(trim(coalesce(x->>'name', '')), 60), ''),
+      'name', nullif(left(trim(regexp_replace(coalesce(x->>'name', ''), '[<>"&]', '', 'g')), 60), ''),
       'cat', case when x->>'cat' = any(catids) then x->>'cat' else catids[1] end,
       'price', least(100000, greatest(0, coalesce(floor((x->>'price')::numeric), 0)::int)),
       'unit', case when x->>'unit' = 'd' then 'd' else 'h' end,
       'dur', least(30, greatest(0.5, coalesce((x->>'dur')::numeric, 1))),
-      'staff', (select jsonb_agg(left(trim(v), 60)) from (select v from jsonb_array_elements_text(case when jsonb_typeof(x->'staff') = 'array' then x->'staff' else '[]' end) v limit 10) z))));
+      'staff', (select jsonb_agg(left(trim(regexp_replace(v, '[<>"&]', '', 'g')), 60)) from (select v from jsonb_array_elements_text(case when jsonb_typeof(x->'staff') = 'array' then x->'staff' else '[]' end) v limit 10) z))));
   end loop;
   for x in select * from jsonb_array_elements(case when jsonb_typeof(p_bays) = 'array' then p_bays else '[]' end) limit 10 loop
     i := i + 1;
-    bays := bays || jsonb_build_array(jsonb_build_object('id', i, 'name', coalesce(nullif(left(trim(x->>'name'), 40), ''), 'Stanowisko ' || i), 'desc', '',
+    bays := bays || jsonb_build_array(jsonb_build_object('id', i, 'name', coalesce(nullif(left(trim(regexp_replace(coalesce(x->>'name', ''), '[<>"&]', '', 'g')), 40), ''), 'Stanowisko ' || i), 'desc', '',
       'cats', coalesce((select jsonb_agg(c) from jsonb_array_elements_text(case when jsonb_typeof(x->'cats') = 'array' then x->'cats' else '[]' end) c
         where c = any(catids)), to_jsonb(catids))));
   end loop;
@@ -599,7 +599,7 @@ begin
     if char_length(trim(coalesce(x->>'name', ''))) >= 2 then
       i := i + 1;
       insert into public.team (studio_id, name, role, color, commission)
-      values (sid, left(trim(x->>'name'), 60), case when x->>'role' = 'admin' then 'admin' else 'worker' end, pal[1 + (i - 1) % 6],
+      values (sid, left(trim(regexp_replace(x->>'name', '[<>"&]', '', 'g')), 60), case when x->>'role' = 'admin' then 'admin' else 'worker' end, pal[1 + (i - 1) % 6],
         least(50, greatest(0, coalesce(floor((x->>'commission')::numeric), 0)::int)));
     end if;
   end loop;
