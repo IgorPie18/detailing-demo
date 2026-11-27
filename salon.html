@@ -442,6 +442,44 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .sstaff button[aria-pressed="true"]{background:var(--brand-50);border-color:var(--brand);color:var(--brand-600);font-weight:600}
 .catadd{display:inline-flex;gap:6px;flex-wrap:wrap}.catadd input{height:36px;border:1px dashed #cdc9bf;border-radius:8px;padding:0 10px;font-size:14px;min-width:200px}
 .sig2-h{margin-top:10px}
+/* Twój plan: kafelki jak w cenniku na stronie produktu */
+.pl-top{display:flex;justify-content:center;margin:4px 0 18px}
+.pl-toggle{display:inline-flex;background:#efefec;border-radius:999px;padding:4px;gap:4px}
+.pl-toggle button{border:0;background:none;border-radius:999px;min-height:40px;padding:0 18px;font:inherit;font-weight:600;color:var(--grey);display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s,box-shadow .2s}
+.pl-toggle button[aria-checked="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(28,25,23,.14)}
+.pl-toggle em{font-style:normal;font-size:11.5px;font-weight:700;color:#15803d;background:#dcfce7;border-radius:999px;padding:2px 8px}
+.pl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;margin-bottom:16px}
+.pl-card{position:relative;background:#fff;border:1px solid var(--pline);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;gap:6px}
+.pl-card.pop{border:2px solid var(--brand);box-shadow:0 22px 44px -28px rgba(234,88,12,.55)}
+.pl-card.cur{background:linear-gradient(180deg,#fffaf6,#fff 40%)}
+.pl-pop{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--brand-600);color:#fff;font-size:12px;font-weight:700;border-radius:999px;padding:4px 12px;white-space:nowrap}
+.pl-h{display:flex;align-items:center;gap:8px;justify-content:space-between}.pl-h h3{margin:0;font-size:20px}
+.pl-cur{font-size:12px;font-weight:700;color:var(--brand-600);background:var(--brand-50);border:1px solid var(--brand-100);border-radius:999px;padding:3px 10px}
+.pl-for{margin:0;color:var(--grey);font-size:14px}
+.pl-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:10px;min-height:44px}
+.pl-price b{font-size:36px;letter-spacing:-.02em;line-height:1}.pl-price span{color:var(--grey);font-size:14px}.pl-price s{color:#a8a29e;font-size:15px}
+.pl-price.anim b,.pl-price.anim s{animation:plIn .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes plIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pl-bill{margin:0 0 12px;font-size:13px;color:var(--grey)}
+.pl-btn{width:100%;min-height:46px;justify-content:center}
+.pl-btn:disabled{opacity:1;background:#f1f1ef;color:var(--grey);border-color:transparent;cursor:default}
+.pl-list{list-style:none;margin:16px 0 0;padding:16px 0 0;border-top:1px solid var(--pline);display:grid;gap:10px;font-size:14px}
+.pl-list li{display:flex;gap:10px;align-items:flex-start}.pl-list svg{color:var(--brand-600);flex:none;margin-top:1px}
+.pl-bar{height:8px;border-radius:99px;background:#ececea;margin-top:8px;overflow:hidden}.pl-bar i{display:block;height:100%;background:var(--brand)}
+.pl-use{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:6px}
+/* Jak to zrobić? */
+.pom-top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.pom-q{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;height:46px;border:1px solid var(--pline);border-radius:12px;padding:0 14px;background:#fff;color:var(--grey)}
+.pom-q:focus-within{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-50)}
+.pom-q input{flex:1;border:0;outline:0;font:inherit;font-size:15px;background:none;color:var(--ink);min-width:0}
+.pom-g{margin-bottom:22px}.pom-g h2{font-size:15px;margin:0 0 10px;color:var(--grey);font-weight:600}
+.pom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px}
+.pom-c{text-align:left;background:#fff;border:1px solid var(--pline);border-radius:14px;padding:14px 16px;display:grid;gap:4px;font:inherit;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s}
+.pom-c:hover{border-color:var(--brand);box-shadow:0 12px 26px -18px rgba(234,88,12,.6);transform:translateY(-1px)}
+.pom-c b{font-size:15px}.pom-c span{color:var(--grey);font-size:13.5px}
+.pom-c small{display:flex;align-items:center;gap:6px;color:var(--brand-600);font-weight:600;font-size:12.5px;margin-top:4px}.pom-c small svg{width:14px;height:14px}
+.pom-none{color:var(--grey)}
+@media (max-width:900px){.pl-grid{grid-template-columns:minmax(0,1fr)}.pl-card.pop{margin-top:8px}.pl-use{grid-template-columns:minmax(0,1fr)}.pom-q input{font-size:16px}}
 .sendbox{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;width:100%}.sendbox .pf{flex:1;min-width:220px}.sendbox small{flex-basis:100%}
 .proto-box{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--pline);border-radius:8px;padding:12px 14px;background:var(--pbg)}
 .proto-box b{display:block;font-size:14px}.proto-box small{color:var(--grey);font-size:12.5px}
@@ -867,6 +905,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .tour-btns button{height:34px;border-radius:9px;border:1px solid #e4e4e1;background:#fff;padding:0 12px;font:inherit;font-weight:500;cursor:pointer}
 .tour-btns button.pri{background:var(--brand);border-color:var(--brand);color:#fff}
 .tour-btns button[data-tour="end"]{margin-right:auto;border-color:transparent;color:#78716c}
+.tour-card{transition:top .38s cubic-bezier(.2,.8,.2,1),left .38s cubic-bezier(.2,.8,.2,1),opacity .18s ease,transform .18s ease}
+.tour-card.out{opacity:0;transform:translateY(6px)}
+#tour.nt .tour-spot,#tour.nt .tour-card{transition:none!important}
+.tour-g{font-size:12px;font-weight:600;color:var(--brand-600);letter-spacing:.02em}
 .tour-bar{height:3px;background:#f1f1ef;border-radius:2px;overflow:hidden}.tour-bar i{display:block;height:100%;background:var(--brand);transition:width .38s}
 @media (prefers-reduced-motion:reduce){.tour-spot,.tour-card{transition:none}.tour-spot.click{animation:none}}
 
@@ -2172,6 +2214,13 @@ async function openPanel(){
   subscribe(); renderPanel(); enter($('#pmain'),true);
   if(isAdm()&&SET.tour_new){SET.tour_new=false;saveCatalog();setTimeout(()=>tourStart(true),700)}
 }
+document.getElementById('view-panel').addEventListener('input',e=>{
+  if(!e.target.dataset.pomq) return; const q=e.target.value.trim().toLowerCase().replace(/[ąćęłńóśźż]/g,c=>'acelnoszz'['ąćęłńóśźż'.indexOf(c)]);
+  const nz=x=>x.replace(/[ąćęłńóśźż]/g,c=>'acelnoszz'['ąćęłńóśźż'.indexOf(c)]);
+  let any=0; document.querySelectorAll('[data-guide]').forEach(c=>{const on=!q||nz(c.dataset.txt).includes(q);c.hidden=!on;any+=on});
+  document.querySelectorAll('[data-pomg]').forEach(g=>{g.hidden=![...g.querySelectorAll('[data-guide]')].some(c=>!c.hidden)});
+  $('.pom-none').hidden=!!any;
+});
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
   if(e.target.id==='fvouch'){e.preventDefault();vIssue(e.target);return}
@@ -2204,6 +2253,7 @@ const ICONS={
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  pom:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
   google:'<path d="M12 3a9 9 0 1 0 8.6 11.6H12v-3.4h9"/>',
   dzis:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   note:'<path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8 12h8M8 16h6"/>',
@@ -2263,11 +2313,12 @@ function renderSide(){
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   ${grp('Sprzedaż',it('wyc','Wyceny',acc)+it('gw','Gwarancje',due)+it('wl','Lista rezerwowa',off)+(A?it('bon','Bony'):''))}
   ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('ust','Ustawienia')+it('plan','Twój plan')):''}
+  ${grp('Pomoc',it('pom','Jak to zrobić?'))}
   ${SLUG!=='lumen'?'':`<button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>`}
   <div class="salon"><b>${esc(SAL().name)}</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'}${CITY()?' · '+esc(CITY()):''}</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
   <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
-function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
+function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML,pom:pomHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -2978,10 +3029,120 @@ async function addonSubmit(f){
 /* ---------- Twój plan ---------- */
 let PLAN_T=0;
 const PLANS={
-  start:{name:'Start',price:0,bays:1,team:1,pts:['1 stanowisko i 1 osoba','Rezerwacje online, kalendarz, klienci','Protokoły przyjęcia i wydania']},
-  salon:{name:'Salon',price:99,bays:3,team:5,pts:['Do 3 stanowisk i 5 osób w zespole','Wyceny z wariantami, gwarancje i przeglądy','Lista rezerwowa, bony prezentowe i punkty']},
-  studio:{name:'Studio',price:179,bays:Infinity,team:Infinity,pts:['Bez limitu stanowisk i osób','Statystyki, Google i powiadomienia na Telegramie','Pomoc przy wdrożeniu']}
+  start:{name:'Start',price:0,bays:1,team:1,for:'Dla jednoosobowego studia na start.',pts:['1 stanowisko i 1 osoba','Rezerwacje online bez prowizji','Kalendarz stanowisk i klienci','Protokoły przyjęcia i wydania','Status auta dla klienta']},
+  salon:{name:'Salon',price:99,year:82,yearTotal:990,bays:3,team:5,for:'Dla salonu z zespołem.',pts:['Wszystko z planu Start','Do 3 stanowisk i 5 osób','Konta pracowników i prowizje','Wyceny z wariantami','Gwarancje i przeglądy','Lista rezerwowa, bony i punkty']},
+  studio:{name:'Studio',price:179,year:149,yearTotal:1790,bays:Infinity,team:Infinity,for:'Dla większego studia i kilku stanowisk.',pts:['Wszystko z planu Salon','Bez limitu stanowisk i osób','Statystyki i lejek rezerwacji','Google w panelu','Powiadomienia na Telegramie','Pomoc przy wdrożeniu']}
 };
+/* ---------- „Jak to zrobić?”: krótkie instrukcje do konkretnych czynności, na tym samym silniku co samouczek ---------- */
+const GB={};
+const gBk=(key,fn)=>()=>{const b=BOOKINGS.find(fn);if(!b)return false;GB[key]=b.id;return true};
+const GUIDES=[
+ {g:'Rezerwacje i klienci',id:'add',need:'start',t:'Jak dodać rezerwację z telefonu',d:'Klient dzwoni, wpisujesz wizytę w 30 sekund.',steps:[
+  {v:'start',sel:'.qact [data-pact="add"], .mtop [data-pact="add"]',t:'Otwórz formularz',d:'Kliknij „Nowa rezerwacja”. Ten sam przycisk masz zawsze w menu.',click:1},
+  {sel:'#fadd [name=svc]',t:'Usługa i pakiet',d:'Wybierz usługę. Cena przeliczy się sama według wielkości auta.'},
+  {sel:'#fadd [name=day]',t:'Dzień i godzina',d:'Panel sam dobierze wolne stanowisko i ostrzeże, gdy termin jest zajęty.'},
+  {sel:'#fadd [name=kname]',t:'Dane klienta',d:'Imię i telefon. Po numerze panel połączy wizytę z historią klienta.'},
+  {sel:'#fadd [type=submit]',t:'Zapisz',d:'Po zapisie wizyta jest w kalendarzu. W instrukcji nic nie zapisujemy, okno zamknie się po kliknięciu „Koniec”.',after:()=>closeDrw()}]},
+ {g:'Rezerwacje i klienci',id:'walkin',need:'start',t:'Klient przyjechał bez zapisu',d:'Wizyta od razu na dziś i protokół przyjęcia.',steps:[
+  {v:'start',sel:'[data-pact="walkin"]',t:'Klient z ulicy',d:'Ten przycisk ustawia dzisiejszy termin na najbliższą godzinę, a po zapisie od razu otwiera protokół przyjęcia.'}]},
+ {g:'Rezerwacje i klienci',id:'client',need:'kli',t:'Jak znaleźć klienta i jego historię',d:'Wizyty, auta, wydane pieniądze i punkty.',steps:[
+  {v:'start',opt:1,sel:'.side .gsearch',t:'Wyszukiwarka',d:'Wpisz imię, telefon albo model auta. Skrót klawiszowy: „/”.'},
+  {v:'kli',sel:'tbody tr[data-client]',t:'Lista klientów',d:'Kliknij klienta, żeby zobaczyć jego konto.',click:1},
+  {sel:'#drw .cl-stats',t:'Konto klienta',d:'Historia wizyt, auta i punkty. Stąd dodasz kolejną wizytę z wpisanym autem.',after:()=>closeDrw()}]},
+ {g:'Przyjęcie i wydanie auta',id:'accept',need:'rez',t:'Jak przyjąć auto z protokołem',d:'Uszkodzenia, zdjęcia i dwa podpisy.',ok:gBk('acc',x=>x.status==='confirmed'&&!x.stage),steps:[
+  {pre:async()=>{P.view='rez';renderPanel();openBk(GB.acc)},sel:'#drw [data-proto]',t:'Przyjęcie zaczyna się od protokołu',d:'W szczegółach zaplanowanej wizyty kliknij „Przyjmij auto (protokół)”. Bez protokołu auta nie przyjmiesz.'},
+  {pre:async()=>{await openProto(GB.acc)},sel:'#carmap',t:'Uszkodzenia na schemacie',d:'Wybierz rodzaj (rysa, wgniecenie, odprysk) i kliknij miejsce na schemacie auta.'},
+  {sel:'#drw [name=km]',t:'Przebieg, paliwo, rzeczy w aucie',d:'Wpisz przebieg i poziom paliwa. Rzeczy zostawione w aucie chronią przed sporem przy odbiorze.'},
+  {sel:'#drw .upl',t:'Zdjęcia',d:'Zdjęcia zapisują się z datą i godziną. Na telefonie od razu otwiera się aparat.'},
+  {sel:'#sig',t:'Podpis klienta',d:'Klient podpisuje palcem na telefonie albo tablecie.'},
+  {sel:'#sig2',t:'Podpis osoby z salonu',d:'Podpisuje osoba, która przyjmuje auto.'},
+  {sel:'#drw [data-protosave]',t:'Przyjmij auto',d:'Przycisk zadziała tylko z oboma podpisami. Protokół wyślesz potem klientowi na e-mail. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Przyjęcie i wydanie auta',id:'release',need:'rez',t:'Jak wydać auto klientowi',d:'Zdjęcia po usłudze, zalecenia i podpisy przy odbiorze.',ok:gBk('rel',x=>x.status==='confirmed'&&x.stage&&x.stage!=='wydane'),steps:[
+  {pre:async()=>{P.view='rez';renderPanel();openBk(GB.rel)},sel:'#drw .steps',t:'Etapy pracy',d:'Przyjęte, w trakcie, gotowe do odbioru. Przyciskiem pod etapami przesuwasz auto dalej, a klient widzi to w linku.'},
+  {pre:async()=>{await openHand(GB.rel)},sel:'#drw .upl',t:'Zdjęcia po usłudze',d:'Klient dostanie zdjęcia przed i po w jednym protokole.'},
+  {sel:'#drw [name=hnote]',t:'Zalecenia',d:'Na przykład: pierwsze mycie po 7 dniach, bez myjni szczotkowej.'},
+  {sel:'#sig',t:'Podpis klienta',d:'Klient potwierdza odbiór auta bez zastrzeżeń.'},
+  {sel:'#sig2',t:'Podpis osoby z salonu',d:'Podpisuje osoba, która wydaje auto.'},
+  {sel:'#drw [data-handsave]',t:'Wydaj auto',d:'Bez protokołu i obu podpisów auta nie wydasz. Przy ceramice i PPF powstaje też karta gwarancyjna. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Przyjęcie i wydanie auta',id:'send',need:'rez',t:'Jak wysłać protokół klientowi',d:'Gotowa wiadomość na e-mail klienta.',ok:()=>{const b=BOOKINGS.find(x=>(x.handover&&x.handover.sign)||(x.intake&&x.intake.sign))||BOOKINGS.find(x=>x.handover||x.intake);if(!b)return false;GB.snd=b.id;return true},steps:[
+  {pre:async()=>{P.view='rez';renderPanel();const b=BOOKINGS.find(x=>x.id===GB.snd);await (b.handover?openHand(b.id):openProto(b.id))},opt:1,sel:'#drw .sendbox',t:'Wyślij protokół',d:'Wpisz e-mail klienta i kliknij „Wyślij protokół”. Otworzy się Twoja poczta z gotową wiadomością, a panel zapamięta, kiedy wysłano.'},
+  {opt:1,sel:'#drw [data-protosave], #drw [data-handsave]',t:'Najpierw podpisy',d:'Pole e-mail i przycisk „Wyślij protokół” pojawią się tutaj, gdy protokół podpiszą klient i osoba z salonu.'},
+  {sel:'#drw .drw-h',t:'Kopia u klienta',d:'Klient dostaje podsumowanie: uszkodzenia, zdjęcia, kto podpisał i link do historii auta. Wysłać możesz kilka razy.',after:()=>closeDrw()}]},
+ {g:'Kalendarz',id:'calview',need:'kal',t:'Jak przełączać widoki kalendarza',d:'Dzień, tydzień, 2 tygodnie, miesiąc.',steps:[
+  {v:'kal',sel:'.calbar .seg-t',t:'Widoki',d:'Kliknięcie dnia w miesiącu otwiera jego plan ze stanowiskami. Kolor wizyty to jej stan.'}]},
+ {g:'Kalendarz',id:'block',need:'kal',t:'Jak zablokować dzień',d:'Urlop, szkolenie albo awaria.',steps:[
+  {v:'kal',sel:'[data-pact="block"]',t:'Zablokuj dzień',d:'Kliknij przycisk.',click:1},
+  {sel:'#fblock [name=from]',t:'Od kiedy do kiedy',d:'Możesz zablokować cały salon albo jedno stanowisko.'},
+  {sel:'#fblock [type=submit]',t:'Zapisz blokadę',d:'Zablokowane dni znikną z formularza rezerwacji na stronie. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Kalendarz',id:'note',need:'kal',t:'Jak dodać notatkę w kalendarzu',d:'Dostawa, serwis, kto ma wolne.',steps:[
+  {v:'kal',sel:'[data-noteadd]',t:'Nowa notatka',d:'Kliknij przycisk.',click:1},
+  {sel:'#fnote [name=body]',t:'Treść',d:'Notatki widzi tylko zespół salonu, nigdy klient.'},
+  {sel:'#fnote [type=submit]',t:'Zapisz',d:'Notatka pokaże się w kalendarzu przy tym dniu. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Cennik',id:'svc',need:'cen',t:'Jak dodać usługę do cennika',d:'Nazwa, ceny dla wielkości auta, czas, zdjęcie.',steps:[
+  {v:'cen',sel:'[data-pact="svc"]',t:'Dodaj usługę',d:'Kliknij przycisk.',click:1},
+  {sel:'#fsvc [name=sname]',t:'Nazwa',d:'Tak zobaczy ją klient na stronie.'},
+  {sel:'#fsvc [name=cat]',t:'Rodzaj pracy',d:'Decyduje, które stanowisko może ją wykonać. Możesz dodać nowy rodzaj.'},
+  {sel:'#fsvc [name=p0]',t:'Ceny',d:'Osobna cena dla każdej wielkości auta.'},
+  {sel:'#fsvc [name=mode]',t:'Sposób rezerwacji',d:'Od ręki z zadatkiem albo termin do potwierdzenia przez salon.'},
+  {sel:'#fsvc [type=submit]',t:'Zapisz',d:'Usługa od razu pojawi się na stronie. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Cennik',id:'addon',need:'cen',t:'Jak dodać dodatek',d:'Np. ozonowanie albo ceramika na felgi.',steps:[
+  {v:'cen',sel:'[data-pact="addon"]',t:'Dodaj dodatek',d:'Kliknij przycisk.',click:1},
+  {sel:'#faddon input',t:'Nazwa, cena i czas',d:'Dodatek doliczy się do ceny i czasu wizyty.'},
+  {sel:'#faddon [type=submit]',t:'Zapisz',d:'Klient zobaczy dodatek przy wybranych usługach. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Cennik',id:'price',need:'cen',t:'Jak zmienić cenę albo ukryć usługę',d:'Zmiany od razu na stronie.',steps:[
+  {v:'cen',sel:'[data-price]',t:'Cena',d:'Wpisz nową kwotę. Zapisuje się sama.'},
+  {v:'cen',sel:'.sstaff',t:'Kto odpowiada',d:'Zaznacz osoby. Powiadomienie o nowej rezerwacji pokaże, kto robi usługę.'},
+  {v:'cen',sel:'[data-svcoff]',t:'Ukryj usługę',d:'Ukryta usługa znika ze strony, stare wizyty zostają.'}]},
+ {g:'Sprzedaż',id:'offer',need:'wyc',t:'Jak wysłać wycenę z wariantami',d:'Klient wybiera wariant w linku.',steps:[
+  {v:'wyc',sel:'[data-oform="0"]',t:'Nowa wycena',d:'Kliknij przycisk.',click:1},
+  {sel:'#foffer [name=oname]',t:'Klient i auto',d:'Imię, telefon i auto.'},
+  {sel:'#foffer [type=submit]',t:'Wyślij',d:'Klient dostanie link z wariantami. Akceptacja wróci do panelu sama. W instrukcji nic nie wysyłamy.',after:()=>closeDrw()}]},
+ {g:'Sprzedaż',id:'wl',need:'wl',t:'Jak działa lista rezerwowa',d:'Zwolniony termin trafia do pierwszej osoby.',steps:[
+  {v:'wl',sel:'.auto-note',t:'Automat',d:'Gdy ktoś odwoła wizytę, pierwsza osoba z listy dostaje propozycję. Najpierw zapytamy Cię na Telegramie.'},
+  {v:'wl',sel:'[data-wsim]',t:'Sprawdź na próbę',d:'Ten przycisk symuluje odwołaną wizytę, żeby zobaczyć, co się dzieje.'}]},
+ {g:'Sprzedaż',id:'voucher',need:'bon',t:'Jak wystawić bon prezentowy',d:'Bon w salonie albo sprzedany na stronie.',steps:[
+  {v:'bon',sel:'[data-pact="voucher"]',t:'Wystaw bon',d:'Kliknij przycisk.',click:1},
+  {sel:'#fvouch input',t:'Kwota i dane',d:'Kwota, kupujący i dla kogo.'},
+  {sel:'#fvouch [type=submit]',t:'Zapisz',d:'Bon dostanie kod do realizacji. W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Sprzedaż',id:'review',need:'gw',t:'Jak umówić przegląd gwarancyjny',d:'Powrót klienta po roku od ceramiki.',steps:[
+  {v:'gw',sel:'.mini-kpis',t:'Przeglądy',d:'Zaległe i te do umówienia w 30 dni.'},
+  {v:'gw',sel:'[data-wcheck]',t:'Umów przegląd',d:'Panel sam znajdzie wolny termin i zapisze wizytę za 0 zł.'}]},
+ {g:'Salon',id:'team',need:'zes',t:'Jak dodać pracownika i dać mu dostęp',d:'Rola, prowizja i konto do logowania.',steps:[
+  {v:'zes',sel:'[data-medit="0"]',t:'Dodaj osobę',d:'Kliknij przycisk.',click:1},
+  {sel:'#fmember [name=mname]',t:'Imię i rola',d:'Pracownik widzi tylko swoje zlecenia i prowizję. Administrator widzi wszystko.'},
+  {sel:'#fmember [name=mcom]',t:'Prowizja',d:'Procent od wartości wizyt. Rozliczenie miesiąca policzy się samo.'},
+  {sel:'#fmember [name=memail]',t:'Konto do logowania',d:'E-mail i hasło. Konto działa od razu, bez maila z zaproszeniem.'},
+  {sel:'#fmember [type=submit]',t:'Zapisz',d:'W instrukcji nic nie zapisujemy.',after:()=>closeDrw()}]},
+ {g:'Salon',id:'salon',need:'ust',t:'Jak zmienić dane i godziny salonu',d:'Nazwa, adres, telefon, godziny.',steps:[
+  {v:'ust',sel:'[data-salonf="name"]',t:'Dane salonu',d:'Zmiana zapisuje się sama i od razu widać ją na stronie, w certyfikacie i potwierdzeniach.'},
+  {v:'ust',sel:'[data-salonf="hours"]',t:'Godziny otwarcia',d:'Na przykład: pn-pt 8:00-18:00, sb 9:00-14:00.'}]},
+ {g:'Salon',id:'bays',need:'ust',t:'Jak dodać stanowisko i rodzaj pracy',d:'Np. osobne stanowisko do suszenia.',steps:[
+  {v:'ust',sel:'[data-bayadd]',t:'Nowe stanowisko',d:'Każde stanowisko to osobna kolumna w kalendarzu.'},
+  {v:'ust',sel:'.bay-cats',t:'Co robicie na stanowisku',d:'Zaznacz rodzaje pracy. Formularz na stronie sam dobierze wolne stanowisko.'},
+  {v:'ust',sel:'.catadd',t:'Inna praca',d:'Wpisz własny rodzaj pracy, np. Suszenie, i kliknij Dodaj.'}]},
+ {g:'Salon',id:'feats',need:'ust',t:'Jak włączyć albo wyłączyć funkcję',d:'Menu tylko z tym, czego używasz.',steps:[
+  {v:'ust',sel:'[data-feat]',t:'Funkcje panelu',d:'Wyłączona funkcja znika z menu i ze strony klienta. Dane zostają.'}]},
+ {g:'Salon',id:'plan',need:'plan',t:'Jak zmienić plan',d:'Porównanie planów i rozliczenie roczne.',steps:[
+  {v:'plan',sel:'.pl-toggle',t:'Miesięcznie czy rocznie',d:'Przy rozliczeniu rocznym masz 2 miesiące gratis.'},
+  {v:'plan',sel:'.pl-card.pop',t:'Plany',d:'Każdy kafelek pokazuje, co zawiera plan. Przycisk na kafelku zmienia plan.'},
+  {v:'plan',sel:'.pl-now',t:'Odnowienie i limity',d:'Ile zostało do odnowienia i ile stanowisk i osób wykorzystujesz.'}]},
+ {g:'Salon',id:'google',need:'google',t:'Co pokazuje zakładka Google',d:'Wizytówka, wyszukiwarka i Analytics.',steps:[
+  {v:'google',sel:'.g-conn',t:'Źródła danych',d:'Po podłączeniu kont dane wpadają same. Teraz widać przykładowe.'}]}
+];
+const gVis=g=>FON(g.need)&&(isAdm()||!ADMIN_VIEWS.includes(g.need));
+function pomHTML(){
+  const list=GUIDES.filter(gVis), groups=[...new Set(list.map(g=>g.g))];
+  return `${topbar('Jak to zrobić?','Krótkie instrukcje do konkretnych czynności. Kliknij temat, a panel sam pokaże, gdzie kliknąć. Nic nie zapisujemy.')}
+  <div class="pom-top"><label class="pom-q">${ic('search')}<input type="search" data-pomq="1" placeholder="Czego szukasz? np. cennik, protokół, bon" aria-label="Szukaj instrukcji"></label>
+    <button class="pbtn" type="button" data-tourstart="1">${ic('help')}Pełny samouczek panelu</button></div>
+  ${groups.map(gr=>`<section class="pom-g" data-pomg="1"><h2>${gr}</h2><div class="pom-grid">${list.filter(g=>g.g===gr).map(g=>`<button class="pom-c" type="button" data-guide="${g.id}" data-txt="${esc((g.t+' '+g.d+' '+gr).toLowerCase())}"><b>${g.t}</b><span>${g.d}</span><small>${g.steps.length} ${g.steps.length===1?'krok':g.steps.length<5?'kroki':'kroków'} · Pokaż mi ${ic('send')}</small></button>`).join('')}</div></section>`).join('')}
+  <p class="pom-none" hidden>Nic nie znaleźliśmy. Spróbuj innego słowa albo uruchom pełny samouczek.</p>`;
+}
+function guideStart(id){
+  const g=GUIDES.find(x=>x.id===id); if(!g) return;
+  if(g.ok&&!g.ok()){toast('Ta instrukcja potrzebuje wizyty w odpowiednim stanie. Odśwież dane przykładowe w Ustawieniach.');return}
+  tourStart(g);
+}
 function planStart(){
   const v=SET.plan_since||(STUDIO&&STUDIO.created_at), d=v?new Date(v):null, n=new Date();
   return d&&!isNaN(d)?d:new Date(n.getFullYear(),n.getMonth(),1);
@@ -2989,8 +3150,8 @@ function planStart(){
 // ten sam dzień miesiąca, w krótszych miesiącach ostatni dzień (poprawne dla 29-31)
 function planAdd(st,n){const d=new Date(st.getFullYear(),st.getMonth()+n,1,st.getHours(),st.getMinutes(),st.getSeconds());d.setDate(Math.min(st.getDate(),new Date(d.getFullYear(),d.getMonth()+1,0).getDate()));return d}
 function planCycle(now=new Date()){
-  const st=planStart();let n=0;while(planAdd(st,n+1)<=now&&n<2400)n++;
-  return {a:planAdd(st,n),b:planAdd(st,n+1)};
+  const st=planStart(),m=SET.billing==='year'?12:1;let n=0;while(planAdd(st,(n+1)*m)<=now&&n<2400)n++;
+  return {a:planAdd(st,n*m),b:planAdd(st,(n+1)*m)};
 }
 function planLeft(now=new Date()){
   const c=planCycle(now),ms=Math.max(0,c.b-now),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);
@@ -3006,37 +3167,41 @@ function planBar(label,use,lim,fix){
 }
 function planTick(){const e=$('#plan-left');if(!e||P.view!=='plan'){clearInterval(PLAN_T);PLAN_T=0;return}const l=planLeft();e.textContent=l.txt;const b=$('#plan-pct');if(b)b.style.width=l.pct+'%'}
 function planHTML(){
-  const cur=SET.plan||'studio',pl=PLANS[cur]||PLANS.studio,u=planUse(),l=planLeft();
+  const cur=SET.plan||'studio', bill=SET.billing||'month', view=P.bill||'year', pl=PLANS[cur]||PLANS.studio, u=planUse(), l=planLeft();
   const fmt=d=>d.toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'});
-  const cards=['start','salon','studio'].filter(k=>k!==cur).map(k=>{
-    const x=PLANS[k],up=PRANK[k]>PRANK[cur];
-    return `<div class="box" style="margin:0;display:flex;flex-direction:column"><h2 style="margin:0">${x.name}</h2><p style="font-size:18px;font-weight:700;margin:6px 0">${planPrice(x)}</p>
-    <ul style="margin:0 0 14px;padding-left:18px;font-size:14px;display:grid;gap:4px">${x.pts.map(t=>`<li>${t}</li>`).join('')}</ul>
-    <button class="pbtn ${up?'dark':''}" type="button" data-planchg="${k}" style="margin-top:auto;min-height:44px;justify-content:center">${up?'Przejdź na':'Zmień na'} ${x.name}</button></div>`}).join('');
-  return `${topbar('Twój plan','Limity, odnowienie i zmiana planu.')}
-  <div class="box"><div class="box-h"><h2>Plan ${pl.name}</h2><b style="font-size:16px">${planPrice(pl)}</b></div>
-    <ul style="margin:10px 0 0;padding-left:18px;font-size:14px;display:grid;gap:4px">${pl.pts.map(t=>`<li>${t}</li>`).join('')}</ul>
-    ${planBar('Stanowiska',u.bays,pl.bays,'Limit przekroczony. Usuń nadmiarowe stanowiska w Ustawieniach albo przejdź na wyższy plan.')}
-    ${planBar('Osoby w zespole',u.team,pl.team,'Limit przekroczony. Dezaktywuj osoby w Zespole albo przejdź na wyższy plan.')}
-    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--pline)">${cur==='start'?'<b>Plan darmowy, bez odnowień</b>':`<b id="plan-left">${l.txt}</b><div style="font-size:13px;color:var(--grey);margin-top:2px">Data odnowienia: ${fmt(l.c.b)}</div>
-    <div style="height:8px;border-radius:99px;background:#ececea;margin-top:8px;overflow:hidden" role="progressbar" aria-label="Postęp okresu rozliczeniowego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${l.pct}"><i id="plan-pct" style="display:block;height:100%;width:${l.pct}%;background:var(--brand)"></i></div>`}</div>
-    <p style="font-size:13px;color:var(--grey);margin:12px 0 0">Wersja demo: bez płatności.</p></div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">${cards}</div>`;
+  const tile=k=>{const x=PLANS[k],isCur=k===cur,up=PRANK[k]>PRANK[cur],y=view==='year'&&x.price,price=x.price?(y?x.year:x.price):0;
+    const btn=isCur?(x.price&&view!==bill?`<button class="pbtn dark pl-btn" type="button" data-planchg="${k}">Przejdź na rozliczenie ${view==='year'?'roczne':'miesięczne'}</button>`:`<button class="pbtn pl-btn" type="button" disabled>Twój obecny plan</button>`)
+      :`<button class="pbtn ${up?'dark':''} pl-btn" type="button" data-planchg="${k}">${up?'Przejdź na':'Zmień na'} ${x.name}</button>`;
+    return `<article class="pl-card${isCur?' cur':''}${k==='salon'?' pop':''}">${k==='salon'?'<span class="pl-pop">Najczęściej wybierany</span>':''}
+      <div class="pl-h"><h3>${x.name}</h3>${isCur?'<span class="pl-cur">Twój plan</span>':''}</div><p class="pl-for">${x.for}</p>
+      <div class="pl-price${P.billAnim?' anim':''}"><b>${price} zł</b><span>${x.price?'netto / mies.':'na zawsze'}</span>${y?`<s>${x.price} zł</s>`:''}</div>
+      <p class="pl-bill">${x.price?(y?`płatne rocznie ${x.yearTotal} zł netto`:'płatne co miesiąc, bez umowy'):'bez karty i bez odnowień'}</p>
+      ${btn}<ul class="pl-list">${x.pts.map(t=>`<li>${ic('check')}<span>${t}</span></li>`).join('')}</ul></article>`};
+  return `${topbar('Twój plan','Porównaj plany, zmień plan albo sposób rozliczenia. Wersja demo: bez płatności.')}
+  <div class="pl-top"><div class="pl-toggle" role="radiogroup" aria-label="Rozliczenie">${[['month','Miesięcznie'],['year','Rocznie']].map(([k,t])=>`<button type="button" role="radio" aria-checked="${view===k}" data-bill="${k}">${t}${k==='year'?'<em>2 miesiące gratis</em>':''}</button>`).join('')}</div></div>
+  <div class="pl-grid">${['start','salon','studio'].map(tile).join('')}</div>
+  <div class="box pl-now"><div class="box-h"><h2>Plan ${pl.name}${pl.price?`, rozliczenie ${bill==='year'?'roczne':'miesięczne'}`:''}</h2><small>${pl.price?`${bill==='year'?pl.year:pl.price} zł netto / mies.`:'plan darmowy'}</small></div>
+    ${cur==='start'?'<p style="margin:0;font-size:14px">Plan darmowy, bez odnowień.</p>':`<b id="plan-left">${l.txt}</b><div style="font-size:13px;color:var(--grey);margin-top:2px">Data odnowienia: ${fmt(l.c.b)}</div>
+    <div class="pl-bar" role="progressbar" aria-label="Postęp okresu rozliczeniowego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${l.pct}"><i id="plan-pct" style="width:${l.pct}%"></i></div>`}
+    <div class="pl-use">${planBar('Stanowiska',u.bays,pl.bays,'Limit przekroczony. Usuń nadmiarowe stanowiska w Ustawieniach albo przejdź na wyższy plan.')}
+    ${planBar('Osoby w zespole',u.team,pl.team,'Limit przekroczony. Dezaktywuj osoby w Zespole albo przejdź na wyższy plan.')}</div></div>`;
 }
 function planConfirm(k){
-  const cur=SET.plan||'studio',x=PLANS[k],up=PRANK[k]>PRANK[cur],u=planUse();
+  const cur=SET.plan||'studio',x=PLANS[k],up=PRANK[k]>PRANK[cur],u=planUse(),bill=x.price?(P.bill||'year'):'month';
+  if(k===cur){openDrawer(`<div class="drw-h"><div><h2>Rozliczenie ${bill==='year'?'roczne':'miesięczne'}</h2><p>Plan ${x.name}: ${bill==='year'?`${x.year} zł netto / mies., płatne rocznie ${x.yearTotal} zł`:`${x.price} zł netto / mies.`}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><p style="font-size:14px">Nowy okres rozliczeniowy zacznie się dziś. Wersja demo: bez płatności.</p><div class="acts"><button class="pbtn dark" type="button" data-planok="${k}" style="min-height:44px">Potwierdzam</button><button class="pbtn ghost" type="button" data-close="1" style="min-height:44px">Anuluj</button></div></div>`,false,true);return}
   const off=up?[]:FEATS.filter(([f])=>PRANK[PNEED[f]||'start']>PRANK[k]).map(([,t])=>t);
   const over=[];if(u.bays>x.bays)over.push(`stanowiska: masz ${u.bays}, limit ${x.bays}`);if(u.team>x.team)over.push(`osoby w zespole: masz ${u.team}, limit ${x.team}`);
-  openDrawer(`<div class="drw-h"><div><h2>${up?'Przejdź na':'Zmień na'} ${x.name}</h2><p>${planPrice(x)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  openDrawer(`<div class="drw-h"><div><h2>${up?'Przejdź na':'Zmień na'} ${x.name}</h2><p>${x.price?(bill==='year'?`${x.year} zł netto / mies., płatne rocznie ${x.yearTotal} zł`:`${x.price} zł netto / mies.`):'0 zł, plan darmowy'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b">${off.length?`<div class="insight"><b>Zostaną wyłączone funkcje:</b> ${off.join(', ')}.</div>`:''}
   ${over.length?`<div class="insight" style="margin-top:8px"><b>Przekroczysz limity:</b> ${over.join('; ')}.</div>`:''}
   <p style="font-size:13px;color:var(--grey)">Wersja demo: bez płatności.</p>
   <div class="acts"><button class="pbtn dark" type="button" data-planok="${k}" style="min-height:44px">Potwierdzam zmianę</button><button class="pbtn ghost" type="button" data-close="1" style="min-height:44px">Anuluj</button></div></div>`,false,true);
 }
 async function planApply(k){
-  const old={plan:SET.plan,since:SET.plan_since},up=PRANK[k]>PRANK[SET.plan||'studio'];
-  SET.plan=k;if(up)SET.plan_since=new Date().toISOString();
-  if(!(await saveCatalog())){SET.plan=old.plan;SET.plan_since=old.since;toast('Nie udało się zmienić planu');return}
+  const old={plan:SET.plan,since:SET.plan_since,billing:SET.billing},up=PRANK[k]>PRANK[SET.plan||'studio'],bill=PLANS[k].price?(P.bill||'year'):'month';
+  if(up||bill!==(SET.billing||'month'))SET.plan_since=new Date().toISOString(); SET.plan=k; SET.billing=bill;
+  if(!(await saveCatalog())){Object.assign(SET,{plan:old.plan,plan_since:old.since,billing:old.billing});toast('Nie udało się zmienić planu');return}
   GUARD=false;drw().close();renderPanel();toast(`Plan zmieniony na ${PLANS[k].name} (demo, bez płatności)`);
 }
 
@@ -3183,8 +3348,10 @@ const TOUR_FIRST=()=>[
   {v:'start',sel:'[data-tourstart]',t:'Co dalej?',d:`1. Sprawdź ceny w Cenniku. 2. Wklej link do rezerwacji w bio na Instagramie i w wizytówce Google: <b>${esc(location.origin+location.pathname)}?salon=${esc(SLUG)}</b>. 3. Pełny samouczek po wszystkich funkcjach uruchomisz tym przyciskiem.`}];
 let TOUR=TOUR_ALL;
 const TR={i:-1,el:null};
+// argument: true = krótki samouczek pierwszego wejścia, obiekt = instrukcja z zakładki „Jak to zrobić?”
 function tourStart(first){
-  TOUR=first===true?TOUR_FIRST():TOUR_ALL.filter(x=>!x.v||FON(x.v));
+  const g=first&&typeof first==='object'?first:null; TR.g=g; TR.back=g?P.view:null; TR.seq=0;
+  TOUR=g?g.steps:first===true?TOUR_FIRST():TOUR_ALL.filter(x=>!x.v||FON(x.v));
   if(drw().open){GUARD=false;drw().close()}
   const r=tourRoot(); if(!r.matches(':popover-open'))r.showPopover();
   document.addEventListener('click',tourGuard,true);document.addEventListener('keydown',tourKey,true);
@@ -3201,29 +3368,44 @@ function tourRoot(){
 function tourEnd(){
   const r=$('#tour'); if(r){if(r.matches(':popover-open'))r.hidePopover();r.remove()}
   document.removeEventListener('click',tourGuard,true);document.removeEventListener('keydown',tourKey,true);
-  const prev=TOUR[TR.i]; if(prev&&prev.after)prev.after(); TR.i=-1;
+  const prev=TOUR[TR.i]; if(prev&&prev.after)prev.after(); TR.i=-1; TR.seq++; TR.el=null;
+  if(TR.back){const v=TR.back;TR.back=null;closeDrw();P.view=v;renderPanel()}
 }
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)), frame=()=>new Promise(r=>requestAnimationFrame(()=>r()));
+const closeDrw=()=>{GUARD=false;if(drw().open)drw().close()};
+// czekamy, aż element naprawdę jest na ekranie (ma wymiary), zamiast zgadywać czas
+async function waitEl(sel,ms=1600){const t0=performance.now();while(performance.now()-t0<ms){const e=[...document.querySelectorAll(sel)].find(x=>{const b=x.getBoundingClientRect();return b.width||b.height});if(e)return e;await frame()}return null}
+// czekamy na koniec animacji elementu i jego rodziców (otwieranie okna, podmiana treści), żeby podświetlenie trafiło co do piksela
+async function animDone(el,ms=900){const run=document.getAnimations().filter(a=>a.playState==='running'&&a.effect&&a.effect.target&&a.effect.target.contains&&a.effect.target.contains(el)&&(a.effect.getTiming().iterations!==Infinity));if(run.length)await Promise.race([Promise.all(run.map(a=>a.finished.catch(()=>{}))),sleep(ms)])}
+// koniec przewijania: pozycja elementu stoi przez 3 klatki
+async function settle(el,ms=1000){let last=null,same=0;const t0=performance.now();while(performance.now()-t0<ms){await frame();const t=el.getBoundingClientRect().top;if(last!==null&&Math.abs(t-last)<.5){if(++same>=3)return}else same=0;last=t}}
+// krok po kroku: chowamy kartę, zmieniamy ekran, czekamy na element i koniec przewijania, dopiero potem przesuwamy podświetlenie i pokazujemy kartę
 async function tourGo(i,dir){
   const prev=TOUR[TR.i]; if(prev&&prev.after&&dir>0) prev.after();
-  if(i<0) return; if(i>=TOUR.length){tourEnd();toast('Samouczek zakończony');return}
-  TR.i=i; const st=TOUR[i];
-  if(st.v){if(drw().open){GUARD=false;drw().close()}if(P.view!==st.v){P.view=st.v;renderPanel()}}
-  await new Promise(r=>setTimeout(r,160));
-  let el=document.querySelector(st.sel);
-  if(!el){if(TR.i===i)tourGo(i+dir,dir);return}
+  if(i<0) return; if(i>=TOUR.length){tourEnd();toast(TR.g?'Instrukcja zakończona':'Samouczek zakończony');return}
+  const seq=++TR.seq; TR.i=i; const st=TOUR[i]; TR.moving=true;
+  const cd=$('#tour .tour-card'); if(cd) cd.classList.add('out');
+  if(st.v){if(drw().open){closeDrw();await sleep(200)}if(P.view!==st.v){P.view=st.v;renderPanel();window.scrollTo(0,0)}}
+  if(st.pre){const ok=await st.pre();if(seq!==TR.seq)return;if(ok===false){TR.moving=false;tourGo(i+dir,dir);return}}
+  let el=await waitEl(st.sel,st.opt?400:1600); if(seq!==TR.seq) return;
+  if(!el){TR.moving=false;tourGo(i+dir,dir);return}
   if(st.parent) el=el.closest(st.parent)||el;
-  TR.el=el; el.scrollIntoView({block:'center',behavior:'smooth'});
-  await new Promise(r=>setTimeout(r,320));
-  const r=tourRoot(); if(r.matches(':popover-open'))r.hidePopover(); r.showPopover();
-  tourPlace();
+  TR.el=el;
+  const b=el.getBoundingClientRect();
+  if(b.top<70||b.bottom>innerHeight-20)el.scrollIntoView({block:'center',behavior:calm()?'auto':'smooth'});
+  await frame(); await animDone(el); await settle(el); // okno mogło się jeszcze otwierać: najpierw koniec animacji, potem koniec przewijania
+  if(seq!==TR.seq) return;
+  const r=tourRoot(); if(!r.matches(':popover-open'))r.showPopover();
+  TR.moving=false; tourPlace(true);
 }
-function tourPlace(){
+function tourPlace(full){
   const st=TOUR[TR.i], el=TR.el; if(!st||!el||!$('#tour')) return;
   const b=el.getBoundingClientRect(), pd=8, sp=$('#tour .tour-spot'), cd=$('#tour .tour-card');
   sp.classList.toggle('click',!!st.click);
   Object.assign(sp.style,{left:b.left-pd+'px',top:b.top-pd+'px',width:b.width+pd*2+'px',height:Math.min(b.height,innerHeight-40)+pd*2+'px'});
-  cd.innerHTML=`<div class="tour-bar"><i style="width:${(TR.i+1)/TOUR.length*100}%"></i></div><small>Krok ${TR.i+1} z ${TOUR.length}</small><b>${st.t}</b><p>${st.d}</p>${st.click?'<span class="tour-do">Kliknij podświetlone miejsce</span>':''}
+  if(full){cd.innerHTML=`<div class="tour-bar"><i style="width:${(TR.i+1)/TOUR.length*100}%"></i></div>${TR.g?`<span class="tour-g">${esc(TR.g.t)}</span>`:''}<small>Krok ${TR.i+1} z ${TOUR.length}</small><b>${st.t}</b><p>${st.d}</p>${st.click?'<span class="tour-do">Kliknij podświetlone miejsce</span>':''}
     <div class="tour-btns"><button type="button" data-tour="end">Zakończ</button>${TR.i?'<button type="button" data-tour="prev">Wstecz</button>':''}<button type="button" class="pri" data-tour="next">${st.click?'Pomiń':TR.i===TOUR.length-1?'Koniec':'Dalej'}</button></div>`;
+    requestAnimationFrame(()=>cd.classList.remove('out'))}
   const ch=cd.offsetHeight, cw=cd.offsetWidth, below=b.bottom+16+ch<innerHeight;
   const top=below?b.bottom+16:(b.top-16-ch>12?b.top-16-ch:Math.max(12,innerHeight-ch-12));
   Object.assign(cd.style,{top:top+'px',left:Math.min(innerWidth-cw-12,Math.max(12,b.left))+'px'});
@@ -3233,11 +3415,13 @@ function tourGuard(e){
   const btn=e.target.closest&&e.target.closest('[data-tour]');
   if(btn){e.preventDefault();e.stopPropagation();const a=btn.dataset.tour;if(a==='end')tourEnd();else if(a==='prev')tourGo(TR.i-1,-1);else tourGo(TR.i+1,1);return}
   const st=TOUR[TR.i], ok=st.click&&(st.clickSel?e.target.closest(st.clickSel):TR.el.contains(e.target));
-  if(ok){const i=TR.i;setTimeout(()=>{if(TR.i===i)tourGo(i+1,1)},450);return}
+  if(ok){const i=TR.i;setTimeout(()=>{if(TR.i===i)tourGo(i+1,1)},60);return}
   e.preventDefault();e.stopPropagation();
 }
 function tourKey(e){if(TR.i<0)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();tourEnd()}else if(e.key==='ArrowRight'&&!TOUR[TR.i].click){e.preventDefault();tourGo(TR.i+1,1)}else if(e.key==='ArrowLeft'){e.preventDefault();tourGo(TR.i-1,-1)}}
-addEventListener('resize',()=>{if(TR.i>=0)tourPlace()});addEventListener('scroll',()=>{if(TR.i>=0)tourPlace()},true);
+// przy przewijaniu i zmianie okna podświetlenie trzyma się elementu bez opóźnienia (bez animacji)
+const tourFollow=()=>{if(TR.i<0||TR.moving||!TR.el)return;const r=$('#tour');if(!r)return;if(!TR.el.isConnected){const st=TOUR[TR.i],e=st&&[...document.querySelectorAll(st.sel)].find(x=>x.getBoundingClientRect().width);if(!e)return;TR.el=st.parent?e.closest(st.parent)||e:e}r.classList.add('nt');tourPlace();requestAnimationFrame(()=>r.classList.remove('nt'))};
+addEventListener('resize',tourFollow);addEventListener('scroll',tourFollow,true);setInterval(()=>{if(TR.i>=0&&TR.el&&!TR.el.isConnected)tourFollow()},250);
 
 /* ---------- Google: wizytówka, Search Console, Analytics (dane przykładowe do czasu podłączenia) ---------- */
 // shortcut: liczby z deterministycznego generatora; po podłączeniu kont podmieniamy je na odpowiedzi API (te same pola)
@@ -4000,6 +4184,8 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.addondel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
     const i=ADDONS.findIndex(x=>x.id===t.dataset.addondel);if(i<0)return;const [rm]=ADDONS.splice(i,1);if(!(await saveCatalog())){ADDONS.splice(i,0,rm);toast('Nie udało się usunąć dodatku');return}renderPanel();toast(`Usunięto dodatek „${rm.name}”`);return}
   if(t&&t.dataset.planchg){planConfirm(t.dataset.planchg);return}
+  if(t&&t.dataset.guide){guideStart(t.dataset.guide);return}
+  if(t&&t.dataset.bill){P.bill=t.dataset.bill;P.billAnim=1;renderPanel();P.billAnim=0;return}
   if(t&&t.dataset.planok){planApply(t.dataset.planok);return}
   if(t&&t.dataset.svcdel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
     const i=SERVICES.findIndex(x=>x.id===t.dataset.svcdel);if(i<0)return;const [rm]=SERVICES.splice(i,1);if(!(await saveCatalog())){SERVICES.splice(i,0,rm);return}renderPanel();toast(`Usunięto „${rm.name}” ze strony`);return}

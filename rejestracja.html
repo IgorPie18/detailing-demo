@@ -61,7 +61,15 @@ a{color:var(--brand-600)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes sp{to{transform:rotate(360deg)}}
 .plan{display:inline-flex;align-items:center;gap:8px;background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-700);border-radius:999px;padding:4px 6px 4px 12px;font-size:13.5px;font-weight:500;width:max-content;max-width:100%}
-.plan select{border:0;background:#fff;border-radius:999px;padding:6px 10px;font-size:16px;font-weight:600;color:var(--ink)}
+.planrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pane>*,.svcs>*,.svc>*,.svc-f>*{min-width:0}.dur input{width:100%}.svc-top input.nm{flex:1;min-width:0}
+@media (max-width:720px){.bill button{white-space:normal;line-height:1.2;padding:4px 10px}}
+.bill{display:inline-flex;background:#f1f1ef;border-radius:999px;padding:3px;gap:2px}
+.bill button{border:0;background:none;border-radius:999px;min-height:38px;padding:0 12px;font-size:13.5px;font-weight:600;color:var(--grey)}
+.bill button[aria-checked=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(28,25,23,.12)}
+.bill em{font-style:normal;font-size:11px;color:#15803d}
+.plan select{border:0;background:#fff;border-radius:999px;padding:6px 10px;font-size:16px;font-weight:600;color:var(--ink);min-width:0;max-width:100%;text-overflow:ellipsis}
+@media (max-width:720px){.planrow .plan{width:100%}.planrow .plan select{flex:1}.planrow .bill{width:100%}.bill button{flex:1}}
 
 /* pola */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}
@@ -377,7 +385,10 @@ const TPL=[{tpl:'mycie',name:'Mycie detailingowe',cat:'mycie',price:149,unit:'h'
   {tpl:'ceramika',name:'Powłoka ceramiczna',cat:'lakier',price:1900,unit:'d',dur:2},{tpl:'ppf',name:'Folia ochronna PPF',cat:'lakier',price:3900,unit:'d',dur:3}];
 // plany: od jakiego planu jest funkcja (ta sama siatka co cennik na stronie produktu)
 const NEED={wyc:'salon',gw:'salon',wl:'salon',bon:'salon',loy:'salon',zes:'salon',dzis:'studio',google:'studio',tg:'studio'};
-const RANK={start:0,salon:1,studio:2}, PNAME={start:'Start',salon:'Salon',studio:'Studio'}, PPRICE={start:'0 zł',salon:'99 zł netto/mies.',studio:'179 zł netto/mies.'};
+const RANK={start:0,salon:1,studio:2}, PNAME={start:'Start',salon:'Salon',studio:'Studio'};
+// ceny jak w cenniku na stronie produktu: rocznie 2 miesiące gratis
+const PM={salon:[99,82,990],studio:[179,149,1790]};
+const pp=k=>!PM[k]?'0 zł':D.billing==='year'?`${PM[k][1]} zł netto/mies., rocznie`:`${PM[k][0]} zł netto/mies.`;
 const GAIN={salon:['do 3 stanowisk i 5 osób w zespole','wyceny z wariantami, gwarancje i przeglądy','lista rezerwowa, bony prezentowe i punkty'],studio:['bez limitu stanowisk i osób','statystyki, Google i powiadomienia na Telegramie','pomoc przy wdrożeniu i przeniesieniu klientów']};
 // klucze jak w panelu (salon.html, FEATS + loy i tg); kolejność = kolejność w menu
 const FEATS=[['wyc','Wyceny z wariantami','Klient wybiera wariant i dodatki w linku, akceptacja wraca do panelu','Sprzedaż'],
@@ -395,7 +406,7 @@ const PLANS={start:'Start · 0 zł',salon:'Salon · 99 zł netto/mies.',studio:'
 const COLORS=['#1c1917','#c2410c','#0f766e','#4338ca','#a16207','#be185d'];
 const DRAFT='detailo_rejestracja';
 
-function fresh(){return {owner:'',email:'',pw:'',terms:false,plan:'salon',
+function fresh(){return {owner:'',email:'',pw:'',terms:false,plan:'salon',billing:'year',
   salon:'',phone:'',addr:'',zip:'',city:'',nip:'',week:['08:00','18:00'],sat:true,satT:['09:00','14:00'],sun:false,sunT:['10:00','14:00'],
   bays:[{name:'Stanowisko 1',cats:['mycie','lakier']},{name:'Stanowisko 2',cats:['mycie','lakier']}],
   cats:[{id:'mycie',name:'Mycie i wnętrze'},{id:'lakier',name:'Lakier i ochrona'}],svcs:TPL.map(t=>({...t,on:true,staff:[]})),svcSkip:false,
@@ -404,6 +415,7 @@ let D=fresh(), step=0, E={}, emailTaken=false, making=false;
 const qp=new URLSearchParams(location.search).get('plan');
 try{const d=JSON.parse(localStorage.getItem(DRAFT)||'null');if(d&&typeof d==='object'){D={...D,...d,pw:'',terms:false,upsell:null};D.restored=true}}catch(_){}
 if(PLANS[qp]) D.plan=qp;
+{const ok=new URLSearchParams(location.search).get('okres');if(ok==='rok')D.billing='year';else if(ok==='miesiac')D.billing='month';else if(!D.billing)D.billing='year'}
 function saveDraft(){try{const {pw,terms,restored,...rest}=D;localStorage.setItem(DRAFT,JSON.stringify(rest))}catch(_){}}
 
 /* ---------- pomocnicze ---------- */
@@ -491,10 +503,11 @@ const fld=(k,label,inp,opt,hint)=>`<label class="f${opt==='full'||opt==='full-op
 const inp=(k,attrs='')=>`<input id="i-${k}" data-k="${k}" value="${esc(D[k])}" ${attrs} ${E[k]?`aria-invalid="true" aria-describedby="e-${k}"`:''}>`;
 const tsel=(id,val,lab)=>`<select data-t="${id}" aria-label="${lab}">${TIMES.map(t=>`<option ${t===val?'selected':''}>${t}</option>`).join('')}</select>`;
 
+const billSw=()=>`<span class="bill" role="radiogroup" aria-label="Rozliczenie">${[['month','Miesięcznie'],['year','Rocznie']].map(([k,t])=>`<button type="button" role="radio" data-bill="${k}" aria-checked="${D.billing===k}">${t}${k==='year'?' <em>2 mies. gratis</em>':''}</button>`).join('')}</span>`;
 function vKonto(){
   return `<div><h1>Załóż panel swojego studia</h1><p class="lead">7 krótkich kroków, około 5 minut. Wszystko zmienisz później w Ustawieniach.</p></div>
   ${D.restored?`<div class="note">${SVG(I.info)}<span>Przywróciliśmy dane wpisane wcześniej na tym urządzeniu (bez hasła). <button class="lnk" type="button" data-act="reset">Zacznij od nowa</button></span></div>`:''}
-  <label class="plan">Plan<select data-k="plan" aria-label="Plan">${Object.entries(PLANS).map(([k,v])=>`<option value="${k}" ${D.plan===k?'selected':''}>${v}</option>`).join('')}</select></label>
+  <div class="planrow"><label class="plan">Plan<select data-k="plan" aria-label="Plan">${Object.keys(PNAME).map(k=>`<option value="${k}" ${D.plan===k?'selected':''}>${PNAME[k]} · ${pp(k)}</option>`).join('')}</select></label>${billSw()}</div>
   <div class="grid">
     ${fld('owner','Imię i nazwisko',inp('owner','autocomplete="name" maxlength="60" placeholder="np. Kamil Lis"'),'full')}
     ${fld('email','E-mail do logowania',inp('email','type="email" inputmode="email" autocomplete="email" maxlength="120" placeholder="np. kamil@twojsalon.pl"'),'full',D.emailOk?'<span class="okm">Adres wolny</span>':'Na ten adres zalogujesz się do panelu. Nie wysyłamy reklam.')}
@@ -565,7 +578,7 @@ function vUslugi(){
 function upBox(k){
   const need=NEED[k], f=FEATS.find(x=>x[0]===k), team=k==='zes'&&hasTeam();
   return `<div class="up" role="region" data-k="${k}" aria-label="Plan ${PNAME[need]}"><h3>${team?`Dodałeś zespół: konta i prowizje są w planie ${PNAME[need]}`:`${esc(f[1])} ${['wyc','gw','bon','dzis','tg'].includes(k)?'są':'jest'} w planie ${PNAME[need]}`}</h3>
-    <span>Plan ${PNAME[need]}, ${PPRICE[need]}. W nim dostajesz:</span><ul>${GAIN[need].map(x=>`<li>${x}</li>`).join('')}</ul>
+    <span>Plan ${PNAME[need]}, ${pp(need)}. W nim dostajesz:</span><ul>${GAIN[need].map(x=>`<li>${x}</li>`).join('')}</ul>
     <div class="row"><button class="btn pri" type="button" data-act="upgrade" data-plan="${need}">Przejdź na plan ${PNAME[need]}</button>${team?'':`<button class="btn sec" type="button" data-act="upno">Nie teraz</button>`}</div>
     <span class="demo-n">Wersja demo: płatności nie ma, plan zmienisz w każdej chwili.</span></div>`;
 }
@@ -588,7 +601,7 @@ function vFunkcje(){
   const n=featOn().length;
   return `<div><h1>Co ma być w Twoim panelu?</h1><p class="lead">Zostaw tylko to, z czego skorzystasz. Mniej pozycji w menu to szybsze wdrożenie zespołu. Wyłączoną funkcję włączysz później w Ustawieniach.</p></div>
   <div class="box"><h2>Zawsze w panelu</h2><div class="always">${['Rezerwacje online','Kalendarz stanowisk','Klienci i historia aut','Protokół przyjęcia i wydania','Status auta dla klienta','Cennik usług'].map(x=>`<span>${x}</span>`).join('')}</div></div>
-  <label class="plan">Twój plan<select data-k="plan" aria-label="Plan">${Object.keys(PNAME).map(k=>`<option value="${k}" ${D.plan===k?'selected':''}>${PNAME[k]} · ${PPRICE[k]}</option>`).join('')}</select></label>
+  <div class="planrow"><label class="plan">Twój plan<select data-k="plan" aria-label="Plan">${Object.keys(PNAME).map(k=>`<option value="${k}" ${D.plan===k?'selected':''}>${PNAME[k]} · ${pp(k)}</option>`).join('')}</select></label>${billSw()}</div>
   <div class="fhead"><b>Do wyboru</b><span class="cnt" aria-live="polite">Włączone: ${n} z ${FEATS.length}</span><span style="flex:1"></span><button class="lnk" type="button" data-act="rec">Ustaw polecany zestaw</button><button class="lnk" type="button" data-act="all">${n===FEATS.filter(f=>!locked(f[0])).length?'Wyłącz wszystkie':'Włącz wszystkie'}</button></div>
   <div class="feats">${FEATS.map(([k,t,d])=>{const L=locked(k),fx=!L&&k==='zes'&&hasTeam(),on=!L&&fOn(k);
     return `<button class="feat${L?' locked':''}${fx?' fixed':''}" type="button" data-feat="${k}" aria-pressed="${on}" ${fx?'aria-disabled="true"':''}><span class="fi">${ic(k)}</span><span><b>${t}</b><small>${fx?'Zostaje włączone, bo dodałeś zespół':d}</small>${L?`<span class="pbadge">Plan ${PNAME[NEED[k]]}</span>`:''}</span><span class="sw" aria-hidden="true"></span></button>`}).join('')}</div>
@@ -605,7 +618,7 @@ function vStart(){
   ${E.emailfix?`<div class="emailfix" role="alert"><h2>Ten e-mail ma już konto</h2><p>Wpisz inny adres i kliknij „Utwórz panel” jeszcze raz. Reszta danych zostaje. Jeśli to Twoje konto, <a href="salon.html#panel">zaloguj się</a>.</p>
     <label class="f" for="i-email"><span>E-mail do logowania</span><input id="i-email" data-k="email" type="email" inputmode="email" autocomplete="email" maxlength="120" value="${esc(D.email)}" aria-invalid="true"></label></div>`:''}
   <dl class="sum" style="margin:0">
-    ${row('Konto',`${esc(D.owner)}<small>${esc(D.email)} · plan ${PNAME[D.plan]}, ${PPRICE[D.plan]}</small>`,0)}
+    ${row('Konto',`${esc(D.owner)}<small>${esc(D.email)} · plan ${PNAME[D.plan]}, ${pp(D.plan)}</small>`,0)}
     ${row('Salon',`${esc(D.salon)}<small>${esc([D.addr,[D.zip,D.city].filter(Boolean).join(' ')].filter(Boolean).join(', ')||'adres dodasz później')} · ${esc(D.phone)}</small><small>${esc(hoursTxt())}</small>`,1)}
     ${row('Stanowiska',`${D.bays.length} ${pl(D.bays.length,'stanowisko','stanowiska','stanowisk')}<small>${esc(D.bays.map(b=>b.name||'bez nazwy').join(', '))}</small>`,2)}
     ${row('Zespół',team,3)}
@@ -758,6 +771,7 @@ document.addEventListener('click',e=>{
     D.feats[k]=!D.feats[k];D.featsTouched=true;touched();patchFeats();return}
   if(a==='upgrade'){D.plan=t.dataset.plan;if(D.upsell)D.feats[D.upsell]=true;D.upsell=null;touched();step===5?patchFeats():render();return}
   if(a==='upno'){D.upsell=null;patchFeats();return}
+  if(t.dataset.bill){D.billing=t.dataset.bill;touched();document.querySelectorAll('[data-bill]').forEach(b=>b.setAttribute('aria-checked',b.dataset.bill===D.billing));document.querySelectorAll('select[data-k=plan] option').forEach(o=>o.textContent=`${PNAME[o.value]} · ${pp(o.value)}`);return}
   if(a==='catadd'){const k=+t.dataset.i,it=CB.k===k&&CB.items[CB.act];addCat(k,it&&!document.querySelector(`[data-newcat="${k}"]`).value.trim()?it.n:null);return}
   if(a==='skipsvc'){D.svcSkip=true;touched();next();return}
   if(a==='svcback'){D.svcSkip=false;touched();render();return}
@@ -789,7 +803,7 @@ async function submit(){
     p_salon:{name:D.salon.trim(),phone:D.phone.trim(),addr:D.addr.trim(),city:[D.zip,D.city.trim()].filter(Boolean).join(' '),hours:hoursTxt(),nip:digits(D.nip)},
     p_bays:D.bays.map((b,i)=>({name:b.name.trim()||'Stanowisko '+(i+1),cats:b.cats})),
     p_team:D.solo?[]:D.team.filter(m=>m.name.trim()).map(m=>({name:m.name.trim(),role:m.role,commission:+m.commission||0})),
-    p_features:Object.fromEntries(FEATS.map(f=>[f[0],!locked(f[0])&&fOn(f[0])])),p_wish:D.wish.trim()||null,p_sample:D.sample,p_plan:D.plan,
+    p_features:Object.fromEntries(FEATS.map(f=>[f[0],!locked(f[0])&&fOn(f[0])])),p_wish:D.wish.trim()||null,p_sample:D.sample,p_plan:D.plan,p_billing:D.billing,
     p_cats:D.cats.filter(c=>['mycie','lakier'].includes(c.id)||D.bays.some(b=>b.cats.includes(c.id))||D.svcs.some(x=>x.on&&x.cat===c.id)),
     p_services:D.svcSkip?null:D.svcs.filter(x=>x.on).map(x=>({tpl:x.tpl||null,name:x.tpl?null:x.name.trim(),cat:x.cat,price:+x.price,unit:x.unit,dur:+x.dur,staff:x.staff}))};
   const {data:slug,error}=await sb.rpc('studio_register',p);

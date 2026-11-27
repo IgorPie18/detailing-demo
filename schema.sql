@@ -527,9 +527,11 @@ create policy feature_wishes_admin_read on public.feature_wishes for select to a
 
 -- v2 (27.11): własne rodzaje pracy (p_cats) i usługi z kreatora (p_services); stara wersja bez nich usuwana, żeby nie było dwóch wersji funkcji
 drop function if exists public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text);
+-- v3 (27.11): sposób rozliczenia planu (p_billing: month albo year)
+drop function if exists public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb);
 create or replace function public.studio_register(p_owner text, p_email text, p_password text, p_salon jsonb, p_bays jsonb,
   p_team jsonb, p_features jsonb, p_wish text default null, p_sample boolean default true, p_plan text default 'start',
-  p_cats jsonb default null, p_services jsonb default null)
+  p_cats jsonb default null, p_services jsonb default null, p_billing text default 'month')
 returns text language plpgsql security definer set search_path = public, extensions as $$
 declare em text := lower(trim(p_email)); own text := left(trim(regexp_replace(coalesce(p_owner, ''), '[<>"&]', '', 'g')), 60); sname text := left(trim(regexp_replace(coalesce(p_salon->>'name', ''), '[<>"&]', '', 'g')), 60);
   uid uuid := gen_random_uuid(); sid uuid; base text; sl text; n int := 1; bays jsonb := '[]'; feats jsonb := '{}'; k text; x jsonb; i int := 0;
@@ -589,6 +591,7 @@ begin
         'hours', left(trim(coalesce(p_salon->>'hours', '')), 80), 'nip', left(regexp_replace(coalesce(p_salon->>'nip', ''), '\D', '', 'g'), 10)),
       'bays', bays, 'cats', cats, 'svc_init', case when jsonb_array_length(svcs) > 0 then svcs end, 'seed_v11', true, 'no_seed', not coalesce(p_sample, true), 'tour_new', true,
       'plan', case when p_plan in ('start', 'salon', 'studio') then p_plan else 'start' end,
+      'billing', case when p_billing = 'year' and p_plan in ('salon', 'studio') then 'year' else 'month' end,
       'loy_on', (feats->>'f_loy')::boolean, 'tg_on', (feats->>'f_tg')::boolean, 'wl_auto', (feats->>'f_wl')::boolean) || feats))
   returning id into sid;
 
@@ -606,8 +609,8 @@ begin
   if char_length(trim(coalesce(p_wish, ''))) >= 3 then insert into public.feature_wishes (studio_id, wish) values (sid, left(trim(p_wish), 1000)); end if;
   return sl;
 end $$;
-revoke all on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb) from public;
-grant execute on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb) to anon, authenticated;
+revoke all on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb, text) from public;
+grant execute on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb, text) to anon, authenticated;
 -- czy e-mail jest wolny: podpowiedź w 1. kroku kreatora, zanim ktoś wypełni resztę
 create or replace function public.email_free(p_email text) returns boolean language sql stable security definer set search_path = public as $$
   select not exists (select 1 from auth.users where lower(email) = lower(trim(p_email))) $$;

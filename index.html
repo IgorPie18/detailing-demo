@@ -174,6 +174,17 @@ h3{font-size:18px;line-height:1.3}
 .plan li{display:flex;gap:10px;font-size:15px;color:var(--s7)}
 .plan li .ic{width:20px;height:20px;color:var(--ok);margin-top:2px}
 .plan .btn.ghost{color:var(--ink)}
+.bill{display:flex;justify-content:center;margin:0 0 30px}
+.bill .seg{display:inline-flex;gap:4px;padding:4px;background:#fff;border:1px solid var(--line);border-radius:14px}
+.bill button{min-height:44px;padding:0 12px;white-space:nowrap;border:0;border-radius:10px;background:transparent;color:var(--s7);font:inherit;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.bill button[aria-checked=true]{background:var(--brand-600);color:#fff}
+.bill .gift{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--brand-100);color:var(--brand-700)}
+.bill button[aria-checked=true] .gift{background:#fff;color:var(--brand-700)}
+.plan .pr .num{display:inline-block;transition:opacity .18s,transform .18s var(--ease)}
+.plan .pr .num.sw{opacity:0;transform:translateY(-6px)}
+.plan .pr del{font-size:20px;font-weight:500;color:var(--s5);letter-spacing:0;margin-right:6px}
+.plan .pr del[hidden]{display:none}
+.plan .bn{font-size:14px;color:var(--s6);margin-top:4px;min-height:21px}
 .pnote{text-align:center;color:var(--s6);margin-top:24px;font-size:15px}
 
 /* faq */
@@ -586,11 +597,15 @@ footer :focus-visible{outline-color:#fff}
 
 <section class="sec alt" id="cennik">
   <div class="wrap">
-    <div class="head rv"><p class="eyebrow">Cennik</p><h2>Prosty cennik, bez prowizji</h2><p class="lead">Ceny netto za miesiąc. Zaczynasz za darmo i przechodzisz wyżej, gdy studio rośnie.</p></div>
+    <div class="head rv"><p class="eyebrow">Cennik</p><h2>Prosty cennik, bez prowizji</h2><p class="lead">Ceny netto, rozliczenie miesięczne lub roczne. Zaczynasz za darmo i przechodzisz wyżej, gdy studio rośnie.</p></div>
+    <div class="bill rv"><div class="seg" role="radiogroup" aria-label="Okres rozliczenia" id="bill">
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-per="miesiac">Miesięcznie</button>
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-per="rok">Rocznie <span class="gift">2 miesiące gratis</span></button>
+    </div></div>
     <div class="plans">
       <div class="plan rv">
         <h3>Start</h3><p class="for">Dla jednoosobowego studia.</p>
-        <p class="pr">0 zł <small>/ mies.</small></p>
+        <p class="pr">0 zł <small>/ mies.</small></p><p class="bn">Bez opłat, na stałe.</p>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>1 stanowisko, 1 osoba</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Rezerwacje online</li>
@@ -602,7 +617,7 @@ footer :focus-visible{outline-color:#fff}
       <div class="plan pop rv">
         <span class="tag">Najczęściej wybierany</span>
         <h3>Salon</h3><p class="for">Dla studia z zespołem.</p>
-        <p class="pr">99 zł <small>/ mies.</small></p>
+        <p class="pr"><del data-m="99" aria-label="Wcześniej 99 zł">99</del><span class="num" data-m="99" data-y="82">82</span> zł <small>/ mies.</small></p><p class="bn" data-y="płatne rocznie 990 zł"></p>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>Do 3 stanowisk</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Zespół do 5 osób</li>
@@ -611,18 +626,18 @@ footer :focus-visible{outline-color:#fff}
           <li><svg class="ic"><use href="#i-check"/></svg>Lista rezerwowa</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Bony prezentowe</li>
         </ul>
-        <a class="btn full" href="rejestracja.html?plan=salon">Wybieram Salon<svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn full" href="rejestracja.html?plan=salon&amp;okres=rok" data-plan="salon">Wybieram Salon<svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
       <div class="plan rv">
         <h3>Studio</h3><p class="for">Dla większych studiów.</p>
-        <p class="pr">179 zł <small>/ mies.</small></p>
+        <p class="pr"><del data-m="179" aria-label="Wcześniej 179 zł">179</del><span class="num" data-m="179" data-y="149">149</span> zł <small>/ mies.</small></p><p class="bn" data-y="płatne rocznie 1790 zł"></p>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg>Bez limitu stanowisk i osób</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Statystyki i lejek</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Google w panelu</li>
           <li><svg class="ic"><use href="#i-check"/></svg>Wsparcie przy wdrożeniu</li>
         </ul>
-        <a class="btn ghost full" href="rejestracja.html?plan=studio">Wybieram Studio</a>
+        <a class="btn ghost full" href="rejestracja.html?plan=studio&amp;okres=rok" data-plan="studio">Wybieram Studio</a>
       </div>
     </div>
     <p class="pnote rv">Bez prowizji od rezerwacji. Bez opłat za stanowisko ponad plan. W wersji demo wszystkie funkcje są odblokowane.</p>
@@ -667,6 +682,30 @@ footer :focus-visible{outline-color:#fff}
 <div class="sticky-cta" id="sticky"><a class="btn" href="rejestracja.html">Załóż panel za darmo</a></div>
 
 <script>
+(function(){
+  var bill=document.getElementById('bill'),rb=[].slice.call(bill.children),rm=window.matchMedia('(prefers-reduced-motion:reduce)');
+  function setPer(per,focus){
+    var y=per==='rok';
+    rb.forEach(function(b){var on=b.dataset.per===per;b.setAttribute('aria-checked',on);b.tabIndex=on?0:-1;if(on&&focus)b.focus()});
+    var nums=document.querySelectorAll('#cennik .num');
+    function apply(){
+      nums.forEach(function(n){n.textContent=y?n.dataset.y:n.dataset.m});
+      document.querySelectorAll('#cennik del').forEach(function(d){d.hidden=!y});
+      document.querySelectorAll('#cennik .bn[data-y]').forEach(function(n){n.textContent=y?n.dataset.y:''});
+      document.querySelectorAll('#cennik a[data-plan]').forEach(function(a){a.href='rejestracja.html?plan='+a.dataset.plan+'&okres='+per});
+    }
+    if(rm.matches){apply();return}
+    nums.forEach(function(n){n.classList.add('sw')});
+    setTimeout(function(){apply();nums.forEach(function(n){n.classList.remove('sw')})},160);
+  }
+  bill.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setPer(b.dataset.per)});
+  bill.addEventListener('keydown',function(e){
+    var k=e.key,i=rb.indexOf(document.activeElement);
+    if(i<0||!/^(Arrow(Left|Right|Up|Down)|Home|End)$/.test(k))return;
+    e.preventDefault();
+    var j=k==='Home'?0:k==='End'?1:1-i;setPer(rb[j].dataset.per,true);
+  });
+})();
 (function(){
   var btn=document.getElementById('navBtn'),nav=document.getElementById('nav'),scrim=document.getElementById('scrim');
   var mq=window.matchMedia('(min-width:900px)');
