@@ -442,6 +442,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .sstaff button[aria-pressed="true"]{background:var(--brand-50);border-color:var(--brand);color:var(--brand-600);font-weight:600}
 .catadd{display:inline-flex;gap:6px;flex-wrap:wrap}.catadd input{height:36px;border:1px dashed #cdc9bf;border-radius:8px;padding:0 10px;font-size:14px;min-width:200px}
 .sig2-h{margin-top:10px}
+.sendbox{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;width:100%}.sendbox .pf{flex:1;min-width:220px}.sendbox small{flex-basis:100%}
 .proto-box{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--pline);border-radius:8px;padding:12px 14px;background:var(--pbg)}
 .proto-box b{display:block;font-size:14px}.proto-box small{color:var(--grey);font-size:12.5px}
 .ph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
@@ -1530,7 +1531,7 @@ const SLUG=new URLSearchParams(location.search).get('salon')||'lumen';
 let STUDIO=null,BUSY=[],BLOCKS=[],SESSION=null,LIVE=null,saveT,WAIT=[],VOUCH=[],SIDE_ERR=false,NOTES=[],NOTES_ERR=false,TEAM=[],TEAM_ERR=false,ROLE='owner',OFFERS=[],OFFERS_ERR=false;
 const DEMO_TOKEN='00000000-0000-4000-8000-000000000001', DEMO_TOKEN_P='00000000-0000-4000-8000-000000000003', DEMO_TOKEN_W='00000000-0000-4000-8000-000000000002', DEMO_TOKEN_C='00000000-0000-4000-8000-000000000004', DEMO_TOKEN_O='00000000-0000-4000-8000-000000000005';
 async function loadStudio(){
-  const {data,error}=await sb.from('studios').select('id,name,catalog').eq('slug',SLUG).maybeSingle();
+  const {data,error}=await sb.from('studios').select('id,name,catalog,created_at').eq('slug',SLUG).maybeSingle();
   if(error||!data){toast('Brak połączenia z bazą salonu');return}
   STUDIO=data;const c=data.catalog||{};
   if(c.services) SERVICES.splice(0,SERVICES.length,...c.services);
@@ -2174,6 +2175,7 @@ async function openPanel(){
 document.getElementById('view-panel').addEventListener('submit',async e=>{
   if(e.target.id==='fadd'){e.preventDefault();addSubmit(e.target);return}
   if(e.target.id==='fvouch'){e.preventDefault();vIssue(e.target);return}
+  if(e.target.id==='faddon'){e.preventDefault();addonSubmit(e.target);return}
   if(e.target.id==='fsvc'){e.preventDefault();svcSubmit(e.target);return}
   if(e.target.id==='fprop'){e.preventDefault();propSubmit(e.target);return}
   if(e.target.id==='fnote'){e.preventDefault();noteSubmit(e.target);return}
@@ -2198,6 +2200,7 @@ const ICONS={
   rez:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
   kal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
   cen:USL_IC,
+  plan:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
   kli:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5.5"/>',
   ust:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
@@ -2259,12 +2262,12 @@ function renderSide(){
   <button class="pbtn dark new" type="button" data-pact="add">${ic('plus')}Nowa rezerwacja</button>
   ${it('start','Start',n)}${it('kal','Kalendarz')}${it('rez','Rezerwacje')}${it('kli','Klienci')}
   ${grp('Sprzedaż',it('wyc','Wyceny',acc)+it('gw','Gwarancje',due)+it('wl','Lista rezerwowa',off)+(A?it('bon','Bony'):''))}
-  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('ust','Ustawienia')):''}
+  ${A?grp('Salon',it('dzis','Statystyki')+it('google','Google')+it('zes','Zespół')+it('cen','Cennik')+it('ust','Ustawienia')+it('plan','Twój plan')):''}
   ${SLUG!=='lumen'?'':`<button class="whatsnew" type="button" data-nav="${A?'zes':'gw'}"><b>Nowość: ${A?'zespół, wyceny i gwarancje':'gwarancje i przeglądy'}</b><span>${A?'Konta pracowników z prowizjami, wyceny z wariantami, certyfikat z kodem QR.':'Karta gwarancyjna z kodem QR powstaje przy wydaniu auta.'}</span></button>`}
   <div class="salon"><b>${esc(SAL().name)}</b><span>${BAYS().length} ${BAYS().length===1?'stanowisko':BAYS().length<5?'stanowiska':'stanowisk'}${CITY()?' · '+esc(CITY()):''}</span><span class="who-me">${me?wAv(me,'xs'):''}${esc(me?me.name:SESSION?SESSION.user.email:'')} · ${ROLE_L[ROLE]||''}</span><button class="out" type="button" data-logout="1">Wyloguj</button></div>
   <a class="nav mob-only" href="#klient">${ic('car')}<span>Strona klienta (podgląd)</span></a></div>`;
 }
-function renderPanel(){if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML}[P.view]();}
+function renderPanel(){clearInterval(PLAN_T);PLAN_T=0;if(!isAdm()&&ADMIN_VIEWS.includes(P.view)||!FON(P.view))P.view='start';if(P.view==='kal'&&narrow()&&!P.calTouched){P.cal.m='day';P.calTouched=1}renderSide();$('#pmain').innerHTML={google:googleHTML,szukaj:searchHTML,start:startHTML,dzis:dzisHTML,rez:rezHTML,kal:kalHTML,cen:cenHTML,kli:kliHTML,ust:ustHTML,bon:bonHTML,wl:wlTabHTML,wyc:wycHTML,gw:gwHTML,zes:zesHTML,plan:planHTML}[P.view]();if(P.view==='plan')PLAN_T=setInterval(planTick,60000)}
 function topbar(title,sub,act=''){
   return `<div class="ptop"><div><h1>${title}</h1><p>${sub}</p></div>${act?`<div class="act">${act}</div>`:''}</div>`;
 }
@@ -2469,12 +2472,12 @@ function cenHTML(){
     <td>${pi===0?(s.mode==='instant'?zl(s.deposit||50):'po potwierdzeniu'):''}</td><td>${durTxt(p)}</td>
     ${p.p.map((v,i)=>`<td class="r"><input class="cin" type="number" step="10" value="${v}" data-price="${esc(s.id)}:${esc(p.id)}:${i}" aria-label="${esc(s.name)} ${esc(p.name)} ${SIZES[i].name}"></td>`).join('')}
     <td>${pi===0?`<button class="pbtn sm ghost" type="button" data-svcoff="${esc(s.id)}">${s.off?'Oferuj':'Ukryj'}</button>`:''}${pi===0&&s.custom?`<button class="pbtn sm ghost" type="button" data-svcdel="${esc(s.id)}">Usuń</button>`:''}</td></tr>`).join('');
-  return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.',`<button class="pbtn dark" type="button" data-pact="svc">${ic('plus')}Dodaj usługę</button>`)}
+  return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.',`<button class="pbtn dark" type="button" data-pact="svc">${ic('plus')}Dodaj usługę</button><button class="pbtn dark" type="button" data-pact="addon">${ic('plus')}Dodaj dodatek</button>`)}
   <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th></th><th>Usługa / pakiet</th><th>Sposób rezerwacji</th><th>Zadatek</th><th>Czas</th>${SIZES.map(z=>`<th class="r">${z.name}</th>`).join('')}<th></th></tr></thead><tbody>
   ${groups.map(g=>`<tr class="cat-row"><td colspan="${6+SIZES.length}">${esc(g[0])}</td></tr>${g[1].map(row).join('')}`).join('')}
   </tbody></table></div></div>
-  <div class="box"><div class="box-h"><h2>Dodatki</h2><small>pokazywane przy pasujących usługach</small></div><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Dodatek</th><th>Przy usługach</th><th>Czas</th><th class="r">Cena</th></tr></thead><tbody>
-  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>(svcById(f)||{name:f}).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td></tr>`).join('')}
+  <div class="box"><div class="box-h"><h2>Dodatki</h2><small>pokazywane przy pasujących usługach</small></div><div class="tbl-wrap"><table class="tbl num"><thead><tr><th>Dodatek</th><th>Przy usługach</th><th>Czas</th><th class="r">Cena</th><th></th></tr></thead><tbody>
+  ${ADDONS.map(a=>`<tr><td><b>${a.name}</b><small>${a.desc}</small></td><td>${a.for.map(f=>(svcById(f)||{name:f}).name).join(', ')}</td><td>+${String(a.h).replace('.',',')} h</td><td class="r"><input class="cin" type="number" step="10" value="${a.p}" data-addprice="${a.id}" aria-label="Cena ${a.name}"></td><td>${a.custom?`<button class="pbtn sm ghost" type="button" data-addondel="${esc(a.id)}">Usuń</button>`:''}</td></tr>`).join('')}
   </tbody></table></div></div>`;
 }
 const SET={salon:{name:'Lumen Detailing',addr:'ul. Przykładowa 12',city:'61-000 Poznań',hours:'pn-pt 8:00-18:00, sb 9:00-14:00',phone:'+48 600 100 200'},sms_confirm:true,sms_remind:true,sms_review:true,sms_refresh:true,missed:true,owner_sms:true,owner_wa:false,loy_on:true,loy_rate:5,loy_min:100,loy_auto:true,loy_sms:true,
@@ -2515,7 +2518,7 @@ function ustHTML(){
     ${row('loy_sms','SMS po przekroczeniu progu','„Masz już 120 zł rabatu na kolejną wizytę” (w demo bez wysyłki)')}</div>
   </div>
   <div class="box"><div class="box-h"><h2>Funkcje panelu</h2><small>wyłączona funkcja znika z menu i ze strony klienta, dane zostają</small></div>
-    ${FEATS.map(([k,t,d])=>`<div class="set-row"><div><b>${t}${PRANK[SET.plan||'studio']<PRANK[PNEED[k]]?` <span class="tag-demo">plan ${PNEED[k]==='studio'?'Studio':'Salon'}, w demo odblokowane</span>`:''}</b><small>${d}</small></div><button class="sw" type="button" data-feat="${k}" aria-pressed="${FON(k)}" aria-label="${t}"></button></div>`).join('')}
+    ${FEATS.map(([k,t,d])=>`<div class="set-row"><div><b>${t}${PRANK[SET.plan||'studio']<PRANK[PNEED[k]]?` <button class="tag-demo" type="button" data-nav="plan" style="border:0;cursor:pointer;font:inherit;font-size:12px;min-height:24px">plan ${PNEED[k]==='studio'?'Studio':'Salon'}, w demo odblokowane. Zobacz plany</button>`:''}</b><small>${d}</small></div><button class="sw" type="button" data-feat="${k}" aria-pressed="${FON(k)}" aria-label="${t}"></button></div>`).join('')}
     <div class="insight">Brakuje funkcji? Napisz do nas, dorobimy ją pod Twój salon.</div></div>
   <div class="box"><div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty, bony i listę rezerwową demo, i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div>
     <div class="set-row"><div><b>Usuń dane przykładowe</b><small>Zostają tylko prawdziwe rezerwacje, klienci i ustawienia. Panel zaczyna od zera.</small></div><button class="pbtn sm" type="button" data-unseed="1">Usuń</button></div></div>`;
@@ -2576,7 +2579,7 @@ function protoHTML(b){
     <div class="sig2-h"><div class="ph"><b>Podpis przyjmującego</b><small>${esc(PR.signer||(ME()||{}).name||'Osoba z salonu')} w imieniu ${esc(SAL().name)}</small></div>
       ${L?(PR.sign2?`<img class="sig" src="${PR.sign2Url||''}" alt="Podpis osoby z salonu">`:'<span class="hint-p">Protokół sprzed wprowadzenia podpisu salonu.</span>'):`<canvas class="sig" id="sig2" width="840" height="260" aria-label="Pole na podpis osoby z salonu"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="sig2">Wyczyść podpis</button>`}</div></div>
     <div class="ferr span2" id="proto-err" role="alert"></div>
-    <div class="acts span2">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij kopię klientowi</button>`:`<button class="pbtn dark" type="button" data-protosave="${b.id}">Przyjmij auto</button><span class="hint-p">Auto przyjmiesz po podpisie klienta i osoby z salonu.</span>`}</div>
+    <div class="acts span2">${L?sendBox(b,'in'):`<button class="pbtn dark" type="button" data-protosave="${b.id}">Przyjmij auto</button><span class="hint-p">Auto przyjmiesz po podpisie klienta i osoby z salonu.</span>`}</div>
   </div>`;
 }
 async function openProto(id){
@@ -2628,6 +2631,30 @@ async function protoSave(id,btn){
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
   b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast('Protokół podpisany przez obie strony. Auto jest w salonie.'); openBk(id);
 }
+function sendBox(b,kind){
+  const p=kind==='out'?b.handover:b.intake, last=p&&(p.sent||[]).slice(-1)[0];
+  return `<div class="sendbox"><label class="pf">E-mail klienta<input type="email" name="sendto" inputmode="email" autocomplete="off" maxlength="120" value="${esc(b.email||'')}" placeholder="np. jan.kowalski@gmail.com"></label>
+    <button class="pbtn dark" type="button" data-protomail="${kind}:${b.id}">Wyślij protokół ${kind==='out'?'wydania':'przyjęcia'}</button>
+    <small class="hint-p">${last?`Ostatnio wysłany na ${esc(last.to)}, ${fdt(new Date(last.at))}. `:''}Otworzy się Twoja poczta z gotową wiadomością.</small></div>`;
+}
+// osobna funkcja, żeby test mógł podmienić otwieranie poczty
+function openMail(url){const a=document.createElement('a');a.href=url;a.click()}
+async function protoMail(kind,id,btn){
+  const b=BOOKINGS.find(x=>x.id===id), inp=drw().querySelector('[name=sendto]'), to=(inp.value||'').trim(), err=$('#proto-err');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){err.textContent=to?'Sprawdź adres e-mail, np. jan.kowalski@gmail.com.':'Wpisz e-mail klienta.';inp.focus();return}
+  const key=kind==='out'?'handover':'intake', p=b[key]||{}, nm=SAL().name, marks=(b.intake&&b.intake.marks)||[];
+  const lines=[`Dzień dobry ${b.name.split(' ')[0]},`,'',kind==='out'?`odbiór auta ${b.car} w ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`:`przyjęcie auta ${b.car} do ${nm}, ${fdt(new Date(p.signedAt||p.at))}.`,
+    `Usługa: ${bName(b)}`, `Uszkodzenia zapisane przy przyjęciu: ${marks.length?marks.map((m,i)=>`${i+1}. ${DMG[m.t]}`).join(', '):'brak'}`,
+    kind==='in'&&p.km?`Przebieg: ${p.km} km, paliwo: ${p.fuel}`:'', `Zdjęcia w protokole: ${(p.photos||[]).length}`, kind==='out'&&p.note?`Zalecenia: ${p.note}`:'',
+    `Protokół podpisali: klient${p.signer?' i '+p.signer+' ('+nm+')':''}.`, kind==='out'&&b.cert?`Historia auta i gwarancja: ${passUrl(b.cert)}`:'', '', 'Pozdrawiamy,', nm, SAL().phone||''].filter(x=>x!=='');
+  openMail(`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(`Protokół ${kind==='out'?'wydania':'przyjęcia'} auta ${b.car}, ${nm}`)}&body=${encodeURIComponent(lines.join('\n'))}`);
+  btn.disabled=true; const sent=(p.sent||[]).concat({to,at:new Date().toISOString()}).slice(-10), upd={[key]:{...p,sent}};
+  if(!b.email) upd.email=to;
+  const {error}=await sb.from('bookings').update(upd).eq('id',id); btn.disabled=false;
+  if(error){err.textContent='Wiadomość przygotowana, ale nie udało się zapisać, że wysłano.';return}
+  Object.assign(b,upd); toast(`Wiadomość do ${to} jest gotowa w Twojej poczcie. Kliknij tam Wyślij.`);
+  const sb2=drw().querySelector('.sendbox'); if(sb2) sb2.outerHTML=sendBox(b,kind);
+}
 function protoBox(b){
   const it=b.intake;
   if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign&&it.sign2?'podpisany przez obie strony '+fdt(new Date(it.signedAt)):it.sign?'podpis klienta '+fdt(new Date(it.signedAt)):'bez podpisów'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
@@ -2642,13 +2669,13 @@ function stageHTML(b){
   if(!['confirmed','done'].includes(b.status)) return '';
   const order=['przyjete','w_trakcie','gotowe','wydane'], cur=b.status==='done'?3:order.indexOf(b.stage);
   const steps=`<div class="steps">${order.map((k,i)=>`<span class="${i<cur?'ok':i===cur?'now':''}">${STG[k]}</span>`).join('')}</div>`;
-  if(b.status==='confirmed'&&!b.stage) return `<div>${steps}<div class="acts" style="margin-top:10px"><button class="pbtn dark" type="button" data-proto="${b.id}">Przyjmij auto z protokołem</button><button class="pbtn" type="button" data-stage="przyjete" data-id="${b.id}">Przyjmij bez protokołu</button></div></div>`;
+  if(b.status==='confirmed'&&!b.stage) return `<div>${steps}<div class="acts" style="margin-top:10px"><button class="pbtn dark" type="button" data-proto="${b.id}">Przyjmij auto (protokół)</button></div></div>`;
   const next=b.status==='confirmed'&&{przyjete:['w_trakcie','Rozpocznij pracę'],w_trakcie:['gotowe','Auto gotowe do odbioru']}[b.stage];
   return `<div>${steps}${next?`<button class="pbtn dark" type="button" data-stage="${next[0]}" data-id="${b.id}" style="margin-top:10px">${next[1]}</button>`:''}</div>`;
 }
 function handBox(b){
   const h=b.handover;
-  if(h||b.status==='done') return `<div class="proto-box"><div><b>Protokół wydania</b><small>${h?`${(h.photos||[]).length} zdjęć po usłudze · ${h.sign?'odebrane z podpisem '+fdt(new Date(h.signedAt)):'bez podpisu klienta'}`:'Auto wydane bez protokołu.'}${b.intake?' W środku także zdjęcia i uszkodzenia z przyjęcia.':''}</small></div><button class="pbtn sm" type="button" data-hand="${b.id}">${h?'Otwórz':'Uzupełnij'}</button></div>`;
+  if(h||b.status==='done') return `<div class="proto-box"><div><b>Protokół wydania</b><small>${h?`${(h.photos||[]).length} zdjęć po usłudze · ${h.sign&&h.sign2?'podpisany przez obie strony '+fdt(new Date(h.signedAt)):h.sign?'odebrane z podpisem '+fdt(new Date(h.signedAt)):'bez podpisu klienta'}${(h.sent||[]).length?' · wysłany na '+esc(h.sent[h.sent.length-1].to):''}`:'Auto wydane bez protokołu.'}${b.intake?' W środku także zdjęcia i uszkodzenia z przyjęcia.':''}</small></div><button class="pbtn sm" type="button" data-hand="${b.id}">${h?'Otwórz':'Uzupełnij'}</button></div>`;
   if(b.status==='confirmed'&&b.stage==='gotowe') return `<div class="proto-box"><div><b>Wydanie auta</b><small>Zdjęcia po usłudze i podpis przy odbiorze${SET.loy_on&&SET.loy_auto?'. Punkty klienta odliczą się same':''}.</small></div><button class="pbtn sm dark" type="button" data-hand="${b.id}">Wydaj auto</button></div>`;
   return '';
 }
@@ -2673,8 +2700,8 @@ async function openHand(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const h=b.handover||{};
   const safe=a=>(Array.isArray(a)?a:[]).filter(x=>x&&SAFE_PATH.test(x.path)).map(x=>({path:x.path,at:x.at}));
   PR={id,mode:'out',marks:cleanMarks(b.intake&&b.intake.marks),photos:safe(h.photos),before:safe(b.intake&&b.intake.photos),note:h.note||'',
-    sign:SAFE_PATH.test(h.sign||'')?h.sign:null,signedAt:h.signedAt||null,signed:false};
-  const sg=PR.sign?[{path:PR.sign}]:[]; await signObjs(PR.photos.concat(PR.before,sg)); if(sg.length) PR.signUrl=sg[0].url;
+    sign:SAFE_PATH.test(h.sign||'')?h.sign:null,sign2:SAFE_PATH.test(h.sign2||'')?h.sign2:null,signer:h.signer||null,signedAt:h.signedAt||null,signed:false,signed2:false};
+  const sg=PR.sign?[{path:PR.sign}]:[], sg2=PR.sign2?[{path:PR.sign2}]:[]; await signObjs(PR.photos.concat(PR.before,sg,sg2)); if(sg.length) PR.signUrl=sg[0].url; if(sg2.length) PR.sign2Url=sg2[0].url;
   openDrawer(handHTML(b),true); sigInit();
 }
 function handHTML(b){
@@ -2682,7 +2709,7 @@ function handHTML(b){
   return `<div class="drw-h"><div><h2>Wydanie auta</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b two">
     <button class="pbtn sm ghost span2" type="button" data-open="${b.id}" style="justify-self:start">← Wróć do wizyty</button>
-    ${L?`<div class="sumline span2"><span>Odebrane, podpisane przez klienta</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
+    ${L?`<div class="sumline span2"><span>Odebrane, podpisane przez klienta${PR.sign2?' i salon':''}</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
     <div class="col"><div><div class="ph"><b>Przed</b><small>z protokołu przyjęcia</small></div><div class="gal">${PR.before.map(fig).join('')||'<span class="hint-p">Brak zdjęć z przyjęcia.</span>'}</div></div>
     <div><div class="ph"><b>Po</b><small>zdjęcia gotowego auta</small></div><div class="gal" id="pgal">${galHTML()}</div>
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
@@ -2692,21 +2719,23 @@ function handHTML(b){
     <div class="sumline"><span>Do zapłaty przy odbiorze</span><b>${zl(b.total-(b.paid?b.deposit:0)-pts)}</b></div>
     ${pts?`<div class="hint-p">Klient ma ${loy.bal} pkt. Przy zapisie odliczymy automatycznie ${zl(pts)}.</div>`:''}
     <div><div class="ph"><b>Podpis przy odbiorze</b><small>Odbieram auto bez zastrzeżeń</small></div>
-      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta przy odbiorze">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="1">Wyczyść podpis</button>`}</div></div>
+      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta przy odbiorze">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="sig">Wyczyść podpis</button>`}</div>
+    <div class="sig2-h"><div class="ph"><b>Podpis wydającego</b><small>${esc(PR.signer||(ME()||{}).name||'Osoba z salonu')} w imieniu ${esc(SAL().name)}</small></div>
+      ${L?(PR.sign2?`<img class="sig" src="${PR.sign2Url||''}" alt="Podpis osoby z salonu przy wydaniu">`:'<span class="hint-p">Protokół sprzed wprowadzenia podpisu salonu.</span>'):`<canvas class="sig" id="sig2" width="840" height="260" aria-label="Pole na podpis osoby z salonu"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="sig2">Wyczyść podpis</button>`}</div></div>
     <div class="ferr span2" id="proto-err" role="alert"></div>
-    <div class="acts span2">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij klientowi zdjęcia przed i po</button>`:`<button class="pbtn dark" type="button" data-handsave="${b.id}">Wydaj auto</button>`}</div>
+    <div class="acts span2">${L?sendBox(b,'out'):`<button class="pbtn dark" type="button" data-handsave="${b.id}">Wydaj auto</button><span class="hint-p">Auto wydasz po podpisie klienta i osoby z salonu.</span>`}</div>
   </div>`;
 }
 async function handSave(id,btn){
-  const b=BOOKINGS.find(x=>x.id===id), err=$('#proto-err'); btn.disabled=true; let sign=null,signedAt=null;
-  if(PR.signed){
-    const blob=await new Promise(r=>$('#sig').toBlob(r,'image/png')), path=`${STUDIO.id}/intake/${id}-odbior-${crypto.randomUUID().slice(0,8)}.png`;
-    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});
-    if(error){btn.disabled=false;err.textContent='Nie udało się zapisać podpisu.';return}
-    sign=path; signedAt=new Date().toISOString();
-  }
+  const b=BOOKINGS.find(x=>x.id===id), err=$('#proto-err');
+  if(!PR.signed||!PR.signed2){err.textContent=!PR.signed&&!PR.signed2?'Do wydania auta potrzebne są dwa podpisy: klienta i osoby z salonu.':!PR.signed?'Brakuje podpisu klienta.':'Brakuje podpisu osoby z salonu.';
+    const c=$(!PR.signed?'#sig':'#sig2');if(c)c.scrollIntoView({block:'center',behavior:'smooth'});return}
+  btn.disabled=true; const up=async(sel,kind)=>{const blob=await new Promise(r=>$(sel).toBlob(r,'image/png')),path=`${STUDIO.id}/intake/${id}-${kind}-${crypto.randomUUID().slice(0,8)}.png`;
+    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});return error?null:path};
+  const sign=await up('#sig','odbior'), sign2=sign&&await up('#sig2','odbior-salon'), signedAt=new Date().toISOString();
+  if(!sign||!sign2){btn.disabled=false;err.textContent='Nie udało się zapisać podpisów. Sprawdź internet i spróbuj jeszcze raz.';return}
   const L=loyOf(b.phone), pts=SET.loy_on&&SET.loy_auto&&!b.points_used&&L.bal>=SET.loy_min?Math.min(L.bal,b.total):0;
-  const upd={handover:{at:new Date().toISOString(),note:drw().querySelector('[name=hnote]').value.trim().slice(0,1000),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt},status:'done',stage:'wydane'};
+  const upd={handover:{at:new Date().toISOString(),note:drw().querySelector('[name=hnote]').value.trim().slice(0,1000),photos:PR.photos.map(({path,at})=>({path,at})),sign,sign2,signer:(ME()||{}).name||null,signedAt},status:'done',stage:'wydane'};
   if(pts){upd.points_used=pts;upd.total=b.total-pts}
   upd.cert=b.cert||crypto.randomUUID(); const wr=warrRead(b); if(wr) upd.warranty=wr;
   const {error}=await sb.from('bookings').update(upd).eq('id',id); btn.disabled=false;
@@ -2915,6 +2944,100 @@ async function svcSubmit(f){
   if(!(await saveCatalog())){SERVICES.pop();if(newCat)SET.cats.pop();btn.disabled=false;btn.textContent='Dodaj usługę';return fail('Nie udało się zapisać usługi.')}
   GUARD=false; drw().close(); renderPanel();
   toast(`Dodano „${name}” w kategorii ${(SET.cats.find(c=>c.id===cat)||{name:cat}).name}. Usługa jest już na stronie.`);
+}
+
+/* ---------- dodatek własny ---------- */
+function addonFormHTML(){
+  const sv=SERVICES.filter(s=>!s.off);
+  return `<form id="faddon" novalidate><div class="drw-h"><div><h2>Nowy dodatek</h2><p>Pojawi się w formularzu rezerwacji przy wybranych usługach.</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b"><div class="fgrid">
+    <label class="pf full">Nazwa dodatku<input name="aname" maxlength="60" required placeholder="np. Czyszczenie felg"></label>
+    <label class="pf full">Krótki opis <span class="opt-l">(opcjonalnie)</span><input name="adesc" maxlength="140" placeholder="Co klient dostaje, jednym zdaniem"></label>
+    <label class="pf">Cena (zł)<input name="aprice" type="number" min="1" step="10" inputmode="decimal"></label>
+    <label class="pf">Czas (godziny)<input name="ah" type="number" min="0.5" step="0.5" value="0.5"></label>
+    <fieldset class="pf full" style="border:0;padding:0;margin:0"><legend style="padding:0;margin-bottom:6px">Przy usługach</legend>
+      <div style="display:grid;gap:4px">${sv.map(x=>`<label style="display:flex;gap:10px;align-items:center;min-height:44px"><input type="checkbox" name="for" value="${esc(x.id)}" style="width:20px;height:20px;flex:none">${esc(x.name)}</label>`).join('')}</div>
+      <button class="pbtn sm ghost" type="button" data-addpick="1" style="min-height:44px;margin-top:4px">Zaznacz wszystkie</button></fieldset>
+  </div>
+  <div class="ferr" id="fa-err" role="alert"></div>
+  <div class="acts"><button class="pbtn dark" type="submit">Dodaj dodatek</button><button class="pbtn ghost" type="button" data-close="1">Anuluj</button></div></div></form>`;
+}
+async function addonSubmit(f){
+  const E=f.elements, err=$('#fa-err'), name=cleanTxt(E.aname.value), fail=m=>{err.textContent=m};
+  if(name.length<3) return fail('Wpisz nazwę dodatku (min. 3 znaki).');
+  const p=Math.round(+String(E.aprice.value).replace(',','.')*100)/100; if(!(p>0)) return fail('Podaj cenę większą niż 0 zł.');
+  const h=+E.ah.value; if(!(h>=0.5)) return fail('Podaj czas w godzinach, minimum 0,5.');
+  const fr=[...f.querySelectorAll('[name=for]:checked')].map(x=>x.value); if(!fr.length) return fail('Zaznacz co najmniej jedną usługę.');
+  const btn=f.querySelector('[type=submit]'); btn.disabled=true;
+  let id=slugify(name); while(ADDONS.some(a=>a.id===id)) id=id.slice(0,26)+'-'+Math.floor(Math.random()*90+10);
+  ADDONS.push({id,name,desc:cleanTxt(E.adesc.value),p,h,for:fr,custom:true});
+  if(!(await saveCatalog())){ADDONS.pop();btn.disabled=false;return fail('Nie udało się zapisać dodatku.')}
+  GUARD=false; drw().close(); renderPanel(); toast(`Dodano dodatek „${name}”`);
+}
+
+/* ---------- Twój plan ---------- */
+let PLAN_T=0;
+const PLANS={
+  start:{name:'Start',price:0,bays:1,team:1,pts:['1 stanowisko i 1 osoba','Rezerwacje online, kalendarz, klienci','Protokoły przyjęcia i wydania']},
+  salon:{name:'Salon',price:99,bays:3,team:5,pts:['Do 3 stanowisk i 5 osób w zespole','Wyceny z wariantami, gwarancje i przeglądy','Lista rezerwowa, bony prezentowe i punkty']},
+  studio:{name:'Studio',price:179,bays:Infinity,team:Infinity,pts:['Bez limitu stanowisk i osób','Statystyki, Google i powiadomienia na Telegramie','Pomoc przy wdrożeniu']}
+};
+function planStart(){
+  const v=SET.plan_since||(STUDIO&&STUDIO.created_at), d=v?new Date(v):null, n=new Date();
+  return d&&!isNaN(d)?d:new Date(n.getFullYear(),n.getMonth(),1);
+}
+// ten sam dzień miesiąca, w krótszych miesiącach ostatni dzień (poprawne dla 29-31)
+function planAdd(st,n){const d=new Date(st.getFullYear(),st.getMonth()+n,1,st.getHours(),st.getMinutes(),st.getSeconds());d.setDate(Math.min(st.getDate(),new Date(d.getFullYear(),d.getMonth()+1,0).getDate()));return d}
+function planCycle(now=new Date()){
+  const st=planStart();let n=0;while(planAdd(st,n+1)<=now&&n<2400)n++;
+  return {a:planAdd(st,n),b:planAdd(st,n+1)};
+}
+function planLeft(now=new Date()){
+  const c=planCycle(now),ms=Math.max(0,c.b-now),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);
+  return {c,d,h,pct:Math.min(100,Math.max(0,Math.round((now-c.a)/(c.b-c.a)*100))),txt:`Odnowienie za ${d} ${d===1?'dzień':'dni'} ${h} godz.`};
+}
+const planUse=()=>({bays:BAYS().length,team:TEAM.filter(t=>t.active).length});
+const planPrice=x=>x.price?`${x.price} zł netto / mies.`:'0 zł, plan darmowy';
+function planBar(label,use,lim,fix){
+  const inf=lim===Infinity,over=!inf&&use>lim,pct=inf?Math.min(100,use*10):Math.min(100,Math.round(use/lim*100));
+  return `<div style="margin-top:14px"><div style="display:flex;justify-content:space-between;gap:10px;font-size:14px"><span>${label}</span><b${over?' style="color:var(--bad)"':''}>${use} / ${inf?'bez limitu':lim}</b></div>
+  <div style="height:8px;border-radius:99px;background:#ececea;margin-top:6px;overflow:hidden" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuenow="${use}"${inf?'':` aria-valuemax="${lim}"`}><i style="display:block;height:100%;width:${pct}%;background:${over?'var(--bad)':'var(--brand)'}"></i></div>
+  ${over?`<p style="color:var(--bad);font-size:13px;margin:6px 0 0">${fix}</p>`:''}</div>`;
+}
+function planTick(){const e=$('#plan-left');if(!e||P.view!=='plan'){clearInterval(PLAN_T);PLAN_T=0;return}const l=planLeft();e.textContent=l.txt;const b=$('#plan-pct');if(b)b.style.width=l.pct+'%'}
+function planHTML(){
+  const cur=SET.plan||'studio',pl=PLANS[cur]||PLANS.studio,u=planUse(),l=planLeft();
+  const fmt=d=>d.toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'});
+  const cards=['start','salon','studio'].filter(k=>k!==cur).map(k=>{
+    const x=PLANS[k],up=PRANK[k]>PRANK[cur];
+    return `<div class="box" style="margin:0;display:flex;flex-direction:column"><h2 style="margin:0">${x.name}</h2><p style="font-size:18px;font-weight:700;margin:6px 0">${planPrice(x)}</p>
+    <ul style="margin:0 0 14px;padding-left:18px;font-size:14px;display:grid;gap:4px">${x.pts.map(t=>`<li>${t}</li>`).join('')}</ul>
+    <button class="pbtn ${up?'dark':''}" type="button" data-planchg="${k}" style="margin-top:auto;min-height:44px;justify-content:center">${up?'Przejdź na':'Zmień na'} ${x.name}</button></div>`}).join('');
+  return `${topbar('Twój plan','Limity, odnowienie i zmiana planu.')}
+  <div class="box"><div class="box-h"><h2>Plan ${pl.name}</h2><b style="font-size:16px">${planPrice(pl)}</b></div>
+    <ul style="margin:10px 0 0;padding-left:18px;font-size:14px;display:grid;gap:4px">${pl.pts.map(t=>`<li>${t}</li>`).join('')}</ul>
+    ${planBar('Stanowiska',u.bays,pl.bays,'Limit przekroczony. Usuń nadmiarowe stanowiska w Ustawieniach albo przejdź na wyższy plan.')}
+    ${planBar('Osoby w zespole',u.team,pl.team,'Limit przekroczony. Dezaktywuj osoby w Zespole albo przejdź na wyższy plan.')}
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--pline)">${cur==='start'?'<b>Plan darmowy, bez odnowień</b>':`<b id="plan-left">${l.txt}</b><div style="font-size:13px;color:var(--grey);margin-top:2px">Data odnowienia: ${fmt(l.c.b)}</div>
+    <div style="height:8px;border-radius:99px;background:#ececea;margin-top:8px;overflow:hidden" role="progressbar" aria-label="Postęp okresu rozliczeniowego" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${l.pct}"><i id="plan-pct" style="display:block;height:100%;width:${l.pct}%;background:var(--brand)"></i></div>`}</div>
+    <p style="font-size:13px;color:var(--grey);margin:12px 0 0">Wersja demo: bez płatności.</p></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">${cards}</div>`;
+}
+function planConfirm(k){
+  const cur=SET.plan||'studio',x=PLANS[k],up=PRANK[k]>PRANK[cur],u=planUse();
+  const off=up?[]:FEATS.filter(([f])=>PRANK[PNEED[f]||'start']>PRANK[k]).map(([,t])=>t);
+  const over=[];if(u.bays>x.bays)over.push(`stanowiska: masz ${u.bays}, limit ${x.bays}`);if(u.team>x.team)over.push(`osoby w zespole: masz ${u.team}, limit ${x.team}`);
+  openDrawer(`<div class="drw-h"><div><h2>${up?'Przejdź na':'Zmień na'} ${x.name}</h2><p>${planPrice(x)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
+  <div class="drw-b">${off.length?`<div class="insight"><b>Zostaną wyłączone funkcje:</b> ${off.join(', ')}.</div>`:''}
+  ${over.length?`<div class="insight" style="margin-top:8px"><b>Przekroczysz limity:</b> ${over.join('; ')}.</div>`:''}
+  <p style="font-size:13px;color:var(--grey)">Wersja demo: bez płatności.</p>
+  <div class="acts"><button class="pbtn dark" type="button" data-planok="${k}" style="min-height:44px">Potwierdzam zmianę</button><button class="pbtn ghost" type="button" data-close="1" style="min-height:44px">Anuluj</button></div></div>`,false,true);
+}
+async function planApply(k){
+  const old={plan:SET.plan,since:SET.plan_since},up=PRANK[k]>PRANK[SET.plan||'studio'];
+  SET.plan=k;if(up)SET.plan_since=new Date().toISOString();
+  if(!(await saveCatalog())){SET.plan=old.plan;SET.plan_since=old.since;toast('Nie udało się zmienić planu');return}
+  GUARD=false;drw().close();renderPanel();toast(`Plan zmieniony na ${PLANS[k].name} (demo, bez płatności)`);
 }
 
 /* ---------- start: ekran powitalny z najważniejszym ---------- */
@@ -3384,7 +3507,7 @@ async function blockSubmit(f){
 
 /* ================= v11: zespół i role, wyceny, gwarancje, paszport auta, ruch ================= */
 const isAdm=()=>ROLE==='owner'||ROLE==='admin';
-const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes'];
+const ADMIN_VIEWS=['dzis','google','bon','cen','ust','zes','plan'];
 const narrow=()=>matchMedia('(max-width: 820px)').matches;
 const ME=()=>SESSION?TEAM.find(t=>t.user_id===SESSION.user.id)||null:null;
 const memberOf=id=>id?TEAM.find(t=>t.id===id)||null:null;
@@ -3855,7 +3978,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     NOTES=NOTES.filter(x=>x.id!==+t.dataset.notedel);GUARD=false;drw().close();renderPanel();toast('Notatka usunięta');return}
   if(t&&t.dataset.calday){P.cal={m:'day',a:t.dataset.calday};P.view='kal';renderPanel();return}
   {const cd=!t&&e.target.closest('[data-calday]');if(cd){P.cal={m:'day',a:cd.dataset.calday};renderPanel();return}}
-  if(t&&t.dataset.pact){const a=t.dataset.pact;if(a==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(a==='voucher')openDrawer(vIssueHTML(),true,true);else if(a==='svc')openDrawer(svcFormHTML(),true);else if(a==='walkin'){openDrawer(addHTML(),true);const f=$('#fadd');f.elements.walkin.checked=true;f.elements.walkin.dispatchEvent(new Event('input',{bubbles:true}));GUARD=false}else openDrawer(blockHTML(),true,true);return}
+  if(t&&t.dataset.pact){const a=t.dataset.pact;if(a==='add'){openDrawer(addHTML(),true);addSync($('#fadd'))}else if(a==='voucher')openDrawer(vIssueHTML(),true,true);else if(a==='svc')openDrawer(svcFormHTML(),true);else if(a==='addon')openDrawer(addonFormHTML(),true,true);else if(a==='walkin'){openDrawer(addHTML(),true);const f=$('#fadd');f.elements.walkin.checked=true;f.elements.walkin.dispatchEvent(new Event('input',{bubbles:true}));GUARD=false}else openDrawer(blockHTML(),true,true);return}
   if(t&&t.dataset.baytab){P.bay=+t.dataset.baytab;renderPanel();return}
   if(t&&t.dataset.dedit){P.edit=!P.edit;renderPanel();return}
   if(t&&t.dataset.dreset){SET.dash=null;saveCatalog();renderPanel();toast('Przywrócono domyślny układ pulpitu');return}
@@ -3873,9 +3996,16 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     if(n){toast(`Na tym stanowisku są ${n} nadchodzące wizyty. Przenieś je najpierw.`);return}
     if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno usunąć?';return}
     SET.bays=BAYS().filter(b=>b.id!==id);await saveCatalog();renderPanel();toast('Stanowisko usunięte');return}
+  if(t&&t.dataset.addpick){const f=t.closest('form'),bx=[...f.querySelectorAll('[name=for]')],all=bx.every(x=>x.checked);bx.forEach(x=>x.checked=!all);t.textContent=all?'Zaznacz wszystkie':'Odznacz wszystkie';return}
+  if(t&&t.dataset.addondel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
+    const i=ADDONS.findIndex(x=>x.id===t.dataset.addondel);if(i<0)return;const [rm]=ADDONS.splice(i,1);if(!(await saveCatalog())){ADDONS.splice(i,0,rm);toast('Nie udało się usunąć dodatku');return}renderPanel();toast(`Usunięto dodatek „${rm.name}”`);return}
+  if(t&&t.dataset.planchg){planConfirm(t.dataset.planchg);return}
+  if(t&&t.dataset.planok){planApply(t.dataset.planok);return}
   if(t&&t.dataset.svcdel){if(t.dataset.armed!=='1'){t.dataset.armed='1';t.textContent='Na pewno?';return}
     const i=SERVICES.findIndex(x=>x.id===t.dataset.svcdel);if(i<0)return;const [rm]=SERVICES.splice(i,1);if(!(await saveCatalog())){SERVICES.splice(i,0,rm);return}renderPanel();toast(`Usunięto „${rm.name}” ze strony`);return}
-  if(t&&t.dataset.stage){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;t.disabled=true;
+  if(t&&t.dataset.stage){const b=BOOKINGS.find(x=>x.id===+t.dataset.id);if(!b)return;
+    // przyjęcie i wydanie idą wyłącznie przez protokół z podpisami
+    if(t.dataset.stage==='przyjete'&&!b.stage){openProto(b.id);return}if(t.dataset.stage==='wydane'){openHand(b.id);return}t.disabled=true;
     const {error}=await sb.from('bookings').update({stage:t.dataset.stage}).eq('id',b.id);if(error){t.disabled=false;toast('Nie udało się zapisać etapu');return}
     b.stage=t.dataset.stage;renderPanel();openBk(b.id);
     toast(b.stage==='gotowe'?`${b.name.split(' ')[0]} dostał SMS: auto gotowe do odbioru, z linkiem do statusu (w demo bez wysyłki)`:'Etap zmieniony. Klient widzi go na stronie statusu auta.');return}
@@ -3914,7 +4044,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.unmark){PR.marks.splice(+t.dataset.unmark,1);protoRefresh();return}
   if(t&&t.dataset.sigclear){const id=t.dataset.sigclear==='1'?'sig':t.dataset.sigclear,c=$('#'+id);c.getContext('2d').clearRect(0,0,c.width,c.height);PR[id==='sig'?'signed':'signed2']=false;return}
   if(t&&t.dataset.protosave){protoSave(+t.dataset.protosave,t);return}
-  if(t&&t.dataset.protosend){toast('Kopia protokołu poszła do klienta SMS-em z linkiem (w demo bez wysyłki)');return}
+  if(t&&t.dataset.protomail){const [k,id]=t.dataset.protomail.split(':');protoMail(k,+id,t);return}
   const cr=e.target.closest('tr[data-client]');if(cr&&!t){openDrawer(clientHTML(cr.dataset.client));return}
   if(o) openBk(+o.dataset.open);
 });
