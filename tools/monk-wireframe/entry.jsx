@@ -6,10 +6,19 @@ import { VehicleDynamicWireframe } from '@monkvision/common-ui-web/lib/component
 
 const ORI = [['front-left', 'Przód, lewa strona'], ['front-right', 'Przód, prawa strona'], ['rear-right', 'Tył, prawa strona'], ['rear-left', 'Tył, lewa strona']];
 
-function Wire({ model, parts = {}, locked, onPart }) {
+// preview: kolor wybranego rodzaju szkody, pokazywany po najechaniu na niezaznaczoną część; sel: część otwarta w szczegółach (pomarańczowa obwódka)
+function Wire({ model, parts = {}, locked, onPart, preview, sel }) {
   const [o, setO] = useState(0);
+  const [hov, setHov] = useState(null);
   const turn = (d) => setO((x) => (x + d + ORI.length) % ORI.length);
-  const attrs = (p) => ({ style: { fill: parts[p] ? parts[p].color : 'rgba(255,255,255,0.001)', stroke: parts[p] ? '#1c1917' : '#78716c', strokeWidth: 1.4, cursor: locked ? 'default' : 'pointer', transition: 'fill .18s' } });
+  const attrs = (p) => {
+    const on = parts[p], hv = !locked && !on && hov === p && preview;
+    return {
+      onMouseEnter: () => setHov(p), onMouseLeave: () => setHov((h) => (h === p ? null : h)),
+      style: { fill: on ? on.color : hv ? preview : 'rgba(255,255,255,0.001)', fillOpacity: hv ? 0.55 : 1, stroke: sel === p ? '#c2410c' : on ? '#1c1917' : '#78716c',
+        strokeWidth: sel === p ? 2.6 : 1.4, cursor: locked ? 'default' : 'pointer', transition: 'fill .15s, fill-opacity .15s' },
+    };
+  };
   return h('div', { className: 'mw' },
     h('div', { className: 'mw-svg' }, h(VehicleDynamicWireframe, { vehicleType: model, orientation: ORI[o][0], onClickPart: locked ? () => {} : (p) => onPart && onPart(p), getPartAttributes: attrs })),
     h('div', { className: 'mw-bar' },

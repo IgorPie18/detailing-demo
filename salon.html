@@ -526,6 +526,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .pmap .pt{fill:#e9ebee;stroke:#fff;stroke-width:3;cursor:pointer;transition:fill .18s,filter .18s}
 .pmap .pt.gl{fill:#d7e2ec}.pmap .pt.wh{fill:#44403c}.pmap .pt.li{fill:#fdf0c4}.pmap .pt.tl{fill:#fbd5d5}.pmap .pt.mi{fill:#d6d3d1}
 .pmap:not(.locked) .pt:hover,.pmap .pt:focus-visible{filter:brightness(.93);outline:none;stroke:var(--brand)}
+.pmap:not(.locked) .pt:not(.on):hover{fill:var(--tool);fill-opacity:.55}
 .pmap.locked .pt{cursor:default}
 .pmap .axle{stroke:#d6d3d1;stroke-width:3}
 .pmap .lb{font:700 10px var(--body);fill:#a8a29e;text-anchor:middle;letter-spacing:.12em}.pmap .lb.sm{font-size:8.5px}
@@ -541,6 +542,15 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .dv-sw button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(28,25,23,.14)}
 .pe{border:1px solid var(--brand-100);background:#fffaf6;border-radius:12px;padding:12px;display:grid;gap:10px;margin-top:10px;animation:fadeIn .18s ease}
 .pe-h{display:flex;align-items:center;gap:8px}.pe-h b{flex:1}
+.pe-multi{display:flex;flex-wrap:wrap;gap:6px}
+.pe-multi button{display:inline-flex;align-items:center;gap:6px;min-height:36px;border:1px solid var(--pline);background:#fff;border-radius:999px;padding:0 12px 0 6px;font:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.pe-multi .dot{width:20px;height:20px;margin:0}
+.pe-multi button[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-100)}
+.pe-multi .pe-add{border-style:dashed;padding-left:10px;color:var(--brand-600)}.pe-multi .pe-add svg{width:15px;height:15px}
+.pe-multi button:hover{border-color:var(--brand);background:#fffaf6}
+.pe .tg button,.dmg button{cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
+.pe .tg button:not([aria-pressed="true"]):hover,.dmg button:not([aria-pressed="true"]):hover{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--brand-100) inset}
+.pe-f{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}.pe-f .pbtn{margin-left:auto}
 .pe-r{display:grid;gap:6px}.pe-r>span{font-size:13px;font-weight:600;color:var(--ink-2)}.pe-r em{font-style:normal;font-weight:400;color:var(--grey)}
 .pe .tg{display:flex;flex-wrap:wrap;gap:6px}.pe .tg button{min-height:38px}
 .pe-ph{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pe-ph img{width:56px;height:56px;object-fit:cover;border-radius:8px;display:block}
@@ -2687,6 +2697,15 @@ function carMap(marks,locked){
    dane w intake.parts: [{p: id części, t: rodzaj (DMG), s: wielkość 0-3, n: notatka, ph: [{path, at}]}]; stare protokoły mają intake.marks (kropki) i zostają na starym rysunku */
 const DCOL={W:'#2563eb',R:'#dc2626',O:'#d97706',P:'#7c3aed',I:'#475569'};
 const SZ=['','drobne','średnie','duże'];
+function dpFill(types){
+  types=[...new Set(types)]; if(types.length<2) return DCOL[types[0]];
+  const id='dp-'+types.join('');
+  if(!document.getElementById(id)){let d=document.getElementById('dpdefs');
+    if(!d){d=document.createElementNS('http://www.w3.org/2000/svg','svg');d.id='dpdefs';d.setAttribute('width','0');d.setAttribute('height','0');d.setAttribute('aria-hidden','true');d.style.position='absolute';d.innerHTML='<defs></defs>';document.body.append(d)}
+    const w=7*types.length;d.firstChild.insertAdjacentHTML('beforeend',`<pattern id="${id}" patternUnits="userSpaceOnUse" width="${w}" height="${w}" patternTransform="rotate(45)">${types.map((t,k)=>`<rect x="${k*7}" y="0" width="7" height="${w}" fill="${DCOL[t]}"/>`).join('')}</pattern>`)}
+  return `url(#${id})`;
+}
+const typesOn=(parts,p)=>parts.filter(x=>x.p===p).map(x=>x.t);
 const rr=(x,y,w,h,r)=>`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${y+h-r}Q${x+w} ${y+h} ${x+w-r} ${y+h}H${x+r}Q${x} ${y+h} ${x} ${y+h-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`;
 const ell=(cx,cy,rx,ry)=>`M${cx-rx} ${cy}A${rx} ${ry} 0 1 0 ${cx+rx} ${cy}A${rx} ${ry} 0 1 0 ${cx-rx} ${cy}Z`;
 // rozłożone auto: w środku widok z góry (przód u góry), po bokach lewa i prawa strona; prawa = lustro lewej
@@ -2713,10 +2732,10 @@ const MPL={handle_front_left:'Klamka przednia lewa',handle_front_right:'Klamka p
   fog_light_front_left:'Halogen przedni lewy',fog_light_front_right:'Halogen przedni prawy',fog_light_back_left:'Światło tylne dolne lewe',fog_light_back_right:'Światło tylne dolne prawe',
   grill_radiator:'Grill',grill_low:'Dolna kratka zderzaka',license_plate_front:'Tablica przednia',license_plate_back:'Tablica tylna',pillar:'Słupek'};
 const pName=p=>(PART[p]&&PART[p].n)||MPL[p]||p;
-const DV=()=>{try{return localStorage.getItem('dmg_view')==='flat'?'flat':'monk'}catch(_){return 'monk'}};
+const DV=()=>'monk'; // schemat płaski tylko jako zapas, gdy model 3D się nie wczyta (mwSync)
 const MW={p:null,inst:new Map(),reg:{}};
 function mwLoad(){return MW.p||(MW.p=new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='assets/monk-wireframe.js';sc.onload=()=>window.MonkWire?res(window.MonkWire):rej();sc.onerror=()=>{MW.p=null;sc.remove();rej()};document.head.append(sc)}))}
-const mwColors=parts=>{const c={};parts.forEach(x=>{const m=O2M[x.p]||x.p;c[m]={color:DCOL[x.t]};if(m==='head_light_right')c['head_light_right-2']=c[m]});return c};
+const mwColors=parts=>{const c={};[...new Set(parts.map(x=>x.p))].forEach(p=>{const m=O2M[p]||p;c[m]={color:dpFill(typesOn(parts,p))};if(m==='head_light_right')c['head_light_right-2']=c[m]});return c};
 function dmgView(parts,locked,key,size){
   if(DV()==='flat') return partsMap(parts,locked,key==='edit'?'pmap':'');
   MW.reg[key]={parts,locked,model:MODEL_OF[size]||'haccord'};
@@ -2727,29 +2746,33 @@ async function mwSync(){
   const boxes=[...document.querySelectorAll('.mwbox[data-mwk]')].filter(b=>!MW.inst.has(b)); if(!boxes.length) return;
   let lib; try{lib=await mwLoad()}catch(_){boxes.forEach(b=>{const r=MW.reg[b.dataset.mwk];if(b.isConnected&&r)b.outerHTML=partsMap(r.parts,r.locked,b.dataset.mwk==='edit'?'pmap':'')});return}
   boxes.forEach(b=>{const r=MW.reg[b.dataset.mwk];if(!b.isConnected||MW.inst.has(b)||!r)return;b.innerHTML='';
-    MW.inst.set(b,lib.mount(b,{model:r.model,parts:mwColors(r.parts),locked:r.locked,onPart:id=>{const m=id.replace(/-2$/,'');partTap(M2O[m]||m)}}))});
+    MW.inst.set(b,lib.mount(b,{model:r.model,parts:mwColors(r.parts),locked:r.locked,...(b.dataset.mwk==='edit'&&PR?mwLive():{}),onPart:id=>{const m=id.replace(/-2$/,'');partTap(M2O[m]||m)}}))});
 }
-function mwUpdate(){for(const [el,i] of MW.inst)if(el.isConnected&&el.dataset.mwk==='edit')i.update({parts:mwColors(PR.parts)})}
+const mwLive=()=>{const x=PR.edit!=null&&PR.parts[PR.edit];return {preview:DCOL[PR.tool||'R'],sel:x?(O2M[x.p]||x.p):null}};
+function mwUpdate(){for(const [el,i] of MW.inst)if(el.isConnected&&el.dataset.mwk==='edit')i.update({parts:mwColors(PR.parts),...mwLive()})}
 const cleanParts=a=>(Array.isArray(a)?a:[]).filter(x=>x&&(PART[x.p]||MPL[x.p])).map(x=>({p:x.p,t:DMG[x.t]?x.t:'I',s:[0,1,2,3].includes(+x.s)?+x.s:0,n:cleanTxt(x.n||'').slice(0,120),ph:(Array.isArray(x.ph)?x.ph:[]).filter(f=>f&&SAFE_PATH.test(f.path)).map(f=>({path:f.path,at:f.at,url:f.url}))}));
 const partTxt=(x,i)=>`${i+1}. ${pName(x.p)}: ${DMG[x.t].toLowerCase()}${x.s?', '+SZ[x.s]:''}${x.n?' ('+x.n+')':''}`;
 function partsMap(parts,locked,id='pmap'){
   const at=Object.fromEntries(parts.map((x,i)=>[x.p,i]));
-  return `<svg class="pmap${locked?' locked':''}" ${id?`id="${id}"`:''} viewBox="0 0 300 470" role="${locked?'img':'group'}" aria-label="Schemat auta${locked?' z zaznaczonymi uszkodzeniami':'. Dotknij część, żeby zaznaczyć uszkodzenie.'}">
+  return `<svg class="pmap${locked?' locked':''}" ${id?`id="${id}"`:''} style="--tool:${!locked&&PR?DCOL[PR.tool||'R']:'transparent'}" viewBox="0 0 300 470" role="${locked?'img':'group'}" aria-label="Schemat auta${locked?' z zaznaczonymi uszkodzeniami':'. Dotknij część, żeby zaznaczyć uszkodzenie.'}">
     <text x="150" y="20" class="lb">PRZÓD</text><text x="150" y="458" class="lb">TYŁ</text><text x="66" y="458" class="lb sm">LEWA</text><text x="234" y="458" class="lb sm">PRAWA</text>
     <path class="axle" d="M24 101H44M24 343H44M276 101H256M276 343H256"/>
-    ${PARTS.map(p=>{const i=at[p.id],x=parts[i];return `<path class="pt ${p.k}${x?' on':''}" d="${p.d}"${p.fl?' transform="matrix(-1 0 0 1 300 0)"':''} data-part="${p.id}"${x?` style="fill:${DCOL[x.t]}"`:''}${locked?'':' tabindex="0" role="button"'} aria-label="${p.n}${x?': '+DMG[x.t]:''}"><title>${p.n}</title></path>`}).join('')}
-    ${parts.map((x,i)=>{const p=PART[x.p];return !p?'':`<g class="pn" aria-hidden="true"><circle cx="${p.cx}" cy="${p.cy}" r="9"/><text x="${p.cx}" y="${p.cy+3.5}">${i+1}</text></g>`}).join('')}</svg>`;
+    ${PARTS.map(p=>{const i=at[p.id],x=parts[i];return `<path class="pt ${p.k}${x?' on':''}" d="${p.d}"${p.fl?' transform="matrix(-1 0 0 1 300 0)"':''} data-part="${p.id}"${x?` style="fill:${dpFill(typesOn(parts,p.id))}"`:''}${locked?'':' tabindex="0" role="button"'} aria-label="${p.n}${x?': '+DMG[x.t]:''}"><title>${p.n}</title></path>`}).join('')}
+    ${parts.map((x,i)=>{const p=PART[x.p],k=parts.slice(0,i).filter(y=>y.p===x.p).length;return !p?'':`<g class="pn" aria-hidden="true"><circle cx="${p.cx+k*14}" cy="${p.cy}" r="9"/><text x="${p.cx+k*14}" y="${p.cy+3.5}">${i+1}</text></g>`}).join('')}</svg>`;
 }
 function partsList(parts,locked){
   return parts.map((x,i)=>`<li${locked?'':` data-peedit="${i}"`}><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><span><b>${pName(x.p)}</b><small>${DMG[x.t]}${x.s?' · '+SZ[x.s]:''}${x.ph.length?` · ${x.ph.length} zdj.`:''}${x.n?' · '+esc(x.n):''}</small></span>${locked?'':'<em>Zmień</em>'}</li>`).join('')||'<li class="none">Brak zaznaczonych uszkodzeń.</li>';
 }
 function peHTML(i){
   const x=PR.parts[i]; if(!x) return '';
-  return `<div class="pe-h"><i class="dot" style="background:${DCOL[x.t]}">${i+1}</i><b>${pName(x.p)}</b><button type="button" class="pbtn sm ghost" data-pedel="${i}">Usuń</button><button type="button" class="pbtn sm dark" data-peok="1">Gotowe</button></div>
+  const same=PR.parts.map((y,j)=>[y,j]).filter(([y])=>y.p===x.p);
+  return `<div class="pe-h"><b>${pName(x.p)}</b><button type="button" class="pbtn sm dark" data-peok="1">Gotowe</button></div>
+    <div class="pe-multi" role="group" aria-label="Uszkodzenia na tej części">${same.map(([y,j])=>`<button type="button" data-peedit="${j}" aria-pressed="${j===i}"><i class="dot" style="background:${DCOL[y.t]}">${j+1}</i>${DMG[y.t]}${y.s?' · '+SZ[y.s]:''}</button>`).join('')}<button type="button" class="pe-add" data-peadd="${x.p}">${ic('plus')}Kolejne uszkodzenie tutaj</button></div>
     <div class="pe-r"><span>Rodzaj</span><div class="tg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-pet="${k}" aria-pressed="${x.t===k}"><i class="dot" style="background:${DCOL[k]}"></i>${v}</button>`).join('')}</div></div>
     <div class="pe-r"><span>Wielkość <em>(opcjonalnie)</em></span><div class="tg">${[1,2,3].map(k=>`<button type="button" data-pes="${k}" aria-pressed="${x.s===k}">${SZ[k]}</button>`).join('')}</div></div>
     <div class="pe-r"><span>Zdjęcie i notatka <em>(opcjonalnie)</em></span><div class="pe-ph">${x.ph.map(f=>`<a href="${f.url||'#'}" target="_blank" rel="noopener"><img src="${f.url||''}" alt="Zdjęcie uszkodzenia"></a>`).join('')}<label class="pbtn sm upl">${ic('plus')}Zdjęcie<input type="file" accept="image/*" capture="environment" data-pephoto="${i}" hidden></label></div>
-      <input class="pe-n" data-pen="${i}" maxlength="120" value="${esc(x.n)}" placeholder="np. 5 cm przy klamce"></div>`;
+      <input class="pe-n" data-pen="${i}" maxlength="120" value="${esc(x.n)}" placeholder="np. 5 cm przy klamce"></div>
+    <div class="pe-f">${PR.fresh===i?'<span class="hint-p">Dotknij tę część jeszcze raz, żeby odznaczyć.</span>':''}<button type="button" class="pbtn sm ghost" data-pedel="${i}">Usuń to uszkodzenie</button></div>`;
 }
 function partsRefresh(){
   const L=!!PR.sign, m=$('#pmap'); if(m) m.outerHTML=partsMap(PR.parts,L); mwUpdate();
@@ -2758,20 +2781,22 @@ function partsRefresh(){
 }
 // jedno dotknięcie = zaznaczenie wybranym rodzajem; ponowne dotknięcie otwiera szczegóły tej części
 function partTap(id){
-  let i=PR.parts.findIndex(x=>x.p===id);
-  if(i<0){PR.parts.push({p:id,t:PR.tool||'R',s:0,n:'',ph:[]});i=PR.parts.length-1;GUARD=true}
-  PR.edit=i; partsRefresh();
+  const cur=PR.edit!=null?PR.parts[PR.edit]:null;
+  if(cur&&cur.p===id&&PR.fresh===PR.edit){PR.parts.splice(PR.edit,1);PR.edit=null;PR.fresh=null;partsRefresh();return}
+  const i=PR.parts.findIndex(x=>x.p===id);
+  if(i>=0){PR.edit=i;PR.fresh=null;partsRefresh();return}
+  PR.parts.push({p:id,t:PR.tool||'R',s:0,n:'',ph:[]});PR.edit=PR.fresh=PR.parts.length-1;GUARD=true;partsRefresh();
 }
 document.addEventListener('keydown',e=>{const pt=e.target.closest&&e.target.closest('#pmap [data-part]');if(pt&&PR&&!PR.sign&&(e.key==='Enter'||e.key===' ')){e.preventDefault();partTap(pt.dataset.part)}});
 document.addEventListener('change',e=>{if(e.target.dataset.pephoto!=null&&PR)partPhoto(+e.target.dataset.pephoto,e.target.files)});
-document.addEventListener('input',e=>{if(e.target.dataset.pen!=null&&PR&&PR.parts[+e.target.dataset.pen]){PR.parts[+e.target.dataset.pen].n=cleanTxt(e.target.value).slice(0,120);GUARD=true;const l=$('#plist');if(l)l.innerHTML=partsList(PR.parts,false)}});
+document.addEventListener('input',e=>{if(e.target.dataset.pen!=null&&PR&&PR.parts[+e.target.dataset.pen]){PR.parts[+e.target.dataset.pen].n=cleanTxt(e.target.value).slice(0,120);GUARD=true;PR.fresh=null;const l=$('#plist');if(l)l.innerHTML=partsList(PR.parts,false)}});
 async function partPhoto(i,files){
   const x=PR.parts[i], err=$('#proto-err'); if(!x) return; err.textContent='Wgrywam zdjęcie…';
   for(const f of [...files].slice(0,4)){
     const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'jpg', path=`${STUDIO.id}/intake/${PR.id}-dmg-${crypto.randomUUID()}.${ext}`;
     const {error}=await sb.storage.from('photos').upload(path,f,{contentType:f.type||'image/jpeg'});
     if(error){err.textContent='Nie udało się wgrać zdjęcia: '+f.name;continue}
-    x.ph.push({path,at:new Date().toISOString(),url:URL.createObjectURL(f)}); GUARD=true;
+    x.ph.push({path,at:new Date().toISOString(),url:URL.createObjectURL(f)}); GUARD=true; PR.fresh=null;
   }
   if(err.textContent==='Wgrywam zdjęcie…') err.textContent=''; partsRefresh();
 }
@@ -2788,7 +2813,7 @@ function protoHTML(b){
     ${L?`<div class="sumline span2"><span>${PR.sign2?'Podpisany przez klienta i salon':'Podpisany przez klienta'}, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
     <div class="col"><div><div class="ph"><b>Uszkodzenia przy oddaniu auta</b><small>${L?'':'Wybierz rodzaj i kliknij miejsce na schemacie'}</small></div>
       ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div><p class="hint-p" style="margin:6px 0">Wybierz rodzaj i dotknij część auta. Zdjęcie i wielkość dodasz pod schematem, jeśli chcesz.</p>`}
-      <div class="dv-sw" role="group" aria-label="Widok schematu"><button type="button" data-dview="monk" aria-pressed="${DV()==='monk'}">Auto 3D</button><button type="button" data-dview="flat" aria-pressed="${DV()==='flat'}">Schemat płaski</button></div>
+
       ${L&&PR.marks.length&&!PR.parts.length?`${carMap(PR.marks,true)}<ol class="mklist">${mkList()}</ol>`:`<div id="dvwrap">${dmgView(PR.parts,L,'edit',PR.size)}</div><div class="pe" id="pe" ${PR.edit!=null&&!L?'':'hidden'}>${PR.edit!=null&&!L?peHTML(PR.edit):''}</div><ol class="mklist" id="plist">${partsList(PR.parts,L)}</ol>`}</div></div>
     <div class="col"><div class="fgrid">
       <label class="pf">Przebieg (km)<input name="km" type="number" min="0" value="${esc(PR.km)}" ${dis}></label>
@@ -4451,17 +4476,17 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
     renderPanel();if(drw().open)openDrawer(bkHTML(b));return}
   if(t&&t.dataset.mode){const [id,m]=t.dataset.mode.split(':');const s=svcById(id);s.mode=m;if(m==='instant'&&!s.deposit)s.deposit=100;saveCatalog();renderPanel();toast(`${s.name}: ${m==='instant'?'rezerwacja od ręki z zadatkiem':'termin do potwierdzenia'}`);return}
   if(t&&t.dataset.sw){SET[t.dataset.sw]=!SET[t.dataset.sw];t.setAttribute('aria-pressed',SET[t.dataset.sw]);saveCatalog();return}
-  if(t&&t.dataset.dview&&PR){try{localStorage.setItem('dmg_view',t.dataset.dview)}catch(_){}drw().querySelectorAll('[data-dview]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dview===t.dataset.dview));
-    $('#dvwrap').innerHTML=dmgView(PR.parts,!!PR.sign,'edit',PR.size);mwSync();return}
   if(PR&&!PR.sign){const pt=e.target.closest('#pmap [data-part]');if(pt){partTap(pt.dataset.part);return}}
-  if(t&&t.dataset.peedit!=null&&PR&&!PR.sign){PR.edit=+t.dataset.peedit;partsRefresh();$('#pe').scrollIntoView({block:'nearest',behavior:'smooth'});return}
+  if(t&&t.dataset.peedit!=null&&PR&&!PR.sign){PR.edit=+t.dataset.peedit;PR.fresh=null;partsRefresh();$('#pe').scrollIntoView({block:'nearest',behavior:'smooth'});return}
+  if(t&&t.dataset.peadd&&PR&&!PR.sign){const p=t.dataset.peadd,used=typesOn(PR.parts,p),nt=Object.keys(DMG).find(k=>!used.includes(k))||'I';
+    PR.parts.push({p,t:used.includes(PR.tool)?nt:(PR.tool||nt),s:0,n:'',ph:[]});PR.edit=PR.fresh=PR.parts.length-1;GUARD=true;partsRefresh();return}
   if(t&&t.dataset.pet&&PR){PR.parts[PR.edit].t=t.dataset.pet;PR.tool=t.dataset.pet;GUARD=true;partsRefresh();drw().querySelectorAll('[data-dmg]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dmg===PR.tool));return}
   if(t&&t.dataset.pes&&PR){const x=PR.parts[PR.edit];x.s=x.s===+t.dataset.pes?0:+t.dataset.pes;GUARD=true;partsRefresh();return}
-  if(t&&t.dataset.pedel!=null&&PR){PR.parts.splice(+t.dataset.pedel,1);PR.edit=null;GUARD=true;partsRefresh();return}
-  if(t&&t.dataset.peok&&PR){PR.edit=null;partsRefresh();return}
+  if(t&&t.dataset.pedel!=null&&PR){PR.parts.splice(+t.dataset.pedel,1);PR.edit=null;PR.fresh=null;GUARD=true;partsRefresh();return}
+  if(t&&t.dataset.peok&&PR){PR.edit=null;PR.fresh=null;partsRefresh();return}
   if(e.target.closest('#carmap')&&PR&&!PR.sign){protoMark(e);return}
   if(t&&t.dataset.proto){openProto(+t.dataset.proto);return}
-  if(t&&t.dataset.dmg){PR.tool=t.dataset.dmg;t.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===t));return}
+  if(t&&t.dataset.dmg){if(PR)setTimeout(mwUpdate);PR.tool=t.dataset.dmg;t.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===t));return}
   if(t&&t.dataset.unmark){PR.marks.splice(+t.dataset.unmark,1);protoRefresh();return}
   if(t&&t.dataset.sigclear){const id=t.dataset.sigclear==='1'?'sig':t.dataset.sigclear,c=$('#'+id);c.getContext('2d').clearRect(0,0,c.width,c.height);PR[id==='sig'?'signed':'signed2']=false;return}
   if(t&&t.dataset.protosave){protoSave(+t.dataset.protosave,t);return}
