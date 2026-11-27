@@ -512,6 +512,86 @@ create policy public_owner_upload on storage.objects for insert to authenticated
   with check (bucket_id = 'public'
     and (storage.foldername(name))[1] in (select id::text from public.studios where public.is_admin(id)));
 
+-- Rejestracja nowego salonu z kreatora (rejestracja.html): konto właściciela, salon, stanowiska, zespół i wybrane funkcje.
+-- Konto działa od razu, bez maila z potwierdzeniem (jak konta zespołu). Dane z formularza są przycinane i filtrowane tutaj, nie w przeglądarce.
+alter table public.studios add column if not exists created_at timestamptz not null default now();
+create table if not exists public.feature_wishes (
+  id bigint generated always as identity primary key,
+  studio_id uuid not null references public.studios on delete cascade,
+  wish text not null check (char_length(wish) between 3 and 1000),
+  created_at timestamptz not null default now()
+);
+alter table public.feature_wishes enable row level security;
+drop policy if exists feature_wishes_admin_read on public.feature_wishes;
+create policy feature_wishes_admin_read on public.feature_wishes for select to authenticated using (public.is_admin(studio_id));
+
+create or replace function public.studio_register(p_owner text, p_email text, p_password text, p_salon jsonb, p_bays jsonb,
+  p_team jsonb, p_features jsonb, p_wish text default null, p_sample boolean default true, p_plan text default 'start')
+returns text language plpgsql security definer set search_path = public, extensions as $$
+declare em text := lower(trim(p_email)); own text := left(trim(coalesce(p_owner, '')), 60); sname text := left(trim(coalesce(p_salon->>'name', '')), 60);
+  uid uuid := gen_random_uuid(); sid uuid; base text; sl text; n int := 1; bays jsonb := '[]'; feats jsonb := '{}'; k text; x jsonb; i int := 0;
+  pal text[] := array['#1c1917','#c2410c','#0f766e','#4338ca','#a16207','#be185d'];
+begin
+  if (select count(*) from public.studios where created_at > now() - interval '1 hour') >= 15 then
+    raise exception 'LIMIT: Za dużo nowych salonów w ostatniej godzinie. Spróbuj za chwilę.'; end if;
+  if char_length(own) < 2 then raise exception 'Wpisz imię i nazwisko'; end if;
+  if char_length(sname) < 2 then raise exception 'Wpisz nazwę salonu'; end if;
+  if em !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' or char_length(em) > 120 then raise exception 'Nieprawidłowy e-mail'; end if;
+  if char_length(coalesce(p_password, '')) < 8 then raise exception 'Hasło musi mieć co najmniej 8 znaków'; end if;
+  if exists (select 1 from auth.users where lower(email) = em) then raise exception 'EMAIL: Ten e-mail ma już konto. Zaloguj się albo użyj innego adresu.'; end if;
+
+  base := trim(both '-' from regexp_replace(translate(lower(sname), 'ąćęłńóśźż', 'acelnoszz'), '[^a-z0-9]+', '-', 'g'));
+  base := left(coalesce(nullif(base, ''), 'salon'), 30); sl := base;
+  while sl = 'lumen' or exists (select 1 from public.studios where slug = sl) loop n := n + 1; sl := base || '-' || n; end loop;
+
+  for x in select * from jsonb_array_elements(case when jsonb_typeof(p_bays) = 'array' then p_bays else '[]' end) limit 10 loop
+    i := i + 1;
+    bays := bays || jsonb_build_array(jsonb_build_object('id', i, 'name', coalesce(nullif(left(trim(x->>'name'), 40), ''), 'Stanowisko ' || i), 'desc', '',
+      'cats', coalesce((select jsonb_agg(c) from jsonb_array_elements_text(case when jsonb_typeof(x->'cats') = 'array' then x->'cats' else '[]' end) c
+        where c in ('mycie', 'lakier')), '["mycie","lakier"]')));
+  end loop;
+  if i = 0 then bays := '[{"id":1,"name":"Stanowisko 1","desc":"","cats":["mycie","lakier"]}]'; end if;
+  foreach k in array array['wyc','gw','wl','bon','loy','dzis','google','zes','tg'] loop
+    feats := feats || jsonb_build_object('f_' || k, coalesce((p_features->>k)::boolean, true));
+  end loop;
+
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data,
+    created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token)
+  values ('00000000-0000-0000-0000-000000000000', uid, 'authenticated', 'authenticated', em, crypt(p_password, gen_salt('bf')), now(),
+    '{"provider":"email","providers":["email"]}', jsonb_build_object('name', own), now(), now(), '', '', '', '');
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), uid, uid::text, jsonb_build_object('sub', uid::text, 'email', em, 'email_verified', true), 'email', now(), now(), now());
+
+  insert into public.studios (slug, name, owner_id, catalog) values (sl, sname, uid, jsonb_build_object('settings',
+    jsonb_build_object('salon', jsonb_build_object('name', sname, 'phone', left(trim(coalesce(p_salon->>'phone', '')), 30),
+        'addr', left(trim(coalesce(p_salon->>'addr', '')), 80), 'city', left(trim(coalesce(p_salon->>'city', '')), 80),
+        'hours', left(trim(coalesce(p_salon->>'hours', '')), 80), 'nip', left(regexp_replace(coalesce(p_salon->>'nip', ''), '\D', '', 'g'), 10)),
+      'bays', bays, 'seed_v11', true, 'no_seed', not coalesce(p_sample, true), 'tour_new', true,
+      'plan', case when p_plan in ('start', 'salon', 'studio') then p_plan else 'start' end,
+      'loy_on', (feats->>'f_loy')::boolean, 'tg_on', (feats->>'f_tg')::boolean, 'wl_auto', (feats->>'f_wl')::boolean) || feats))
+  returning id into sid;
+
+  perform set_config('app.team_rpc', '1', true);
+  insert into public.team (studio_id, user_id, email, name, role, color, commission) values (sid, uid, em, own, 'admin', '#ea580c', 0);
+  i := 0;
+  for x in select * from jsonb_array_elements(case when jsonb_typeof(p_team) = 'array' then p_team else '[]' end) limit 15 loop
+    if char_length(trim(coalesce(x->>'name', ''))) >= 2 then
+      i := i + 1;
+      insert into public.team (studio_id, name, role, color, commission)
+      values (sid, left(trim(x->>'name'), 60), case when x->>'role' = 'admin' then 'admin' else 'worker' end, pal[1 + (i - 1) % 6],
+        least(50, greatest(0, coalesce(floor((x->>'commission')::numeric), 0)::int)));
+    end if;
+  end loop;
+  if char_length(trim(coalesce(p_wish, ''))) >= 3 then insert into public.feature_wishes (studio_id, wish) values (sid, left(trim(p_wish), 1000)); end if;
+  return sl;
+end $$;
+revoke all on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text) from public;
+grant execute on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text) to anon, authenticated;
+-- czy e-mail jest wolny: podpowiedź w 1. kroku kreatora, zanim ktoś wypełni resztę
+create or replace function public.email_free(p_email text) returns boolean language sql stable security definer set search_path = public as $$
+  select not exists (select 1 from auth.users where lower(email) = lower(trim(p_email))) $$;
+grant execute on function public.email_free(text) to anon, authenticated;
+
 -- Salon demo przypisany do konta admina (katalog uzupełni panel przy pierwszym logowaniu).
 insert into public.studios (slug, name, owner_id)
 select 'lumen', 'Lumen Detailing', u.id from auth.users u where u.email = 'demo.panel@example.com'

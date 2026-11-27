@@ -2,7 +2,9 @@
 
 Strona salonu z rezerwacją online i panel salonu. Statyczny HTML na GitHub Pages i Supabase (baza, logowanie, zdjęcia, realtime).
 
-- `index.html`: cała aplikacja (widok klienta `#klient`, panel `#panel`)
+- `index.html`: strona produktu (przekierowuje stare linki aplikacji do `salon.html`)
+- `rejestracja.html`: kreator zakładania salonu (RPC `studio_register`)
+- `salon.html`: cała aplikacja salonu (widok klienta `#klient`, panel `#panel`)
 - `schema.sql`: tabele, reguły dostępu (RLS), bucket na zdjęcia; wklej w Supabase → SQL Editor → Run
 - `assets/`: zdjęcia z [Pexels](https://www.pexels.com/license/) (licencja Pexels, bez wymogu podpisu)
 
