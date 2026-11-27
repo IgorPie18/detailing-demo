@@ -436,6 +436,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
 .bubble{background:var(--pbg);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:14px;line-height:1.5;white-space:pre-line}
 .notif .qa{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 /* protokół przyjęcia */
+.svc-off td{opacity:.55}.svc-off td:last-child{opacity:1}
+.sstaff{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:6px;font-size:12px;color:var(--grey)}
+.sstaff button{border:1px solid var(--pline);background:#fff;border-radius:999px;padding:3px 9px;font-size:12.5px;min-height:28px;color:var(--ink-2)}
+.sstaff button[aria-pressed="true"]{background:var(--brand-50);border-color:var(--brand);color:var(--brand-600);font-weight:600}
+.catadd{display:inline-flex;gap:6px;flex-wrap:wrap}.catadd input{height:36px;border:1px dashed #cdc9bf;border-radius:8px;padding:0 10px;font-size:14px;min-width:200px}
+.sig2-h{margin-top:10px}
 .proto-box{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--pline);border-radius:8px;padding:12px 14px;background:var(--pbg)}
 .proto-box b{display:block;font-size:14px}.proto-box small{color:var(--grey);font-size:12.5px}
 .ph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
@@ -1085,8 +1091,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 @keyframes popIn{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(234,88,12,.35)}50%{box-shadow:0 0 0 7px rgba(234,88,12,0)}}
 @keyframes glowG{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
-#pmain.enter>*,.scroller.enter>*{animation:rise .45s var(--ease) both;animation-delay:calc(min(var(--i,0),9) * 45ms)}
-.scroller.enter>.site-h{animation:fadeIn .3s ease both}
+#pmain.enter,.scroller.enter{animation:fadeIn .16s ease both}
 .drw[open]{animation:pop .3s var(--ease)}
 .drw[open]::backdrop{animation:fadeIn .25s ease}
 .drw.closing{animation:popOut .17s ease forwards}
@@ -1100,7 +1105,7 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 .vrow:hover,.row-i:hover{transform:translateX(2px)}
 #view-panel .nav:hover svg{transform:scale(1.08)}
 #view-panel .nav svg{transition:transform .2s var(--spring),color .18s}
-#view-panel .nav .badge,.ok-mark{animation:popIn .45s var(--spring) both}
+.ok-mark{animation:popIn .45s var(--spring) both}
 .toast{transition:opacity .25s,transform .4s var(--spring)}
 #view-panel .live i{animation:glowG 2s ease-in-out infinite}
 .stages li.now i{animation:glow 1.8s ease-in-out infinite}
@@ -1108,8 +1113,8 @@ details.tv summary{cursor:pointer;color:#78716c;font-size:12.5px;margin-top:8px}
 .tbl tbody tr{transition:background-color .15s}
 .tbl tr[data-offer]{cursor:pointer}.tbl tr[data-offer]:hover td{background:#faf9f6}
 .sumline b,.summary .tot span:last-child{transition:color .2s}
-.hero-p h1{animation:rise .55s var(--ease) both}
-@media (prefers-reduced-motion:reduce){#pmain.enter>*,.scroller.enter>*,.drw[open],.drw.closing{animation:none!important}.tile:hover,.pill-c:hover,.mcard:hover,.vrow:hover,.row-i:hover{transform:none}}
+
+@media (prefers-reduced-motion:reduce){#pmain.enter,.scroller.enter,.drw[open],.drw.closing{animation:none!important}.tile:hover,.pill-c:hover,.mcard:hover,.vrow:hover,.row-i:hover{transform:none}}
 
 /* ===== v12: jedna paleta. Kolor marki + ciepłe szarości; inne kolory tylko dla stanów:
    zielony = gotowe/w porządku, niebieski = w trakcie, czerwony = problem. Oczekujące = kolor marki, zaplanowane = szarość. ===== */
@@ -1675,7 +1680,7 @@ function svcHTML(s){
   <section class="sec"><h2>Co obejmuje</h2><ul class="incl">${s.incl.map(i=>`<li>${i}</li>`).join('')}</ul></section>
   <section class="sec"><h2>Efekt</h2>${baHTML(s)}</section>
   <section class="sec"><h2>Pytania</h2>${s.faq.map(f=>`<details class="faq"><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}</section>
-  <section class="sec"><h2>Inne usługi</h2>${SERVICES.filter(x=>x.id!==s.id).slice(0,3).map(svcCard).join('')}</section>
+  <section class="sec"><h2>Inne usługi</h2>${OFFER().filter(x=>x.id!==s.id).slice(0,3).map(svcCard).join('')}</section>
   ${footer()}
   <div class="dock"><div class="sum"><small>${s.name}</small><b>od ${zl(minPrice(s))}</b></div><button class="btn btn-dark" type="button" data-book="${s.id}">Zarezerwuj</button></div>`;
 }
@@ -1688,7 +1693,7 @@ function bookHTML(){
     <div class="prog-l"><span>Krok ${b.step+1} z ${steps.length} · ${STEP_L[key]}</span>${c?`<span>${c.s.name}</span>`:''}</div></div>`;
   let body='';
   if(key==='usluga') body=`${memBanner(b)}<h2>Co robimy z autem?</h2><p class="hint">Możesz wybrać jedną usługę główną. Dodatki będą za chwilę.</p>
-    ${SERVICES.map(s=>`<button class="opt" type="button" data-pick-svc="${s.id}" aria-pressed="${b.svc===s.id}"><span class="rad"></span><span><b>${s.name}</b><small>${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</small></span><span class="pr">od ${zl(minPrice(s))}</span></button>`).join('')}
+    ${OFFER().map(s=>`<button class="opt" type="button" data-pick-svc="${s.id}" aria-pressed="${b.svc===s.id}"><span class="rad"></span><span><b>${s.name}</b><small>${s.mode==='instant'?'Termin od ręki':'Wycena po zdjęciach'}</small></span><span class="pr">od ${zl(minPrice(s))}</span></button>`).join('')}
     ${b.svc&&svcById(b.svc).pk.length>1?`<h2 style="font-size:18px;margin-top:8px">Pakiet</h2>${svcById(b.svc).pk.map(p=>`<button class="opt" type="button" data-pick-pkg="${p.id}" aria-pressed="${b.pkg===p.id}"><span class="rad"></span><span><b>${p.name}</b><small>${p.desc} · ${durTxt(p)}</small></span><span class="pr">od ${zl(p.p[0])}</span></button>`).join('')}`:''}`;
   if(key==='auto') body=`<h2>Jakie masz auto?</h2><p class="hint">Od wielkości zależy cena i czas pracy.</p>
     <div class="sizes">${SIZES.map((z,i)=>`<button class="size" type="button" data-size="${z.id}" aria-pressed="${b.size===z.id}">${carSVG({w:Math.round(70*z.sc)})}<b>${z.name}</b><small>${z.ex}</small><span class="pr">${zl(pkgOf(c.s,b.pkg).p[i])}</span></button>`).join('')}</div>
@@ -2118,6 +2123,25 @@ function renderLogin(err='',mail=''){
     </form></div></div>`;
   setTimeout(()=>{const f=$(mail?'#l-pw':'#l-mail');if(f)f.focus()},50);
 }
+// usługi zaznaczone w kreatorze: wzorcowe dostają cenę i rodzaj pracy, niezaznaczone są ukryte (stare wizyty dalej się wyświetlają), własne powstają jak w „Dodaj usługę”
+function applySvcInit(){
+  const init=SET.svc_init; delete SET.svc_init; const used=new Set();
+  const who=n=>{const m=TEAM.find(t=>t.name===n)||TEAM.find(t=>t.name.split(' ')[0]===n);return m&&m.id};
+  const r10=v=>Math.max(10,Math.round(v/10)*10), durOf=x=>x.unit==='d'?{d:Math.max(1,Math.round(+x.dur||1))}:{h:Math.max(.5,+x.dur||1)};
+  init.forEach(x=>{
+    const staff=(x.staff||[]).map(who).filter(Boolean), t=x.tpl&&SERVICES.find(z=>z.id===x.tpl);
+    if(t){const k=x.price>0?x.price/t.pk[0].p[0]:1;used.add(t.id);Object.assign(t,{cat:x.cat,staff,off:false});
+      t.pk.forEach(p=>{p.p=p.p.map(v=>r10(v*k))});const {h,d,...rest}=t.pk[0];t.pk[0]={...rest,...durOf(x)};return}
+    if(!x.name) return;
+    let id=slugify(x.name)||'usluga'; while(svcById(id)) id=id.slice(0,26)+'-'+Math.floor(Math.random()*90+10);
+    SERVICES.push({id,name:x.name,seo:x.name,short:'',mode:x.unit==='d'?'confirm':'instant',deposit:50,cat:x.cat,img:null,custom:true,ph:'wash',dur:'',incl:[],faq:[],staff,
+      pk:[{id:'std',name:'Standard',desc:x.name,p:SIZES.map(z=>r10(x.price*z.sc/SIZES[0].sc)),...durOf(x)}]});
+  });
+  SERVICES.forEach(z=>{if(!z.custom&&!used.has(z.id))z.off=true});
+}
+const OFFER=()=>SERVICES.filter(z=>!z.off);
+// kto odpowiada za wizytę: przypisany pracownik, a jak go nie ma, osoby przypisane do usługi
+const respOf=(svcId,wid)=>{const w=wid&&TEAM.find(t=>t.id===wid);if(w)return [w.name];const z=svcById(svcId);return ((z&&z.staff)||[]).map(id=>(TEAM.find(t=>t.id===id)||{}).name).filter(Boolean)};
 async function mySalon(){
   const u=SESSION.user.id; let r=await sb.from('studios').select('slug').eq('owner_id',u).limit(1);
   if(r.data&&r.data[0]) return r.data[0].slug;
@@ -2137,11 +2161,12 @@ async function openPanel(){
   $('.panel').classList.remove('locked');
   if(isAdm()&&!(STUDIO.catalog&&STUDIO.catalog.services)){await saveCatalog();STUDIO.catalog={services:SERVICES}}
   await loadTeam(); if(!TEAM_ERR) await ensureOwnerRow();
+  if(isAdm()&&Array.isArray(SET.svc_init)){applySvcInit();await saveCatalog()}
   await loadBookings();
   // pierwsze wejście po aktualizacji: zespół, gwarancje i wyceny w danych przykładowych
   if(isAdm()&&!TEAM_ERR&&!SET.seed_v11){SET.seed_v11=true;await saveCatalog();await reseedAll()}
   else if(isAdm()&&!BOOKINGS.length&&!SET.no_seed) await seedDemo(); else {await loadSide(); if(isAdm()&&!SET.no_seed&&!SIDE_ERR&&!WAIT.length&&!VOUCH.length) await seedSide();}
-  subscribe(); renderPanel(); enter($('#pmain'));
+  subscribe(); renderPanel(); enter($('#pmain'),true);
   if(isAdm()&&SET.tour_new){SET.tour_new=false;saveCatalog();setTimeout(()=>tourStart(true),700)}
 }
 document.getElementById('view-panel').addEventListener('submit',async e=>{
@@ -2436,11 +2461,12 @@ function kliHTML(){
 /* ---------- Cennik i ustawienia ---------- */
 function cenHTML(){
   const known=SET.cats.map(c=>c.id), groups=SET.cats.map(c=>[c.name,SERVICES.filter(s=>catOf(s)===c.id)]).concat([['Inne',SERVICES.filter(s=>!known.includes(catOf(s)))]]).filter(g=>g[1].length);
-  const row=s=>s.pk.map((p,pi)=>`<tr><td>${pi===0?`<img class="svc-th" src="${esc(svcImg(s))}" alt="">`:''}</td><td><b>${pi===0?esc(s.name):''}</b><small>${esc(p.name)}</small></td>
+  const row=s=>s.pk.map((p,pi)=>`<tr class="${s.off?'svc-off':''}"><td>${pi===0?`<img class="svc-th" src="${esc(svcImg(s))}" alt="">`:''}</td><td><b>${pi===0?esc(s.name):''}</b><small>${esc(p.name)}${pi===0&&s.off?' · nie oferujesz, ukryta na stronie':''}</small>
+    ${pi===0&&TEAM.length?`<div class="sstaff" role="group" aria-label="Kto odpowiada za ${esc(s.name)}"><span>Odpowiada:</span>${TEAM.filter(t=>t.active).map(t=>`<button type="button" data-sstaff="${esc(s.id)}:${t.id}" aria-pressed="${(s.staff||[]).includes(t.id)}">${esc(t.name.split(' ')[0])}</button>`).join('')}</div>`:''}</td>
     <td>${pi===0?`<div class="tg"><button type="button" data-mode="${esc(s.id)}:instant" aria-pressed="${s.mode==='instant'}">Od ręki z zadatkiem</button><button type="button" data-mode="${esc(s.id)}:confirm" aria-pressed="${s.mode==='confirm'}">Do potwierdzenia</button></div>`:''}</td>
     <td>${pi===0?(s.mode==='instant'?zl(s.deposit||50):'po potwierdzeniu'):''}</td><td>${durTxt(p)}</td>
     ${p.p.map((v,i)=>`<td class="r"><input class="cin" type="number" step="10" value="${v}" data-price="${esc(s.id)}:${esc(p.id)}:${i}" aria-label="${esc(s.name)} ${esc(p.name)} ${SIZES[i].name}"></td>`).join('')}
-    <td>${pi===0&&s.custom?`<button class="pbtn sm ghost" type="button" data-svcdel="${esc(s.id)}">Usuń</button>`:''}</td></tr>`).join('');
+    <td>${pi===0?`<button class="pbtn sm ghost" type="button" data-svcoff="${esc(s.id)}">${s.off?'Oferuj':'Ukryj'}</button>`:''}${pi===0&&s.custom?`<button class="pbtn sm ghost" type="button" data-svcdel="${esc(s.id)}">Usuń</button>`:''}</td></tr>`).join('');
   return `${topbar('Cennik','Zmiany widać od razu na stronie i w formularzu rezerwacji.',`<button class="pbtn dark" type="button" data-pact="svc">${ic('plus')}Dodaj usługę</button>`)}
   <div class="box"><div class="tbl-wrap"><table class="tbl num"><thead><tr><th></th><th>Usługa / pakiet</th><th>Sposób rezerwacji</th><th>Zadatek</th><th>Czas</th>${SIZES.map(z=>`<th class="r">${z.name}</th>`).join('')}<th></th></tr></thead><tbody>
   ${groups.map(g=>`<tr class="cat-row"><td colspan="${6+SIZES.length}">${esc(g[0])}</td></tr>${g[1].map(row).join('')}`).join('')}
@@ -2461,7 +2487,8 @@ function ustHTML(){
     <div class="fgrid">${sf('name','Nazwa','np. Lumen Detailing')}${sf('phone','Telefon','+48 600 100 200')}${sf('addr','Ulica i numer','ul. Przykładowa 12')}${sf('city','Kod i miasto','61-000 Poznań')}<label class="pf full">Godziny otwarcia<input data-salonf="hours" value="${esc(SAL().hours||'')}" maxlength="80"></label></div></div>
   <div class="box"><div class="box-h"><h2>Stanowiska</h2><small>${BAYS().length} w salonie</small></div>
     ${BAYS().map(x=>`<div class="bay-ed"><div class="fgrid"><label class="pf">Nazwa<input data-bayf="name" data-bay="${x.id}" value="${esc(x.name)}" maxlength="40"></label><label class="pf">Opis<input data-bayf="desc" data-bay="${x.id}" value="${esc(x.desc||'')}" maxlength="60" placeholder="np. mycie, wnętrze"></label></div>
-      <div class="bay-cats"><span>Przyjmuje:</span>${SET.cats.map(c=>`<label><input type="checkbox" data-baycat="${x.id}" value="${esc(c.id)}" ${(x.cats||[]).includes(c.id)?'checked':''}> ${esc(c.name)}</label>`).join('')}${BAYS().length>1?`<button class="pbtn sm ghost" type="button" data-baydel="${x.id}">Usuń stanowisko</button>`:''}</div></div>`).join('')}
+      <div class="bay-cats"><span>Przyjmuje:</span>${SET.cats.map(c=>`<label><input type="checkbox" data-baycat="${x.id}" value="${esc(c.id)}" ${(x.cats||[]).includes(c.id)?'checked':''}> ${esc(c.name)}</label>`).join('')}<span class="catadd"><input list="catsug" maxlength="30" placeholder="Inna praca, np. Suszenie" aria-label="Dodaj rodzaj pracy na stanowisku ${esc(x.name)}"><button class="pbtn sm" type="button" data-baycatadd="${x.id}">Dodaj</button></span>${BAYS().length>1?`<button class="pbtn sm ghost" type="button" data-baydel="${x.id}">Usuń stanowisko</button>`:''}</div></div>`).join('')}
+    <datalist id="catsug">${['Suszenie','Korekta lakieru','Powłoki ceramiczne','Folie PPF','Pranie tapicerki','Oklejanie i zmiana koloru','Przyciemnianie szyb','Renowacja reflektorów','Felgi i opony','Przygotowanie do sprzedaży'].filter(n=>!SET.cats.some(c=>c.name.toLowerCase()===n.toLowerCase())).map(n=>`<option value="${n}">`).join('')}</datalist>
     <button class="pbtn" type="button" data-bayadd="1" style="justify-self:start">${ic('plus')}Dodaj stanowisko</button>
     <div class="insight">Formularz na stronie sam dobiera wolne stanowisko, które przyjmuje daną kategorię usług. Więcej stanowisk to więcej wolnych terminów dla klientów.</div></div>
   <div class="grid2">
@@ -2486,7 +2513,7 @@ function ustHTML(){
     ${row('loy_sms','SMS po przekroczeniu progu','„Masz już 120 zł rabatu na kolejną wizytę” (w demo bez wysyłki)')}</div>
   </div>
   <div class="box"><div class="box-h"><h2>Funkcje panelu</h2><small>wyłączona funkcja znika z menu i ze strony klienta, dane zostają</small></div>
-    ${FEATS.map(([k,t,d])=>`<div class="set-row"><div><b>${t}</b><small>${d}</small></div><button class="sw" type="button" data-feat="${k}" aria-pressed="${FON(k)}" aria-label="${t}"></button></div>`).join('')}
+    ${FEATS.map(([k,t,d])=>`<div class="set-row"><div><b>${t}${PRANK[SET.plan||'studio']<PRANK[PNEED[k]]?` <span class="tag-demo">plan ${PNEED[k]==='studio'?'Studio':'Salon'}, w demo odblokowane</span>`:''}</b><small>${d}</small></div><button class="sw" type="button" data-feat="${k}" aria-pressed="${FON(k)}" aria-label="${t}"></button></div>`).join('')}
     <div class="insight">Brakuje funkcji? Napisz do nas, dorobimy ją pod Twój salon.</div></div>
   <div class="box"><div class="set-row"><div><b>Dane przykładowe</b><small>Usuwa wizyty, bony i listę rezerwową demo, i wstawia je od nowa względem dzisiejszej daty. Rezerwacje ze strony i dodane ręcznie zostają.</small></div><button class="pbtn sm" type="button" data-reseed="1">Odśwież</button></div>
     <div class="set-row"><div><b>Usuń dane przykładowe</b><small>Zostają tylko prawdziwe rezerwacje, klienci i ustawienia. Panel zaczyna od zera.</small></div><button class="pbtn sm" type="button" data-unseed="1">Usuń</button></div></div>`;
@@ -2501,7 +2528,8 @@ ${bName(b)}
 ${esc(b.car)}, ${sizeName(b).toLowerCase()}
 Oddanie: ${fdt(b.start)}
 Szacunkowo: ${zl(b.total)} · zdjęcia: ${b.photos}
-${esc(b.name)}, ${esc(b.phone)}</div>
+${esc(b.name)}, ${esc(b.phone)}${respOf(b.svc,b.worker_id).length?`
+Odpowiada: <b>${esc(respOf(b.svc,b.worker_id).join(', '))}</b>`:''}</div>
     <div class="tg-btns" style="grid-template-columns:1fr 1fr 1fr"><button type="button" class="pri" data-rq="confirm" data-id="${b.id}">Potwierdź</button><button type="button" data-rq="propose" data-id="${b.id}">Inny termin</button><button type="button" data-rq="reject" data-id="${b.id}">Odrzuć</button></div></div>
     <small style="color:var(--grey);display:block;margin-top:8px">Salon odpowiada jednym kliknięciem w Telegramie, bez logowania. Klient od razu dostaje SMS.</small>`;
 }
@@ -2528,7 +2556,7 @@ function protoHTML(b){
   return `<div class="drw-h"><div><h2>Protokół przyjęcia</h2><p>${esc(b.name)} · ${esc(b.car)}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b two">
     <button class="pbtn sm ghost span2" type="button" data-open="${b.id}" style="justify-self:start">← Wróć do wizyty</button>
-    ${L?`<div class="sumline span2"><span>Podpisany przez klienta, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
+    ${L?`<div class="sumline span2"><span>${PR.sign2?'Podpisany przez klienta i salon':'Podpisany przez klienta'}, zmiany zablokowane</span><span>${fdt(new Date(PR.signedAt))}</span></div>`:''}
     <div class="col"><div><div class="ph"><b>Uszkodzenia przy oddaniu auta</b><small>${L?'':'Wybierz rodzaj i kliknij miejsce na schemacie'}</small></div>
       ${L?'':`<div class="tg dmg">${Object.entries(DMG).map(([k,v])=>`<button type="button" data-dmg="${k}" aria-pressed="${PR.tool===k}"><i class="dot t-${k}"></i>${v}</button>`).join('')}</div>`}
       ${carMap(PR.marks,L)}<ol class="mklist">${mkList()}</ol></div></div>
@@ -2542,26 +2570,29 @@ function protoHTML(b){
       <div class="gal" id="pgal">${galHTML()}</div>
       ${L?'':`<label class="pbtn sm upl">Dodaj zdjęcia<input type="file" accept="image/*" multiple data-intake-photos="1" hidden></label>`}</div>
     <div><div class="ph"><b>Podpis klienta</b><small>Potwierdzam stan auta opisany powyżej</small></div>
-      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="1">Wyczyść podpis</button>`}</div></div>
+      ${L?`<img class="sig" src="${PR.signUrl||''}" alt="Podpis klienta">`:`<canvas class="sig" id="sig" width="840" height="260" aria-label="Pole na podpis klienta"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="sig">Wyczyść podpis</button>`}</div>
+    <div class="sig2-h"><div class="ph"><b>Podpis przyjmującego</b><small>${esc(PR.signer||(ME()||{}).name||'Osoba z salonu')} w imieniu ${esc(SAL().name)}</small></div>
+      ${L?(PR.sign2?`<img class="sig" src="${PR.sign2Url||''}" alt="Podpis osoby z salonu">`:'<span class="hint-p">Protokół sprzed wprowadzenia podpisu salonu.</span>'):`<canvas class="sig" id="sig2" width="840" height="260" aria-label="Pole na podpis osoby z salonu"></canvas><button type="button" class="pbtn sm ghost" data-sigclear="sig2">Wyczyść podpis</button>`}</div></div>
     <div class="ferr span2" id="proto-err" role="alert"></div>
-    <div class="acts span2">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij kopię klientowi</button>`:`<button class="pbtn dark" type="button" data-protosave="${b.id}">Zapisz protokół</button>`}</div>
+    <div class="acts span2">${L?`<button class="pbtn dark" type="button" data-protosend="1">Wyślij kopię klientowi</button>`:`<button class="pbtn dark" type="button" data-protosave="${b.id}">Przyjmij auto</button><span class="hint-p">Auto przyjmiesz po podpisie klienta i osoby z salonu.</span>`}</div>
   </div>`;
 }
 async function openProto(id){
   const b=BOOKINGS.find(x=>x.id===id); if(!b) return; const i=b.intake||{};
-  PR={id,tool:'W',marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,signedAt:i.signedAt||null,at:i.at||null,signed:false};
-  const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[]).filter(p=>!p.startsWith('assets/')), map={};
+  PR={id,tool:'W',marks:cleanMarks(i.marks),photos:(i.photos||[]).filter(p=>p&&SAFE_PATH.test(p.path)).map(p=>({path:p.path,at:p.at})),km:i.km||'',fuel:i.fuel||'1/2',items:i.items||'',note:i.note||'',sign:SAFE_PATH.test(i.sign||'')?i.sign:null,sign2:SAFE_PATH.test(i.sign2||'')?i.sign2:null,signer:i.signer||null,signedAt:i.signedAt||null,at:i.at||null,signed:false,signed2:false};
+  const paths=PR.photos.map(p=>p.path).concat(PR.sign?[PR.sign]:[],PR.sign2?[PR.sign2]:[]).filter(p=>!p.startsWith('assets/')), map={};
   if(paths.length){const {data}=await sb.storage.from('photos').createSignedUrls(paths,3600);(data||[]).forEach(x=>{if(x.signedUrl)map[x.path]=x.signedUrl})}
-  const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign);
+  const u=p=>p.startsWith('assets/')?p:map[p]; PR.photos.forEach(p=>p.url=u(p.path)); if(PR.sign) PR.signUrl=u(PR.sign); if(PR.sign2) PR.sign2Url=u(PR.sign2);
   openDrawer(protoHTML(b),true); sigInit();
 }
-function sigInit(){
-  const c=$('#sig'); if(!c) return; const x=c.getContext('2d'); x.lineWidth=5;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#111213';
+// pola podpisu: #sig (klient) ustawia PR.signed, #sig2 (salon) PR.signed2
+function sigInit(){['sig','sig2'].forEach(id=>{
+  const c=$('#'+id); if(!c) return; const x=c.getContext('2d'); x.lineWidth=5;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#111213';
   let down=false; const pos=e=>{const r=c.getBoundingClientRect();return [(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};
   c.onpointerdown=e=>{down=true;c.setPointerCapture(e.pointerId);const [a,b]=pos(e);x.beginPath();x.moveTo(a,b)};
-  c.onpointermove=e=>{if(!down)return;const [a,b]=pos(e);x.lineTo(a,b);x.stroke();PR.signed=true;GUARD=true};
+  c.onpointermove=e=>{if(!down)return;const [a,b]=pos(e);x.lineTo(a,b);x.stroke();PR[id==='sig'?'signed':'signed2']=true;GUARD=true};
   c.onpointerup=c.onpointercancel=()=>{down=false};
-}
+})}
 function protoMark(e){
   const svg=$('#carmap'), pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
   const p=pt.matrixTransform(svg.getScreenCTM().inverse());
@@ -2581,23 +2612,23 @@ async function protoPhotos(files){
 }
 async function protoSave(id,btn){
   const b=BOOKINGS.find(x=>x.id===id), err=$('#proto-err'), v=n=>drw().querySelector(`[name=${n}]`).value;
-  btn.disabled=true; let sign=null,signedAt=null;
-  if(PR.signed){
-    const blob=await new Promise(r=>$('#sig').toBlob(r,'image/png')), path=`${STUDIO.id}/intake/${id}-podpis-${crypto.randomUUID().slice(0,8)}.png`;
-    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});
-    if(error){btn.disabled=false;err.textContent='Nie udało się zapisać podpisu.';return}
-    sign=path; signedAt=new Date().toISOString();
-  }
+  // auto przyjmujemy tylko z podpisami obu stron
+  if(!PR.signed||!PR.signed2){err.textContent=!PR.signed&&!PR.signed2?'Do przyjęcia auta potrzebne są dwa podpisy: klienta i osoby z salonu.':!PR.signed?'Brakuje podpisu klienta.':'Brakuje podpisu osoby z salonu.';
+    const c=$(!PR.signed?'#sig':'#sig2');if(c)c.scrollIntoView({block:'center',behavior:'smooth'});return}
+  btn.disabled=true; const up=async(sel,kind)=>{const blob=await new Promise(r=>$(sel).toBlob(r,'image/png')),path=`${STUDIO.id}/intake/${id}-${kind}-${crypto.randomUUID().slice(0,8)}.png`;
+    const {error}=await sb.storage.from('photos').upload(path,blob,{contentType:'image/png'});return error?null:path};
+  const sign=await up('#sig','podpis'), sign2=sign&&await up('#sig2','podpis-salon'), signedAt=new Date().toISOString();
+  if(!sign||!sign2){btn.disabled=false;err.textContent='Nie udało się zapisać podpisów. Sprawdź internet i spróbuj jeszcze raz.';return}
   const intake={at:PR.at||new Date().toISOString(),km:v('km'),fuel:v('fuel'),items:v('items').trim(),note:v('pnote').trim(),
-    marks:PR.marks.map(({x,y,t})=>({x,y,t})),photos:PR.photos.map(({path,at})=>({path,at})),sign,signedAt};
+    marks:PR.marks.map(({x,y,t})=>({x,y,t})),photos:PR.photos.map(({path,at})=>({path,at})),sign,sign2,signer:(ME()||{}).name||null,signedAt};
   const {error}=await sb.from('bookings').update(b.stage?{intake}:{intake,stage:'przyjete'}).eq('id',id);
   btn.disabled=false;
   if(error){err.textContent=['PGRST204','42703'].includes(error.code)?'Baza nie ma jeszcze pola na protokół. W Supabase SQL Editor uruchom: alter table public.bookings add column if not exists intake jsonb;':'Nie udało się zapisać protokołu.';return}
-  b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast(sign?'Protokół podpisany i zapisany. Auto jest w salonie.':'Protokół zapisany. Auto jest w salonie.'); openBk(id);
+  b.intake=intake; if(!b.stage)b.stage='przyjete'; GUARD=false; renderPanel(); toast('Protokół podpisany przez obie strony. Auto jest w salonie.'); openBk(id);
 }
 function protoBox(b){
   const it=b.intake;
-  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign?'podpisany '+fdt(new Date(it.signedAt)):'bez podpisu klienta'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
+  if(it) return `<div class="proto-box"><div><b>Protokół przyjęcia</b><small>${(it.marks||[]).length} zaznaczonych uszkodzeń · ${(it.photos||[]).length} zdjęć · ${it.sign&&it.sign2?'podpisany przez obie strony '+fdt(new Date(it.signedAt)):it.sign?'podpis klienta '+fdt(new Date(it.signedAt)):'bez podpisów'}</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Otwórz</button></div>`;
   return `<div class="proto-box"><div><b>Brak protokołu przyjęcia</b><small>Auto przyjęte bez protokołu. Możesz go jeszcze uzupełnić: zdjęcia, uszkodzenia i podpis klienta.</small></div><button class="pbtn sm" type="button" data-proto="${b.id}">Uzupełnij</button></div>`;
 }
 /* ---------- etapy pracy, wydanie auta, dopłaty, punkty ---------- */
@@ -2741,7 +2772,7 @@ const freeBay=(sid,a,b)=>(sid?baysFor(sid):BAYS().map(x=>x.id)).find(id=>!overla
 const cleanTxt=t=>String(t||'').replace(/[<>"&]/g,'').trim();
 const slugify=t=>String(t).toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,30)||'usluga';
 function catGroups(){
-  const known=SET.cats.map(c=>c.id), groups=SET.cats.map(c=>[c.name,SERVICES.filter(s=>catOf(s)===c.id)]).concat([['Inne',SERVICES.filter(s=>!known.includes(catOf(s)))]]);
+  const known=SET.cats.map(c=>c.id), groups=SET.cats.map(c=>[c.name,OFFER().filter(s=>catOf(s)===c.id)]).concat([['Inne',OFFER().filter(s=>!known.includes(catOf(s)))]]);
   return groups.filter(g=>g[1].length).map(g=>`<h3 class="cat-h">${esc(g[0])}</h3>${g[1].map(svcCard).join('')}`).join('');
 }
 
@@ -2812,7 +2843,7 @@ function tgCard(w){
   const s=svcById(w.svc)||{name:w.svc};
   return `<div class="tg-card"><div class="tg-head"><span class="tg-ic">${ic('send')}</span><b>${esc(SAL().name.split(' ')[0])} Bot</b><small>Telegram · ${ago(new Date(w.slot_at||w.created_at))}</small></div>
     <div class="tg-msg">Zwolnił się termin: <b>${fdt(new Date(w.slot_at))}</b>, ${esc(bayName(+w.slot_bay))}.
-Pierwsza osoba na liście rezerwowej: <b>${esc(w.name)}</b> (${esc(s.name)}), ${esc(w.phone)}${w.note?'\nUwagi: '+esc(w.note):''}.
+Pierwsza osoba na liście rezerwowej: <b>${esc(w.name)}</b> (${esc(s.name)}), ${esc(w.phone)}${w.note?'\nUwagi: '+esc(w.note):''}.${respOf(w.svc).length?`\nOdpowiada: <b>${esc(respOf(w.svc).join(', '))}</b>`:''}
 Wysłać jej propozycję SMS-em?</div>
     <div class="tg-btns"><button type="button" class="pri" data-woffer="${w.id}" data-ok="1">Wyślij propozycję</button><button type="button" data-woffer="${w.id}" data-ok="0">Pomiń, następna osoba</button></div></div>`;
 }
@@ -3256,7 +3287,7 @@ function openBk(id){const b=BOOKINGS.find(x=>x.id===id);if(!b)return;b.isNew=fal
 /* ---------- szuflada: nowa rezerwacja ---------- */
 function addHTML(pre={}){
   const day=pre.day?pday(pre.day):T0.getDay()===6?addDays(T0,2):addDays(T0,1);
-  const opts=SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map((p,pi)=>`<option value="${s.id}:${p.id}" ${pre.svc===s.id&&(pre.pkg?p.id===pre.pkg:pi===0)?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
+  const opts=OFFER().map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map((p,pi)=>`<option value="${s.id}:${p.id}" ${pre.svc===s.id&&(pre.pkg?p.id===pre.pkg:pi===0)?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(p.name):''}</option>`).join('')}</optgroup>`).join('');
   return `<form id="fadd" novalidate><div class="drw-h"><div><h2>${pre.check?'Przegląd gwarancyjny':'Nowa rezerwacja'}</h2><p>${pre.wl?'Z listy rezerwowej.':pre.offer?'Z wyceny zaakceptowanej przez klienta.':pre.check?'Bezpłatny przegląd powłoki, warunek gwarancji.':'Wizyta umówiona przez telefon albo na miejscu.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b"><div class="fgrid">
     <input type="hidden" name="wl" value="${+pre.wl||''}"><input type="hidden" name="check" value="${+pre.check||''}"><input type="hidden" name="offer" value="${+pre.offer||''}">
@@ -3566,7 +3597,7 @@ function wycHTML(){
 }
 function offerFormHTML(b){
   const s0=b?svcById(b.svc):svcById('ceramika')||SERVICES[0], k0=b?pkgOf(s0,b.pkg).id:s0.pk[0].id, alt=s0.pk.find(x=>x.id!==k0), v=[[s0.id,k0],alt?[s0.id,alt.id]:null,null];
-  const opts=sel=>'<option value="">Bez wariantu</option>'+SERVICES.map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map(k=>`<option value="${esc(s.id)}:${esc(k.id)}" ${sel&&sel[0]===s.id&&sel[1]===k.id?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(k.name):''}</option>`).join('')}</optgroup>`).join('');
+  const opts=sel=>'<option value="">Bez wariantu</option>'+OFFER().map(s=>`<optgroup label="${esc(s.name)}">${s.pk.map(k=>`<option value="${esc(s.id)}:${esc(k.id)}" ${sel&&sel[0]===s.id&&sel[1]===k.id?'selected':''}>${esc(s.name)}${s.pk.length>1?' · '+esc(k.name):''}</option>`).join('')}</optgroup>`).join('');
   return `<form id="foffer" novalidate data-bk="${b?b.id:''}"><div class="drw-h"><div><h2>Wycena z wariantami</h2><p>${b?esc(b.name)+' · zgłoszenie ze strony'+(b.photos?', '+b.photos+' zdjęć':''):'Klient dostanie SMS z linkiem i sam wybierze wariant.'}</p></div><button class="pbtn sm ghost" type="button" data-close="1" aria-label="Zamknij">${ic('x')}</button></div>
   <div class="drw-b two">
     <div class="col"><div class="fgrid">
@@ -3734,10 +3765,11 @@ function addFirstFree(f){const E=f.elements;for(let i=1;i<=21;i++){const d=addDa
 
 /* ---------- ruch: wejście ekranów, liczniki, zamykanie okien ---------- */
 const calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
-function enter(el){
+// liczniki tylko przy pierwszym wejściu do panelu; przy przełączaniu zakładek sam krótki fade
+function enter(el,first){
   if(!el||calm()) return;
-  el.classList.remove('enter'); [...el.children].forEach((c,i)=>c.style.setProperty('--i',i)); void el.offsetWidth; el.classList.add('enter');
-  clearTimeout(el._et); el._et=setTimeout(()=>el.classList.remove('enter'),900); countUp(el);
+  el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter');
+  clearTimeout(el._et); el._et=setTimeout(()=>el.classList.remove('enter'),200); if(first) countUp(el);
 }
 function countUp(root){
   root.querySelectorAll('[data-count]').forEach(x=>{const n=+x.dataset.count;if(!(n>1))return;const t0=performance.now();
@@ -3754,6 +3786,7 @@ const FEATS=[['wyc','Wyceny z wariantami','Oferty do akceptacji online, przy cer
   ['wl','Lista rezerwowa','Zapisy na zajęte dni i automat po odwołanej wizycie'],['bon','Bony prezentowe','Sprzedaż bonów na stronie i w salonie'],
   ['dzis','Statystyki','Przychód, źródła rezerwacji i lejek'],['google','Google','Wizytówka, Search Console i Analytics w panelu'],['zes','Zespół','Konta pracowników, role i prowizje']];
 const FON=k=>SET['f_'+k]!==false;
+const PNEED={wyc:'salon',gw:'salon',wl:'salon',bon:'salon',zes:'salon',dzis:'studio',google:'studio'}, PRANK={start:0,salon:1,studio:2};
 const CITY=()=>(SAL().city||'').replace(/^\d{2}-\d{3}\s*/,'').trim();
 function SAL(){return {...{name:'Lumen Detailing',addr:'ul. Przykładowa 12',city:'61-000 Poznań',hours:'pn-pt 8:00-18:00, sb 9:00-14:00',phone:'+48 600 100 200'},...(SET.salon||{})}}
 function docHTML(){
@@ -3795,6 +3828,13 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.feat){const k=t.dataset.feat;SET['f_'+k]=!FON(k);if(k==='wl')SET.wl_auto=FON(k);const ok=await saveCatalog();renderPanel();if(ok)toast(FON(k)?'Funkcja włączona':'Funkcja wyłączona, dane zostają');return}
   if(t&&t.dataset.unseed){t.disabled=true;for(const tb of ['bookings','waitlist','vouchers','cal_notes','offers'])await sb.from(tb).delete().eq('studio_id',STUDIO.id).eq('seed',true);
     await sb.from('team').delete().eq('studio_id',STUDIO.id).eq('seed',true).is('user_id',null);SET.no_seed=true;await saveCatalog();await loadTeam();await loadBookings();await loadSide();renderPanel();toast('Dane przykładowe usunięte');return}
+  if(t&&t.dataset.svcoff){const z=svcById(t.dataset.svcoff);z.off=!z.off;if(!OFFER().length){z.off=false;toast('Strona musi mieć co najmniej jedną usługę');return}
+    const ok=await saveCatalog();renderPanel();if(ok)toast(z.off?`„${z.name}” ukryta na stronie. Wizyty z tą usługą zostają.`:`„${z.name}” znowu na stronie`);return}
+  if(t&&t.dataset.sstaff){const [sid,tid]=t.dataset.sstaff.split(':'),z=svcById(sid),id=+tid;z.staff=(z.staff||[]).includes(id)?z.staff.filter(x=>x!==id):[...(z.staff||[]),id];
+    t.setAttribute('aria-pressed',z.staff.includes(id));const ok=await saveCatalog();if(ok)toast(z.staff.length?`Za „${z.name}” odpowiada: ${respOf(sid).join(', ')}. Powiadomienia na Telegramie pokażą tę osobę.`:`„${z.name}” bez osoby odpowiedzialnej`);return}
+  if(t&&t.dataset.baycatadd){const inp=t.parentElement.querySelector('input'),n=cleanTxt(inp.value).slice(0,30);if(n.length<2){inp.focus();return}
+    let c=SET.cats.find(x=>x.name.toLowerCase()===n.toLowerCase());if(!c){let id=slugify(n)||'praca';while(SET.cats.some(x=>x.id===id))id=id.slice(0,26)+'-'+(SET.cats.length+1);c={id,name:n};SET.cats.push(c)}
+    const b=BAYS().find(x=>x.id===+t.dataset.baycatadd);b.cats=[...new Set((b.cats||[]).concat(c.id))];SET.bays=BAYS();await saveCatalog();renderPanel();toast(`${b.name} przyjmuje teraz: ${c.name}`);return}
   if(t&&t.dataset.reseed){t.disabled=true;SET.no_seed=false;await reseedAll();renderPanel();toast('Dane przykładowe odświeżone');return}
   if(t&&t.dataset.nav){P.view=t.dataset.nav;if(t.dataset.filter)P.filter=t.dataset.filter;renderPanel();enter($('#pmain'));window.scrollTo(0,0);return}
   if(t&&v11Click(t)) return;
@@ -3870,7 +3910,7 @@ document.getElementById('view-panel').addEventListener('click',async e=>{
   if(t&&t.dataset.proto){openProto(+t.dataset.proto);return}
   if(t&&t.dataset.dmg){PR.tool=t.dataset.dmg;t.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===t));return}
   if(t&&t.dataset.unmark){PR.marks.splice(+t.dataset.unmark,1);protoRefresh();return}
-  if(t&&t.dataset.sigclear){const c=$('#sig');c.getContext('2d').clearRect(0,0,c.width,c.height);PR.signed=false;return}
+  if(t&&t.dataset.sigclear){const id=t.dataset.sigclear==='1'?'sig':t.dataset.sigclear,c=$('#'+id);c.getContext('2d').clearRect(0,0,c.width,c.height);PR[id==='sig'?'signed':'signed2']=false;return}
   if(t&&t.dataset.protosave){protoSave(+t.dataset.protosave,t);return}
   if(t&&t.dataset.protosend){toast('Kopia protokołu poszła do klienta SMS-em z linkiem (w demo bez wysyłki)');return}
   const cr=e.target.closest('tr[data-client]');if(cr&&!t){openDrawer(clientHTML(cr.dataset.client));return}

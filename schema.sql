@@ -525,12 +525,15 @@ alter table public.feature_wishes enable row level security;
 drop policy if exists feature_wishes_admin_read on public.feature_wishes;
 create policy feature_wishes_admin_read on public.feature_wishes for select to authenticated using (public.is_admin(studio_id));
 
+-- v2 (27.11): własne rodzaje pracy (p_cats) i usługi z kreatora (p_services); stara wersja bez nich usuwana, żeby nie było dwóch wersji funkcji
+drop function if exists public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text);
 create or replace function public.studio_register(p_owner text, p_email text, p_password text, p_salon jsonb, p_bays jsonb,
-  p_team jsonb, p_features jsonb, p_wish text default null, p_sample boolean default true, p_plan text default 'start')
+  p_team jsonb, p_features jsonb, p_wish text default null, p_sample boolean default true, p_plan text default 'start',
+  p_cats jsonb default null, p_services jsonb default null)
 returns text language plpgsql security definer set search_path = public, extensions as $$
 declare em text := lower(trim(p_email)); own text := left(trim(coalesce(p_owner, '')), 60); sname text := left(trim(coalesce(p_salon->>'name', '')), 60);
   uid uuid := gen_random_uuid(); sid uuid; base text; sl text; n int := 1; bays jsonb := '[]'; feats jsonb := '{}'; k text; x jsonb; i int := 0;
-  pal text[] := array['#1c1917','#c2410c','#0f766e','#4338ca','#a16207','#be185d'];
+  pal text[] := array['#1c1917','#c2410c','#0f766e','#4338ca','#a16207','#be185d']; cats jsonb := '[]'; catids text[] := '{}'; svcs jsonb := '[]';
 begin
   if (select count(*) from public.studios where created_at > now() - interval '1 hour') >= 15 then
     raise exception 'LIMIT: Za dużo nowych salonów w ostatniej godzinie. Spróbuj za chwilę.'; end if;
@@ -544,13 +547,31 @@ begin
   base := left(coalesce(nullif(base, ''), 'salon'), 30); sl := base;
   while sl = 'lumen' or exists (select 1 from public.studios where slug = sl) loop n := n + 1; sl := base || '-' || n; end loop;
 
+  for x in select * from jsonb_array_elements(case when jsonb_typeof(p_cats) = 'array' then p_cats else '[]' end) limit 12 loop
+    k := left(regexp_replace(lower(coalesce(x->>'id', '')), '[^a-z0-9-]', '', 'g'), 30);
+    if k <> '' and char_length(trim(coalesce(x->>'name', ''))) between 2 and 30 and not k = any(catids) then
+      catids := catids || k; cats := cats || jsonb_build_array(jsonb_build_object('id', k, 'name', trim(x->>'name')));
+    end if;
+  end loop;
+  if cardinality(catids) = 0 then catids := array['mycie', 'lakier']; cats := '[{"id":"mycie","name":"Mycie i wnętrze"},{"id":"lakier","name":"Lakier i ochrona"}]'; end if;
+  -- usługi z kreatora: tylko znane pola; panel zamienia je na pełne usługi przy pierwszym wejściu właściciela
+  for x in select * from jsonb_array_elements(case when jsonb_typeof(p_services) = 'array' then p_services else '[]' end) limit 30 loop
+    svcs := svcs || jsonb_build_array(jsonb_strip_nulls(jsonb_build_object(
+      'tpl', nullif(left(regexp_replace(coalesce(x->>'tpl', ''), '[^a-z0-9-]', '', 'g'), 30), ''),
+      'name', nullif(left(trim(coalesce(x->>'name', '')), 60), ''),
+      'cat', case when x->>'cat' = any(catids) then x->>'cat' else catids[1] end,
+      'price', least(100000, greatest(0, coalesce(floor((x->>'price')::numeric), 0)::int)),
+      'unit', case when x->>'unit' = 'd' then 'd' else 'h' end,
+      'dur', least(30, greatest(0.5, coalesce((x->>'dur')::numeric, 1))),
+      'staff', (select jsonb_agg(left(trim(v), 60)) from (select v from jsonb_array_elements_text(case when jsonb_typeof(x->'staff') = 'array' then x->'staff' else '[]' end) v limit 10) z))));
+  end loop;
   for x in select * from jsonb_array_elements(case when jsonb_typeof(p_bays) = 'array' then p_bays else '[]' end) limit 10 loop
     i := i + 1;
     bays := bays || jsonb_build_array(jsonb_build_object('id', i, 'name', coalesce(nullif(left(trim(x->>'name'), 40), ''), 'Stanowisko ' || i), 'desc', '',
       'cats', coalesce((select jsonb_agg(c) from jsonb_array_elements_text(case when jsonb_typeof(x->'cats') = 'array' then x->'cats' else '[]' end) c
-        where c in ('mycie', 'lakier')), '["mycie","lakier"]')));
+        where c = any(catids)), to_jsonb(catids))));
   end loop;
-  if i = 0 then bays := '[{"id":1,"name":"Stanowisko 1","desc":"","cats":["mycie","lakier"]}]'; end if;
+  if i = 0 then bays := jsonb_build_array(jsonb_build_object('id', 1, 'name', 'Stanowisko 1', 'desc', '', 'cats', to_jsonb(catids))); end if;
   foreach k in array array['wyc','gw','wl','bon','loy','dzis','google','zes','tg'] loop
     feats := feats || jsonb_build_object('f_' || k, coalesce((p_features->>k)::boolean, true));
   end loop;
@@ -566,7 +587,7 @@ begin
     jsonb_build_object('salon', jsonb_build_object('name', sname, 'phone', left(trim(coalesce(p_salon->>'phone', '')), 30),
         'addr', left(trim(coalesce(p_salon->>'addr', '')), 80), 'city', left(trim(coalesce(p_salon->>'city', '')), 80),
         'hours', left(trim(coalesce(p_salon->>'hours', '')), 80), 'nip', left(regexp_replace(coalesce(p_salon->>'nip', ''), '\D', '', 'g'), 10)),
-      'bays', bays, 'seed_v11', true, 'no_seed', not coalesce(p_sample, true), 'tour_new', true,
+      'bays', bays, 'cats', cats, 'svc_init', case when jsonb_array_length(svcs) > 0 then svcs end, 'seed_v11', true, 'no_seed', not coalesce(p_sample, true), 'tour_new', true,
       'plan', case when p_plan in ('start', 'salon', 'studio') then p_plan else 'start' end,
       'loy_on', (feats->>'f_loy')::boolean, 'tg_on', (feats->>'f_tg')::boolean, 'wl_auto', (feats->>'f_wl')::boolean) || feats))
   returning id into sid;
@@ -585,8 +606,8 @@ begin
   if char_length(trim(coalesce(p_wish, ''))) >= 3 then insert into public.feature_wishes (studio_id, wish) values (sid, left(trim(p_wish), 1000)); end if;
   return sl;
 end $$;
-revoke all on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text) from public;
-grant execute on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text) to anon, authenticated;
+revoke all on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb) from public;
+grant execute on function public.studio_register(text, text, text, jsonb, jsonb, jsonb, jsonb, text, boolean, text, jsonb, jsonb) to anon, authenticated;
 -- czy e-mail jest wolny: podpowiedź w 1. kroku kreatora, zanim ktoś wypełni resztę
 create or replace function public.email_free(p_email text) returns boolean language sql stable security definer set search_path = public as $$
   select not exists (select 1 from auth.users where lower(email) = lower(trim(p_email))) $$;
